@@ -1,0 +1,744 @@
+Microchip MPLAB XC8 Compiler V1.12 ()
+
+Linker command line:
+
+--edf=C:\Program Files\Microchip\xc8\v1.12\dat\en_msgs.txt -cs \
+  -h+dist/default/production\Board_Test_I2CTemp.X.production.sym -z \
+  -Q18F2680 -ol.obj \
+  -Mdist/default/production/Board_Test_I2CTemp.X.production.map -E1 \
+  -ver=XC8 -ACODE=00h-0FFFFh -ACONST=00h-0FFFFh \
+  -ASMALLCONST=0D00h-0DFFhx243 -AMEDIUMCONST=0D00h-0FFFFh -ACOMRAM=01h-05Fh \
+  -AABS1=00h-0CFFh -ABIGRAM=01h-0CFFh -ARAM=060h-0FFh,0100h-01FFhx12 \
+  -ABANK0=060h-0FFh -ABANK1=0100h-01FFh -ABANK2=0200h-02FFh \
+  -ABANK3=0300h-03FFh -ABANK4=0400h-04FFh -ABANK5=0500h-05FFh \
+  -ABANK6=0600h-06FFh -ABANK7=0700h-07FFh -ABANK8=0800h-08FFh \
+  -ABANK9=0900h-09FFh -ABANK10=0A00h-0AFFh -ABANK11=0B00h-0BFFh \
+  -ABANK12=0C00h-0CFFh -ASFR=0D00h-0DFFhx2,0F00h-0F5Fh,0F60h-0FFFh \
+  -preset_vec=00h,intcode,intcodelo,powerup,init,end_init -pramtop=0D00h \
+  -psmallconst=SMALLCONST -pmediumconst=MEDIUMCONST -pconst=CONST \
+  -AFARRAM=00h-00h -ACONFIG=0300000h-030000Dh -pconfig=CONFIG \
+  -AIDLOC=0200000h-0200007h -pidloc=IDLOC -AEEDATA=0F00000h-0F003FFh \
+  -peeprom_data=EEDATA \
+  -prdata=COMRAM,nvrram=COMRAM,nvbit=COMRAM,rbss=COMRAM,rbit=COMRAM \
+  -pfarbss=FARRAM,fardata=FARRAM \
+  -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
+  -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE \
+  C:\Users\ECE4534\AppData\Local\Temp\shg.obj \
+  dist/default/production\Board_Test_I2CTemp.X.production.obj 
+
+Object code version is 3.10
+
+Machine type is 18F2680
+
+Call graph: (short form)
+
+
+
+
+                Name                               Link     Load   Length Selector   Space Scale
+C:\Users\ECE4534\AppData\Local\Temp\shg.obj
+                end_init                              0        0        4        0       0
+                idloc                            200000   200000        8   200000       0
+                config                           300000   300000        E   300000       0
+dist/default/production\Board_Test_I2CTemp.X.production.obj
+                text8                              FB0A     FB0A       1C     7D85       0
+                text7                              FB42     FB42       32     7DA1       0
+                text6                              FAF2     FAF2       18     7D79       0
+                text5                              FB26     FB26       1C     7D93       0
+                text4                              FB74     FB74       8E     7DBA       0
+                text3                              FE1C     FE1C      1E4     7F0E       0
+                text2                              FC02     FC02       A2     7E01       0
+                text1                              FAEA     FAEA        2     7D75       0
+                cstackCOMRAM                          1        1       1A        1       1
+                cinit                              FAEC     FAEC        6     7D76       0
+                text0                              FCA4     FCA4      178     7E52       0
+
+TOTAL           Name                               Link     Load   Length     Space
+        CLASS   CODE           
+                end_init                              0        0        4         0
+                text8                              FB0A     FB0A       1C         0
+                text7                              FB42     FB42       32         0
+                text6                              FAF2     FAF2       18         0
+                text5                              FB26     FB26       1C         0
+                text4                              FB74     FB74       8E         0
+                text3                              FE1C     FE1C      1E4         0
+                text2                              FC02     FC02       A2         0
+                text1                              FAEA     FAEA        2         0
+                cinit                              FAEC     FAEC        6         0
+                text0                              FCA4     FCA4      178         0
+
+        CLASS   CONST          
+
+        CLASS   SMALLCONST     
+
+        CLASS   MEDIUMCONST    
+
+        CLASS   COMRAM         
+                cstackCOMRAM                          1        1       1A         1
+
+        CLASS   ABS1           
+
+        CLASS   BIGRAM         
+
+        CLASS   RAM            
+
+        CLASS   BANK0          
+
+        CLASS   BANK1          
+
+        CLASS   BANK2          
+
+        CLASS   BANK3          
+
+        CLASS   BANK4          
+
+        CLASS   BANK5          
+
+        CLASS   BANK6          
+
+        CLASS   BANK7          
+
+        CLASS   BANK8          
+
+        CLASS   BANK9          
+
+        CLASS   BANK10         
+
+        CLASS   BANK11         
+
+        CLASS   BANK12         
+
+        CLASS   SFR            
+
+        CLASS   FARRAM         
+
+        CLASS   CONFIG         
+                config                           300000   300000        E         0
+
+        CLASS   IDLOC          
+                idloc                            200000   200000        8         0
+
+        CLASS   EEDATA         
+
+
+
+SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class
+
+                reset_vec                      000000  000004  000004         0       0  CODE    
+                cstackCOMRAM                   000001  00001A  00001B         1       1  COMRAM  
+                text1                          00FAEA  000002  00FAEC      7D75       0  CODE    
+                cinit                          00FAEC  000006  00FAF2      7D76       0  CODE    
+                text6                          00FAF2  000018  00FB0A      7D79       0  CODE    
+                text8                          00FB0A  00001C  00FB26      7D85       0  CODE    
+                text5                          00FB26  00001C  00FB42      7D93       0  CODE    
+                text7                          00FB42  000032  00FB74      7DA1       0  CODE    
+                text4                          00FB74  00008E  00FC02      7DBA       0  CODE    
+                text2                          00FC02  0000A2  00FCA4      7E01       0  CODE    
+                text0                          00FCA4  000178  00FE1C      7E52       0  CODE    
+                text3                          00FE1C  0001E4  010000      7F0E       0  CODE    
+                idloc                          200000  000008  200008    200000       0  IDLOC   
+                config                         300000  00000E  30000E    300000       0  CONFIG  
+
+
+UNUSED ADDRESS RANGES
+
+        Name                Unused          Largest block    Delta
+        BANK0            000060-0000FF               A0
+        BANK1            000100-0001FF              100
+        BANK10           000A00-000AFF              100
+        BANK11           000B00-000BFF              100
+        BANK12           000C00-000CFF              100
+        BANK2            000200-0002FF              100
+        BANK3            000300-0003FF              100
+        BANK4            000400-0004FF              100
+        BANK5            000500-0005FF              100
+        BANK6            000600-0006FF              100
+        BANK7            000700-0007FF              100
+        BANK8            000800-0008FF              100
+        BANK9            000900-0009FF              100
+        BIGRAM           00001B-000CFF              CE5
+        CODE             000004-00FAE9             FAE6
+        COMRAM           00001B-00005F               45
+        CONST            000004-00FAE9             FAE6
+        EEDATA           F00000-F003FF              400
+        MEDIUMCONST      000D00-00FAE9             EDEA
+        RAM              000060-000CFF              100
+        SFR              000D00-000FFF              100
+        SMALLCONST       000D00-00FAE9              100
+
+                                  Symbol Table
+
+?_Delay10KTCYx                  cstackCOMRAM 000001
+?_OpenI2C                       cstackCOMRAM 000001
+?_WriteI2C                      cstackCOMRAM 000001
+?_readTempSensor                cstackCOMRAM 000003
+?_setTempSensorAddress          cstackCOMRAM 000001
+Delay10KTCYx@unit               cstackCOMRAM 000001
+OpenI2C@slew                    cstackCOMRAM 000002
+OpenI2C@sync_mode               cstackCOMRAM 000001
+WriteI2C@data_out               cstackCOMRAM 000001
+_Delay10KTCYx                   text6        00FAF2
+_IdleI2C                        text5        00FB26
+_LATB                           (abs)        000F8A
+_LATBbits                       (abs)        000F8A
+_LATC                           (abs)        000F8B
+_OSCCON                         (abs)        000FD3
+_OpenI2C                        text8        00FB0A
+_PIR1bits                       (abs)        000F9E
+_ReadI2C                        text7        00FB42
+_SSPADD                         (abs)        000FC8
+_SSPBUF                         (abs)        000FC9
+_SSPCON1                        (abs)        000FC6
+_SSPCON1bits                    (abs)        000FC6
+_SSPCON2                        (abs)        000FC5
+_SSPCON2bits                    (abs)        000FC5
+_SSPSTAT                        (abs)        000FC7
+_SSPSTATbits                    (abs)        000FC7
+_TRISB                          (abs)        000F93
+_TRISC                          (abs)        000F94
+_TRISCbits                      (abs)        000F94
+_WriteI2C                       text4        00FB74
+__HRAM                          (abs)        000000
+__Habs1                         abs1         000000
+__Hbank0                        bank0        000000
+__Hbank1                        bank1        000000
+__Hbank10                       bank10       000000
+__Hbank11                       bank11       000000
+__Hbank12                       bank12       000000
+__Hbank2                        bank2        000000
+__Hbank3                        bank3        000000
+__Hbank4                        bank4        000000
+__Hbank5                        bank5        000000
+__Hbank6                        bank6        000000
+__Hbank7                        bank7        000000
+__Hbank8                        bank8        000000
+__Hbank9                        bank9        000000
+__Hbigbss                       bigbss       000000
+__Hbigdata                      bigdata      000000
+__Hbigram                       bigram       000000
+__Hbss                          bss          000000
+__Hcinit                        cinit        000000
+__Hclrtext                      clrtext      000000
+__Hcomram                       comram       000000
+__Hconfig                       config       30000E
+__Hconst                        const        000000
+__HcstackCOMRAM                 cstackCOMRAM 000000
+__Hdata                         data         000000
+__Heeprom_data                  eeprom_data  000000
+__Hend_init                     end_init     000004
+__Hfarbss                       farbss       000000
+__Hfardata                      fardata      000000
+__Hibigdata                     ibigdata     000000
+__Hidata                        idata        000000
+__Hidloc                        idloc        200008
+__Hifardata                     ifardata     000000
+__Hinit                         init         000000
+__Hintcode                      intcode      000000
+__Hintcode_body                 intcode_body 000000
+__Hintcodelo                    intcodelo    000000
+__Hintentry                     intentry     000000
+__Hintret                       intret       000000
+__Hintsave_regs                 intsave_regs 000000
+__Hirdata                       irdata       000000
+__Hmediumconst                  mediumconst  000000
+__Hnvbit                        nvbit        000000
+__Hnvrram                       nvrram       000000
+__Hparam                        rparam       000000
+__Hpowerup                      powerup      000000
+__Hram                          ram          000000
+__Hramtop                       ramtop       000D00
+__Hrbit                         rbit         000000
+__Hrbss                         rbss         000000
+__Hrdata                        rdata        000000
+__Hreset_vec                    reset_vec    000000
+__Hrparam                       rparam       000000
+__Hsfr                          sfr          000000
+__Hsmallconst                   smallconst   000000
+__Hstruct                       struct       000000
+__Htemp                         temp         000000
+__Htext                         text         000000
+__Htext0                        text0        000000
+__Htext1                        text1        000000
+__Htext2                        text2        000000
+__Htext3                        text3        000000
+__Htext4                        text4        000000
+__Htext5                        text5        000000
+__Htext6                        text6        000000
+__Htext7                        text7        000000
+__Htext8                        text8        000000
+__Htext9                        text9        000000
+__LRAM                          (abs)        000001
+__Labs1                         abs1         000000
+__Lbank0                        bank0        000000
+__Lbank1                        bank1        000000
+__Lbank10                       bank10       000000
+__Lbank11                       bank11       000000
+__Lbank12                       bank12       000000
+__Lbank2                        bank2        000000
+__Lbank3                        bank3        000000
+__Lbank4                        bank4        000000
+__Lbank5                        bank5        000000
+__Lbank6                        bank6        000000
+__Lbank7                        bank7        000000
+__Lbank8                        bank8        000000
+__Lbank9                        bank9        000000
+__Lbigbss                       bigbss       000000
+__Lbigdata                      bigdata      000000
+__Lbigram                       bigram       000000
+__Lbss                          bss          000000
+__Lcinit                        cinit        000000
+__Lclrtext                      clrtext      000000
+__Lcomram                       comram       000000
+__Lconfig                       config       300000
+__Lconst                        const        000000
+__LcstackCOMRAM                 cstackCOMRAM 000000
+__Ldata                         data         000000
+__Leeprom_data                  eeprom_data  000000
+__Lend_init                     end_init     000000
+__Lfarbss                       farbss       000000
+__Lfardata                      fardata      000000
+__Libigdata                     ibigdata     000000
+__Lidata                        idata        000000
+__Lidloc                        idloc        200000
+__Lifardata                     ifardata     000000
+__Linit                         init         000000
+__Lintcode                      intcode      000000
+__Lintcode_body                 intcode_body 000000
+__Lintcodelo                    intcodelo    000000
+__Lintentry                     intentry     000000
+__Lintret                       intret       000000
+__Lintsave_regs                 intsave_regs 000000
+__Lirdata                       irdata       000000
+__Lmediumconst                  mediumconst  000000
+__Lnvbit                        nvbit        000000
+__Lnvrram                       nvrram       000000
+__Lparam                        rparam       000000
+__Lpowerup                      powerup      000000
+__Lram                          ram          000000
+__Lramtop                       ramtop       000D00
+__Lrbit                         rbit         000000
+__Lrbss                         rbss         000000
+__Lrdata                        rdata        000000
+__Lreset_vec                    reset_vec    000000
+__Lrparam                       rparam       000000
+__Lsfr                          sfr          000000
+__Lsmallconst                   smallconst   000000
+__Lstruct                       struct       000000
+__Ltemp                         temp         000000
+__Ltext                         text         000000
+__Ltext0                        text0        000000
+__Ltext1                        text1        000000
+__Ltext2                        text2        000000
+__Ltext3                        text3        000000
+__Ltext4                        text4        000000
+__Ltext5                        text5        000000
+__Ltext6                        text6        000000
+__Ltext7                        text7        000000
+__Ltext8                        text8        000000
+__Ltext9                        text9        000000
+__S0                            (abs)        30000E
+__S1                            (abs)        00001B
+__accesstop                     (abs)        000060
+__activetblptr                  (abs)        000000
+__end_of_Delay10KTCYx           text6        00FB0A
+__end_of_IdleI2C                text5        00FB42
+__end_of_OpenI2C                text8        00FB26
+__end_of_ReadI2C                text7        00FB74
+__end_of_WriteI2C               text4        00FC02
+__end_of__initialization        cinit        00FAEC
+__end_of_configStartTempSensor  text2        00FCA4
+__end_of_main                   text0        00FE1C
+__end_of_readTempSensor         text3        010000
+__end_of_setTempSensorAddress   text1        00FAEC
+__initialization                cinit        00FAEC
+__mediumconst                   mediumconst  000000
+__pcinit                        cinit        00FAEC
+__pcstackCOMRAM                 cstackCOMRAM 000001
+__ptext0                        text0        00FCA4
+__ptext1                        text1        00FAEA
+__ptext2                        text2        00FC02
+__ptext3                        text3        00FE1C
+__ptext4                        text4        00FB74
+__ptext5                        text5        00FB26
+__ptext6                        text6        00FAF2
+__ptext7                        text7        00FB42
+__ptext8                        text8        00FB0A
+__ptext9                        text9        000000
+__ramtop                        ramtop       000D00
+__size_of_Delay10KTCYx          (abs)        000000
+__size_of_IdleI2C               (abs)        000000
+__size_of_OpenI2C               (abs)        000000
+__size_of_ReadI2C               (abs)        000000
+__size_of_WriteI2C              (abs)        000000
+__size_of_configStartTempSensor (abs)        000000
+__size_of_main                  (abs)        000000
+__size_of_readTempSensor        (abs)        000000
+__size_of_setTempSensorAddress  (abs)        000000
+__smallconst                    smallconst   000000
+_configStartTempSensor          text2        00FC02
+_main                           text0        00FCA4
+_readTempSensor                 text3        00FE1C
+_setTempSensorAddress           text1        00FAEA
+end_of_initialization           cinit        00FAEC
+intlevel0                       text         000000
+intlevel1                       text         000000
+intlevel2                       text         000000
+intlevel3                       text         000000
+main@address                    cstackCOMRAM 000010
+main@byte1                      cstackCOMRAM 000015
+main@byte2                      cstackCOMRAM 000016
+main@counter                    cstackCOMRAM 000012
+main@diff                       cstackCOMRAM 000019
+main@last_diff                  cstackCOMRAM 000013
+main@old_temp                   cstackCOMRAM 00000E
+main@slope                      cstackCOMRAM 000011
+main@temp                       cstackCOMRAM 000017
+readTempSensor@byte1            cstackCOMRAM 000003
+readTempSensor@byte2            cstackCOMRAM 000005
+readTempSensor@counter          cstackCOMRAM 000009
+readTempSensor@slope            cstackCOMRAM 000007
+start                           init         000000
+start_initialization            cinit        00FAEC
+
+
+FUNCTION INFORMATION:
+
+ *************** function _main *****************
+ Defined at:
+		line 134 in file "../main.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  diff            2   24[COMRAM] int 
+  temp            2   22[COMRAM] int 
+  last_diff       2   18[COMRAM] int 
+  old_temp        2   13[COMRAM] int 
+  byte2           1   21[COMRAM] unsigned char 
+  byte1           1   20[COMRAM] unsigned char 
+  counter         1   17[COMRAM] unsigned char 
+  slope           1   16[COMRAM] unsigned char 
+  address         1   15[COMRAM] unsigned char 
+ Return value:  Size  Location     Type
+		None               void
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:        13       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          2       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:        15       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:       15 bytes
+ Hardware stack levels required when called:    3
+ This function calls:
+		_setTempSensorAddress
+		_OpenI2C
+		_configStartTempSensor
+		_readTempSensor
+		_Delay10KTCYx
+ This function is called by:
+		Startup code after reset
+ This function uses a non-reentrant model
+
+
+ *************** function _setTempSensorAddress *****************
+ Defined at:
+		line 17 in file "../main.c"
+ Parameters:    Size  Location     Type
+  address         1    0[COMRAM] unsigned char 
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+		None               void
+ Registers used:
+		None
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         1       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         1       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        1 bytes
+ Hardware stack levels used:    1
+ This function calls:
+		Nothing
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _configStartTempSensor *****************
+ Defined at:
+		line 24 in file "../main.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+		None               void
+ Registers used:
+		wreg, status,2, status,0, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          1       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         1       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        1 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		_WriteI2C
+		_IdleI2C
+		_Delay10KTCYx
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _readTempSensor *****************
+ Defined at:
+		line 66 in file "../main.c"
+ Parameters:    Size  Location     Type
+  byte1           2    2[COMRAM] PTR unsigned char 
+		 -> main@byte1(1), 
+  byte2           2    4[COMRAM] PTR unsigned char 
+		 -> main@byte2(1), 
+  slope           2    6[COMRAM] PTR unsigned char 
+		 -> main@slope(1), 
+  counter         2    8[COMRAM] PTR unsigned char 
+		 -> main@counter(1), 
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+		None               void
+ Registers used:
+		wreg, fsr2l, fsr2h, status,2, status,0, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         8       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          1       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         9       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        9 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		_IdleI2C
+		_WriteI2C
+		_ReadI2C
+		_Delay10KTCYx
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _WriteI2C *****************
+ Defined at:
+		line 13 in file "plib/i2c/i2c_writ.c"
+ Parameters:    Size  Location     Type
+  data_out        1    0[COMRAM] unsigned char 
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      char 
+ Registers used:
+		wreg, status,2, status,0, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         1       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         1       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        1 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    1
+ This function calls:
+		_IdleI2C
+ This function is called by:
+		_configStartTempSensor
+		_readTempSensor
+		_stopTempSensor
+ This function uses a non-reentrant model
+
+
+ *************** function _IdleI2C *****************
+ Defined at:
+		line 25 in file "plib/i2c/i2c_idle.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+		None               void
+ Registers used:
+		wreg, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ This function calls:
+		Nothing
+ This function is called by:
+		_configStartTempSensor
+		_readTempSensor
+		_WriteI2C
+		_stopTempSensor
+ This function uses a non-reentrant model
+
+
+ *************** function _Delay10KTCYx *****************
+ Defined at:
+		line 9 in file "../common/d10ktcyx.c"
+ Parameters:    Size  Location     Type
+  unit            1    0[COMRAM] unsigned char 
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+		None               void
+ Registers used:
+		wreg
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         1       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          1       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         2       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ This function calls:
+		Nothing
+ This function is called by:
+		_configStartTempSensor
+		_readTempSensor
+		_main
+		_stopTempSensor
+ This function uses a non-reentrant model
+
+
+ *************** function _ReadI2C *****************
+ Defined at:
+		line 12 in file "plib/i2c/i2c_read.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ This function calls:
+		Nothing
+ This function is called by:
+		_readTempSensor
+ This function uses a non-reentrant model
+
+
+ *************** function _OpenI2C *****************
+ Defined at:
+		line 15 in file "plib/i2c/i2c_open.c"
+ Parameters:    Size  Location     Type
+  sync_mode       1    0[COMRAM] unsigned char 
+  slew            1    1[COMRAM] unsigned char 
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+		None               void
+ Registers used:
+		wreg, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         2       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         2       0       0       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ This function calls:
+		Nothing
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+
+MODULE INFORMATION
+
+Module		Function		Class		Link	Load	Size
+../main.c
+		_configStartTem		CODE           	FC02	0000	162
+		_main          		CODE           	FCA4	0000	376
+		_readTempSensor		CODE           	FE1C	0000	484
+		_setTempSensorA		CODE           	FAEA	0000	2
+
+../main.c estimated size: 1024
+
+plib/i2c/i2c_read.c
+		_ReadI2C       		CODE           	FB42	0000	50
+
+plib/i2c/i2c_read.c estimated size: 50
+
+../common/d10ktcyx.c
+		_Delay10KTCYx  		CODE           	FAF2	0000	24
+
+../common/d10ktcyx.c estimated size: 24
+
+shared
+		__initializatio		CODE           	FAEC	0000	0
+
+shared estimated size: 0
+
+plib/i2c/i2c_open.c
+		_OpenI2C       		CODE           	FB0A	0000	28
+
+plib/i2c/i2c_open.c estimated size: 28
+
+plib/i2c/i2c_idle.c
+		_IdleI2C       		CODE           	FB26	0000	28
+
+plib/i2c/i2c_idle.c estimated size: 28
+
+plib/i2c/i2c_writ.c
+		_WriteI2C      		CODE           	FB74	0000	142
+
+plib/i2c/i2c_writ.c estimated size: 142
+

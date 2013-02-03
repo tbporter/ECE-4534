@@ -1,0 +1,11 @@
+_IdleI2C: CODE, 64294 0 28
+_configStartTempSensor: CODE, 64514 0 162
+_main: CODE, 64676 0 376
+__initialization: CODE, 64236 0 0
+_Delay10KTCYx: CODE, 64242 0 24
+_readTempSensor: CODE, 65052 0 484
+_ReadI2C: CODE, 64322 0 50
+_WriteI2C: CODE, 64372 0 142
+_setTempSensorAddress: CODE, 64234 0 2
+_OpenI2C: CODE, 64266 0 28
+Total: 1296
