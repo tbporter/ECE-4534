@@ -26,11 +26,24 @@
 
 // definitions and data structures that are private to this file
 // Length of the queue to this task
-#define vtLCDQLen 10 
+#define vtLCDQLen 10
+//OScope Buffer SIze
+#define OSCOPE_BUFF_SIZE 653
+// OScope Axis Scales
+#define OScope_YMAX 3000 //mV
+#define OScope_XMAX 34000 //uS
+#define OScope_DX 0
+#define OScope_DY 5
+#define OScope_BORDER 20
+// Colors
+#define FG_Color Orange
+#define BG_Color Maroon
 // a timer message -- not to be printed
 #define LCDMsgTypeTimer 1
 // a message to be printed
 #define LCDMsgTypePrint 2
+// a wave value to be displayed
+#define LCDMsgTypeWave 3
 // actual data structure that is sent in a message
 typedef struct __vtLCDMsg {
 	uint8_t msgType;
@@ -92,6 +105,38 @@ portBASE_TYPE SendLCDPrintMsg(vtLCDStruct *lcdData,int length,char *pString,port
 	lcdBuffer.msgType = LCDMsgTypePrint;
 	strncpy((char *)lcdBuffer.buf,pString,vtLCDMaxLen);
 	return(xQueueSend(lcdData->inQ,(void *) (&lcdBuffer),ticksToBlock));
+}
+
+void DrawLCDAxes(){
+	int x=OScope_BORDER;
+	int y=OScope_BORDER;
+	
+	for( y=OScope_BORDER; y<(220-OScope_BORDER-OScope_DY); y++ ){
+		GLCD_PutPixel(x,y);
+		if( (y-OScope_BORDER)%(((220-2*OScope_BORDER-OScope_DY)*1000)/OScope_YMAX) == 0 ){
+			GLCD_PutPixel(x-1,y);
+			GLCD_PutPixel(x-2,y);
+		}
+	}
+	
+	for( x=OScope_BORDER; x<(320-OScope_BORDER-OScope_DX); x++){
+		GLCD_PutPixel(x,y);
+		if( (x-OScope_BORDER)%(((320-2*OScope_BORDER-OScope_DX)*1000)/OScope_XMAX) == 0 ){
+			GLCD_PutPixel(x,y+1);
+			GLCD_PutPixel(x,y+2);
+		}
+	}
+
+	GLCD_DisplayChar(2,0,1,'V');
+	GLCD_DisplayChar(3,0,1,'o');
+	GLCD_DisplayChar(4,0,1,'l');
+	GLCD_DisplayChar(5,0,1,'t');
+	GLCD_DisplayChar(6,0,1,'s');
+
+	GLCD_DisplayChar(9,9,1,'m');
+	GLCD_DisplayChar(9,10,1,'s');
+	
+		
 }
 
 // Private routines used to unpack the message buffers
@@ -181,19 +226,16 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 
 	/* Initialize the LCD and set the initial colors */
 	GLCD_Init();
-	tscr = Green; // may be reset in the LCDMsgTypeTimer code below
-	screenColor = Red; // may be reset in the LCDMsgTypeTimer code below
+	tscr = Orange; // may be reset in the LCDMsgTypeTimer code below
+	screenColor = Maroon; // may be reset in the LCDMsgTypeTimer code below
 	GLCD_SetTextColor(tscr);
 	GLCD_SetBackColor(screenColor);
 	GLCD_Clear(screenColor);
-
-	// Note that srand() & rand() require the use of malloc() and should not be used unless you are using
-	//   MALLOC_VERSION==1
-	#if MALLOC_VERSION==1
-	srand((unsigned) 55); // initialize the random number generator to the same seed for repeatability
-	#endif
-
+	DrawLCDAxes();
 	curLine = 5;
+
+	//Variables for OScope data stored in circular buffer
+	int nOScopeBuf[OSCOPE_BUFF_SIZE];
 	// This task should never exit
 	for(;;)
 	{	
@@ -238,100 +280,14 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 			//    unpackTimerMsg() which would unpack the message and get that value
 			// Each timer update will cause a circle to be drawn on the top half of the screen
 			//   as explained below
-			if (timerCount == 0) {
-				/* ************************************************** */
-				// Find a new color for the screen by randomly (within limits) selecting HSL values
-				// This can be ignored unless you care about the color map
-				#if MALLOC_VERSION==1
-				hue = rand() % 360;
-				sat = (rand() % 1024) / 1023.0; sat = sat * 0.5; sat += 0.5;
-				light = (rand() % 1024) / 1023.0;	light = light * 0.8; light += 0.10;
-				#else
-				hue = (hue + 1); if (hue >= 360) hue = 0;
-				sat+=0.01; if (sat > 1.0) sat = 0.20;	
-				light+=0.03; if (light > 1.0) light = 0.20;
-				#endif
-				screenColor = hsl2rgb(hue,sat,light);
-				// Now choose a complementary value for the text color
-				hue += 180;
-				if (hue >= 360) hue -= 360;
-				tscr = hsl2rgb(hue,sat,light);
-				GLCD_SetTextColor(tscr);
-				GLCD_SetBackColor(screenColor);
-				// End of playing around with figuring out a random color
-				/* ************************************************** */
-
-				// clear the top half of the screen
-				GLCD_ClearWindow(0,0,320,120,screenColor); 
-
-				// Now we are going to draw a circle in the upper left corner of the screen
-				int	count = 200;
-				float radius;
-				float inc, val, offset = MAX_RADIUS;
-				unsigned short circleColor;
-				inc = 2*M_PI/count;
-				xmax = 0;
-				ymax = 0;
-				xmin = 50000;
-				ymin = 50000;
-				val = 0.0;
-				for (i=0;i<count;i++) {
-					// Make the circle a little thicker
-					// by actually drawing three circles w/ different radii
-					float cv = cos(val), sv=sin(val);
-					circleColor = (val*0xFFFF)/(2*M_PI);
-					GLCD_SetTextColor(circleColor);
-					for (radius=MAX_RADIUS-2.0;radius<=MAX_RADIUS;radius+=1.0) {
-						x = round(cv*radius+offset);
-						y = round(sv*radius+offset);
-						if (x > xmax) xmax = x;
-						if (y > ymax) ymax = y;
-						if (x < xmin) xmin = x;
-						if (y < ymin) ymin = y;
-						GLCD_PutPixel(x,y);	
-					}
-					val += inc;
-				}
-				// Now we are going to read the upper left square of the LCD's
-				// memory (see its data sheet for details on that) and save
-				// that into a buffer for fast re-drawing later
-				if (((xmax+1-xmin)*(ymax+1-ymin)) > BUF_LEN) {
-					// Make sure we have room for the data
-					VT_HANDLE_FATAL_ERROR(0);
-				}
-				unsigned short int *tbuffer = buffer;
-				unsigned int width = (xmax+1-xmin);
-				for (j=ymin;j<=ymax;j++) {
-					GLCD_GetPixelRow (xmin,j,width,tbuffer);
-					tbuffer += width;
-				}
-				// end of reading in the buffer
-				xoffset = xmin;
-				yoffset = ymin;
-			} else {
-				// We are going to write out the data read into the buffer
-				//   back onto the screen at a new location
-				// This is *very* fast
-
-				// First, clear out where we were
-				GLCD_ClearWindow(xoffset,yoffset,xmax+1-xmin,ymax+1-ymin,screenColor);
-				// Pick the new location
-				#if MALLOC_VERSION==1
-				xoffset = rand() % (320-(xmax+1-xmin));
-				yoffset = rand() % (120-(ymax+1-ymin));
-				#else
-				xoffset = (xoffset + 10) % (320-(xmax+1-xmin));
-				yoffset = (yoffset + 10) % (120-(ymax+1-ymin));
-				#endif
-				// Draw the bitmap
-				GLCD_Bitmap(xoffset,yoffset,xmax+1-xmin,ymax-1-ymin,(unsigned char *)buffer);
-			}
 			timerCount++;
 			if (timerCount >= 40) {	  
 				// every so often, we reset timer count and start again
 				// This isn't for any important reason, it is just to for this example code to do "stuff"
 				timerCount = 0;
 			}
+			break;
+		case LCDMsgTypeWave:
 			break;
 		}
 		default: {
