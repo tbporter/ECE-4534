@@ -1,6 +1,10 @@
 #include "maindefs.h"
 #include <stdio.h>
 #ifndef __XC8
+#include <adc.h>
+#include <delays.h>
+#include <p18cxxx.h>
+#include <portb.h>
 #include <usart.h>
 #include <i2c.h>
 #include <timers.h>
@@ -120,7 +124,34 @@ Something is messed up
 #endif
 #endif
 
+/* ADC CODE */
+void initADC()
+{
+	OpenADC(ADC_FOSC_8 & ADC_RIGHT_JUST & ADC_0_TAD,
+		ADC_CH0 & ADC_CH1 &
+		ADC_INT_OFF & ADC_VREFPLUS_VDD &
+		ADC_VREFMINUS_VSS, 0b1011);
+	// Use SetChanADC(ADC_CH1) to look at sensor channel
+	SetChanADC(ADC_CH0);
+	//Delay10TCYx( 50 );
+}
+
+void readADC(int *value)
+{
+	ConvertADC(); // Start conversion
+	while( BusyADC() ); // Wait for ADC conversion
+	(*value) = ReadADC(); // Read result and put in temp
+	//Delay1KTCYx(1);  // wait a bit...
+}
+
+void stopADC()
+{
+	CloseADC(); // Disable A/D converter
+}
+/* END ADC CODE */
+
 void main(void) {
+    int value;
     char c;
     signed char length;
     unsigned char msgtype;
@@ -179,7 +210,7 @@ void main(void) {
      */
 
     // initialize Timers
-    OpenTimer0(TIMER_INT_ON & T0_16BIT & T0_SOURCE_INT & T0_PS_1_128);
+    OpenTimer0(TIMER_INT_ON & T0_16BIT & T0_SOURCE_INT & T0_EDGE_RISE & T0_PS_1_1);
 #ifdef __USE18F26J50
     // MTJ added second argument for OpenTimer1()
     OpenTimer1(TIMER_INT_ON & T1_SOURCE_FOSC_4 & T1_PS_1_8 & T1_16BIT_RW & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF,0x0);
@@ -245,6 +276,11 @@ void main(void) {
     // It is also slow and is blocking, so it will perturb your code's operation
     // Here is how it looks: printf("Hello\r\n");
 
+    initADC();
+    LATB = 0x3F;
+    Delay10KTCYx(50);
+    LATB = 0x00;
+
 
     // loop forever
     // This loop is responsible for "handing off" messages to the subroutines
@@ -252,6 +288,24 @@ void main(void) {
     // they can be equated with the tasks in your task diagram if you
     // structure them properly.
     while (1) {
+
+        readADC(&value);
+        // Map the 10 bit value to an LED display
+        if(value<0x08F)
+                LATB = 0x00;
+        else if (value<0x100)
+                LATB = 0x01;
+        else if (value<0x180)
+                LATB = 0x03;
+        else if (value<0x200)
+                LATB = 0x07;
+        else if (value<0x280)
+                LATB = 0x0F;
+        else if (value<0x300)
+                LATB = 0x1F;
+        else
+                LATB = 0x3F;
+
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
         // an idle mode)
@@ -296,14 +350,15 @@ void main(void) {
                         case 0xaa:
                         {
                             length = 2;
-                            msgbuffer[0] = 0x55;
+                            msgbuffer[0] = value;
                             msgbuffer[1] = 0xAA;
                             break;
                         }
                         case 0xa8:
                         {
-                            length = 1;
-                            msgbuffer[0] = 0x3A;
+                            length = 2;
+                            msgbuffer[0] = value >> 8;
+                            msgbuffer[1] = 0xA8;
                             break;
                         }
                         case 0xa9:

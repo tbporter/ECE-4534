@@ -22,7 +22,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE \
-  C:\Users\ECE4534\AppData\Local\Temp\s3nk.obj \
+  C:\Users\ECE4534\AppData\Local\Temp\s41o.obj \
   dist/UseXC8/production\Framework.X.production.obj 
 
 Object code version is 3.10
@@ -35,7 +35,7 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\ECE4534\AppData\Local\Temp\s3nk.obj
+C:\Users\ECE4534\AppData\Local\Temp\s41o.obj
                 end_init                             C2       C2        4        C       0
                 reset_vec                             0        0        4        0       0
                 idloc                            200000   200000        8   200000       0
