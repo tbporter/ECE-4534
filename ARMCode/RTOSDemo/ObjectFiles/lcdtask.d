@@ -33,7 +33,7 @@ ObjectFiles/lcdtask.o: MainFiles/LCDtask.c \
  ../FreeRTOS/Source/include/task.h ../FreeRTOS/Source/include/list.h \
  ../vtCode/vtLCD/GLCD.h ../vtCode/vtUtilities.h \
  ../NXPDrivers/include/lpc_types.h C:/Keil/ARM/INC/NXP/LPC17xx/lpc17xx.h \
- MainFiles/LCDtask.h ../FreeRTOS/Source/include/queue.h \
+ MainFiles/g9_LCDOScopeTask.h ../FreeRTOS/Source/include/queue.h \
  ../FreeRTOS/Source/include/timers.h \
  c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/string.h \
  c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/sys/string.h

@@ -1,4 +1,4 @@
-ObjectFiles/genqtest.o: ../FreeRTOS/Demo/Common/Minimal/GenQTest.c \
+ObjectFiles/g9_lcdoscopetask.o: MainFiles/g9_LcdOScopeTask.c \
  c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/stdlib.h \
  c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/machine/ieeefp.h \
  c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/_ansi.h \
@@ -14,6 +14,12 @@ ObjectFiles/genqtest.o: ../FreeRTOS/Demo/Common/Minimal/GenQTest.c \
  c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/sys/lock.h \
  c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/machine/stdlib.h \
  c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/alloca.h \
+ c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/stdio.h \
+ c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/include/stdarg.h \
+ c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/sys/types.h \
+ c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/machine/types.h \
+ c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/sys/stdio.h \
+ c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/include-fixed/math.h \
  ../FreeRTOS/Source/include/FreeRTOS.h \
  ../FreeRTOS/Source/include/projdefs.h ../SystemFiles/FreeRTOSConfig.h \
  ../SystemFiles/adapter.h C:/Keil/ARM/INC/NXP/LPC17xx/LPC17xx.h \
@@ -25,6 +31,9 @@ ObjectFiles/genqtest.o: ../FreeRTOS/Demo/Common/Minimal/GenQTest.c \
  ../FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h \
  ../FreeRTOS/Source/include/mpu_wrappers.h \
  ../FreeRTOS/Source/include/task.h ../FreeRTOS/Source/include/list.h \
- ../FreeRTOS/Source/include/queue.h ../FreeRTOS/Source/include/semphr.h \
- ../FreeRTOS/Source/include/queue.h \
- ../FreeRTOS/Demo/Common/include/GenQTest.h
+ ../vtCode/vtLCD/GLCD.h ../vtCode/vtUtilities.h \
+ ../NXPDrivers/include/lpc_types.h C:/Keil/ARM/INC/NXP/LPC17xx/lpc17xx.h \
+ MainFiles/g9_LCDOScopeTask.h ../FreeRTOS/Source/include/queue.h \
+ ../FreeRTOS/Source/include/timers.h \
+ c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/string.h \
+ c:\program\ files\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/sys/string.h
