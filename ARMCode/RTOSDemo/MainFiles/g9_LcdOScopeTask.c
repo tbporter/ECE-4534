@@ -38,7 +38,7 @@
 #define OScope_DY 5
 #define OScope_BORDER 20
 //OScope Buffer Size
-#define OSCOPE_BUFF_SIZE (((192*OScope_XMAX)/10000)+1)
+#define OSCOPE_BUFF_SIZE (((155*OScope_XMAX)/10000)+1)
 //Max data value = 3V
 #define MAX_WAVE_VALUE 0x3FF
 // Colors
@@ -110,20 +110,31 @@ portBASE_TYPE SendLCDOScopeTimerMsg(lcdOScopeStruct *lcdData,portTickType ticksE
 void DrawLCDAxes(){
 	int x=OScope_BORDER;
 	int y=OScope_BORDER;
+	int t = 0;
 	
 	for( y=OScope_BORDER; y<(240-2*OScope_BORDER-OScope_DY); y++ ){
 		GLCD_PutPixel(x,y);
 		if( (y-OScope_BORDER)%(((220-2*OScope_BORDER-OScope_DY)*1000)/OScope_YMAX) == 0 ){
 			GLCD_PutPixel(x-1,y);
 			GLCD_PutPixel(x-2,y);
+			if( t++ % 5 == 0 ){
+				GLCD_PutPixel(x-3,y);
+				GLCD_PutPixel(x-4,y);	
+			}
 		}
 	}
 	
+	t=0;
+
 	for( x=OScope_BORDER; x<(320-OScope_BORDER-OScope_DX); x++){
 		GLCD_PutPixel(x,y);
 		if( (x-OScope_BORDER)%(((320-2*OScope_BORDER-OScope_DX)*1000)/OScope_XMAX) == 0 ){
 			GLCD_PutPixel(x,y+1);
 			GLCD_PutPixel(x,y+2);
+			if( t++ % 5 == 0 ){
+				GLCD_PutPixel(x,y+3);
+				GLCD_PutPixel(x,y+4);	
+			}
 		}
 	}
 
