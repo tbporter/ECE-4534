@@ -45,11 +45,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/interrupts.p1 ${OBJECTDIR}/_ext/1360937237/main.p1 ${OBJECTDIR}/_ext/1360937237/messages.p1 ${OBJECTDIR}/_ext/1360937237/my_i2c.p1 ${OBJECTDIR}/_ext/1360937237/my_uart.p1 ${OBJECTDIR}/_ext/1360937237/timer0_thread.p1 ${OBJECTDIR}/_ext/1360937237/timer1_thread.p1 ${OBJECTDIR}/_ext/1360937237/uart_thread.p1 ${OBJECTDIR}/_ext/1360937237/user_interrupts.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/interrupts.p1.d ${OBJECTDIR}/_ext/1360937237/main.p1.d ${OBJECTDIR}/_ext/1360937237/messages.p1.d ${OBJECTDIR}/_ext/1360937237/my_i2c.p1.d ${OBJECTDIR}/_ext/1360937237/my_uart.p1.d ${OBJECTDIR}/_ext/1360937237/timer0_thread.p1.d ${OBJECTDIR}/_ext/1360937237/timer1_thread.p1.d ${OBJECTDIR}/_ext/1360937237/uart_thread.p1.d ${OBJECTDIR}/_ext/1360937237/user_interrupts.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/messages.o ${OBJECTDIR}/_ext/1360937237/my_i2c.o ${OBJECTDIR}/_ext/1360937237/my_uart.o ${OBJECTDIR}/_ext/1360937237/timer0_thread.o ${OBJECTDIR}/_ext/1360937237/timer1_thread.o ${OBJECTDIR}/_ext/1360937237/uart_thread.o ${OBJECTDIR}/_ext/1360937237/user_interrupts.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/interrupts.o.d ${OBJECTDIR}/_ext/1360937237/main.o.d ${OBJECTDIR}/_ext/1360937237/messages.o.d ${OBJECTDIR}/_ext/1360937237/my_i2c.o.d ${OBJECTDIR}/_ext/1360937237/my_uart.o.d ${OBJECTDIR}/_ext/1360937237/timer0_thread.o.d ${OBJECTDIR}/_ext/1360937237/timer1_thread.o.d ${OBJECTDIR}/_ext/1360937237/uart_thread.o.d ${OBJECTDIR}/_ext/1360937237/user_interrupts.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1360937237/interrupts.p1 ${OBJECTDIR}/_ext/1360937237/main.p1 ${OBJECTDIR}/_ext/1360937237/messages.p1 ${OBJECTDIR}/_ext/1360937237/my_i2c.p1 ${OBJECTDIR}/_ext/1360937237/my_uart.p1 ${OBJECTDIR}/_ext/1360937237/timer0_thread.p1 ${OBJECTDIR}/_ext/1360937237/timer1_thread.p1 ${OBJECTDIR}/_ext/1360937237/uart_thread.p1 ${OBJECTDIR}/_ext/1360937237/user_interrupts.p1
+OBJECTFILES=${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/messages.o ${OBJECTDIR}/_ext/1360937237/my_i2c.o ${OBJECTDIR}/_ext/1360937237/my_uart.o ${OBJECTDIR}/_ext/1360937237/timer0_thread.o ${OBJECTDIR}/_ext/1360937237/timer1_thread.o ${OBJECTDIR}/_ext/1360937237/uart_thread.o ${OBJECTDIR}/_ext/1360937237/user_interrupts.o
 
 
 CFLAGS=
@@ -68,139 +68,9 @@ FIXDEPS=fixDeps
 .build-conf:  ${BUILD_SUBPROJECTS}
 	${MAKE} ${MAKE_OPTIONS} -f nbproject/Makefile-UseC18.mk dist/${CND_CONF}/${IMAGE_TYPE}/Framework.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
-MP_PROCESSOR_OPTION=18F26J50
-# ------------------------------------------------------------------------------------
-# Rules for buildStep: compile
-ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/_ext/1360937237/interrupts.p1: ../src/interrupts.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/interrupts.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/interrupts.p1  ../src/interrupts.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/interrupts.d ${OBJECTDIR}/_ext/1360937237/interrupts.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/interrupts.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/main.p1: ../src/main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/main.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/main.p1  ../src/main.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/main.d ${OBJECTDIR}/_ext/1360937237/main.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/messages.p1: ../src/messages.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/messages.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/messages.p1  ../src/messages.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/messages.d ${OBJECTDIR}/_ext/1360937237/messages.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/messages.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/my_i2c.p1: ../src/my_i2c.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/my_i2c.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/my_i2c.p1  ../src/my_i2c.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/my_i2c.d ${OBJECTDIR}/_ext/1360937237/my_i2c.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/my_i2c.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/my_uart.p1: ../src/my_uart.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/my_uart.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/my_uart.p1  ../src/my_uart.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/my_uart.d ${OBJECTDIR}/_ext/1360937237/my_uart.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/my_uart.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/timer0_thread.p1: ../src/timer0_thread.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/timer0_thread.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/timer0_thread.p1  ../src/timer0_thread.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/timer0_thread.d ${OBJECTDIR}/_ext/1360937237/timer0_thread.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/timer0_thread.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/timer1_thread.p1: ../src/timer1_thread.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/timer1_thread.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/timer1_thread.p1  ../src/timer1_thread.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/timer1_thread.d ${OBJECTDIR}/_ext/1360937237/timer1_thread.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/timer1_thread.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/uart_thread.p1: ../src/uart_thread.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/uart_thread.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/uart_thread.p1  ../src/uart_thread.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/uart_thread.d ${OBJECTDIR}/_ext/1360937237/uart_thread.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/uart_thread.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/user_interrupts.p1: ../src/user_interrupts.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/user_interrupts.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/user_interrupts.p1  ../src/user_interrupts.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/user_interrupts.d ${OBJECTDIR}/_ext/1360937237/user_interrupts.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/user_interrupts.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-else
-${OBJECTDIR}/_ext/1360937237/interrupts.p1: ../src/interrupts.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/interrupts.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/interrupts.p1  ../src/interrupts.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/interrupts.d ${OBJECTDIR}/_ext/1360937237/interrupts.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/interrupts.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/main.p1: ../src/main.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/main.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/main.p1  ../src/main.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/main.d ${OBJECTDIR}/_ext/1360937237/main.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/main.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/messages.p1: ../src/messages.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/messages.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/messages.p1  ../src/messages.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/messages.d ${OBJECTDIR}/_ext/1360937237/messages.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/messages.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/my_i2c.p1: ../src/my_i2c.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/my_i2c.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/my_i2c.p1  ../src/my_i2c.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/my_i2c.d ${OBJECTDIR}/_ext/1360937237/my_i2c.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/my_i2c.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/my_uart.p1: ../src/my_uart.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/my_uart.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/my_uart.p1  ../src/my_uart.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/my_uart.d ${OBJECTDIR}/_ext/1360937237/my_uart.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/my_uart.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/timer0_thread.p1: ../src/timer0_thread.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/timer0_thread.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/timer0_thread.p1  ../src/timer0_thread.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/timer0_thread.d ${OBJECTDIR}/_ext/1360937237/timer0_thread.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/timer0_thread.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/timer1_thread.p1: ../src/timer1_thread.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/timer1_thread.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/timer1_thread.p1  ../src/timer1_thread.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/timer1_thread.d ${OBJECTDIR}/_ext/1360937237/timer1_thread.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/timer1_thread.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/uart_thread.p1: ../src/uart_thread.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/uart_thread.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/uart_thread.p1  ../src/uart_thread.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/uart_thread.d ${OBJECTDIR}/_ext/1360937237/uart_thread.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/uart_thread.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-${OBJECTDIR}/_ext/1360937237/user_interrupts.p1: ../src/user_interrupts.c  nbproject/Makefile-${CND_CONF}.mk
-	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
-	@${RM} ${OBJECTDIR}/_ext/1360937237/user_interrupts.p1.d 
-	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G --asmlist  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"  -o${OBJECTDIR}/_ext/1360937237/user_interrupts.p1  ../src/user_interrupts.c 
-	@-${MV} ${OBJECTDIR}/_ext/1360937237/user_interrupts.d ${OBJECTDIR}/_ext/1360937237/user_interrupts.p1.d 
-	@${FIXDEPS} ${OBJECTDIR}/_ext/1360937237/user_interrupts.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
-	
-endif
-
+MP_PROCESSOR_OPTION=18F2680
+MP_PROCESSOR_OPTION_LD=18f2680
+MP_LINKER_DEBUG_OPTION= -u_DEBUGCODESTART=0xfdc0 -u_DEBUGCODELEN=0x240 -u_DEBUGDATASTART=0xcf4 -u_DEBUGDATALEN=0xb
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
@@ -208,18 +78,147 @@ else
 endif
 
 # ------------------------------------------------------------------------------------
+# Rules for buildStep: compile
+ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/_ext/1360937237/interrupts.o: ../src/interrupts.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/interrupts.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1 -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/interrupts.o   ../src/interrupts.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/interrupts.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/interrupts.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1 -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/main.o   ../src/main.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/main.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/messages.o: ../src/messages.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/messages.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1 -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/messages.o   ../src/messages.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/messages.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/messages.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/my_i2c.o: ../src/my_i2c.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/my_i2c.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1 -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/my_i2c.o   ../src/my_i2c.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/my_i2c.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/my_i2c.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/my_uart.o: ../src/my_uart.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/my_uart.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1 -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/my_uart.o   ../src/my_uart.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/my_uart.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/my_uart.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/timer0_thread.o: ../src/timer0_thread.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/timer0_thread.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1 -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/timer0_thread.o   ../src/timer0_thread.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/timer0_thread.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/timer0_thread.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/timer1_thread.o: ../src/timer1_thread.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/timer1_thread.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1 -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/timer1_thread.o   ../src/timer1_thread.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/timer1_thread.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/timer1_thread.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/uart_thread.o: ../src/uart_thread.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/uart_thread.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1 -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/uart_thread.o   ../src/uart_thread.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/uart_thread.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/uart_thread.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/user_interrupts.o: ../src/user_interrupts.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/user_interrupts.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1 -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/user_interrupts.o   ../src/user_interrupts.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/user_interrupts.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/user_interrupts.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+else
+${OBJECTDIR}/_ext/1360937237/interrupts.o: ../src/interrupts.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/interrupts.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/interrupts.o   ../src/interrupts.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/interrupts.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/interrupts.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/main.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/main.o   ../src/main.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/main.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/main.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/messages.o: ../src/messages.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/messages.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/messages.o   ../src/messages.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/messages.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/messages.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/my_i2c.o: ../src/my_i2c.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/my_i2c.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/my_i2c.o   ../src/my_i2c.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/my_i2c.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/my_i2c.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/my_uart.o: ../src/my_uart.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/my_uart.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/my_uart.o   ../src/my_uart.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/my_uart.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/my_uart.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/timer0_thread.o: ../src/timer0_thread.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/timer0_thread.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/timer0_thread.o   ../src/timer0_thread.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/timer0_thread.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/timer0_thread.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/timer1_thread.o: ../src/timer1_thread.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/timer1_thread.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/timer1_thread.o   ../src/timer1_thread.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/timer1_thread.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/timer1_thread.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/uart_thread.o: ../src/uart_thread.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/uart_thread.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/uart_thread.o   ../src/uart_thread.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/uart_thread.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/uart_thread.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/user_interrupts.o: ../src/user_interrupts.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/user_interrupts.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}\\..\\h  -fo ${OBJECTDIR}/_ext/1360937237/user_interrupts.o   ../src/user_interrupts.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/user_interrupts.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/user_interrupts.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+endif
+
+# ------------------------------------------------------------------------------------
 # Rules for buildStep: link
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 dist/${CND_CONF}/${IMAGE_TYPE}/Framework.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) --chip=$(MP_PROCESSOR_OPTION) -G --asmlist -mdist/${CND_CONF}/${IMAGE_TYPE}/Framework.X.${IMAGE_TYPE}.map  -D__DEBUG=1 --debugger=pickit2  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"   -odist/${CND_CONF}/${IMAGE_TYPE}/Framework.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
-	@${RM} dist/${CND_CONF}/${IMAGE_TYPE}/Framework.X.${IMAGE_TYPE}.hex 
-	
+	${MP_LD} $(MP_EXTRA_LD_PRE)   -p$(MP_PROCESSOR_OPTION_LD)  -w -x -u_DEBUG -w -u_EXTENDEDMODE -g -z__MPLAB_BUILD=1  -u_CRUNTIME -z__MPLAB_DEBUG=1 -z__MPLAB_DEBUGGER_PICKIT2=1 $(MP_LINKER_DEBUG_OPTION) -l ${MP_CC_DIR}\\..\\lib  -o dist/${CND_CONF}/${IMAGE_TYPE}/Framework.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}   
 else
 dist/${CND_CONF}/${IMAGE_TYPE}/Framework.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
 	@${MKDIR} dist/${CND_CONF}/${IMAGE_TYPE} 
-	${MP_CC} $(MP_EXTRA_LD_PRE) --chip=$(MP_PROCESSOR_OPTION) -G --asmlist -mdist/${CND_CONF}/${IMAGE_TYPE}/Framework.X.${IMAGE_TYPE}.map  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,-asmfile,+speed,-space,-debug,9 --addrqual=ignore -P -N255 --warn=0 --summary=default,-psect,-class,+mem,-hex,-file --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib "--errformat=%%f:%%l: error: %%s" "--warnformat=%%f:%%l: warning: %%s" "--msgformat=%%f:%%l: advisory: %%s"   -odist/${CND_CONF}/${IMAGE_TYPE}/Framework.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}     
-	
+	${MP_LD} $(MP_EXTRA_LD_PRE)   -p$(MP_PROCESSOR_OPTION_LD)  -w  -w -u_EXTENDEDMODE -g -z__MPLAB_BUILD=1  -u_CRUNTIME -l ${MP_CC_DIR}\\..\\lib  -o dist/${CND_CONF}/${IMAGE_TYPE}/Framework.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}   
 	@echo Normalizing hex file
 	@"C:/Program Files/Microchip/MPLABX/mplab_ide/mplab_ide/modules/../../bin/hexmate" --edf="C:/Program Files/Microchip/MPLABX/mplab_ide/mplab_ide/modules/../../bin/en_msgs.txt" dist/${CND_CONF}/${IMAGE_TYPE}/Framework.X.${IMAGE_TYPE}.hex -odist/${CND_CONF}/${IMAGE_TYPE}/Framework.X.${IMAGE_TYPE}.hex
 

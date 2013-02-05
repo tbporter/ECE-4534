@@ -90,10 +90,12 @@ You should read the note above.
    unless the files are actually removed from the project */
 #define USE_FREERTOS_DEMO 0
 // Define whether or not to use my LCD task
-#define USE_MTJ_LCD 1
+#define USE_MTJ_LCD 0
+// Define whether or not to use the OScope task
+#define USE_G9_OSCOPE 1
 // Define whether to use my temperature sensor read task (the sensor is on the PIC v4 demo board, so if that isn't connected
 //   then this should be off
-#define USE_MTJ_V4Temp_Sensor 1
+#define USE_MTJ_V4Temp_Sensor 0
 // Define whether to use my USB task
 #define USE_MTJ_USE_USB 0
 
@@ -116,6 +118,7 @@ You should read the note above.
 // Include file for MTJ's LCD & i2cTemp tasks
 #include "vtUtilities.h"
 #include "lcdTask.h"
+#include "g9_LCDOScopeTask.h"
 #include "i2cTemp.h"
 #include "vtI2C.h"
 #include "myTimers.h"
@@ -195,6 +198,9 @@ static vtConductorStruct conductorData;
 #if USE_MTJ_LCD == 1
 // data structure required for LCDtask API
 static vtLCDStruct vtLCDdata; 
+#elif USE_G9_OSCOPE == 1
+// data structure required for LCDtask API
+static vtOScopeStruct vtOScopeData; 
 #endif
 
 /*-----------------------------------------------------------*/
@@ -238,6 +244,9 @@ int main( void )
 	// Here we set up a timer that will send messages to the LCD task.  You don't have to have this timer for the LCD task, it is just showing
 	//  how to use a timer and how to send messages from that timer.
 	startTimerForLCD(&vtLCDdata);
+	#elif USE_G9_OSCOPE == 1
+	//Start OScopeTask
+	StartOScopeTask(&vtOScopeData,mainLCD_TASK_PRIORITY);
 	#endif
 	
 	#if USE_MTJ_V4Temp_Sensor == 1
@@ -255,7 +264,7 @@ int main( void )
 	vStarti2cTempTask(&tempSensorData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,NULL);
 	#endif
 	// Here we set up a timer that will send messages to the Temperature sensing task.  The timer will determine how often the sensor is sampled
-	startTimerForTemperature(&tempSensorData);
+	//startTimerForTemperature(&tempSensorData);
 	// start up a "conductor" task that will move messages around
 	vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,&vtI2C0,&tempSensorData);
 	#endif

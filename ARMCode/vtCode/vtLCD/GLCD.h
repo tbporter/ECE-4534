@@ -37,6 +37,7 @@
 #define Red             0xF800      /* 255,   0,   0 */
 #define Magenta         0xF81F      /* 255,   0, 255 */
 #define Yellow          0xFFE0      /* 255, 255, 0   */
+#define Orange			0xFC80		/* 255, 146, 0   */
 #define White           0xFFFF      /* 255, 255, 255 */
 
 #define lcdNUM_LINES 10
