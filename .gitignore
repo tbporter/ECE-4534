@@ -1,2 +1,7 @@
 *.a
 *.o
+*.d
+*.__i
+*.elf
+*.bak
+ARMCode/RTOSDemo/ObjectFiles/

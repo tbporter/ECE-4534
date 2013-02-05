@@ -7,10 +7,21 @@
 //
 // I have defined them all here so that they are unique
 
-#define vtI2CMsgTypeTempInit 1
-#define vtI2CMsgTypeTempRead1 2
-#define vtI2CMsgTypeTempRead2 3
-#define vtI2CMsgTypeTempRead3 4
-// below is not actually an i2c message, but the value is reserved
-#define TempMsgTypeTimer 5 
+enum
+   {
+	//vtI2C
+	vtI2CMsgTypeTempInit, 
+	vtI2CMsgTypeTempRead1, 
+	vtI2CMsgTypeTempRead2, 
+	vtI2CMsgTypeTempRead3, 
+	TempMsgTypeTimer,
+
+	//OScope
+	oScopeRead1Msg,
+	oScopeRead2Msg,
+	oScopeTimerMsg,
+	
+	//void, just cause
+	voidMsg
+   };
 #endif
