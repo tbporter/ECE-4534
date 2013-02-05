@@ -7,6 +7,7 @@
 /* include files. */
 #include "vtUtilities.h"
 #include "g9_LCDOScopeTask.h"
+#include "lcdTask.h"
 #include "myTimers.h"
 
 /* **************************************************************** */
@@ -101,10 +102,10 @@ void startTimerForTemperature(vtTempStruct *vtTempdata) {
 //
 // how often the timer that sends messages to the LCD task should run
 // Set the task up to run every 30 ms
-#define lcdOSCOPE_RATE_BASE	( ( portTickType ) 30 / portTICK_RATE_MS)
+#define lcdOSCOPE_RATE_BASE	( ( portTickType ) 1000 / portTICK_RATE_MS)
 
 // Callback function that is called by the LCDTimer
-//   Sends a message to the queue that is read by the LCD Task
+//   Sends a message to the queue that is read by the LCD OScope Task
 void lcdOScopeTimerCallback(xTimerHandle pxTimer)
 {
 	if (pxTimer == NULL) {

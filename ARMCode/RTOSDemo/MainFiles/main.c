@@ -261,6 +261,8 @@ int main( void )
 	#elif USE_G9_OSCOPE == 1
 		//Start OScopeTask
 		startLcdOScopeTask(&vtOScopeData,mainLCD_TASK_PRIORITY);
+		//Start Timer for redrawing the OScope
+		startTimerForLCDOScope(&vtOScopeData);
 		//startOScopeTask(&oScopeData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,&vtOScopeData);
 		//vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,&vtI2C0,&oScopeData);
 	#endif

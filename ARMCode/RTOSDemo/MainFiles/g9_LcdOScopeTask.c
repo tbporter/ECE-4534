@@ -25,6 +25,9 @@
 #define lcdSTACK_SIZE		(baseStack*configMINIMAL_STACK_SIZE)
 #endif
 
+// Display fake wave until data is received
+#define USE_FAKE_WAVE 0
+
 // definitions and data structures that are private to this file
 // Length of the queue to this task
 #define vtLCDQLen 10
@@ -36,9 +39,11 @@
 #define OScope_BORDER 20
 //OScope Buffer Size
 #define OSCOPE_BUFF_SIZE (((192*OScope_XMAX)/10000)+1)
+//Max data value = 3V
+#define MAX_WAVE_VALUE 0x3FF
 // Colors
-#define FG_Color Orange
-#define BG_Color Maroon
+#define FG_COLOR Orange
+#define BG_COLOR Maroon
 // actual data structure that is sent in a message
 typedef struct __vtLCDMsg {
 	uint16_t msgType;
@@ -46,6 +51,10 @@ typedef struct __vtLCDMsg {
 	uint8_t buf[vtOScopeMaxLen+1]; // On the way in, message to be sent, on the way out, message received (if any)
 } vtLCDMsg;
 // end of defs
+
+//Variables for OScope data stored in circular buffer
+static int nOScopeBuf[OSCOPE_BUFF_SIZE];
+static int nBufStart;
 
 /* definition for the LCD task. */
 static portTASK_FUNCTION_PROTO( vLCDUpdateTask, pvParameters );
@@ -89,7 +98,7 @@ portBASE_TYPE SendLCDOScopeTimerMsg(lcdOScopeStruct *lcdData,portTickType ticksE
 	}
 	vtLCDMsg lcdBuffer;
 	lcdBuffer.length = sizeof(ticksElapsed);
-	if (lcdBuffer.length > vtLCDMaxLen) {
+	if (lcdBuffer.length > vtOScopeMaxLen) {
 		// no room for this message
 		VT_HANDLE_FATAL_ERROR(lcdBuffer.length);
 	}
@@ -102,7 +111,7 @@ void DrawLCDAxes(){
 	int x=OScope_BORDER;
 	int y=OScope_BORDER;
 	
-	for( y=OScope_BORDER; y<(220-OScope_BORDER-OScope_DY); y++ ){
+	for( y=OScope_BORDER; y<(240-2*OScope_BORDER-OScope_DY); y++ ){
 		GLCD_PutPixel(x,y);
 		if( (y-OScope_BORDER)%(((220-2*OScope_BORDER-OScope_DY)*1000)/OScope_YMAX) == 0 ){
 			GLCD_PutPixel(x-1,y);
@@ -133,15 +142,30 @@ void DrawLCDAxes(){
 void RenderWaveForm() {
 	//Clear the render portion of the screen
 	int startX = OScope_BORDER+1;
-	int endX = 320-OScope_BORDER;
-	int startY = OScope_BORDER+1;
-	int endY = 240-OScope_BORDER;
-	GLCD_ClearWindow(startX,startY,endX,endY);
+	int endX = 320-OScope_BORDER-OScope_DX;
+	int startY = OScope_BORDER;
+	int endY = 240-2*OScope_BORDER-OScope_DY-1;
+	GLCD_ClearWindow(startX,startY,endX,endY,BG_COLOR);
+	GLCD_SetTextColor(FG_COLOR);
+	GLCD_WindowMax();
 	//Draw a wave to the screen
 		//Calculate timestep per pixel in render window
 	int renderWidth = endX-startX;
-	int divPerPixel = (OScope_XMAX/(1000*renderWidth))+1; // Time step per pixel
+	int indexPerPixel = OSCOPE_BUFF_SIZE/renderWidth; // Number of values recorded per pixel
 
+	int x;
+	int i=0;
+	for( x=startX; x<endX; x++ ){
+		double val = 1.0-(double)(nOScopeBuf[i])/(double)(MAX_WAVE_VALUE);
+		GLCD_PutPixel(x,(int)(val*(endY-startY))+ startY);
+		i+=indexPerPixel;
+		if(i>=OSCOPE_BUFF_SIZE){
+			printf("Waveform Buffer index out of bounds. Stop Drawing. x= %d\n",x);
+			break;
+		}
+	}
+
+	printf("%d %d %d %d [ %d %d %d %d ]\n",renderWidth,indexPerPixel,nOScopeBuf[0],MAX_WAVE_VALUE,startX,startY,endX,endY);
 }
 
 // Private routines used to unpack the message buffers
@@ -170,16 +194,10 @@ void copyMsgString(char *target,vtLCDMsg *lcdBuffer,int targetMaxLen)
 // End of private routines for message buffers
 
 static unsigned short hsl2rgb(float H,float S,float L);
-//Variables for OScope data stored in circular buffer
-static int nOScopeBuf[OSCOPE_BUFF_SIZE];
-static int nBufStart;
 
 // This is the actual task that is run
 static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 {
-	unsigned short screenColor = 0;
-	unsigned short tscr;
-
 	vtLCDMsg msgBuffer;
 	lcdOScopeStruct *lcdPtr = (lcdOScopeStruct *) pvParameters;
 
@@ -207,12 +225,17 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 
 	/* Initialize the LCD and set the initial colors */
 	GLCD_Init();
-	tscr = Orange; // may be reset in the LCDMsgTypeTimer code below
-	screenColor = Maroon; // may be reset in the LCDMsgTypeTimer code below
-	GLCD_SetTextColor(tscr);
-	GLCD_SetBackColor(screenColor);
-	GLCD_Clear(screenColor);
+	GLCD_SetTextColor(FG_COLOR);
+	GLCD_SetBackColor(BG_COLOR);
+	GLCD_Clear(BG_COLOR);
 	DrawLCDAxes();
+
+	#if USE_FAKE_WAVE == 1
+		int i = 0;
+		for( i=0; i<OSCOPE_BUFF_SIZE; i++ ){
+			nOScopeBuf[i] = 0x1FF;
+		}
+	#endif
 
 	// This task should never exit
 	for(;;)
@@ -241,11 +264,14 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 		switch(getMsgType(&msgBuffer)) {
 		case lcdOScopeData: {
 			//Store data and rotate buffer
+			#if USE_FAKE_WAVE == 0
 			nOScopeBuf[nBufStart++] = unpackWaveMsg(&msgBuffer);
 			nBufStart %= OSCOPE_BUFF_SIZE;
+			#endif
 			break;
 		}
 		case lcdOScopeTimer: {
+			RenderWaveForm();
 			break;
 		}
 		default: {
