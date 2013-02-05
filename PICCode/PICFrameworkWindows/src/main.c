@@ -195,7 +195,7 @@ void main(void) {
     // MTJ added second argument for OpenTimer1()
     OpenTimer1(TIMER_INT_ON & T1_SOURCE_FOSC_4 & T1_PS_1_8 & T1_16BIT_RW & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF,0x0);
 #else
-    OpenTimer1(TIMER_INT_ON & T1_16BIT_RW & T1_PS_1_8 & T1_SOURCE_INT & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF);
+    OpenTimer1(TIMER_INT_ON & T1_8BIT_RW & T1_PS_1_8 & T1_SOURCE_INT & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF);
 
 #endif
 
@@ -240,7 +240,6 @@ void main(void) {
     PIE1bits.ADIE = 1;
 
 
-
     // configure the hardware USART device
 #ifdef __USE18F26J50
     Open1USART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
@@ -277,7 +276,8 @@ void main(void) {
     // they can be equated with the tasks in your task diagram if you
     // structure them properly.
     while (1) {
-        int value;
+        char byte1;
+        char byte2;
         LATB = 0x00;
         
 
@@ -325,16 +325,18 @@ void main(void) {
                     switch (last_reg_recvd) {
                         case 0xaa:
                         {
-                            length = 2;
-                            msgbuffer[0] = value;
-                            msgbuffer[1] = 0xAA;
+                            length = 3;
+                            msgbuffer[0] = byte1;
+                            msgbuffer[1] = byte2;
+                            msgbuffer[2] = 0xAA;
                             break;
                         }
                         case 0xa8:
                         {
-                            length = 2;
-                            msgbuffer[0] = value >> 8;
-                            msgbuffer[1] = 0xA8;
+                            length = 3;
+                            msgbuffer[0] = byte2;
+                            msgbuffer[1] = byte1;
+                            msgbuffer[2] = 0xA8;
                             break;
                         }
                         case 0xa9:
@@ -377,7 +379,8 @@ void main(void) {
                 };
                 case MSGT_ADC_DATA:
                 {
-                    value = (msgbuffer[1] << 8) | msgbuffer[0];
+                    byte1 = msgbuffer[0];
+                    byte2 = msgbuffer[1];
                 };
                 default:
                 {
