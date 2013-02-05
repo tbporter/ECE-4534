@@ -8,6 +8,7 @@
 
 /* include files. */
 #include "GLCD.h"
+#include "I2CTaskMsgTypes.h"
 #include "vtUtilities.h"
 #include "g9_LCDOScopeTask.h"
 #include "string.h"
@@ -38,12 +39,6 @@
 // Colors
 #define FG_Color Orange
 #define BG_Color Maroon
-// a timer message -- not to be printed
-#define LCDMsgTypeTimer 1
-// a message to be printed
-#define LCDMsgTypePrint 2
-// a wave value to be displayed
-#define LCDMsgTypeWave 3
 // actual data structure that is sent in a message
 typedef struct __vtLCDMsg {
 	uint16_t msgType;
@@ -82,7 +77,7 @@ portBASE_TYPE SendLCDOScopeMsg(vtOScopeStruct *lcdData,uint16_t msgData,portTick
 	vtLCDMsg lcdBuffer;
 
 	lcdBuffer.length = sizeof(msgData);
-	lcdBuffer.msgType = LCDMsgTypeWave;
+	lcdBuffer.msgType = lcdOScopeData;
 	strncpy((char *)lcdBuffer.buf,(char*)&msgData,vtOScopeMaxLen);
 	return(xQueueSend(lcdData->inQ,(void *) (&lcdBuffer),ticksToBlock));
 }
@@ -148,7 +143,6 @@ static unsigned short hsl2rgb(float H,float S,float L);
 //Variables for OScope data stored in circular buffer
 static int nOScopeBuf[OSCOPE_BUFF_SIZE];
 static int nBufStart;
-static int nBufEnd;
 
 // This is the actual task that is run
 static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
@@ -215,9 +209,10 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 
 		// Take a different action depending on the type of the message that we received
 		switch(getMsgType(&msgBuffer)) {
-		case LCDMsgTypeWave: {
-			int point = unpackWaveMsg(&msgBuffer);
-			break;
+		case lcdOScopeData: {
+			//Store data and rotate buffer
+			nOScopeBuf[nBufStart++] = unpackWaveMsg(&msgBuffer);
+			nBufStart %= OSCOPE_BUFF_SIZE;
 		}
 		default: {
 			// In this configuration, we are only expecting to receive timer messages

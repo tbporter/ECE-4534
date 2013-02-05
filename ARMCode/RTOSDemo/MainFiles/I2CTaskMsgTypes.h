@@ -21,6 +21,14 @@ enum
 	oScopeRead2Msg,
 	oScopeTimerMsg,
 	
+	// LCD_Task
+	LCDMsgTypeTimer,
+	LCDMsgTypePrint,
+
+	//LCD OScope Task
+	lcdOScopeData,
+	lcdOScopeTimer,
+
 	//void, just cause
 	voidMsg
    };

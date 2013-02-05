@@ -393,10 +393,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>55</ColumnNumber>
+      <ColumnNumber>83</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>74</TopLine>
-      <CurrentLine>86</CurrentLine>
+      <TopLine>67</TopLine>
+      <CurrentLine>76</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_LcdOScopeTask.c</PathWithFileName>
       <FilenameWithoutPath>g9_LcdOScopeTask.c</FilenameWithoutPath>
@@ -973,7 +973,7 @@
   <AlienFiles>
     <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MainFiles\g9_LCDOScopeTask.h</PathWithFilename>
     <TopLine>1</TopLine>
-    <CurrentLine>1</CurrentLine>
+    <CurrentLine>20</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1022,6 +1022,32 @@
     </WindowPosition>
   </AlienFiles>
 
+  <AlienFiles>
+    <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MainFiles\lcdTask.h</PathWithFilename>
+    <TopLine>1</TopLine>
+    <CurrentLine>20</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
   <MDIGroups>
     <Orientation>1</Orientation>
     <ActiveMDIGroup>0</ActiveMDIGroup>
@@ -1031,9 +1057,9 @@
       <Documents>
         <Doc>
           <Name>.\MainFiles/g9_LcdOScopeTask.c</Name>
-          <ColumnNumber>24</ColumnNumber>
-          <TopLine>31</TopLine>
-          <CurrentLine>51</CurrentLine>
+          <ColumnNumber>83</ColumnNumber>
+          <TopLine>67</TopLine>
+          <CurrentLine>76</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\MainFiles/main.c</Name>
@@ -1043,9 +1069,9 @@
         </Doc>
         <Doc>
           <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_LCDOSCOPETASK.H</Name>
-          <ColumnNumber>73</ColumnNumber>
+          <ColumnNumber>16</ColumnNumber>
           <TopLine>1</TopLine>
-          <CurrentLine>1</CurrentLine>
+          <CurrentLine>20</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\MainFiles/myTimers.c</Name>
@@ -1064,6 +1090,12 @@
           <ColumnNumber>0</ColumnNumber>
           <TopLine>37</TopLine>
           <CurrentLine>37</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\LCDTASK.H</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>20</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

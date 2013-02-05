@@ -45,6 +45,6 @@ void DrawLCDAxes();
 /* ********************************************************************* */
 
 
-void LCDTimerCallback(xTimerHandle);
+void LCDOScopeTimerCallback(xTimerHandle);
 
 #endif

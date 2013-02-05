@@ -309,10 +309,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>51</ColumnNumber>
+      <ColumnNumber>47</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>228</TopLine>
-      <CurrentLine>249</CurrentLine>
+      <TopLine>186</TopLine>
+      <CurrentLine>204</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -325,8 +325,8 @@
       <Focus>0</Focus>
       <ColumnNumber>30</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>73</TopLine>
-      <CurrentLine>78</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/i2cTemp.c</PathWithFileName>
       <FilenameWithoutPath>i2cTemp.c</FilenameWithoutPath>
@@ -393,10 +393,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>17</ColumnNumber>
+      <ColumnNumber>55</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>169</TopLine>
-      <CurrentLine>177</CurrentLine>
+      <TopLine>74</TopLine>
+      <CurrentLine>86</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_LcdOScopeTask.c</PathWithFileName>
       <FilenameWithoutPath>g9_LcdOScopeTask.c</FilenameWithoutPath>
@@ -407,10 +407,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>17</ColumnNumber>
+      <ColumnNumber>1</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>12</CurrentLine>
+      <TopLine>73</TopLine>
+      <CurrentLine>93</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/LCDtask.c</PathWithFileName>
       <FilenameWithoutPath>LCDtask.c</FilenameWithoutPath>
@@ -850,8 +850,8 @@
       <Focus>0</Focus>
       <ColumnNumber>70</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../vtCode/vtLCD/GLCD_SPI_LPC1700.c</PathWithFileName>
       <FilenameWithoutPath>GLCD_SPI_LPC1700.c</FilenameWithoutPath>
@@ -962,8 +962,8 @@
       <Focus>0</Focus>
       <ColumnNumber>53</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>9</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../vtCode/vtI2C/vtI2C.c</PathWithFileName>
       <FilenameWithoutPath>vtI2C.c</FilenameWithoutPath>
@@ -972,8 +972,34 @@
 
   <AlienFiles>
     <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MainFiles\g9_LCDOScopeTask.h</PathWithFilename>
-    <TopLine>17</TopLine>
-    <CurrentLine>31</CurrentLine>
+    <TopLine>1</TopLine>
+    <CurrentLine>1</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\vtCode\vtUtilities.h</PathWithFilename>
+    <TopLine>37</TopLine>
+    <CurrentLine>37</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1001,31 +1027,43 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>1</ActiveTab>
+      <ActiveTab>0</ActiveTab>
       <Documents>
         <Doc>
           <Name>.\MainFiles/g9_LcdOScopeTask.c</Name>
-          <ColumnNumber>17</ColumnNumber>
-          <TopLine>169</TopLine>
-          <CurrentLine>177</CurrentLine>
+          <ColumnNumber>24</ColumnNumber>
+          <TopLine>31</TopLine>
+          <CurrentLine>51</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\MainFiles/main.c</Name>
-          <ColumnNumber>18</ColumnNumber>
+          <ColumnNumber>47</ColumnNumber>
           <TopLine>186</TopLine>
-          <CurrentLine>200</CurrentLine>
+          <CurrentLine>204</CurrentLine>
         </Doc>
         <Doc>
           <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_LCDOSCOPETASK.H</Name>
-          <ColumnNumber>29</ColumnNumber>
-          <TopLine>17</TopLine>
-          <CurrentLine>31</CurrentLine>
+          <ColumnNumber>73</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>1</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\MainFiles/myTimers.c</Name>
           <ColumnNumber>38</ColumnNumber>
           <TopLine>27</TopLine>
           <CurrentLine>27</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>.\MainFiles/LCDtask.c</Name>
+          <ColumnNumber>1</ColumnNumber>
+          <TopLine>73</TopLine>
+          <CurrentLine>93</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\VTCODE\VTUTILITIES.H</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>37</TopLine>
+          <CurrentLine>37</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>
