@@ -9,7 +9,7 @@
 /* include files. */
 #include "GLCD.h"
 #include "vtUtilities.h"
-#include "g9_LCDOScopeTask.h"
+#include "lcdTask.h"
 #include "string.h"
 
 // I have set this to a larger stack size because of (a) using printf() and (b) the depth of function calls

@@ -1,7 +1,7 @@
 #ifndef I2CTEMP_TASK_H
 #define I2CTEMP_TASK_H
 #include "vtI2C.h"
-#include "g9_LCDOScopeTask.h"
+#include "lcdTask.h"
 // Structure used to pass parameters to the task
 // Do not touch...
 typedef struct __TempStruct {

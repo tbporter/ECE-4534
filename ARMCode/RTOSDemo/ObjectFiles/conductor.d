@@ -39,6 +39,6 @@ ObjectFiles/conductor.o: MainFiles/conductor.c \
  C:/Keil/ARM/INC/NXP/LPC17xx/lpc17xx.h ../vtCode/vtI2C/vtI2C.h \
  ../NXPDrivers/include/lpc17xx_i2c.h ../NXPDrivers/include/lpc_types.h \
  ../FreeRTOS/Source/include/projDefs.h MainFiles/i2cTemp.h \
- MainFiles/g9_LCDOScopeTask.h ../FreeRTOS/Source/include/queue.h \
+ MainFiles/lcdTask.h ../FreeRTOS/Source/include/queue.h \
  ../FreeRTOS/Source/include/timers.h MainFiles/I2CTaskMsgTypes.h \
  MainFiles/conductor.h

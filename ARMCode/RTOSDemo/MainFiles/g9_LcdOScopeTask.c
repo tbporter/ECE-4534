@@ -27,14 +27,14 @@
 // definitions and data structures that are private to this file
 // Length of the queue to this task
 #define vtLCDQLen 10
-//OScope Buffer SIze
-#define OSCOPE_BUFF_SIZE 653
 // OScope Axis Scales
 #define OScope_YMAX 3000 //mV
 #define OScope_XMAX 34000 //uS
 #define OScope_DX 0
 #define OScope_DY 5
 #define OScope_BORDER 20
+//OScope Buffer Size
+#define OSCOPE_BUFF_SIZE (((192*OScope_XMAX)/10000)+1)
 // Colors
 #define FG_Color Orange
 #define BG_Color Maroon
@@ -46,9 +46,9 @@
 #define LCDMsgTypeWave 3
 // actual data structure that is sent in a message
 typedef struct __vtLCDMsg {
-	uint8_t msgType;
+	uint16_t msgType;
 	uint8_t	length;	 // Length of the message to be printed
-	uint8_t buf[vtLCDMaxLen+1]; // On the way in, message to be sent, on the way out, message received (if any)
+	uint8_t buf[vtOScopeMaxLen+1]; // On the way in, message to be sent, on the way out, message received (if any)
 } vtLCDMsg;
 // end of defs
 
@@ -57,7 +57,7 @@ static portTASK_FUNCTION_PROTO( vLCDUpdateTask, pvParameters );
 
 /*-----------------------------------------------------------*/
 
-void StartLCDTask(vtLCDStruct *ptr, unsigned portBASE_TYPE uxPriority)
+void StartOScopeTask(vtOScopeStruct *ptr, unsigned portBASE_TYPE uxPriority)
 {
 	if (ptr == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
@@ -74,36 +74,16 @@ void StartLCDTask(vtLCDStruct *ptr, unsigned portBASE_TYPE uxPriority)
 	}
 }
 
-portBASE_TYPE SendLCDTimerMsg(vtLCDStruct *lcdData,portTickType ticksElapsed,portTickType ticksToBlock)
-{
-	if (lcdData == NULL) {
-		VT_HANDLE_FATAL_ERROR(0);
-	}
-	vtLCDMsg lcdBuffer;
-	lcdBuffer.length = sizeof(ticksElapsed);
-	if (lcdBuffer.length > vtLCDMaxLen) {
-		// no room for this message
-		VT_HANDLE_FATAL_ERROR(lcdBuffer.length);
-	}
-	memcpy(lcdBuffer.buf,(char *)&ticksElapsed,sizeof(ticksElapsed));
-	lcdBuffer.msgType = LCDMsgTypeTimer;
-	return(xQueueSend(lcdData->inQ,(void *) (&lcdBuffer),ticksToBlock));
-}
-
-portBASE_TYPE SendLCDPrintMsg(vtLCDStruct *lcdData,int length,char *pString,portTickType ticksToBlock)
+portBASE_TYPE SendLCDOScopeMsg(vtOScopeStruct *lcdData,uint16_t msgData,portTickType ticksToBlock)
 {
 	if (lcdData == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
 	vtLCDMsg lcdBuffer;
 
-	if (length > vtLCDMaxLen) {
-		// no room for this message
-		VT_HANDLE_FATAL_ERROR(lcdBuffer.length);
-	}
-	lcdBuffer.length = strnlen(pString,vtLCDMaxLen);
-	lcdBuffer.msgType = LCDMsgTypePrint;
-	strncpy((char *)lcdBuffer.buf,pString,vtLCDMaxLen);
+	lcdBuffer.length = sizeof(msgData);
+	lcdBuffer.msgType = LCDMsgTypeWave;
+	strncpy((char *)lcdBuffer.buf,(char*)&msgData,vtOScopeMaxLen);
 	return(xQueueSend(lcdData->inQ,(void *) (&lcdBuffer),ticksToBlock));
 }
 
@@ -141,10 +121,10 @@ void DrawLCDAxes(){
 
 // Private routines used to unpack the message buffers
 //   I do not want to access the message buffer data structures outside of these routines
-portTickType unpackTimerMsg(vtLCDMsg *lcdBuffer)
+int unpackWaveMsg(vtLCDMsg* lcdBuffer)
 {
-	portTickType *ptr = (portTickType *) lcdBuffer->buf;
-	return(*ptr);
+	int* ptr =(int*) lcdBuffer->buf;
+	return (*ptr);
 }
 
 int getMsgType(vtLCDMsg *lcdBuffer)
@@ -164,43 +144,20 @@ void copyMsgString(char *target,vtLCDMsg *lcdBuffer,int targetMaxLen)
 
 // End of private routines for message buffers
 
-// If LCD_EXAMPLE_OP=0, then accept messages that may be timer or print requests and respond accordingly
-// If LCD_EXAMPLE_OP=1, then do a rotating ARM bitmap display
-#define LCD_EXAMPLE_OP 0
-#if LCD_EXAMPLE_OP==1
-// This include the file with the definition of the ARM bitmap
-#include "ARM_Ani_16bpp.c"
-#endif
-
 static unsigned short hsl2rgb(float H,float S,float L);
-
-#if LCD_EXAMPLE_OP==0
-// Buffer in which to store the memory read from the LCD
-	#define MAX_RADIUS 15
-	#define BUF_LEN (((MAX_RADIUS*2)+1)*((MAX_RADIUS*2)+1))
-	static unsigned short int buffer[BUF_LEN];
-#endif
+//Variables for OScope data stored in circular buffer
+static int nOScopeBuf[OSCOPE_BUFF_SIZE];
+static int nBufStart;
+static int nBufEnd;
 
 // This is the actual task that is run
 static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 {
-	#if LCD_EXAMPLE_OP==0
 	unsigned short screenColor = 0;
 	unsigned short tscr;
-	unsigned char curLine;
-	unsigned timerCount = 0;
-	int xoffset = 0, yoffset = 0;
-	unsigned int xmin=0, xmax=0, ymin=0, ymax=0;
-	unsigned int x, y;
-	int i, j;
-	float hue=0, sat=0.2, light=0.2;
-	#elif LCD_EXAMPLE_OP==1
-	unsigned char picIndex = 0;
-	#else
-	Bad definition
-	#endif
+
 	vtLCDMsg msgBuffer;
-	vtLCDStruct *lcdPtr = (vtLCDStruct *) pvParameters;
+	vtOScopeStruct *lcdPtr = (vtOScopeStruct *) pvParameters;
 
 	#ifdef INSPECT_STACK
 	// This is meant as an example that you can re-use in your own tasks
@@ -232,10 +189,7 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 	GLCD_SetBackColor(screenColor);
 	GLCD_Clear(screenColor);
 	DrawLCDAxes();
-	curLine = 5;
 
-	//Variables for OScope data stored in circular buffer
-	int nOScopeBuf[OSCOPE_BUFF_SIZE];
 	// This task should never exit
 	for(;;)
 	{	
@@ -249,7 +203,7 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 		}
 		#endif
 
-		#if LCD_EXAMPLE_OP==0
+		
 		// Wait for a message
 		if (xQueueReceive(lcdPtr->inQ,(void *) &msgBuffer,portMAX_DELAY) != pdTRUE) {
 			VT_HANDLE_FATAL_ERROR(0);
@@ -261,33 +215,8 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 
 		// Take a different action depending on the type of the message that we received
 		switch(getMsgType(&msgBuffer)) {
-		case LCDMsgTypePrint: {
-			// This will result in the text printing in the last five lines of the screen
-			char   lineBuffer[lcdCHAR_IN_LINE+1];
-			copyMsgString(lineBuffer,&msgBuffer,lcdCHAR_IN_LINE);
-			// clear the line
-			GLCD_ClearLn(curLine,1);
-			// show the text
-			GLCD_DisplayString(curLine,0,1,(unsigned char *)lineBuffer);
-			curLine++;
-			if (curLine == lcdNUM_LINES) {
-				curLine = 5;
-			}
-			break;
-		}
-		case LCDMsgTypeTimer: {
-			// Note: if I cared how long the timer update was I would call my routine
-			//    unpackTimerMsg() which would unpack the message and get that value
-			// Each timer update will cause a circle to be drawn on the top half of the screen
-			//   as explained below
-			timerCount++;
-			if (timerCount >= 40) {	  
-				// every so often, we reset timer count and start again
-				// This isn't for any important reason, it is just to for this example code to do "stuff"
-				timerCount = 0;
-			}
-			break;
-		case LCDMsgTypeWave:
+		case LCDMsgTypeWave: {
+			int point = unpackWaveMsg(&msgBuffer);
 			break;
 		}
 		default: {
@@ -306,25 +235,7 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 		//   this "raw" port write is not blocking.  That means it can overrun the capability of the system to record
 		//   the trace events if you go too quickly; that won't hurt anything or change the program execution and
 		//   you can tell if it happens because the "View->Trace->Records" window will show there was an overrun.
-		//vtITMu16(vtITMPortLCD,screenColor);
-
-		#elif 	LCD_EXAMPLE_OP==1
-		// In this alternate version, we just keep redrawing a series of bitmaps as
-		//   we receive timer messages
-		// Wait for a message
-		if (xQueueReceive(lcdPtr->inQ,(void *) &msgBuffer,portMAX_DELAY) != pdTRUE) {
-			VT_HANDLE_FATAL_ERROR(0);
-		}
-		if (getMsgType(&msgBuffer) != LCDMsgTypeTimer) {
-			// In this configuration, we are only expecting to receive timer messages
-			VT_HANDLE_FATAL_ERROR(getMsgType(&msgBuffer));
-		}
-  		/* go through a  bitmap that is really a series of bitmaps */
-		picIndex = (picIndex + 1) % 9;
-		GLCD_Bmp(99,99,120,45,(unsigned char *) &ARM_Ani_16bpp[picIndex*(120*45*2)]);
-		#else
-		Bad setting
-		#endif	
+		//vtITMu16(vtITMPortLCD,screenColor);	
 	}
 }
 
