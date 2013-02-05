@@ -125,6 +125,12 @@ void InterruptHandlerLow() {
         PIR1bits.TMR1IF = 0; //clear interrupt flag
         timer1_int_handler();
     }
+    // check to see if we have an interrupt on the ADC
+    if (PIR1bits.ADIF) {
+        PIR1bits.ADIF = 0; //clear interrupt flag
+        adc_int_handler();
+    }
+
 
     // check to see if we have an interrupt on USART RX
     if (PIR1bits.RCIF) {

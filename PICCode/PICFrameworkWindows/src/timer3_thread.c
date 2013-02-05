@@ -1,10 +1,10 @@
 #include "maindefs.h"
 #include <stdio.h>
 #include "messages.h"
-#include "timer1_thread.h"
+#include "timer3_thread.h"
 #include "my_adc.h"
 
-void init_timer1_lthread(timer1_thread_struct *tptr) {
+void init_timer3_lthread(timer3_thread_struct *tptr) {
 
 }
 
@@ -12,11 +12,11 @@ void init_timer1_lthread(timer1_thread_struct *tptr) {
 // It is not a "real" thread because there is only the single main thread
 // of execution on the PIC because we are not using an RTOS.
 
-int value;
+int reading;
 
-int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
-    readADC(&value);
-    msgbuffer[1] = value >> 8;
-    msgbuffer[0] = value & 0xFF;
+int timer3_lthread(timer3_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
+    readADC(&reading);
+    msgbuffer[1] = reading >> 8;
+    msgbuffer[0] = reading & 0xFF;
 
 }

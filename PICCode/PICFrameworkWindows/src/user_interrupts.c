@@ -47,3 +47,18 @@ void timer1_int_handler() {
     // reset the timer
     WriteTimer1(0);
 }
+
+void timer3_int_handler() {
+     unsigned int result;
+
+     // read the timer and then send an empty message to main()
+#ifdef __USE18F2680
+    LATBbits.LATB3 = !LATBbits.LATB3;
+#endif
+
+    result = ReadTimer3();
+    ToMainLow_sendmsg(0, MSGT_TIMER3, (void *) 0);
+
+    // reset the timer
+    WriteTimer3(0);
+}
