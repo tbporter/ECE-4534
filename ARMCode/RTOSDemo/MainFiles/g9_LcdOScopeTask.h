@@ -11,9 +11,9 @@
 // Define a data structure that is used to pass and hold parameters for this task
 // Functions that use the API should not directly access this structure, but rather simply
 //   pass the structure as an argument to the API calls
-typedef struct __vtOScopeStruct {
+typedef struct __lcdOScopeStruct {
 	xQueueHandle inQ;					   	// Queue used to send messages from other tasks to the LCD task to print
-} vtOScopeStruct;
+} lcdOScopeStruct;
 
 // Structure used to define the messages that are sent to the LCD thread
 //   the maximum length of a message to be printed is the size of the "buf" field below
@@ -28,14 +28,15 @@ typedef struct __vtOScopeStruct {
 // Args:
 //   lcdData -- a pointer to a variable of type vtLCDStruct
 //   uxPriority -- the priority you want this task to be run at
-void StartOScopeTask(vtOScopeStruct *lcdData,unsigned portBASE_TYPE uxPriority);
+void startLcdOScopeTask(lcdOScopeStruct *lcdData,unsigned portBASE_TYPE uxPriority);
 // Loads a msg onto the queue
 // Args:
 //	 lcdData -- a pointer to a variable of type vtLCDStruct
 //   msgData -- The payload of the message
 //   tickToBlock -- how long the routine should wait if the queue is full
-portBASE_TYPE SendLCDOScopeMsg(vtOScopeStruct *lcdData,uint16_t msgData,portTickType ticksToBlock);
-// Loads a timer msg onto the queue
+
+portBASE_TYPE SendLCDOScopeMsg(lcdOScopeStruct *lcdData,uint16_t msgData,portTickType ticksToBlock);
+// Draw the axes of the OScope
 // Args:
 //	 lcdData -- a pointer to a variable of type vtLCDStruct
 //   ticksElapsed -- The number of ticks elapsed since last time

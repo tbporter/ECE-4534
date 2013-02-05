@@ -11,10 +11,16 @@ void timer0_int_handler(void);
 
 void timer1_int_handler(void);
 
+//timer 3 interrupt handler;
+void timer3_int_handler(void);
+
 // include the handler from my uart code
 #include "my_uart.h"
 
 // include the i2c interrupt handler definitions
 #include "my_i2c.h"
+
+//include the adc interrupt handler definitions
+#include "my_adc.h"
 
 #endif

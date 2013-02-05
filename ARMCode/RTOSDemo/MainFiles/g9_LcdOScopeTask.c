@@ -52,7 +52,7 @@ static portTASK_FUNCTION_PROTO( vLCDUpdateTask, pvParameters );
 
 /*-----------------------------------------------------------*/
 
-void StartOScopeTask(vtOScopeStruct *ptr, unsigned portBASE_TYPE uxPriority)
+void startLcdOScopeTask(lcdOScopeStruct *ptr, unsigned portBASE_TYPE uxPriority)
 {
 	if (ptr == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
@@ -69,7 +69,7 @@ void StartOScopeTask(vtOScopeStruct *ptr, unsigned portBASE_TYPE uxPriority)
 	}
 }
 
-portBASE_TYPE SendLCDOScopeMsg(vtOScopeStruct *lcdData,uint16_t msgData,portTickType ticksToBlock)
+portBASE_TYPE SendLCDOScopeMsg(lcdOScopeStruct *lcdData,uint16_t msgData,portTickType ticksToBlock)
 {
 	if (lcdData == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
@@ -181,7 +181,7 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 	unsigned short tscr;
 
 	vtLCDMsg msgBuffer;
-	vtOScopeStruct *lcdPtr = (vtOScopeStruct *) pvParameters;
+	lcdOScopeStruct *lcdPtr = (lcdOScopeStruct *) pvParameters;
 
 	#ifdef INSPECT_STACK
 	// This is meant as an example that you can re-use in your own tasks

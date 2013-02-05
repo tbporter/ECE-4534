@@ -17,6 +17,7 @@
 #include "messages.h"
 #include "my_uart.h"
 #include "my_i2c.h"
+#include "my_adc.h"
 #include "uart_thread.h"
 #include "timer1_thread.h"
 #include "timer0_thread.h"
@@ -124,34 +125,9 @@ Something is messed up
 #endif
 #endif
 
-/* ADC CODE */
-void initADC()
-{
-	OpenADC(ADC_FOSC_8 & ADC_RIGHT_JUST & ADC_0_TAD,
-		ADC_CH0 & ADC_CH1 &
-		ADC_INT_OFF & ADC_VREFPLUS_VDD &
-		ADC_VREFMINUS_VSS, 0b1011);
-	// Use SetChanADC(ADC_CH1) to look at sensor channel
-	SetChanADC(ADC_CH0);
-	//Delay10TCYx( 50 );
-}
 
-void readADC(int *value)
-{
-	ConvertADC(); // Start conversion
-	while( BusyADC() ); // Wait for ADC conversion
-	(*value) = ReadADC(); // Read result and put in temp
-	//Delay1KTCYx(1);  // wait a bit...
-}
-
-void stopADC()
-{
-	CloseADC(); // Disable A/D converter
-}
-/* END ADC CODE */
 
 void main(void) {
-    int value;
     char c;
     signed char length;
     unsigned char msgtype;
@@ -182,6 +158,9 @@ void main(void) {
 #endif
 #endif
 
+    //initialize the ADC
+    initADC();
+
     // initialize my uart recv handling code
     init_uart_recv(&uc);
 
@@ -194,6 +173,7 @@ void main(void) {
     // initialize message queues before enabling any interrupts
     init_queues();
 
+    
 #ifndef __USE18F26J50
     // set direction for PORTB to output
     TRISB = 0x0;
@@ -215,7 +195,8 @@ void main(void) {
     // MTJ added second argument for OpenTimer1()
     OpenTimer1(TIMER_INT_ON & T1_SOURCE_FOSC_4 & T1_PS_1_8 & T1_16BIT_RW & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF,0x0);
 #else
-    OpenTimer1(TIMER_INT_ON & T1_PS_1_8 & T1_16BIT_RW & T1_SOURCE_INT & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF);
+    OpenTimer1(TIMER_INT_ON & T1_16BIT_RW & T1_PS_1_8 & T1_SOURCE_INT & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF);
+
 #endif
 
     // Decide on the priority of the enabled peripheral interrupts
@@ -226,6 +207,9 @@ void main(void) {
     IPR1bits.RCIP = 0;
     // I2C interrupt
     IPR1bits.SSPIP = 1;
+    // ADC interrupt priority
+    IPR1bits.ADIP = 0;
+
 
     // configure the hardware i2c device as a slave (0x9E -> 0x4F) or (0x9A -> 0x4D)
 #if 1
@@ -250,6 +234,12 @@ void main(void) {
 
     // must specifically enable the I2C interrupts
     PIE1bits.SSPIE = 1;
+    //enable timer 1 interrupts
+    PIE1bits.TMR1IE = 1;
+    //Enable A/D Interrupts
+    PIE1bits.ADIE = 1;
+
+
 
     // configure the hardware USART device
 #ifdef __USE18F26J50
@@ -276,10 +266,9 @@ void main(void) {
     // It is also slow and is blocking, so it will perturb your code's operation
     // Here is how it looks: printf("Hello\r\n");
 
-    initADC();
     LATB = 0x3F;
-    Delay10KTCYx(50);
-    LATB = 0x00;
+    LATB = 0x0;
+    //Delay10KTCYx(50);
 
 
     // loop forever
@@ -288,23 +277,10 @@ void main(void) {
     // they can be equated with the tasks in your task diagram if you
     // structure them properly.
     while (1) {
+        int value;
+        LATB = 0x00;
+        
 
-        readADC(&value);
-        // Map the 10 bit value to an LED display
-        if(value<0x08F)
-                LATB = 0x00;
-        else if (value<0x100)
-                LATB = 0x01;
-        else if (value<0x180)
-                LATB = 0x03;
-        else if (value<0x200)
-                LATB = 0x07;
-        else if (value<0x280)
-                LATB = 0x0F;
-        else if (value<0x300)
-                LATB = 0x1F;
-        else
-                LATB = 0x3F;
 
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into
@@ -398,6 +374,10 @@ void main(void) {
                 {
                     uart_lthread(&uthread_data, msgtype, length, msgbuffer);
                     break;
+                };
+                case MSGT_ADC_DATA:
+                {
+                    value = (msgbuffer[1] << 8) | msgbuffer[0];
                 };
                 default:
                 {

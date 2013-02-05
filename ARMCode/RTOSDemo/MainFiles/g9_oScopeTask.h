@@ -1,11 +1,11 @@
 #ifndef G9_OSCOPETASK_H
 #define G9_OSCOPETASK_H
 #include "vtI2C.h"
-#include "lcdTask.h"
+#include "g9_LcdOscopeTask.h"
 
 typedef struct __oScopeStruct {
 	vtI2CStruct *dev;
-	vtLCDStruct *lcdData;
+	lcdOScopeStruct *lcdData;
 	xQueueHandle inQ;
 } oScopeStruct;
 
@@ -19,7 +19,7 @@ typedef struct __oScopeStruct {
 //   uxPriority -- the priority you want this task to be run at
 //   i2c: pointer to the data structure for an i2c task
 //   lcd: pointer to the data structure for an LCD task (may be NULL)
-void startOScopeTask(oScopeStruct *oScopeData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,vtLCDStruct *lcd);
+void startOScopeTask(oScopeStruct *oScopeData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,lcdOScopeStruct *lcd);
 //
 // Send a timer message to the OScope task
 // Args:

@@ -12,7 +12,7 @@
 /* include files. */
 #include "vtUtilities.h"
 #include "vtI2C.h"
-#include "LCDtask.h"
+#include "g9_LcdOScopeTask.h"
 #include "g9_oScopeTask.h"
 #include "I2CTaskMsgTypes.h"
 
@@ -36,7 +36,7 @@ static portTASK_FUNCTION_PROTO( oScopeUpdateTask, pvParameters );
 
 /*-----------------------------------------------------------*/
 // Public API
-void startOScopeTask(oScopeStruct *params,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,vtLCDStruct *lcd)
+void startOScopeTask(oScopeStruct *params,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,lcdOScopeStruct *lcd)
 {
 	// Create the queue that will be used to talk to this task
 	if ((params->inQ = xQueueCreate(oScopeQLen,sizeof(oScopeMsg))) == NULL) {
@@ -118,7 +118,7 @@ static portTASK_FUNCTION( oScopeUpdateTask, pvParameters )
 	// Get the I2C device pointer
 	vtI2CStruct *devPtr = param->dev;
 	// Get the LCD information pointer
-	vtLCDStruct *lcdData = param->lcdData;
+	lcdOScopeStruct *lcdData = param->lcdData;
 	
 	// Buffer for receiving messages
 	oScopeMsg msgBuffer;
@@ -146,21 +146,13 @@ static portTASK_FUNCTION( oScopeUpdateTask, pvParameters )
 		switch(getMsgType(&msgBuffer)) {
 		case oScopeTimerMsg: {
 			if(1){
-				// Read in the values from the temperature sensor
-				// We have three transactions on i2c to read the full temperature 
-				//   we send all three requests to the I2C thread (via a Queue) -- responses come back through the conductor thread
-				// Temperature read -- use a convenient routine defined above
 				if (vtI2CEnQ(devPtr,oScopeRead1Msg,0x4F,sizeof(i2cCmdReadByte1),i2cCmdReadByte1,2) != pdTRUE) {
 					VT_HANDLE_FATAL_ERROR(0);
 				}
-				// Read in the read counter
+				
 				if (vtI2CEnQ(devPtr,oScopeRead2Msg,0x4F,sizeof(i2cCmdReadByte2),i2cCmdReadByte2,1) != pdTRUE) {
 					VT_HANDLE_FATAL_ERROR(0);
 				}
-				// Read in the slope;
-				/*if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempRead3,0x4F,sizeof(i2cCmdReadSlope),i2cCmdReadSlope,1) != pdTRUE) {
-					VT_HANDLE_FATAL_ERROR(0);
-				}*/
 			} else {
 				// just ignore timer messages until initialization is complete
 			} 
@@ -182,9 +174,9 @@ static portTASK_FUNCTION( oScopeUpdateTask, pvParameters )
 				currentState = fsmRead1;
 				rcvByte[1] = getValue(&msgBuffer);
 				uint16_t msgData = (rcvByte[0])|(rcvByte[1]<<8);
-				//if (sendLCDOScopeMsg(lcdData,msgData,portMAX_DELAY) != pdTRUE) {
-				//	VT_HANDLE_FATAL_ERROR(0);
-				//}
+				if (SendLCDOScopeMsg(lcdData,msgData,portMAX_DELAY) != pdTRUE) {
+					VT_HANDLE_FATAL_ERROR(0);
+				}
 			} else {
 				// unexpectedly received this message
 				VT_HANDLE_FATAL_ERROR(0);
