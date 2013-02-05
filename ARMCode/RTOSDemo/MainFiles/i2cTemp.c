@@ -202,7 +202,7 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 			if (currentState == fsmStateTempRead1) {
 				currentState = fsmStateTempRead2;
 				byte1 = getValue(&msgBuffer);
-				printf("I don't like your attitude %d,%d\n",msgBuffer.buf[0],msgBuffer.buf[1]);
+				//printf("I don't like your attitude %d,%d\n",msgBuffer.buf[0],msgBuffer.buf[1]);
 			} else {
 				// unexpectedly received this message
 				VT_HANDLE_FATAL_ERROR(0);

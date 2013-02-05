@@ -40,4 +40,5 @@ ObjectFiles/i2ctemp.o: MainFiles/i2cTemp.c \
  ../NXPDrivers/include/lpc17xx_i2c.h ../NXPDrivers/include/lpc_types.h \
  ../FreeRTOS/Source/include/projDefs.h MainFiles/g9_LCDOScopeTask.h \
  ../FreeRTOS/Source/include/queue.h ../FreeRTOS/Source/include/timers.h \
- MainFiles/i2cTemp.h MainFiles/lcdTask.h MainFiles/I2CTaskMsgTypes.h
+ MainFiles/i2cTemp.h MainFiles/g9_LcdOScopeTask.h \
+ MainFiles/I2CTaskMsgTypes.h
