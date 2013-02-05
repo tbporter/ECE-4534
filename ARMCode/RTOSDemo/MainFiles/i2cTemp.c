@@ -213,7 +213,8 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 			if (currentState == fsmStateTempRead2) {
 				currentState = fsmStateTempRead1;
 				byte2 = getValue(&msgBuffer);
-				int data = (byte2<<8)|byte1;
+				uint16_t data = (byte2<<8)|byte1;
+				SendLCDOScopeMsg(lcdData,data,portMAX_DELAY);
 			} else {
 				// unexpectedly received this message
 				VT_HANDLE_FATAL_ERROR(0);
