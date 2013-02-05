@@ -12,7 +12,7 @@
 /* include files. */
 #include "vtUtilities.h"
 #include "vtI2C.h"
-#include "g9_oScopeTask.h"
+#include "i2cTemp.h"
 #include "I2CTaskMsgTypes.h"
 #include "conductor.h"
 
@@ -36,12 +36,12 @@ static portTASK_FUNCTION_PROTO( vConductorUpdateTask, pvParameters );
 
 /*-----------------------------------------------------------*/
 // Public API
-void vStartConductorTask(vtConductorStruct *params,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,oScopeStruct *oScope)
+void vStartConductorTask(vtConductorStruct *params,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,vtTempStruct *temperature)
 {
 	/* Start the task */
 	portBASE_TYPE retval;
 	params->dev = i2c;
-	params->tempData = oScope;
+	params->tempData = temperature;
 	if ((retval = xTaskCreate( vConductorUpdateTask, ( signed char * ) "Conductor", conSTACK_SIZE, (void *) params, uxPriority, ( xTaskHandle * ) NULL )) != pdPASS) {
 		VT_HANDLE_FATAL_ERROR(retval);
 	}
@@ -61,7 +61,7 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 	// Get the I2C device pointer
 	vtI2CStruct *devPtr = param->dev;
 	// Get the LCD information pointer
-	oScopeStruct *oScopeData = param->tempData;
+	vtTempStruct *tempData = param->tempData;
 	uint8_t recvMsgType;
 
 	// Like all good tasks, this should never exit
@@ -77,15 +77,22 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 		//   other Q/tasks for other message types
 		// This isn't a state machine, it is just acting as a router for messages
 		switch(recvMsgType) {
-		case oScopeRead1Msg: {
-			sendOScopeValueMsg(oScopeData,recvMsgType,(*valPtr),portMAX_DELAY);
+		case vtI2CMsgTypeTempInit: {
+			SendTempValueMsg(tempData,recvMsgType,(*valPtr),portMAX_DELAY);
 			break;
 		}
-		case oScopeRead2Msg: {
-			sendOScopeValueMsg(oScopeData,recvMsgType,(*valPtr),portMAX_DELAY);
+		case vtI2CMsgTypeTempRead1: {
+			SendTempValueMsg(tempData,recvMsgType,(*valPtr),portMAX_DELAY);
 			break;
 		}
-
+		case vtI2CMsgTypeTempRead2: {
+			SendTempValueMsg(tempData,recvMsgType,(*valPtr),portMAX_DELAY);
+			break;
+		}
+		case vtI2CMsgTypeTempRead3: {
+			SendTempValueMsg(tempData,recvMsgType,(*valPtr),portMAX_DELAY);
+			break;
+		}
 		default: {
 			VT_HANDLE_FATAL_ERROR(recvMsgType);
 			break;

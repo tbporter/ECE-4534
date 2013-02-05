@@ -90,12 +90,12 @@ You should read the note above.
    unless the files are actually removed from the project */
 #define USE_FREERTOS_DEMO 0
 // Define whether or not to use my LCD task
-#define USE_MTJ_LCD 0
+#define USE_MTJ_LCD 1
 // Define whether or not to use the OScope task
 #define USE_G9_OSCOPE 1
 // Define whether to use my temperature sensor read task (the sensor is on the PIC v4 demo board, so if that isn't connected
 //   then this should be off
-#define USE_MTJ_V4Temp_Sensor 0
+#define USE_MTJ_V4Temp_Sensor 1
 // Define whether to use my USB task
 #define USE_MTJ_USE_USB 0
 
@@ -199,10 +199,10 @@ static vtConductorStruct conductorData;
 #if USE_MTJ_LCD == 1
 // data structure required for LCDtask API
 static vtLCDStruct vtLCDdata; 
-#elif USE_G9_OSCOPE == 1
+//#elif USE_G9_OSCOPE == 1
 // data structure required for LCDtask API
 static lcdOScopeStruct vtOScopeData;
-static oScopeStruct oScopeData; 
+//static oScopeStruct oScopeData; 
 #endif
 
 /*-----------------------------------------------------------*/
@@ -241,28 +241,32 @@ int main( void )
 
 	#if USE_MTJ_LCD == 1
 		// MTJ: My LCD demonstration task
-		StartLCDTask(&vtLCDdata,mainLCD_TASK_PRIORITY);
+		//StartLCDTask(&vtLCDdata,mainLCD_TASK_PRIORITY);
+		startLcdOScopeTask(&vtOScopeData,mainLCD_TASK_PRIORITY);
 		// LCD Task creates a queue to receive messages -- what it does with those messages will depend on how the task is configured (see LCDtask.c)
 		// Here we set up a timer that will send messages to the LCD task.  You don't have to have this timer for the LCD task, it is just showing
 		//  how to use a timer and how to send messages from that timer.
-		startTimerForLCD(&vtLCDdata);
+		//startTimerForLCD(&vtLCDdata);
 		#if USE_MTJ_V4Temp_Sensor == 1
 			if (vtI2CInit(&vtI2C0,0,mainI2CMONITOR_TASK_PRIORITY,100000) != vtI2CInitSuccess) {
 				VT_HANDLE_FATAL_ERROR(0);
 			}
 			#if USE_MTJ_LCD == 1
-				vStarti2cTempTask(&tempSensorData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,&vtLCDdata);
+				vStarti2cTempTask(&tempSensorData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,&vtOScopeData);
 			#else
 				vStarti2cTempTask(&tempSensorData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,NULL);
 			#endif
-			//startTimerForTemperature(&tempSensorData);
+			startTimerForTemperature(&tempSensorData);
 			vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,&vtI2C0,&tempSensorData);
 		#endif
 	#elif USE_G9_OSCOPE == 1
 		//Start OScopeTask
-		startLcdOScopeTask(&vtOScopeData,mainLCD_TASK_PRIORITY);
+		//startLcdOScopeTask(&vtOScopeData,mainLCD_TASK_PRIORITY);
+		printf("Starting oscope task\n");		
 		//startOScopeTask(&oScopeData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,&vtOScopeData);
-		//vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,&vtI2C0,&oScopeData);
+		startOScopeTask(&oScopeData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,NULL);
+		startTimerForTemperature(&oScopeData);
+		vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,&vtI2C0,&oScopeData);
 	#endif
 	
 

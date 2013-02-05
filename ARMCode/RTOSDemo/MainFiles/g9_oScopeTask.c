@@ -49,6 +49,7 @@ void startOScopeTask(oScopeStruct *params,unsigned portBASE_TYPE uxPriority, vtI
 	if ((retval = xTaskCreate( oScopeUpdateTask, ( signed char * ) "oScope", i2cSTACK_SIZE, (void *) params, uxPriority, ( xTaskHandle * ) NULL )) != pdPASS) {
 		VT_HANDLE_FATAL_ERROR(retval);
 	}
+	printf("oscope start\n");
 }
 
 portBASE_TYPE sendOScopeTimerMsg(oScopeStruct *oScopeData,portTickType ticksElapsed,portTickType ticksToBlock)
@@ -159,6 +160,7 @@ static portTASK_FUNCTION( oScopeUpdateTask, pvParameters )
 			break;
 		}
 		case oScopeRead1Msg: {
+			printf("Read1Msg:");
 			if (currentState == fsmRead1) {
 				currentState = fsmRead2;
 				rcvByte[0] = getValue(&msgBuffer);
@@ -169,6 +171,7 @@ static portTASK_FUNCTION( oScopeUpdateTask, pvParameters )
 			break;
 		}
 		case oScopeRead2Msg: {
+			printf("Read2Msg:");
 			if (currentState == fsmRead2) {
 				
 				currentState = fsmRead1;

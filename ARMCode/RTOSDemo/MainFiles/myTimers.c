@@ -6,7 +6,7 @@
 
 /* include files. */
 #include "vtUtilities.h"
-#include "g9_LCDOScopeTask.h"
+#include "LCDtask.h"
 #include "myTimers.h"
 
 /* **************************************************************** */

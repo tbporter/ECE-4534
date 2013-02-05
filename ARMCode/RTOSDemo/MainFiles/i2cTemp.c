@@ -44,7 +44,7 @@ static portTASK_FUNCTION_PROTO( vi2cTempUpdateTask, pvParameters );
 
 /*-----------------------------------------------------------*/
 // Public API
-void vStarti2cTempTask(vtTempStruct *params,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,vtLCDStruct *lcd)
+void vStarti2cTempTask(vtTempStruct *params,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,lcdOScopeStruct *lcd)
 {
 	// Create the queue that will be used to talk to this task
 	if ((params->inQ = xQueueCreate(vtTempQLen,sizeof(vtTempMsg))) == NULL) {
@@ -122,16 +122,18 @@ const uint8_t fsmStateTempRead3 = 4;
 // This is the actual task that is run
 static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 {
-	float temperature = 0.0;
-	float countPerC = 100.0, countRemain=0.0;
+	int byte1 = 0;
+	int byte2 = 0;
+	//float countPerC = 100.0, countRemain=0.0;
+
 	// Get the parameters
 	vtTempStruct *param = (vtTempStruct *) pvParameters;
 	// Get the I2C device pointer
 	vtI2CStruct *devPtr = param->dev;
 	// Get the LCD information pointer
-	vtLCDStruct *lcdData = param->lcdData;
+	lcdOScopeStruct *lcdData = param->lcdData;
 	// String buffer for printing
-	char lcdBuffer[vtLCDMaxLen+1];
+	char lcdBuffer[vtOScopeMaxLen+1];
 	// Buffer for receiving messages
 	vtTempMsg msgBuffer;
 	uint8_t currentState;
@@ -145,7 +147,7 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 	if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempInit,0x4F,sizeof(i2cCmdInit),i2cCmdInit,0) != pdTRUE) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
-	currentState = fsmStateInit1Sent;
+	currentState = vtI2CMsgTypeTempRead1;
 	// Like all good tasks, this should never exit
 	for(;;)
 	{
@@ -184,13 +186,13 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 					VT_HANDLE_FATAL_ERROR(0);
 				}
 				// Read in the read counter
-				if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempRead2,0x4F,sizeof(i2cCmdReadCnt),i2cCmdReadCnt,1) != pdTRUE) {
+				if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempRead2,0x4F,sizeof(i2cCmdReadCnt),i2cCmdReadCnt,2) != pdTRUE) {
 					VT_HANDLE_FATAL_ERROR(0);
 				}
 				// Read in the slope;
-				if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempRead3,0x4F,sizeof(i2cCmdReadSlope),i2cCmdReadSlope,1) != pdTRUE) {
-					VT_HANDLE_FATAL_ERROR(0);
-				}
+				//if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempRead3,0x4F,sizeof(i2cCmdReadSlope),i2cCmdReadSlope,1) != pdTRUE) {
+				//	VT_HANDLE_FATAL_ERROR(0);
+				//}
 			} else {
 				// just ignore timer messages until initialization is complete
 			} 
@@ -199,7 +201,8 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 		case vtI2CMsgTypeTempRead1: {
 			if (currentState == fsmStateTempRead1) {
 				currentState = fsmStateTempRead2;
-				temperature = getValue(&msgBuffer);
+				byte1 = getValue(&msgBuffer);
+				printf("I don't like your attitude %d,%d\n",msgBuffer.buf[0],msgBuffer.buf[1]);
 			} else {
 				// unexpectedly received this message
 				VT_HANDLE_FATAL_ERROR(0);
@@ -208,14 +211,16 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 		}
 		case vtI2CMsgTypeTempRead2: {
 			if (currentState == fsmStateTempRead2) {
-				currentState = fsmStateTempRead3;
-				countRemain = getValue(&msgBuffer);
+				currentState = fsmStateTempRead1;
+				byte2 = getValue(&msgBuffer);
+				int data = (byte2<<8)|byte1;
 			} else {
 				// unexpectedly received this message
 				VT_HANDLE_FATAL_ERROR(0);
 			}
 			break;
 		}
+		/*
 		case vtI2CMsgTypeTempRead3: {
 			if (currentState == fsmStateTempRead3) {
 				currentState = fsmStateTempRead1;
@@ -243,7 +248,7 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 				VT_HANDLE_FATAL_ERROR(0);
 			}
 			break;
-		}
+		}*/
 		default: {
 			VT_HANDLE_FATAL_ERROR(getMsgType(&msgBuffer));
 			break;
