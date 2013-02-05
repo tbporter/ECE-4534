@@ -82,6 +82,22 @@ portBASE_TYPE SendLCDOScopeMsg(vtOScopeStruct *lcdData,uint16_t msgData,portTick
 	return(xQueueSend(lcdData->inQ,(void *) (&lcdBuffer),ticksToBlock));
 }
 
+portBASE_TYPE SendLCDOScopeTimerMsg(lcdOScopeStruct *lcdData,portTickType ticksElapsed,portTickType ticksToBlock)
+{
+	if (lcdData == NULL) {
+		VT_HANDLE_FATAL_ERROR(0);
+	}
+	vtLCDMsg lcdBuffer;
+	lcdBuffer.length = sizeof(ticksElapsed);
+	if (lcdBuffer.length > vtLCDMaxLen) {
+		// no room for this message
+		VT_HANDLE_FATAL_ERROR(lcdBuffer.length);
+	}
+	memcpy(lcdBuffer.buf,(char *)&ticksElapsed,sizeof(ticksElapsed));
+	lcdBuffer.msgType = lcdOScopeTimer;
+	return(xQueueSend(lcdData->inQ,(void *) (&lcdBuffer),ticksToBlock));
+}
+
 void DrawLCDAxes(){
 	int x=OScope_BORDER;
 	int y=OScope_BORDER;
@@ -112,6 +128,20 @@ void DrawLCDAxes(){
 	GLCD_DisplayChar(9,10,1,'s');
 	
 		
+}
+
+void RenderWaveForm() {
+	//Clear the render portion of the screen
+	int startX = OScope_BORDER+1;
+	int endX = 320-OScope_BORDER;
+	int startY = OScope_BORDER+1;
+	int endY = 240-OScope_BORDER;
+	GLCD_ClearWindow(startX,startY,endX,endY);
+	//Draw a wave to the screen
+		//Calculate timestep per pixel in render window
+	int renderWidth = endX-startX;
+	int divPerPixel = (OScope_XMAX/(1000*renderWidth))+1; // Time step per pixel
+
 }
 
 // Private routines used to unpack the message buffers
@@ -213,6 +243,10 @@ static portTASK_FUNCTION( vLCDUpdateTask, pvParameters )
 			//Store data and rotate buffer
 			nOScopeBuf[nBufStart++] = unpackWaveMsg(&msgBuffer);
 			nBufStart %= OSCOPE_BUFF_SIZE;
+			break;
+		}
+		case lcdOScopeTimer: {
+			break;
 		}
 		default: {
 			// In this configuration, we are only expecting to receive timer messages

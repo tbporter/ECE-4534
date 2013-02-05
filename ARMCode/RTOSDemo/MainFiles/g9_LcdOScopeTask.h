@@ -35,16 +35,19 @@ void StartOScopeTask(vtOScopeStruct *lcdData,unsigned portBASE_TYPE uxPriority);
 //   msgData -- The payload of the message
 //   tickToBlock -- how long the routine should wait if the queue is full
 portBASE_TYPE SendLCDOScopeMsg(vtOScopeStruct *lcdData,uint16_t msgData,portTickType ticksToBlock);
-// Draw the axes of the OScope
+// Loads a timer msg onto the queue
 // Args:
 //	 lcdData -- a pointer to a variable of type vtLCDStruct
-//	 yMax -- Maximum value on the y-axis, in milliVolts
-//	 xMax -- Maximum value of the x-axis, in milliSeconds
+//   ticksElapsed -- The number of ticks elapsed since last time
 //   tickToBlock -- how long the routine should wait if the queue is full
+portBASE_TYPE SendLCDOScopeTimerMsg(lcdOScopeStruct *lcdData,portTickType ticksElapsed,portTickType ticksToBlock);
+// Draw the axes of the OScope
 void DrawLCDAxes();
+//Draws the waveform buffer onto the display
+void RenderWaveForm();
 /* ********************************************************************* */
 
 
-void LCDOScopeTimerCallback(xTimerHandle);
+void lcdOScopeTimerCallback(xTimerHandle);
 
 #endif
