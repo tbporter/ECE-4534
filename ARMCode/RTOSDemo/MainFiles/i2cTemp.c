@@ -235,8 +235,8 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 				sprintf(lcdBuffer,"T=%6.2fF (%6.2fC)",(32.0 + ((9.0/5.0)*temperature)),temperature);
 				#else
 				// we do not have full printf (so no %f) and therefore need to print out integers
-				printf("Temp %d F (%d C)\n",lrint(32.0 + ((9.0/5.0)*temperature)), lrint(temperature));
-				sprintf(lcdBuffer,"T=%d F (%d C)",lrint(32.0 + ((9.0/5.0)*temperature)),lrint(temperature));
+				printf("Temp %ld F (%ld C)\n",lrint(32.0 + ((9.0/5.0)*temperature)), lrint(temperature));
+				sprintf(lcdBuffer,"T=%ld F (%ld C)",lrint(32.0 + ((9.0/5.0)*temperature)),lrint(temperature));
 				#endif
 				if (lcdData != NULL) {
 					if (SendLCDPrintMsg(lcdData,strnlen(lcdBuffer,vtLCDMaxLen),lcdBuffer,portMAX_DELAY) != pdTRUE) {

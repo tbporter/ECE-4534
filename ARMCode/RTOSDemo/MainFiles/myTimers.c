@@ -6,7 +6,8 @@
 
 /* include files. */
 #include "vtUtilities.h"
-#include "LCDtask.h"
+#include "g9_LCDOScopeTask.h"
+#include "lcdTask.h"
 #include "myTimers.h"
 
 /* **************************************************************** */
@@ -92,6 +93,47 @@ void startTimerForTemperature(vtTempStruct *vtTempdata) {
 		VT_HANDLE_FATAL_ERROR(0);
 	} else {
 		if (xTimerStart(TempTimerHandle,0) != pdPASS) {
+			VT_HANDLE_FATAL_ERROR(0);
+		}
+	}
+}
+
+// Functions for the LCD OScope Task related timer
+//
+// how often the timer that sends messages to the LCD task should run
+// Set the task up to run every 30 ms
+#define lcdOSCOPE_RATE_BASE	( ( portTickType ) 1000 / portTICK_RATE_MS)
+
+// Callback function that is called by the LCDTimer
+//   Sends a message to the queue that is read by the LCD OScope Task
+void lcdOScopeTimerCallback(xTimerHandle pxTimer)
+{
+	if (pxTimer == NULL) {
+		VT_HANDLE_FATAL_ERROR(0);
+	} else {
+		// When setting up this timer, I put the pointer to the 
+		//   LCD structure as the "timer ID" so that I could access
+		//   that structure here -- which I need to do to get the 
+		//   address of the message queue to send to 
+		lcdOScopeStruct *ptr = (lcdOScopeStruct *) pvTimerGetTimerID(pxTimer);
+		// Make this non-blocking *but* be aware that if the queue is full, this routine
+		// will not care, so if you care, you need to check something
+		if (SendLCDOScopeTimerMsg(ptr,lcdOSCOPE_RATE_BASE,0) == errQUEUE_FULL) {
+			// Here is where you would do something if you wanted to handle the queue being full
+			VT_HANDLE_FATAL_ERROR(0);
+		}
+	}
+}
+
+void startTimerForLCDOScope(lcdOScopeStruct *lcdOScopeData) {
+	if (sizeof(long) != sizeof(lcdOScopeStruct *)) {
+		VT_HANDLE_FATAL_ERROR(0);
+	}
+	xTimerHandle lcdOScopeTimerHandle = xTimerCreate((const signed char *)"LCD OScope Timer",lcdOSCOPE_RATE_BASE,pdTRUE,(void *) lcdOScopeData,lcdOScopeTimerCallback);
+	if (lcdOScopeTimerHandle == NULL) {
+		VT_HANDLE_FATAL_ERROR(0);
+	} else {
+		if (xTimerStart(lcdOScopeTimerHandle,0) != pdPASS) {
 			VT_HANDLE_FATAL_ERROR(0);
 		}
 	}
