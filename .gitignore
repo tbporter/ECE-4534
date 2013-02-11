@@ -5,3 +5,4 @@
 *.elf
 *.bak
 ARMCode/RTOSDemo/ObjectFiles/
+*.ECE4534
