@@ -115,7 +115,7 @@
         <sRbox>1</sRbox>
         <tLdApp>1</tLdApp>
         <tGomain>1</tGomain>
-        <tRbreak>0</tRbreak>
+        <tRbreak>1</tRbreak>
         <tRwatch>1</tRwatch>
         <tRmem>1</tRmem>
         <tRfunc>0</tRfunc>
@@ -149,7 +149,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGDARM</Key>
-          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(105=-1,-1,-1,-1,0)(145=-1,-1,-1,-1,0)(148=-1,-1,-1,-1,0)(152=-1,-1,-1,-1,0)(150=-1,-1,-1,-1,0)(151=-1,-1,-1,-1,0)(106=-1,-1,-1,-1,0)(107=-1,-1,-1,-1,0)(155=-1,-1,-1,-1,0)(134=-1,-1,-1,-1,0)(156=-1,-1,-1,-1,0)(159=-1,-1,-1,-1,0)(160=-1,-1,-1,-1,0)(161=-1,-1,-1,-1,0)(162=-1,-1,-1,-1,0)(163=-1,-1,-1,-1,0)(175=-1,-1,-1,-1,0)(176=-1,-1,-1,-1,0)(178=-1,-1,-1,-1,0)(179=-1,-1,-1,-1,0)(180=-1,-1,-1,-1,0)(181=-1,-1,-1,-1,0)(131=-1,-1,-1,-1,0)(132=-1,-1,-1,-1,0)(125=-1,-1,-1,-1,0)(126=-1,-1,-1,-1,0)(133=-1,-1,-1,-1,0)(122=-1,-1,-1,-1,0)(146=-1,-1,-1,-1,0)(147=-1,-1,-1,-1,0)(136=-1,-1,-1,-1,0)(137=-1,-1,-1,-1,0)(138=-1,-1,-1,-1,0)(109=-1,-1,-1,-1,0)(110=-1,-1,-1,-1,0)(111=-1,-1,-1,-1,0)(112=-1,-1,-1,-1,0)(121=-1,-1,-1,-1,0)(117=-1,-1,-1,-1,0)(119=-1,-1,-1,-1,0)(182=-1,-1,-1,-1,0)(177=-1,-1,-1,-1,0)(120=-1,-1,-1,-1,0)(149=-1,-1,-1,-1,0)(144=-1,-1,-1,-1,0)</Name>
+          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)(1012=-1,-1,-1,-1,0)(350=-1,-1,-1,-1,0)(250=-1,-1,-1,-1,0)(270=-1,-1,-1,-1,0)(313=-1,-1,-1,-1,0)(291=-1,-1,-1,-1,0)(302=-1,-1,-1,-1,0)(110=-1,-1,-1,-1,0)(113=-1,-1,-1,-1,0)(320=-1,-1,-1,-1,0)(210=-1,-1,-1,-1,0)(330=135,60,506,673,0)(332=-1,-1,-1,-1,0)(333=-1,-1,-1,-1,0)(334=-1,-1,-1,-1,0)(335=-1,-1,-1,-1,0)(336=-1,-1,-1,-1,0)(345=-1,-1,-1,-1,0)(346=-1,-1,-1,-1,0)(381=-1,-1,-1,-1,0)(382=-1,-1,-1,-1,0)(383=-1,-1,-1,-1,0)(384=-1,-1,-1,-1,0)(197=-1,-1,-1,-1,0)(198=-1,-1,-1,-1,0)(191=-1,-1,-1,-1,0)(192=-1,-1,-1,-1,0)(199=-1,-1,-1,-1,0)(180=-1,-1,-1,-1,0)(261=203,238,509,655,0)(262=203,238,509,655,0)(231=323,173,818,572,0)(232=-1,-1,-1,-1,0)(233=-1,-1,-1,-1,0)(121=-1,-1,-1,-1,0)(122=-1,-1,-1,-1,0)(123=-1,-1,-1,-1,0)(124=-1,-1,-1,-1,0)(170=255,295,498,557,0)(142=-1,-1,-1,-1,0)(150=-1,-1,-1,-1,0)(400=225,201,738,673,0)(370=-1,-1,-1,-1,0)(160=-1,-1,-1,-1,0)(280=-1,-1,-1,-1,0)(240=-1,-1,-1,-1,0)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -223,7 +223,7 @@
 
   <Group>
     <GroupName>FreeRTOS</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -246,7 +246,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>17</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
@@ -274,7 +274,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>97</ColumnNumber>
+      <ColumnNumber>12</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
@@ -288,10 +288,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>49</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../FreeRTOS/Source/timers.c</PathWithFileName>
       <FilenameWithoutPath>timers.c</FilenameWithoutPath>
@@ -311,8 +311,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>419</TopLine>
-      <CurrentLine>423</CurrentLine>
+      <TopLine>207</TopLine>
+      <CurrentLine>211</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -323,10 +323,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>6</ColumnNumber>
+      <ColumnNumber>56</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>197</TopLine>
-      <CurrentLine>205</CurrentLine>
+      <TopLine>174</TopLine>
+      <CurrentLine>174</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/i2cTemp.c</PathWithFileName>
       <FilenameWithoutPath>i2cTemp.c</FilenameWithoutPath>
@@ -339,8 +339,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>103</TopLine>
-      <CurrentLine>110</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../vtCode/vtUtilities.c</PathWithFileName>
       <FilenameWithoutPath>vtUtilities.c</FilenameWithoutPath>
@@ -365,10 +365,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>49</ColumnNumber>
+      <ColumnNumber>52</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>56</TopLine>
-      <CurrentLine>64</CurrentLine>
+      <TopLine>79</TopLine>
+      <CurrentLine>79</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/myTimers.c</PathWithFileName>
       <FilenameWithoutPath>myTimers.c</FilenameWithoutPath>
@@ -379,10 +379,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>44</ColumnNumber>
+      <ColumnNumber>40</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>11</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/conductor.c</PathWithFileName>
       <FilenameWithoutPath>conductor.c</FilenameWithoutPath>
@@ -393,10 +393,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>31</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>32</TopLine>
-      <CurrentLine>41</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_LcdOScopeTask.c</PathWithFileName>
       <FilenameWithoutPath>g9_LcdOScopeTask.c</FilenameWithoutPath>
@@ -423,8 +423,8 @@
       <Focus>0</Focus>
       <ColumnNumber>20</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>110</TopLine>
-      <CurrentLine>110</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_oScopeTask.c</PathWithFileName>
       <FilenameWithoutPath>g9_oScopeTask.c</FilenameWithoutPath>
@@ -456,7 +456,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>33</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
@@ -862,10 +862,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>57</ColumnNumber>
+      <ColumnNumber>7</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>707</TopLine>
-      <CurrentLine>715</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../vtCode/vtLCD/GLCD_SPI_LPC1700.c</PathWithFileName>
       <FilenameWithoutPath>GLCD_SPI_LPC1700.c</FilenameWithoutPath>
@@ -974,10 +974,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>28</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>165</TopLine>
+      <CurrentLine>176</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../vtCode/vtI2C/vtI2C.c</PathWithFileName>
       <FilenameWithoutPath>vtI2C.c</FilenameWithoutPath>
@@ -985,61 +985,9 @@
   </Group>
 
   <AlienFiles>
-    <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_LCDOSCOPETASK.H</PathWithFilename>
-    <TopLine>35</TopLine>
-    <CurrentLine>43</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\MYTIMERS.H</PathWithFilename>
-    <TopLine>1</TopLine>
-    <CurrentLine>8</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_OSCOPETASK.H</PathWithFilename>
-    <TopLine>22</TopLine>
-    <CurrentLine>25</CurrentLine>
+    <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\vtCode\vtI2C\vtI2C.h</PathWithFilename>
+    <TopLine>47</TopLine>
+    <CurrentLine>47</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1070,64 +1018,40 @@
       <ActiveTab>4</ActiveTab>
       <Documents>
         <Doc>
-          <Name>.\MainFiles/myTimers.c</Name>
-          <ColumnNumber>49</ColumnNumber>
-          <TopLine>56</TopLine>
-          <CurrentLine>64</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\MainFiles/g9_oScopeTask.c</Name>
-          <ColumnNumber>20</ColumnNumber>
-          <TopLine>110</TopLine>
-          <CurrentLine>110</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>../vtCode/vtLCD/GLCD_SPI_LPC1700.c</Name>
-          <ColumnNumber>57</ColumnNumber>
-          <TopLine>707</TopLine>
-          <CurrentLine>715</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_OSCOPETASK.H</Name>
-          <ColumnNumber>21</ColumnNumber>
-          <TopLine>22</TopLine>
-          <CurrentLine>25</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\MainFiles/g9_LcdOScopeTask.c</Name>
-          <ColumnNumber>31</ColumnNumber>
-          <TopLine>32</TopLine>
-          <CurrentLine>41</CurrentLine>
-        </Doc>
-        <Doc>
           <Name>.\MainFiles/main.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>419</TopLine>
-          <CurrentLine>423</CurrentLine>
+          <ColumnNumber>13</ColumnNumber>
+          <TopLine>237</TopLine>
+          <CurrentLine>252</CurrentLine>
         </Doc>
         <Doc>
-          <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\MYTIMERS.H</Name>
-          <ColumnNumber>60</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>8</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>../vtCode/vtUtilities.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>103</TopLine>
-          <CurrentLine>110</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_LCDOSCOPETASK.H</Name>
-          <ColumnNumber>38</ColumnNumber>
-          <TopLine>35</TopLine>
-          <CurrentLine>43</CurrentLine>
+          <Name>.\MainFiles/myTimers.c</Name>
+          <ColumnNumber>52</ColumnNumber>
+          <TopLine>79</TopLine>
+          <CurrentLine>79</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\MainFiles/i2cTemp.c</Name>
-          <ColumnNumber>6</ColumnNumber>
-          <TopLine>197</TopLine>
-          <CurrentLine>205</CurrentLine>
+          <ColumnNumber>17</ColumnNumber>
+          <TopLine>25</TopLine>
+          <CurrentLine>25</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>.\MainFiles/conductor.c</Name>
+          <ColumnNumber>40</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>11</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>../vtCode/vtI2C/vtI2C.c</Name>
+          <ColumnNumber>43</ColumnNumber>
+          <TopLine>233</TopLine>
+          <CurrentLine>247</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\VTCODE\VTI2C\VTI2C.H</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>47</TopLine>
+          <CurrentLine>47</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

@@ -38,7 +38,7 @@
 #define OScope_DY 5
 #define OScope_BORDER 20
 //OScope Buffer Size
-#define OSCOPE_BUFF_SIZE (((155*OScope_XMAX)/10000)+1)
+#define OSCOPE_BUFF_SIZE (((192*OScope_XMAX)/10000)+1)
 //Max data value = 3V
 #define MAX_WAVE_VALUE 0x3FF
 // Colors
