@@ -12,6 +12,8 @@ int uart_lthread(uart_thread_struct *uptr, int msgtype, int length, unsigned cha
         // print the message (this assumes that the message
         // 		was a printable string)
         msgbuffer[length] = '\0'; // null-terminate the array as a string
+        putrsUSART(msgbuffer);
+        putrsUSART("\n");
         // Now we would do something with it
     }
 }

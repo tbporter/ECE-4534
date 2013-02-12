@@ -15,8 +15,9 @@ void init_timer1_lthread(timer1_thread_struct *tptr) {
 int value;
 
 int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
-    readADC(&value);
-    msgbuffer[1] = value >> 8;
-    msgbuffer[0] = value & 0xFF;
-
+    tptr->counter++;
+    if (tptr->counter == 312)
+    {
+        ToMainLow_sendmsg(0, MSGT_UART_DATA, (void *) 0);
+    }
 }

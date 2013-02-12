@@ -13,6 +13,7 @@
 #include <plib/i2c.h>
 #include <plib/timers.h>
 #endif
+#include "queue.h"
 #include "interrupts.h"
 #include "messages.h"
 #include "my_uart.h"
@@ -128,6 +129,7 @@ Something is messed up
 
 
 void main(void) {
+    Queue* uartRXQ;
     char c;
     signed char length;
     unsigned char msgtype;
@@ -267,7 +269,10 @@ void main(void) {
 
     LATB = 0x3F;
     LATB = 0x0;
-    //Delay10KTCYx(50);
+
+    // Set up UART Queue
+    createQueue(uartRXQ, 5);
+    
 
 
     // loop forever
@@ -306,6 +311,9 @@ void main(void) {
                     break;
                 };
                 case MSGT_I2C_DATA:
+                {
+
+                }
                 case MSGT_I2C_DBG:
                 {
                     // Here is where you could handle debugging, if you wanted
