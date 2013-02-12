@@ -1,7 +1,7 @@
 typedef struct __timer1_thread_struct {
 	// "persistent" data for this "lthread" would go here
 	// unsigned int msgcount;
-        unsigned int counter = 0;
+        unsigned int counter;
 } timer1_thread_struct;
 
 void init_timer1_lthread(timer1_thread_struct *);
