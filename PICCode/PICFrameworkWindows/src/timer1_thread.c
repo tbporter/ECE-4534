@@ -5,7 +5,7 @@
 #include "my_adc.h"
 
 void init_timer1_lthread(timer1_thread_struct *tptr) {
-
+    tptr->counter = 0;
 }
 
 // This is a "logical" thread that processes messages from TIMER1
@@ -15,8 +15,10 @@ void init_timer1_lthread(timer1_thread_struct *tptr) {
 int value;
 
 int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
-    readADC(&value);
-    msgbuffer[1] = value >> 8;
-    msgbuffer[0] = value & 0xFF;
-
+    tptr->counter++;
+    if (tptr->counter == 12)
+    {
+        tptr->counter = 0;
+        ToMainLow_sendmsg(0, MSGT_UART_DATA, (void *) 0);
+    }
 }

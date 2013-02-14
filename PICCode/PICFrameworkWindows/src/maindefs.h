@@ -37,6 +37,7 @@
 #define MSGT_MAIN1 20
 #define	MSGT_OVERRUN 30
 #define MSGT_UART_DATA 31
+#define MSGT_UART_RCV 32
 #define MSGT_I2C_DBG 41
 #define	MSGT_I2C_DATA 40
 #define MSGT_I2C_RQST 42

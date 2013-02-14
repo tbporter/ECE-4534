@@ -13,6 +13,7 @@
 #include <plib/i2c.h>
 #include <plib/timers.h>
 #endif
+#include "queue.h"
 #include "interrupts.h"
 #include "messages.h"
 #include "my_uart.h"
@@ -128,6 +129,7 @@ Something is messed up
 
 
 void main(void) {
+    Queue* uartRXQ;
     char c;
     signed char length;
     unsigned char msgtype;
@@ -195,7 +197,7 @@ void main(void) {
     // MTJ added second argument for OpenTimer1()
     OpenTimer1(TIMER_INT_ON & T1_SOURCE_FOSC_4 & T1_PS_1_8 & T1_16BIT_RW & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF,0x0);
 #else
-    OpenTimer1(TIMER_INT_ON & T1_8BIT_RW & T1_PS_1_8 & T1_SOURCE_INT & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF);
+    OpenTimer1(TIMER_INT_ON & T1_8BIT_RW & T1_PS_1_1 & T1_SOURCE_INT & T1_OSC1EN_OFF & T1_SYNC_EXT_OFF);
 
 #endif
 
@@ -267,7 +269,10 @@ void main(void) {
 
     LATB = 0x3F;
     LATB = 0x0;
-    //Delay10KTCYx(50);
+
+    // Set up UART Queue
+    createQueue(uartRXQ, 5);
+    
 
 
     // loop forever
@@ -279,7 +284,6 @@ void main(void) {
         char byte1;
         char byte2;
         LATB = 0x00;
-        
 
 
         // Call a routine that blocks until either on the incoming
@@ -306,6 +310,13 @@ void main(void) {
                     break;
                 };
                 case MSGT_I2C_DATA:
+                {
+                    for (i = 0; i < uartRXQ->size; i++)
+                    {
+                        msgbuffer[i] = readQueue(uartRXQ);
+                    }
+                    start_i2c_slave_reply(uartRXQ->size, msgbuffer);
+                }
                 case MSGT_I2C_DBG:
                 {
                     // Here is where you could handle debugging, if you wanted
@@ -374,9 +385,13 @@ void main(void) {
                 case MSGT_OVERRUN:
                 case MSGT_UART_DATA:
                 {
-                    uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+                    uart_lthread(&uthread_data, msgtype, length, msgbuffer, uartRXQ);
                     break;
                 };
+                case MSGT_UART_RCV:
+                {
+                    uart_lthread(&uthread_data, msgtype, length, msgbuffer, uartRXQ);
+                }
                 case MSGT_ADC_DATA:
                 {
                     byte1 = msgbuffer[0];

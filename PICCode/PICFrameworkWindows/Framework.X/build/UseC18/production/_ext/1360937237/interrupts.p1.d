@@ -6,5 +6,4 @@
 ../src/my_i2c.h  \
 ../src/maindefs.h  \
 ../src/messages.h  \
-../src/interrupts.h  \
-../src/my_adc.h 
+../src/interrupts.h 

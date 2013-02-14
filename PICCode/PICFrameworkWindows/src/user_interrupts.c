@@ -40,7 +40,6 @@ void timer1_int_handler() {
 #ifdef __USE18F2680
     LATBbits.LATB1 = !LATBbits.LATB1;
 #endif
-
     result = ReadTimer1();
     ToMainLow_sendmsg(0, MSGT_TIMER1, (void *) 0);
 

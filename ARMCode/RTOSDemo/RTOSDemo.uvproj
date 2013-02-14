@@ -605,11 +605,6 @@
               <FileType>1</FileType>
               <FilePath>../NXPDrivers/source/lpc17xx_ssp.c</FilePath>
             </File>
-            <File>
-              <FileName>lpc17xx_uart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>../NXPDrivers/source/lpc17xx_uart.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -619,16 +614,6 @@
               <FileName>vtI2C.c</FileName>
               <FileType>1</FileType>
               <FilePath>../vtCode/vtI2C/vtI2C.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>UART</GroupName>
-          <Files>
-            <File>
-              <FileName>g9_UART.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\MainFiles/g9_UART.c</FilePath>
             </File>
           </Files>
         </Group>
