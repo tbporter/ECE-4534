@@ -75,19 +75,22 @@ portBASE_TYPE SendTempTimerMsg(vtTempStruct *tempData,portTickType ticksElapsed,
 	return(xQueueSend(tempData->inQ,(void *) (&tempBuffer),ticksToBlock));
 }
 
-portBASE_TYPE SendTempValueMsg(vtTempStruct *tempData,uint8_t msgType,uint8_t value,portTickType ticksToBlock)
+portBASE_TYPE SendTempValueMsg(vtTempStruct *tempData,uint8_t msgType,uint8_t *value,portTickType ticksToBlock)
 {
 	vtTempMsg tempBuffer;
 
 	if (tempData == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
-	tempBuffer.length = sizeof(value);
+	//TODO: unhard code this shiz
+	tempBuffer.length = 2;
 	if (tempBuffer.length > vtTempMaxLen) {
 		// no room for this message
 		VT_HANDLE_FATAL_ERROR(tempBuffer.length);
 	}
-	memcpy(tempBuffer.buf,(char *)&value,sizeof(value));
+	//memcpy(tempBuffer.buf,&value,2);
+	tempBuffer.buf[0] = value[0];
+	tempBuffer.buf[1] = value[1];
 	tempBuffer.msgType = msgType;
 	return(xQueueSend(tempData->inQ,(void *) (&tempBuffer),ticksToBlock));
 }
@@ -186,9 +189,9 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 					VT_HANDLE_FATAL_ERROR(0);
 				}
 				// Read in the read counter
-				if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempRead2,0x4F,sizeof(i2cCmdReadCnt),i2cCmdReadCnt,2) != pdTRUE) {
+				/*if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempRead2,0x4F,sizeof(i2cCmdReadCnt),i2cCmdReadCnt,2) != pdTRUE) {
 					VT_HANDLE_FATAL_ERROR(0);
-				}
+				}*/
 				// Read in the slope;
 				//if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempRead3,0x4F,sizeof(i2cCmdReadSlope),i2cCmdReadSlope,1) != pdTRUE) {
 				//	VT_HANDLE_FATAL_ERROR(0);
@@ -200,9 +203,11 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 		}
 		case vtI2CMsgTypeTempRead1: {
 			if (currentState == fsmStateTempRead1) {
-				currentState = fsmStateTempRead2;
-				byte1 = getValue(&msgBuffer);
-				//printf("I don't like your attitude %d,%d\n",msgBuffer.buf[0],msgBuffer.buf[1]);
+				currentState = fsmStateTempRead1;
+				byte1 = msgBuffer.buf[0];
+				byte2 = msgBuffer.buf[1];
+				uint16_t data = (byte2<<8)|byte1;
+				SendLCDOScopeMsg(lcdData,data,portMAX_DELAY);
 			} else {
 				// unexpectedly received this message
 				VT_HANDLE_FATAL_ERROR(0);
@@ -221,35 +226,6 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 			}
 			break;
 		}
-		/*
-		case vtI2CMsgTypeTempRead3: {
-			if (currentState == fsmStateTempRead3) {
-				currentState = fsmStateTempRead1;
-				countPerC = getValue(&msgBuffer);
-
-				// Now have all of the values, so compute the temperature and send to the LCD Task
-				// Do the accurate temperature calculation
-				temperature += -0.25 + ((countPerC-countRemain)/countPerC);
-
-				#if PRINTF_VERSION == 1
-				printf("Temp %f F (%f C)\n",(32.0 + ((9.0/5.0)*temperature)), (temperature));
-				sprintf(lcdBuffer,"T=%6.2fF (%6.2fC)",(32.0 + ((9.0/5.0)*temperature)),temperature);
-				#else
-				// we do not have full printf (so no %f) and therefore need to print out integers
-				printf("Temp %ld F (%ld C)\n",lrint(32.0 + ((9.0/5.0)*temperature)), lrint(temperature));
-				sprintf(lcdBuffer,"T=%ld F (%ld C)",lrint(32.0 + ((9.0/5.0)*temperature)),lrint(temperature));
-				#endif
-				if (lcdData != NULL) {
-					if (SendLCDPrintMsg(lcdData,strnlen(lcdBuffer,vtLCDMaxLen),lcdBuffer,portMAX_DELAY) != pdTRUE) {
-						VT_HANDLE_FATAL_ERROR(0);
-					}
-				}
-			} else {
-				// unexpectedly received this message
-				VT_HANDLE_FATAL_ERROR(0);
-			}
-			break;
-		}*/
 		default: {
 			VT_HANDLE_FATAL_ERROR(getMsgType(&msgBuffer));
 			break;

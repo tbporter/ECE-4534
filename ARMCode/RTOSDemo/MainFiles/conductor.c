@@ -71,26 +71,26 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 		if (vtI2CDeQ(devPtr,vtI2CMLen,Buffer,&rxLen,&recvMsgType,&status) != pdTRUE) {
 			VT_HANDLE_FATAL_ERROR(0);
 		}
-
+		//printf("Im going to do a printf here: %d,%d\n",Buffer[0],Buffer[1]);
 		// Decide where to send the message 
 		//   This just shows going to one task/queue, but you could easily send to
 		//   other Q/tasks for other message types
 		// This isn't a state machine, it is just acting as a router for messages
 		switch(recvMsgType) {
 		case vtI2CMsgTypeTempInit: {
-			SendTempValueMsg(tempData,recvMsgType,(*valPtr),portMAX_DELAY);
+			SendTempValueMsg(tempData,recvMsgType,Buffer,portMAX_DELAY);
 			break;
 		}
 		case vtI2CMsgTypeTempRead1: {
-			SendTempValueMsg(tempData,recvMsgType,(*valPtr),portMAX_DELAY);
+			SendTempValueMsg(tempData,recvMsgType,Buffer,portMAX_DELAY);
 			break;
 		}
 		case vtI2CMsgTypeTempRead2: {
-			SendTempValueMsg(tempData,recvMsgType,(*valPtr),portMAX_DELAY);
+			SendTempValueMsg(tempData,recvMsgType,Buffer,portMAX_DELAY);
 			break;
 		}
 		case vtI2CMsgTypeTempRead3: {
-			SendTempValueMsg(tempData,recvMsgType,(*valPtr),portMAX_DELAY);
+			SendTempValueMsg(tempData,recvMsgType,Buffer,portMAX_DELAY);
 			break;
 		}
 		default: {

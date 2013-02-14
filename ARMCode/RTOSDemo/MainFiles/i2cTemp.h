@@ -39,5 +39,5 @@ portBASE_TYPE SendTempTimerMsg(vtTempStruct *tempData,portTickType ticksElapsed,
 //   ticksToBlock -- how long the routine should wait if the queue is full
 // Return:
 //   Result of the call to xQueueSend()
-portBASE_TYPE SendTempValueMsg(vtTempStruct *tempData,uint8_t msgType,uint8_t value,portTickType ticksToBlock);
+portBASE_TYPE SendTempValueMsg(vtTempStruct *tempData,uint8_t msgType,uint8_t *value,portTickType ticksToBlock);
 #endif
