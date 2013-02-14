@@ -7,5 +7,6 @@
 ../src/messages.h  \
 ../src/interrupts.h  \
 ../src/uart_thread.h  \
+../src/my_adc.h  \
 ../src/timer0_thread.h  \
 ../src/timer1_thread.h 

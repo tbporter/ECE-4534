@@ -1,6 +1,18 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[s S2088 `i 1 ]
-[n S2088 __timer0_thread_struct data ]
+"57 ../src/messages.h
+[v _ToMainLow_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
+"2042 C:\Program Files\Microchip\xc8\v1.12\include\plib\adc.h
+[v _OpenADC `(v ~T0 @X0 0 ef3`uc`uc`uc ]
+"2084
+[v _SetChanADC `(v ~T0 @X0 0 ef1`uc ]
+"2016
+[v _ConvertADC `(v ~T0 @X0 0 ef ]
+"2014
+[v _BusyADC `(uc ~T0 @X0 0 ef ]
+"2026
+[v _ReadADC `(i ~T0 @X0 0 ef ]
+"2018
+[v _CloseADC `(v ~T0 @X0 0 ef ]
 [; ;pic18f2680.h: 44: extern volatile unsigned char RXF6SIDH @ 0xD60;
 "46 C:\Program Files\Microchip\xc8\v1.12\include\pic18f2680.h
 [; ;pic18f2680.h: 46: asm("RXF6SIDH equ 0D60h");
@@ -14726,57 +14738,101 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 144: extern void _delay(unsigned long);
 [; ;pic18.h: 146: extern void _delaywdt(unsigned long);
 [; ;pic18.h: 148: extern void _delay3(unsigned char);
-[; ;stdarg.h: 7: typedef void * va_list[1];
-[; ;stdarg.h: 10: extern void * __va_start(void);
-[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
-[; ;stdio.h: 23: extern int errno;
-[; ;stdio.h: 54: struct __prbuf
-[; ;stdio.h: 55: {
-[; ;stdio.h: 56: char * ptr;
-[; ;stdio.h: 57: void (* func)(char);
-[; ;stdio.h: 58: };
-[; ;conio.h: 17: extern int errno;
-[; ;conio.h: 20: extern void init_uart(void);
-[; ;conio.h: 22: extern char getch(void);
-[; ;conio.h: 23: extern char getche(void);
-[; ;conio.h: 24: extern void putch(char);
-[; ;conio.h: 25: extern void ungetch(char);
-[; ;conio.h: 27: extern __bit kbhit(void);
-[; ;conio.h: 31: extern char * cgets(char *);
-[; ;conio.h: 32: extern void cputs(const char *);
-[; ;stdio.h: 99: extern int cprintf(char *, ...);
-[; ;stdio.h: 104: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-[; ;stdio.h: 194: extern char * gets(char *);
-[; ;stdio.h: 195: extern int puts(const char *);
-[; ;stdio.h: 196: extern int scanf(const char *, ...);
-[; ;stdio.h: 197: extern int sscanf(const char *, const char *, ...);
-[; ;stdio.h: 198: extern int vprintf(const char *, va_list);
-[; ;stdio.h: 199: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-[; ;stdio.h: 200: extern int vscanf(const char *, va_list ap);
-[; ;stdio.h: 201: extern int vsscanf(const char *, const char *, va_list);
-[; ;stdio.h: 205: extern int sprintf(char *, const char *, ...);
-[; ;stdio.h: 206: extern int printf(const char *, ...);
-[; ;timer0_thread.h: 1: typedef struct __timer0_thread_struct {
-[; ;timer0_thread.h: 3: int data;
-[; ;timer0_thread.h: 4: } timer0_thread_struct;
-[; ;timer0_thread.h: 6: int timer0_lthread(timer0_thread_struct *,int,int,unsigned char*);
-"9 ../src/timer0_thread.c
-[v _timer0_lthread `(i ~T0 @X0 1 ef4`*S2088`i`i`*uc ]
+[; ;messages.h: 10: typedef struct __msg {
+[; ;messages.h: 11: unsigned char full;
+[; ;messages.h: 12: unsigned char length;
+[; ;messages.h: 13: unsigned char msgtype;
+[; ;messages.h: 14: unsigned char data[10];
+[; ;messages.h: 15: } msg;
+[; ;messages.h: 17: typedef struct __msg_queue {
+[; ;messages.h: 18: msg queue[4];
+[; ;messages.h: 19: unsigned char cur_write_ind;
+[; ;messages.h: 20: unsigned char cur_read_ind;
+[; ;messages.h: 21: } msg_queue;
+[; ;messages.h: 43: void init_queues(void);
+[; ;messages.h: 47: void SleepIfOkay(void);
+[; ;messages.h: 51: void block_on_To_msgqueues(void);
+[; ;messages.h: 57: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 58: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 64: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 65: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 71: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 72: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 78: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 79: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;my_adc.h: 7: void adc_int_handler(void);
+[; ;my_adc.h: 9: void initADC(void);
+[; ;my_adc.h: 11: void readADC(int *value);
+[; ;my_adc.h: 13: void stopADC(void);
+"5 ../src/my_adc.c
+[v _adc_int_handler `(v ~T0 @X0 1 ef ]
 {
-[; ;timer0_thread.c: 9: int timer0_lthread(timer0_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
-[e :U _timer0_lthread ]
-[v _tptr `*S2088 ~T0 @X0 1 r1 ]
-[v _msgtype `i ~T0 @X0 1 r2 ]
-[v _length `i ~T0 @X0 1 r3 ]
-[v _msgbuffer `*uc ~T0 @X0 1 r4 ]
+[; ;my_adc.c: 5: void adc_int_handler(){
+[e :U _adc_int_handler ]
 [f ]
-"10
-[v _msgval `*ui ~T0 @X0 1 a ]
-[; ;timer0_thread.c: 10: unsigned int *msgval;
-[; ;timer0_thread.c: 12: msgval = (unsigned int *) msgbuffer;
-"12
-[e = _msgval -> _msgbuffer `*ui ]
-[; ;timer0_thread.c: 16: }
-"16
+[; ;my_adc.c: 6: ToMainLow_sendmsg(0, 50, (void *) 0);
+"6
+[e ( _ToMainLow_sendmsg (3 , , -> -> 0 `i `uc -> -> 50 `i `uc -> -> 0 `i `*v ]
+[; ;my_adc.c: 7: }
+"7
 [e :UE 2089 ]
+}
+"10
+[v _initADC `(v ~T0 @X0 1 ef ]
+{
+[; ;my_adc.c: 9: void initADC()
+[; ;my_adc.c: 10: {
+[e :U _initADC ]
+[f ]
+[; ;my_adc.c: 11: OpenADC(0b11011111 & 0b11111111 & 0b11110011,
+[; ;my_adc.c: 12: 0b10000111 & 0b10001111 &
+[; ;my_adc.c: 13: 0b11111111 & 0b11111110 &
+[; ;my_adc.c: 14: 0b11111101, 0b1011);
+"14
+[e ( _OpenADC (3 , , -> & & -> 223 `i -> 255 `i -> 243 `i `uc -> & & & & -> 135 `i -> 143 `i -> 255 `i -> 254 `i -> 253 `i `uc -> -> 11 `i `uc ]
+[; ;my_adc.c: 16: SetChanADC(0b10000111);
+"16
+[e ( _SetChanADC (1 -> -> 135 `i `uc ]
+[; ;my_adc.c: 18: }
+"18
+[e :UE 2090 ]
+}
+"21
+[v _readADC `(v ~T0 @X0 1 ef1`*i ]
+{
+[; ;my_adc.c: 20: void readADC(int *value)
+[; ;my_adc.c: 21: {
+[e :U _readADC ]
+[v _value `*i ~T0 @X0 1 r1 ]
+[f ]
+[; ;my_adc.c: 22: ConvertADC();
+"22
+[e ( _ConvertADC ..  ]
+[; ;my_adc.c: 23: while( BusyADC() );
+"23
+[e $U 2092  ]
+[e :U 2093 ]
+[e :U 2092 ]
+[e $ != -> ( _BusyADC ..  `i -> -> -> 0 `i `uc `i 2093  ]
+[e :U 2094 ]
+[; ;my_adc.c: 24: (*value) = ReadADC();
+"24
+[e = *U _value ( _ReadADC ..  ]
+[; ;my_adc.c: 26: }
+"26
+[e :UE 2091 ]
+}
+"29
+[v _stopADC `(v ~T0 @X0 1 ef ]
+{
+[; ;my_adc.c: 28: void stopADC()
+[; ;my_adc.c: 29: {
+[e :U _stopADC ]
+[f ]
+[; ;my_adc.c: 30: CloseADC();
+"30
+[e ( _CloseADC ..  ]
+[; ;my_adc.c: 31: }
+"31
+[e :UE 2095 ]
 }
