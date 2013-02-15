@@ -374,6 +374,11 @@
               <FileType>1</FileType>
               <FilePath>.\MainFiles/g9_oScopeTask.c</FilePath>
             </File>
+            <File>
+              <FileName>g9_NavTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MainFiles/g9_NavTask.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

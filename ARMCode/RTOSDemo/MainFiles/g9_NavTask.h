@@ -10,9 +10,12 @@
 /* include files. */
 #include "vtUtilities.h"
 #include "vtI2C.h"
-#include "I2CTaskMsgTypes.h"
+#include "messages.h"
 
-//WIP - Just here to let everyone know I'm working on this section
+typedef struct __navStruct {
+	vtI2CStruct *dev;
+	xQueueHandle inQ;
+} navStruct;
 
 
 #endif

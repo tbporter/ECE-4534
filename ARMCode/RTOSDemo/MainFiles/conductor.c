@@ -13,7 +13,7 @@
 #include "vtUtilities.h"
 #include "vtI2C.h"
 #include "i2cTemp.h"
-#include "I2CTaskMsgTypes.h"
+#include "messages.h"
 #include "conductor.h"
 
 /* *********************************************** */

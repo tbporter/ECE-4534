@@ -31,9 +31,9 @@ ObjectFiles/g9_lcdoscopetask.o: MainFiles/g9_LcdOScopeTask.c \
  ../FreeRTOS/Source/portable/GCC/ARM_CM3/portmacro.h \
  ../FreeRTOS/Source/include/mpu_wrappers.h \
  ../FreeRTOS/Source/include/task.h ../FreeRTOS/Source/include/list.h \
- ../vtCode/vtLCD/GLCD.h MainFiles/I2CTaskMsgTypes.h \
- ../vtCode/vtUtilities.h ../NXPDrivers/include/lpc_types.h \
- C:/Keil/ARM/Inc/NXP/LPC17xx/lpc17xx.h MainFiles/g9_LCDOScopeTask.h \
- ../FreeRTOS/Source/include/queue.h ../FreeRTOS/Source/include/timers.h \
+ ../vtCode/vtLCD/GLCD.h ../../common/messages.h ../vtCode/vtUtilities.h \
+ ../NXPDrivers/include/lpc_types.h C:/Keil/ARM/Inc/NXP/LPC17xx/lpc17xx.h \
+ MainFiles/g9_LCDOScopeTask.h ../FreeRTOS/Source/include/queue.h \
+ ../FreeRTOS/Source/include/timers.h \
  c:\program\ files\ (x86)\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/string.h \
  c:\program\ files\ (x86)\codesourcery\sourcery\ g++\ lite\bin\../lib/gcc/arm-none-eabi/4.5.2/../../../../arm-none-eabi/include/sys/string.h
