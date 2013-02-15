@@ -49,7 +49,7 @@ void startOScopeTask(oScopeStruct *params,unsigned portBASE_TYPE uxPriority, vtI
 	if ((retval = xTaskCreate( oScopeUpdateTask, ( signed char * ) "oScope", i2cSTACK_SIZE, (void *) params, uxPriority, ( xTaskHandle * ) NULL )) != pdPASS) {
 		VT_HANDLE_FATAL_ERROR(retval);
 	}
-	printf("oscope start\n");
+	//printf("oscope start\n");
 }
 
 portBASE_TYPE sendOScopeTimerMsg(oScopeStruct *oScopeData,portTickType ticksElapsed,portTickType ticksToBlock)

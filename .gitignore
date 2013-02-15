@@ -6,3 +6,4 @@
 *.bak
 ARMCode/RTOSDemo/ObjectFiles/
 *.ECE4534
+*.GateKeeperX

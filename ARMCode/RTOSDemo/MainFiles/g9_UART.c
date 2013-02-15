@@ -132,7 +132,7 @@ int g9UARTInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE ta
 
 // A simple routine to use for filling out and sending a message to the UART thread
 //   You may want to make your own versions of these as they are not suited to all purposes
-portBASE_TYPE g9UARTEnQ(g9UARTStruct *dev,uint8_t msgType,uint8_t slvAddr,uint8_t txLen,const uint8_t *txBuf,uint8_t rxLen)
+portBASE_TYPE g9UARTEnQ(g9UARTStruct *dev,uint8_t msgType,uint8_t txLen,const uint8_t *txBuf,uint8_t rxLen)
 {
 	g9UARTMsg msgBuf;
 	int i;
@@ -217,7 +217,6 @@ static portTASK_FUNCTION( vUARTMonitorTask, pvParameters )
 		vtITMu8(g9ITMPortUARTMsg,msgBuffer.msgType);
 
 		// process the messsage and perform the UART transaction
-		transferMCfg.sl_addr7bit = msgBuffer.slvAddr;
 		transferMCfg.tx_data = msgBuffer.buf;
 		transferMCfg.tx_length = msgBuffer.txLen;
 		transferMCfg.rx_data = tmpRxBuf;
