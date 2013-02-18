@@ -13,7 +13,7 @@
 #include "messages.h"
 
 typedef struct __navStruct {
-	vtI2CStruct *dev; //Needed for sending messages out
+	vtI2CStruct *i2c; //Needed for sending messages out
 	xQueueHandle inQ; //Queue for incoming messages
 } navStruct;
 
@@ -24,7 +24,7 @@ typedef struct __navStruct {
 //   navData: Data structure used by the task
 //   uxPriority -- the priority you want this task to be run at
 //   i2c: pointer to the data structure for an i2c task
-void vStarti2cTempTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c);
+void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c);
 
 //Sends a message to the Navigation task
 //	msg -- a pointer to a variable of type g9Msg

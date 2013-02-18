@@ -36,21 +36,21 @@ void setMotorData(uint16_t* data, uint8_t left, uint8_t right){
 static portTASK_FUNCTION_PROTO( navigationUpdateTask, pvParameters );
 
 
-void vStarti2cTempTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c){
+void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c){
 	// Create the queue that will be used to talk to this task
 	if ((navData->inQ = xQueueCreate(NavQLen,navMAX_LEN)) == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
 	/* Start the task */
 	portBASE_TYPE retval;
-	navData->dev = i2c;
+	navData->i2c = i2c;
 	if ((retval = xTaskCreate( navigationUpdateTask, ( signed char * ) "Navi", navSTACK_SIZE, (void *) navData, uxPriority, ( xTaskHandle * ) NULL )) != pdPASS) {
 		VT_HANDLE_FATAL_ERROR(retval);
 	}
 }
 
 portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBlock){
-	if (msg == NULL) {
+	if (msg == NULL || nav == NULL ) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
 	int length = sizeof(&msg);
@@ -93,7 +93,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	// Get the parameters
 	navStruct *param = (navStruct *) pvParameters;
 	// Get the I2C device pointer
-	vtI2CStruct *devPtr = param->dev;
+	vtI2CStruct *i2cPtr = param->i2c;
 	// Buffer for receiving messages
 	g9Msg msgBuffer;
 

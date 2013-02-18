@@ -11,8 +11,6 @@
 
 /* include files. */
 #include "vtUtilities.h"
-#include "vtI2C.h"
-#include "i2cTemp.h"
 #include "messages.h"
 #include "conductor.h"
 
@@ -36,12 +34,14 @@ static portTASK_FUNCTION_PROTO( vConductorUpdateTask, pvParameters );
 
 /*-----------------------------------------------------------*/
 // Public API
-void vStartConductorTask(vtConductorStruct *params,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,vtTempStruct *temperature)
+void vStartConductorTask(vtConductorStruct* params,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,vtTempStruct *temperature,oScopeStruct* oScopeData,navStruct* navData)
 {
 	/* Start the task */
 	portBASE_TYPE retval;
-	params->dev = i2c;
+	params->i2c = i2c;
 	params->tempData = temperature;
+	params->oScopeData = oScopeData;
+	params->navData = navData;
 	if ((retval = xTaskCreate( vConductorUpdateTask, ( signed char * ) "Conductor", conSTACK_SIZE, (void *) params, uxPriority, ( xTaskHandle * ) NULL )) != pdPASS) {
 		VT_HANDLE_FATAL_ERROR(retval);
 	}
@@ -59,7 +59,7 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 	// Get the parameters
 	vtConductorStruct *param = (vtConductorStruct *) pvParameters;
 	// Get the I2C device pointer
-	vtI2CStruct *devPtr = param->dev;
+	vtI2CStruct *i2cPtr = param->i2c;
 	// Get the LCD information pointer
 	vtTempStruct *tempData = param->tempData;
 	uint8_t recvMsgType;
@@ -68,7 +68,7 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 	for(;;)
 	{
 		// Wait for a message from an I2C operation
-		if (vtI2CDeQ(devPtr,vtI2CMLen,Buffer,&rxLen,&recvMsgType,&status) != pdTRUE) {
+		if (vtI2CDeQ(i2cPtr,vtI2CMLen,Buffer,&rxLen,&recvMsgType,&status) != pdTRUE) {
 			VT_HANDLE_FATAL_ERROR(0);
 		}
 		//printf("Im going to do a printf here: %d,%d\n",Buffer[0],Buffer[1]);
