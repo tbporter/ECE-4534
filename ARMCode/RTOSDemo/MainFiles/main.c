@@ -89,15 +89,19 @@ You should read the note above.
 /* Define whether or not to start the standard FreeRTOS demo tasks (the code is still included in the project
    unless the files are actually removed from the project */
 #define USE_FREERTOS_DEMO 0
+// Define whether or not to use I2C
+#define USE_I2C 1
 // Define whether or not to use my LCD task
 #define USE_MTJ_LCD 1
 // Define whether or not to use the OScope task
-#define USE_G9_OSCOPE 1
+#define USE_G9_OSCOPE 0
 // Define whether to use my temperature sensor read task (the sensor is on the PIC v4 demo board, so if that isn't connected
 //   then this should be off
-#define USE_MTJ_V4Temp_Sensor 1
+#define USE_MTJ_V4Temp_Sensor 0
 // Define whether to use my USB task
 #define USE_MTJ_USE_USB 0
+// Define whether to use the navigation task
+#define USE_NAV_TASK 1
 
 #if USE_FREERTOS_DEMO == 1
 /* Demo app includes. */
@@ -137,18 +141,19 @@ tick hook). */
 #define mainCHECK_DELAY						( ( portTickType ) 5000 / portTICK_RATE_MS )
 
 /* Task priorities. */
-#define mainQUEUE_POLL_PRIORITY				( tskIDLE_PRIORITY)
-#define mainSEM_TEST_PRIORITY				( tskIDLE_PRIORITY)
-#define mainBLOCK_Q_PRIORITY				( tskIDLE_PRIORITY)
-#define mainUIP_TASK_PRIORITY				( tskIDLE_PRIORITY)
-#define mainINTEGER_TASK_PRIORITY           ( tskIDLE_PRIORITY)
-#define mainGEN_QUEUE_TASK_PRIORITY			( tskIDLE_PRIORITY)
-#define mainFLASH_TASK_PRIORITY				( tskIDLE_PRIORITY)
-#define mainLCD_TASK_PRIORITY				( tskIDLE_PRIORITY)
-#define mainI2CTEMP_TASK_PRIORITY			( tskIDLE_PRIORITY)
-#define mainUSB_TASK_PRIORITY				( tskIDLE_PRIORITY)
-#define mainI2CMONITOR_TASK_PRIORITY		( tskIDLE_PRIORITY)
-#define mainCONDUCTOR_TASK_PRIORITY			( tskIDLE_PRIORITY)
+#define mainQUEUE_POLL_PRIORITY				( tskIDLE_PRIORITY )
+#define mainSEM_TEST_PRIORITY					( tskIDLE_PRIORITY )
+#define mainBLOCK_Q_PRIORITY					( tskIDLE_PRIORITY )
+#define mainUIP_TASK_PRIORITY					( tskIDLE_PRIORITY )
+#define mainINTEGER_TASK_PRIORITY     ( tskIDLE_PRIORITY )
+#define mainGEN_QUEUE_TASK_PRIORITY		( tskIDLE_PRIORITY )
+#define mainFLASH_TASK_PRIORITY				( tskIDLE_PRIORITY )
+#define mainLCD_TASK_PRIORITY					( tskIDLE_PRIORITY )
+#define mainI2CTEMP_TASK_PRIORITY			( tskIDLE_PRIORITY )
+#define mainUSB_TASK_PRIORITY					( tskIDLE_PRIORITY )
+#define mainI2CMONITOR_TASK_PRIORITY	( tskIDLE_PRIORITY )
+#define mainCONDUCTOR_TASK_PRIORITY		( tskIDLE_PRIORITY )
+#define mainNAVIGATOR_TASK_PRIORITY		( tskIDLE_PRIORITY )
 
 /* The WEB server has a larger stack as it utilises stack hungry string
 handling library calls. */
@@ -191,10 +196,13 @@ static char *pcStatusMessage = mainPASS_STATUS_MESSAGE;
 // data structure required for one temperature sensor task
 static vtTempStruct tempSensorData;
 #endif
+
+#if USE_I2C == 1
 // data structure required for one I2C task
 static vtI2CStruct vtI2C0;
 // data structure required for conductor task
 static vtConductorStruct conductorData;
+#endif
 
 #if USE_MTJ_LCD == 1
 // data structure required for LCDtask API
@@ -239,6 +247,14 @@ int main( void )
     xTaskCreate( vuIP_Task, ( signed char * ) "uIP", mainBASIC_WEB_STACK_SIZE, ( void * ) NULL, mainUIP_TASK_PRIORITY, NULL );
 	#endif
 
+	#if USE_I2C == 1
+		if (vtI2CInit(&vtI2C0,0,mainI2CMONITOR_TASK_PRIORITY,100000) != vtI2CInitSuccess) {
+				VT_HANDLE_FATAL_ERROR(0);
+		}
+		vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,&vtI2C0,&oScopeData);
+	#endif
+
+
 	#if USE_MTJ_LCD == 1
 		// MTJ: My LCD demonstration task
 		//StartLCDTask(&vtLCDdata,mainLCD_TASK_PRIORITY);
@@ -249,16 +265,12 @@ int main( void )
 		//  how to use a timer and how to send messages from that timer.
 		//startTimerForLCD(&vtLCDdata);
 		#if USE_MTJ_V4Temp_Sensor == 1
-			if (vtI2CInit(&vtI2C0,0,mainI2CMONITOR_TASK_PRIORITY,100000) != vtI2CInitSuccess) {
-				VT_HANDLE_FATAL_ERROR(0);
-			}
 			#if USE_MTJ_LCD == 1
 				vStarti2cTempTask(&tempSensorData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,&vtOScopeData);
 			#else
 				vStarti2cTempTask(&tempSensorData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,NULL);
 			#endif
 			startTimerForTemperature(&tempSensorData);
-			vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,&vtI2C0,&tempSensorData);
 		#endif
 	#elif USE_G9_OSCOPE == 1
 		//Start OScopeTask
@@ -268,9 +280,7 @@ int main( void )
 		//startOScopeTask(&oScopeData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,&vtOScopeData);
 		startOScopeTask(&oScopeData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,NULL);
 		startTimerForTemperature(&oScopeData);
-		vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,&vtI2C0,&oScopeData);
-	#endif
-	
+	#endif	
 
     /* Create the USB task. MTJ: This routine has been modified from the original example (which is not a FreeRTOS standard demo) */
 	#if USE_MTJ_USE_USB == 1

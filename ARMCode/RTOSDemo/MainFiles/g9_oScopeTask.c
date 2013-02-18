@@ -14,7 +14,7 @@
 #include "vtI2C.h"
 #include "g9_LcdOScopeTask.h"
 #include "g9_oScopeTask.h"
-#include "I2CTaskMsgTypes.h"
+#include "messages.h"
 
 #define oScopeQLen 10
 
@@ -49,7 +49,7 @@ void startOScopeTask(oScopeStruct *params,unsigned portBASE_TYPE uxPriority, vtI
 	if ((retval = xTaskCreate( oScopeUpdateTask, ( signed char * ) "oScope", i2cSTACK_SIZE, (void *) params, uxPriority, ( xTaskHandle * ) NULL )) != pdPASS) {
 		VT_HANDLE_FATAL_ERROR(retval);
 	}
-	printf("oscope start\n");
+	//printf("oscope start\n");
 }
 
 portBASE_TYPE sendOScopeTimerMsg(oScopeStruct *oScopeData,portTickType ticksElapsed,portTickType ticksToBlock)
@@ -146,7 +146,7 @@ static portTASK_FUNCTION( oScopeUpdateTask, pvParameters )
 		// Now, based on the type of the message and the state, we decide on the new state and action to take
 		switch(getMsgType(&msgBuffer)) {
 		case oScopeTimerMsg: {
-			if(1){
+			
 				if (vtI2CEnQ(devPtr,oScopeRead1Msg,0x4F,sizeof(i2cCmdReadByte1),i2cCmdReadByte1,2) != pdTRUE) {
 					VT_HANDLE_FATAL_ERROR(0);
 				}
@@ -154,9 +154,7 @@ static portTASK_FUNCTION( oScopeUpdateTask, pvParameters )
 				if (vtI2CEnQ(devPtr,oScopeRead2Msg,0x4F,sizeof(i2cCmdReadByte2),i2cCmdReadByte2,1) != pdTRUE) {
 					VT_HANDLE_FATAL_ERROR(0);
 				}
-			} else {
-				// just ignore timer messages until initialization is complete
-			} 
+			
 			break;
 		}
 		case oScopeRead1Msg: {
