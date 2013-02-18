@@ -1,7 +1,7 @@
 #ifndef __MESSAGES_H__
 #define __MESSAGES_H__
 
-#include "FreeRTOS.h"
+#include <stdint.h>// If this doesn't work with pic just define uint8_t as unsigned char
 
 
 typedef enum {
@@ -25,6 +25,20 @@ typedef enum {
 	lcdOScopeData,
 	lcdOScopeTimer,
 
+	//Navigation Task
+	navMotorCmdMsg,
+	
+	//IR/Line
+	navLineFoundMsg,
+	navIRDataMsg,
+	
+	//RFID
+	navRFIDFoundMsg,
+	
+	//Webpage
+	webDebugMsg,
+	/* TODO: Define webpage messages */
+	
 	//void, just cause
 	voidMsg
 } g9MsgType;
@@ -40,6 +54,8 @@ typedef struct __g9Msg {
 // Message Lengths shall be determined by message type.
 // Define max expected message lengths hur.
 // NOTE: For varible length message, first byte in buf should be length
+
+	#define VAR_MSG_LEN -1
 	//vtI2C
 	#define vtI2CMsgTypeTempInitLen		2
 	#define vtI2CMsgTypeTempRead1Len 	1
@@ -54,10 +70,27 @@ typedef struct __g9Msg {
 	
 	// LCD_Task
 	#define LCDMsgTypeTimerLen				1
-	#define LCDMsgTypePrintLen				0
+	#define LCDMsgTypePrintLen				VAR_LEN
 
 	//LCD OScope Task
 	#define lcdOScopeDataLen					2
 	#define lcdOScopeTimerLen					0
+	
+	//Navigation Task
+	#define navMotorCmdLen						2
+	#define navLineFoundLen						0
+	#define navIRDataLen							3							
+	#define navRFIDFoundLen						1
+	
+	//Webpage
+	#define webDebugLen								VAR_LEN
+	
+	//Max lengths per Task, used for sizing the Queues
+	#define baseMAX_LEN	sizeof(g9Msg)
+	#define navMAX_LEN	( baseMAX_LEN + (navIRDataLen - 1)*sizeof(uint8_t))
+
+
+//Message ERROR CODES
+#define INVALID_G9MSG_TYPE 0xDEADC0DE
 
 #endif
