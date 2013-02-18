@@ -16,7 +16,7 @@ int value;
 
 int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
     tptr->counter++;
-    if (tptr->counter == 12)
+    if (tptr->counter == 1)
     {
         tptr->counter = 0;
         ToMainLow_sendmsg(0, MSGT_UART_DATA, (void *) 0);

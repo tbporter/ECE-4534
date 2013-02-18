@@ -46,5 +46,9 @@
 #define MSGT_I2C_MASTER_RECV_COMPLETE 45
 #define MSGT_I2C_MASTER_RECV_FAILED 46
 
+// DEBUG UART
+//#define DEBUG_WRITE 1
+#define DEBUG_READ 1
+
 #endif
 

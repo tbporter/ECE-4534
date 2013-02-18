@@ -126,11 +126,8 @@ Something is messed up
 #endif
 #endif
 
-
-
 void main(void) {
     Queue* uartRXQ;
-    char c;
     signed char length;
     unsigned char msgtype;
     unsigned char last_reg_recvd;
@@ -141,6 +138,8 @@ void main(void) {
     uart_thread_struct uthread_data; // info for uart_lthread
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
+    unsigned char *testmsg;
+
 
 #ifdef __USE18F2680
     OSCCON = 0xFC; // see datasheet
@@ -220,7 +219,7 @@ void main(void) {
     // They *are* changed in the timer interrupt handlers if those timers are
     //   enabled.  They are just there to make the lights blink and can be
     //   disabled.
-    i2c_configure_slave(0x9E);
+    i2c_configure_master(0x9E);
 #else
     // If I want to test the temperature sensor from the ARM, I just make
     // sure this PIC does not have the same address and configure the
@@ -273,6 +272,10 @@ void main(void) {
     // Set up UART Queue
     createQueue(uartRXQ, 5);
     
+    testmsg[0] = 158;
+    //testmsg[1] = ' ';
+    testmsg[1] = 'H';
+    testmsg[2] = 'i';
 
 
     // loop forever
@@ -285,6 +288,8 @@ void main(void) {
         char byte2;
         LATB = 0x00;
 
+        i2c_master_send(3, testmsg);
+        //i2c_master_recv(3, 158);
 
         // Call a routine that blocks until either on the incoming
         // messages queues has a message (this may put the processor into

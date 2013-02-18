@@ -12,7 +12,44 @@ static i2c_comm *ic_ptr;
 //   i2c_comm (as pointed to by ic_ptr) for later use.
 
 void i2c_configure_master(unsigned char slave_addr) {
-    // Your code goes here
+    // Master code
+#ifdef __USE18F26J50
+    PORTBbits.SCL1 = 1;
+    PORTBbits.SDA1 = 1;
+#else
+    TRISCbits.TRISC3 = 1;
+    TRISCbits.TRISC4 = 1;
+#endif
+    SSPSTAT = 0x0;
+    SSPCON1 = 0x0;
+    SSPCON2 = 0x0;
+    SSPCON1 |= MASTER; // enable MASTER
+    SSPSTAT |= SLEW_OFF;
+
+    // Set Address
+    SSPADD = 0x0A;
+#ifdef I2C_V3
+    I2C1_SCL = 1;
+    I2C1_SDA = 1;
+#else
+#ifdef I2C_V1
+    I2C_SCL = 1;
+    I2C_SDA = 1;
+#else
+#ifdef __USE18F26J50
+    PORTBbits.SCL1 = 1;
+    PORTBbits.SDA1 = 1;
+#else
+    __dummyXY = 35; // Something is messed up with the #ifdefs; this line is designed to invoke a compiler error
+#endif
+#endif
+#endif
+    // enable clock-stretching
+    SSPCON2bits.SEN = 0;
+    SSPCON1 |= SSPENB;
+    // end of i2c configure master
+
+
 }
 
 // Sending in I2C Master mode [slave write]
@@ -28,8 +65,18 @@ void i2c_configure_master(unsigned char slave_addr) {
 //   the structure to which ic_ptr points [there is already a suitable buffer there].
 
 unsigned char i2c_master_send(unsigned char length, unsigned char *msg) {
-    // Your code goes here
-    return(0);
+    SSPCON2bits.RCEN = 0;
+
+    for (ic_ptr->outbuflen = 0; ic_ptr->outbuflen < length; ic_ptr->outbuflen++) {
+        ic_ptr->outbuffer[ic_ptr->outbuflen] = msg[ic_ptr->outbuflen];
+    }
+    ic_ptr->outbuflen = length;
+    ic_ptr->outbufind = 1; // point to the second byte to be sent
+    ic_ptr->status = I2C_MASTER_SEND_ADDR;
+    ic_ptr->slave_addr = ic_ptr->outbuffer[0];
+
+    StartI2C();
+    return (0);
 }
 
 // Receiving in I2C Master mode [slave read]
@@ -45,9 +92,21 @@ unsigned char i2c_master_send(unsigned char length, unsigned char *msg) {
 //   is determined by the parameter passed to i2c_master_recv()].
 // The interrupt handler will be responsible for copying the message received into
 
-unsigned char i2c_master_recv(unsigned char length) {
-    // Your code goes here
-    return(0);
+unsigned char i2c_master_recv(unsigned char length, unsigned char addr) {
+    int i;
+    SSPCON2bits.RCEN = 1;
+    ic_ptr->explen = length;
+    ic_ptr->buflen = 0;
+    for (i = 0; i < MAXI2CBUF; i++)
+    {
+        ic_ptr->buffer[i] = 0;
+    }
+    ic_ptr->slave_addr = addr;
+    // start condition
+    ic_ptr->status = I2C_MASTER_RECV_ADDR;
+
+    StartI2C();
+    return (0);
 }
 
 void start_i2c_slave_reply(unsigned char length, unsigned char *msg) {
@@ -98,6 +157,115 @@ void handle_start(unsigned char data_read) {
 //    master code should be in a subroutine called "i2c_master_handler()"
 
 void i2c_int_handler() {
+    // check if i2c is in Master mode
+    if ((SSPCON1 & 0x0F) == 0x8) {
+        i2c_master_handler();
+    }// else handle slave mode
+    else {
+        i2c_slave_handler();
+    }
+
+}
+
+// I2C Master Handler
+
+void i2c_master_handler() {
+    unsigned char i2c_data;
+    unsigned char data_read = 0;
+    unsigned char data_written = 0;
+    unsigned char msg_ready = 0;
+    unsigned char msg_to_send = 0;
+    unsigned char msg_sent = 0;
+    unsigned char overrun_error = 0;
+//    unsigned char error_buf[3] = 0;
+
+//    if (SSPCON1bits.SSPOV == 1) {
+//        SSPCON1bits.SSPOV = 0;
+//        // we failed to read the buffer in time, so we know we
+//        // can't properly receive this message, just put us in the
+//        // a state where we are looking for a new message
+//        overrun_error = 1;
+//        ic_ptr->error_count++;
+//        ic_ptr->error_code = I2C_ERR_OVERRUN;
+//    }
+    // read something if it is there
+    if (SSPSTATbits.BF == 1) {
+        i2c_data = SSPBUF;
+        data_read = 1;
+    }
+
+    if (!overrun_error) {
+        switch (ic_ptr->status) {
+            case I2C_IDLE:
+            {   LATB = 0xFF;
+                break;
+            }
+            case I2C_MASTER_SEND_ADDR:
+            {
+                ic_ptr->status = I2C_MASTER_SEND;
+                SSPBUF = (ic_ptr->slave_addr | 0x00);
+                break;
+            }
+            case I2C_MASTER_SEND:
+            {
+                ic_ptr->event_count++;
+                // send mode
+                if (ic_ptr->outbufind < ic_ptr->outbuflen) {
+                    //SSPBUF = ic_ptr->outbuffer[ic_ptr->outbufind];
+                    SSPBUF = ic_ptr->outbuffer[ic_ptr->outbufind];
+                    if (!SSPCON2bits.ACKSTAT)
+                       ic_ptr->outbufind++;
+                    // ack not received in transmit mode
+                }
+                else
+                {
+                    data_written = 1;
+                    // we have nothing left to send
+                    ic_ptr->status = I2C_IDLE;
+                    msg_sent = 1;
+                    StopI2C();
+                }
+                break;
+            }
+            case I2C_MASTER_RECV_ADDR:
+            {
+                //LATB = 0xFF;
+                ic_ptr->status = I2C_MASTER_RECV_CMD;
+                SSPBUF = ic_ptr->slave_addr | 0x01;
+                break;
+            }
+            case I2C_MASTER_RECV_CMD:
+            {
+                ic_ptr->status = I2C_MASTER_RECV;
+                SSPBUF = 0xAA;
+                break;
+            }
+            case I2C_MASTER_RECV:
+            {
+                ic_ptr->event_count++;
+                // receive mode
+                if (data_read) {
+                    ic_ptr->buffer[ic_ptr->buflen] = i2c_data;
+                    if (ic_ptr->buflen < ic_ptr->explen)
+                        ic_ptr->buflen++;
+                    else
+                    {
+                        ic_ptr->status = I2C_IDLE;
+                        StopI2C();
+                    }
+                    if(SSPCON2bits.ACKDT)
+                        StopI2C();
+                }
+                break;
+            }
+        }
+    }
+
+}
+
+// I2C Slave Handler
+
+void i2c_slave_handler() {
     unsigned char i2c_data;
     unsigned char data_read = 0;
     unsigned char data_written = 0;
@@ -307,7 +475,7 @@ void i2c_configure_slave(unsigned char addr) {
     PORTBbits.SCL1 = 1;
     PORTBbits.SDA1 = 1;
 #else
-    __dummyXY=35;// Something is messed up with the #ifdefs; this line is designed to invoke a compiler error
+    __dummyXY = 35; // Something is messed up with the #ifdefs; this line is designed to invoke a compiler error
 #endif
 #endif
 #endif
