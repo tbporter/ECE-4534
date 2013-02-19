@@ -4,6 +4,7 @@
 #include "lcdTask.h"
 #include "vtI2C.h"
 #include "i2cTemp.h"
+#include "conductor.h"
 
 typedef struct{
 	uint8_t msgType; // A field you will likely use in your communications between processors (and for debugging)
@@ -18,4 +19,5 @@ void startTimerForLCD(vtLCDStruct *vtLCDdata);
 void startTimerForTemperature(vtTempStruct *vtTempdata);
 void startTimerForLCDOScope(lcdOScopeStruct *lcdOScopeData);
 void startTimerForFakeI2CMsg(vtI2CStruct* i2c);
+void startTimerForConductor(vtConductorStruct* con);
 #endif

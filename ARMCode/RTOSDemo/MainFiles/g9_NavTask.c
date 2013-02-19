@@ -38,7 +38,7 @@ static portTASK_FUNCTION_PROTO( navigationUpdateTask, pvParameters );
 
 void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c){
 	// Create the queue that will be used to talk to this task
-	if ((navData->inQ = xQueueCreate(NavQLen,navMAX_LEN)) == NULL) {
+	if ((navData->inQ = xQueueCreate(NavQLen,10)) == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
 	/* Start the task */
@@ -49,41 +49,48 @@ void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, 
 	}
 }
 
-portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBlock){
-	if (msg == NULL || nav == NULL ) {
+portBASE_TYPE SendNavigationMsg(navStruct* nav,uint8_t* buffer,portTickType ticksToBlock){
+	if (buffer == NULL || nav == NULL ) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
-	int length = sizeof(&msg);
-	
+	g9Msg* msg = (g9Msg*) malloc(sizeof(g9Msg));
+	msg->msgType = buffer[0];
 	switch (msg->msgType){
 		case navMotorCmdMsg:
-			//Shouldn't be receiving this type of message, but just in case...
-			if(navMotorCmdLen > 0) length += sizeof(uint8_t)*(navMotorCmdLen-1);
+			printf("navMotorCmdMsg: ");
+			msg->length = navMotorCmdLen;
 			break;
 		
 		case navLineFoundMsg:
-			if(navLineFoundLen > 0) length += sizeof(uint8_t)*(navLineFoundLen-1);
+			printf("navLineFoundMsg: ");
+			msg->length = navLineFoundLen;
 			break;
 		
 		case navIRDataMsg:
-			if(navIRDataLen > 0) length += sizeof(uint8_t)*(navIRDataLen-1);
+			printf("navIRDataMsg: ");
+			msg->length = navIRDataLen;
 			break;
 		
 		case navRFIDFoundMsg:
-			if(navRFIDFoundLen > 0) length += sizeof(uint8_t)*(navRFIDFoundLen-1);
-			break;
-		
-		default:
-			//Invalid message type
-			VT_HANDLE_FATAL_ERROR(INVALID_G9MSG_TYPE);
-			break;
+			printf("navRFIDFoundMsg: ");
+			msg->length = navRFIDFoundLen;
+			break;	
+
+	default:
+		VT_HANDLE_FATAL_ERROR(0xDEAD);
 	}
-	
-	if (length > navMAX_LEN) {
+	if (msg->length > navMAX_LEN) {
 		// no room for this message
-		VT_HANDLE_FATAL_ERROR(length);
+		VT_HANDLE_FATAL_ERROR(0);
 	}
-	return(xQueueSend(nav->inQ,(void *)msg,ticksToBlock));
+	//msg->buf = malloc(sizeof(uint8_t) * msg->length);
+	int i =0;
+	for(; i<msg->length; i++){
+		msg->buf[i]=buffer[i];
+		printf("%X|",msg->buf[i]);
+	}
+	printf("\n");
+	return(xQueueSend(nav->inQ,(void*)(msg),ticksToBlock));
 }
 
 // This is the actual task that is run
@@ -134,11 +141,12 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			break;
 	}
 
-	printf("Motors:    %X %X\n",0x7F & motorData.left, 0x7F & motorData.right);
-	msg.buf = &(motorData.data);
-	printf("Re-Motors: %X %X\n",msg.buf[0],msg.buf[1]);
+	//printf("Motors:    %X %X\n",0x7F & motorData.left, 0x7F & motorData.right);
+	//msg.buf = &(motorData.data);
+	//printf("Re-Motors: %X %X\n",msg.buf[0],msg.buf[1]);
 
-	vtI2CEnQ(i2cPtr,navMotorCmdMsg,0x4F,sizeof(navMAX_LEN),(uint8_t*)&msg,0);
-
+	//vtI2CEnQ(i2cPtr,navMotorCmdMsg,0x4F,sizeof(navMAX_LEN),(uint8_t*)&msg,0);
+	const uint8_t test[]= {0xAA};
+	vtI2CEnQ(i2cPtr,conRequestMsg,0x4F,sizeof(test),test,3);
 	}
 }

@@ -147,7 +147,7 @@ void startTimerForLCDOScope(lcdOScopeStruct *lcdOScopeData) {
 //
 // how often the timer that sends messages to the LCD task should run
 // Set the task up to run every 30 ms
-#define fakeI2C_RATE_BASE	( ( portTickType ) 4000 / portTICK_RATE_MS)
+#define fakeI2C_RATE_BASE	( ( portTickType ) 500 / portTICK_RATE_MS)
 
 // Callback function that is called by the LCDTimer
 //   Sends a message to the queue that is read by the LCD OScope Task
@@ -214,6 +214,32 @@ void startTimerForFakeI2CMsg(vtI2CStruct* i2c){
 		VT_HANDLE_FATAL_ERROR(0);
 	} else {
 		if (xTimerStart(fakeI2CTimerHandle,0) != pdPASS) {
+			VT_HANDLE_FATAL_ERROR(0);
+		}
+	}
+}
+
+void ConductorTimerCallback(xTimerHandle pxTimer)
+{
+	if (pxTimer == NULL) {
+		VT_HANDLE_FATAL_ERROR(0);
+	} else {
+		//if (vtI2CEnQ(devPtr,voidMsg,0x4F,2,0xAA,0) != pdTRUE) {
+		//	VT_HANDLE_FATAL_ERROR(0);
+		//}
+	}
+}
+#define conductorWRITE_RATE_BASE	( ( portTickType ) 100 / portTICK_RATE_MS)
+
+void startTimerForConductor(vtConductorStruct *vtConData) {
+	if (sizeof(long) != sizeof(vtConductorStruct *)) {
+		VT_HANDLE_FATAL_ERROR(0);
+	}
+	xTimerHandle ConductorTimerHandle = xTimerCreate((const signed char *)"Conductor Timer",conductorWRITE_RATE_BASE,pdTRUE,(void *) vtConData,ConductorTimerCallback);
+	if (ConductorTimerHandle == NULL) {
+		VT_HANDLE_FATAL_ERROR(0);
+	} else {
+		if (xTimerStart(ConductorTimerHandle,0) != pdPASS) {
 			VT_HANDLE_FATAL_ERROR(0);
 		}
 	}

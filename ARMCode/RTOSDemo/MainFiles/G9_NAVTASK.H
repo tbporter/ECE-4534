@@ -30,5 +30,5 @@ void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, 
 //	msg -- a pointer to a variable of type g9Msg
 //	ticksToBlock -- how long the routine should wait if the queue is full
 //	Return: Result of the call to xQueueSend()
-portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBlock);
+portBASE_TYPE SendNavigationMsg(navStruct* nav,uint8_t* msg,portTickType ticksToBlock);
 #endif

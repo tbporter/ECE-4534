@@ -43,15 +43,20 @@ typedef enum {
 	webDebugMsg,
 	webPowerMsg,
 	webNavMsg,
-
+	
+	//conductor request message
+	conRequestMsg,
 	//void, just cause
 	voidMsg
 } g9MsgType;
 
+#define MAX_MSG_LEN 10
+
 typedef struct __g9Msg {
 	uint8_t msgType;// Use Enum defined above to set. Declared as uint8_t to force casting, thus reducing size.
 	uint8_t id;			// Used to check for dropped messages **Won't be used until wireless**
-	uint8_t* buf;		// On the way in, message to be sent, on the way out, message received (if any)
+	uint8_t buf[MAX_MSG_LEN];		// On the way in, message to be sent, on the way out, message received (if any)
+	uint8_t length;
 } g9Msg;
 
 
@@ -84,7 +89,7 @@ typedef struct __g9Msg {
 	//Navigation Task
 	#define navMotorCmdLen						2
 	#define navLineFoundLen						0
-	#define navIRDataLen							3							
+	#define navIRDataLen						3							
 	#define navRFIDFoundLen						1
 	
 	//Webpage

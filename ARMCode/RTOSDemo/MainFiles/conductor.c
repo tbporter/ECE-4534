@@ -73,11 +73,15 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 		if (vtI2CDeQ(i2cPtr,vtI2CMLen,Buffer,&rxLen,&recvMsgType,&status) != pdTRUE) {
 			VT_HANDLE_FATAL_ERROR(0);
 		}
-		//printf("Im going to do a printf here: %d,%d\n",Buffer[0],Buffer[1]);
 		// Decide where to send the message 
 		//   This just shows going to one task/queue, but you could easily send to
 		//   other Q/tasks for other message types
 		// This isn't a state machine, it is just acting as a router for messages
+		
+		//TODO: Requests are made with conReuqestMsg, but the first byte we recieve is the msg type, so change it to that
+		if(recvMsgType==conRequestMsg){
+			recvMsgType = Buffer[0];
+		}
 		switch(recvMsgType) {
 		case vtI2CMsgTypeTempInit:
 		case vtI2CMsgTypeTempRead1:
@@ -93,7 +97,10 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 		case navLineFoundMsg:
 		case navIRDataMsg:
 		case navRFIDFoundMsg:
-			SendNavigationMsg(navData,(g9Msg*)Buffer,portMAX_DELAY);
+			SendNavigationMsg(navData,(uint8_t*)Buffer,portMAX_DELAY);
+			break;
+		case voidMsg:
+			printf("VOID YO\n");
 			break;
 		default:
 			VT_HANDLE_FATAL_ERROR(recvMsgType);
