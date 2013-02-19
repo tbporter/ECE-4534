@@ -18,7 +18,7 @@ typedef union {
 void setMotorData(uint16_t* data, uint8_t left, uint8_t right){
 	left &= 0x7F;
 	right &= 0x7F;
-	*data = 0x0080 | (left<<8) | right;
+	*data = 0x0080 | (right<<8) | left;
 }
 
 
@@ -62,15 +62,15 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 			break;
 		
 		case navLineFoundMsg:
-			if(navLineFoundMsg > 0) length += sizeof(uint8_t)*(navLineFoundMsg-1);
+			if(navLineFoundLen > 0) length += sizeof(uint8_t)*(navLineFoundLen-1);
 			break;
 		
 		case navIRDataMsg:
-			if(navIRDataMsg > 0) length += sizeof(uint8_t)*(navIRDataMsg-1);
+			if(navIRDataLen > 0) length += sizeof(uint8_t)*(navIRDataLen-1);
 			break;
 		
 		case navRFIDFoundMsg:
-			if(navRFIDFoundMsg > 0) length += sizeof(uint8_t)*(navRFIDFoundMsg-1);
+			if(navRFIDFoundLen > 0) length += sizeof(uint8_t)*(navRFIDFoundLen-1);
 			break;
 		
 		default:
@@ -107,21 +107,25 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			VT_HANDLE_FATAL_ERROR(0);
 		}
 
+		g9Msg msg;
+		msg.id = msgBuffer.id + 1;
+		msg.msgType = navMotorCmdMsg;
+
 		// Now, based on the type of the message, we decide on the action to take
 		switch (msgBuffer.msgType){
 		case navLineFoundMsg:
 			//stop we have found the finish line!!!
-			setMotorData(&(motorData.data),64,64);
+			setMotorData(&(motorData.data),127,127);
 			break;
 		
 		case navIRDataMsg:
 			//Save the data and make a decision
-			setMotorData(&(motorData.data),1,127); //Turn left
+			setMotorData(&(motorData.data),1,0); //Turn left
 			break;
 		
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
-			setMotorData(&(motorData.data),127,127); //Forward
+			setMotorData(&(motorData.data),0,1); //Forward
 			break;
 		
 		default:
@@ -130,6 +134,11 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			break;
 	}
 
+	printf("Motors:    %X %X\n",0x7F & motorData.left, 0x7F & motorData.right);
+	msg.buf = &(motorData.data);
+	printf("Re-Motors: %X %X\n",msg.buf[0],msg.buf[1]);
+
+	vtI2CEnQ(i2cPtr,navMotorCmdMsg,0x4F,sizeof(navMAX_LEN),(uint8_t*)&msg,0);
 
 	}
 }

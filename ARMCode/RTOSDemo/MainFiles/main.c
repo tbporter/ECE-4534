@@ -102,6 +102,12 @@ You should read the note above.
 #define USE_MTJ_USE_USB 1
 // Define whether to use the navigation task
 #define USE_NAV_TASK 1
+// Define whether or not to send fake I2C messages
+#if USE_I2C == 1
+	#define USE_FAKE_I2C 1
+#else
+	#define USE_FAKE_I2C 0
+#endif
 
 #if USE_FREERTOS_DEMO == 1
 /* Demo app includes. */
@@ -285,6 +291,10 @@ int main( void )
 		startTimerForLCDOScope(vtOScopeData);
 		startOScopeTask(oScopeData,mainI2CTEMP_TASK_PRIORITY,vtI2C0,NULL);
 		startTimerForTemperature(oScopeData);
+	#endif
+	
+	#if USE_FAKE_I2C == 1
+		startTimerForFakeI2CMsg(vtI2C0);
 	#endif	
 
     /* Create the USB task. MTJ: This routine has been modified from the original example (which is not a FreeRTOS standard demo) */

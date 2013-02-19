@@ -62,6 +62,8 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 	vtI2CStruct *i2cPtr = param->i2c;
 	// Get the LCD information pointer
 	vtTempStruct *tempData = param->tempData;
+	// Get Navigation task pointer
+	navStruct* navData = param->navData;
 	uint8_t recvMsgType;
 
 	// Like all good tasks, this should never exit
@@ -77,26 +79,25 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 		//   other Q/tasks for other message types
 		// This isn't a state machine, it is just acting as a router for messages
 		switch(recvMsgType) {
-		case vtI2CMsgTypeTempInit: {
+		case vtI2CMsgTypeTempInit:
+		case vtI2CMsgTypeTempRead1:
+		case vtI2CMsgTypeTempRead2:
+		case vtI2CMsgTypeTempRead3:
 			SendTempValueMsg(tempData,recvMsgType,Buffer,portMAX_DELAY);
 			break;
-		}
-		case vtI2CMsgTypeTempRead1: {
-			SendTempValueMsg(tempData,recvMsgType,Buffer,portMAX_DELAY);
+
+		case navMotorCmdMsg:
+			//Do nothing with this message type
 			break;
-		}
-		case vtI2CMsgTypeTempRead2: {
-			SendTempValueMsg(tempData,recvMsgType,Buffer,portMAX_DELAY);
+
+		case navLineFoundMsg:
+		case navIRDataMsg:
+		case navRFIDFoundMsg:
+			SendNavigationMsg(navData,(g9Msg*)Buffer,portMAX_DELAY);
 			break;
-		}
-		case vtI2CMsgTypeTempRead3: {
-			SendTempValueMsg(tempData,recvMsgType,Buffer,portMAX_DELAY);
-			break;
-		}
-		default: {
+		default:
 			VT_HANDLE_FATAL_ERROR(recvMsgType);
 			break;
-		}
 		}
 
 
