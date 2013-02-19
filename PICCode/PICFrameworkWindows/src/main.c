@@ -129,7 +129,9 @@ Something is messed up
 
 void main(void) {
     Queue* uartRXQ;
+    Queue* uartTXQ;
     signed char length;
+    int count = 0;
     unsigned char msgtype;
     unsigned char last_reg_recvd;
     uart_comm uc;
@@ -236,9 +238,11 @@ void main(void) {
 
     // must specifically enable the I2C interrupts
     PIE1bits.SSPIE = 1;
-    //enable timer 1 interrupts
+    // enable timer 1 interrupts
     PIE1bits.TMR1IE = 1;
-    //Enable A/D Interrupts
+    // enable timer 3 interrupts
+    PIE2bits.TMR3IE = 1;
+    // Enable A/D Interrupts
     //PIE1bits.ADIE = 1;
 
 
@@ -272,6 +276,7 @@ void main(void) {
 
     // Set up UART Queue
     createQueue(uartRXQ, 5);
+    createQueue(uartTXQ, 5);
 
     testmsg[0] = 158;
     //testmsg[1] = ' ';
@@ -289,7 +294,7 @@ void main(void) {
         char byte1;
         char byte2;
         
-        //i2c_master_send(1, 0xAA);
+        //i2c_master_send(3, testmsg);
 
 
 
@@ -318,11 +323,27 @@ void main(void) {
                 };
                 case MSGT_I2C_DATA:
                 {
-                    for (i = 0; i < uartRXQ->size; i++) {
+                    for (i = 0; i < length; i++)
+                    {
+                        appendQueue(uartTXQ, msgbuffer[i]);
+                    }
+                    for (i = 0; i <uartTXQ->last+1; i++ )
+                    {
+                        WriteUSART(readQueue(uartTXQ));
+                    }
+                    break;
+                };
+                case MSGT_I2C_SEND:
+                {
+                    msgbuffer[0] = 0x9E;
+                    for (i = 1; i < uartRXQ->size; i++)
+                    {
                         msgbuffer[i] = readQueue(uartRXQ);
                     }
-                    //start_i2c_slave_reply(uartRXQ->size, msgbuffer);
-                }
+                    //WriteUSART('0'+uartRXQ->last);
+                    i2c_master_send(uartRXQ->last+2, msgbuffer);
+                    break;
+                };
                 case MSGT_I2C_DBG:
                 {
                     // Here is where you could handle debugging, if you wanted
@@ -391,8 +412,12 @@ void main(void) {
                 case MSGT_OVERRUN:
                 case MSGT_UART_DATA:
                 {
+                    count++;
                     //uart_lthread(&uthread_data, msgtype, length, msgbuffer, uartRXQ);
-                    i2c_master_recv(2, 0x9E);
+                    if (count % 2)
+                        i2c_master_recv(2, 0x9E);
+                    else
+                        i2c_master_recv(2, 0x9A);
                     break;
                 };
                 case MSGT_UART_RCV:

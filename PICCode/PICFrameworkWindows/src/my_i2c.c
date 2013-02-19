@@ -11,66 +11,6 @@ static i2c_comm *ic_ptr;
 unsigned char explen1;
 unsigned char buflen1;
 
-signed char Write_I2C( unsigned char data_out )
-{
-  SSPBUF = data_out;           // write single byte to SSPBUF
-  if ( SSPCON1bits.WCOL )      // test if write collision occurred
-   return ( -1 );              // if WCOL bit is set return negative #
-  else
-  {
-	if( ((SSPCON1&0x0F)!=0x08) && ((SSPCON1&0x0F)!=0x0B) )	//Slave mode only
-	{
-	      SSPCON1bits.CKP = 1;        // release clock line
-	      while ( !PIR1bits.SSPIF );  // wait until ninth clock pulse received
-
-	      if ( ( !SSPSTATbits.R_W ) && ( !SSPSTATbits.BF ) )// if R/W=0 and BF=0, NOT ACK was received
-	      {
-	        return ( -2 );           //return NACK
-	      }
-		  else
-		  {
-			return ( 0 );				//return ACK
-		  }
-	}
-	else if( ((SSPCON1&0x0F)==0x08) || ((SSPCON1&0x0F)==0x0B) )	//master mode only
-	{
-	    while( SSPSTATbits.BF );   // wait until write cycle is complete
-	    IdleI2C();                 // ensure module is idle
-	    if ( SSPCON2bits.ACKSTAT ) // test for ACK condition received
-	    	 return ( -2 );			// return NACK
-		else return ( 0 );              //return ACK
-	}
-
-  }
-}
-
-signed char gets_I2C( unsigned char *rdptr, unsigned char length )
-{
-    while ( length-- )           // perform getcI2C() for 'length' number of bytes
-    {
-      *rdptr++ = getcI2C();       // save byte received
-      while ( SSPCON2bits.RCEN ); // check that receive sequence is over
-
-      if ( PIR2bits.BCLIF )       // test for bus collision
-      {
-        return ( -1 );            // return with Bus Collision error
-      }
-
-	if( ((SSPCON1&0x0F)==0x08) || ((SSPCON1&0x0F)==0x0B) )	//master mode only
-	{
-      if ( length )               // test if 'length' bytes have been read
-      {
-        SSPCON2bits.ACKDT = 0;    // set acknowledge bit state for ACK
-        SSPCON2bits.ACKEN = 1;    // initiate bus acknowledge sequence
-        while ( SSPCON2bits.ACKEN );
-        // wait until ACK sequence is over
-      }
-	}
-
-    }
-    return ( 0 );                 // last byte received so don't send ACK
-}
-
 // Configure for I2C Master mode -- the variable "slave_addr" should be stored in
 //   i2c_comm (as pointed to by ic_ptr) for later use.
 
@@ -329,6 +269,7 @@ void i2c_master_handler() {
                         SSPCON2bits.ACKDT = 0;
                         SSPCON2bits.ACKEN = 1;
                     } else {
+                        ToMainHigh_sendmsg(explen1, MSGT_I2C_DATA, ic_ptr->buffer);
                         ic_ptr->status = I2C_STOP;
                         SSPCON2bits.ACKDT = 1;
                         SSPCON2bits.ACKEN = 1;

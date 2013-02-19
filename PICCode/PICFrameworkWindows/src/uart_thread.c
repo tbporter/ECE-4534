@@ -29,6 +29,6 @@ int uart_lthread(uart_thread_struct *uptr, int msgtype, int length, unsigned cha
             WriteUSART('\n');
 #endif
         }
-        ToMainHigh_sendmsg(0, MSGT_I2C_DATA, (void *) 0);
+        ToMainHigh_sendmsg(0, MSGT_I2C_SEND, (void *) 0);
     }
 }
