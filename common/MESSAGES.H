@@ -64,9 +64,9 @@ typedef struct __g9Msg {
 	#define TempMsgTypeTimerLen				0
 
 	//OScope
-	#define oScopeRead1MsgLen					1
-	#define oScopeRead2MsgLen					1
-	#define oScopeTimerMsgLen					0
+	#define oScopeRead1Len					1
+	#define oScopeRead2Len					1
+	#define oScopeTimerLen					0
 	
 	// LCD_Task
 	#define LCDMsgTypeTimerLen				1
