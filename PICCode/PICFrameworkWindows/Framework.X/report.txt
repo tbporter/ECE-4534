@@ -11,656 +11,618 @@ FILE		0x0	0	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src
 FN_START	0x18	60	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"InterruptVectorLow"	"external"	
 FN_END		0x1c	62	
 FILE		0x0	0	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"
-FN_START	0x1e	14	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_configure_master"	"external"	
+FN_START	0x1e	14	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"Write_I2C"	"external"	
 ADJUST		0x1e	14	1
-ADJUST		0x42	53	-1
-FN_END		0x48	53	
-FN_START	0x4a	67	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_send"	"external"	
-ADJUST		0x4a	67	1
-ADJUST		0x92	71	1
-ADJUST		0xc4	71	-1
-ADJUST		0x126	76	1
-ADJUST		0x138	76	-1
-ADJUST		0x148	80	-1
-FN_END		0x14e	80	
-FN_START	0x150	95	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_recv"	"external"	
-ADJUST		0x150	95	1
-ADJUST		0x15a	95	2
-ADJUST		0x1f2	110	-3
-FN_END		0x1f8	110	
-FN_START	0x1fa	112	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"start_i2c_slave_reply"	"external"	
-ADJUST		0x1fa	112	1
-ADJUST		0x240	115	1
-ADJUST		0x272	115	-1
-ADJUST		0x2c4	126	-1
-FN_END		0x2ca	126	
-FN_START	0x2cc	130	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"handle_start"	"external"	
-ADJUST		0x2cc	130	1
-ADJUST		0x384	151	-1
-FN_END		0x38a	151	
-FN_START	0x38c	161	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_int_handler"	"external"	
-CALL		0x394	162	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_handler"	0
-CALL		0x398	165	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_slave_handler"	0
-FN_END		0x39a	168	
-FN_START	0x39c	172	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_handler"	"external"	
-ADJUST		0x39c	172	1
-ADJUST		0x3a6	172	7
-ADJUST		0x590	264	-8
-FN_END		0x596	264	
-FN_START	0x598	268	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_slave_handler"	"external"	
-ADJUST		0x598	268	1
-ADJUST		0x5a2	268	9
-ADJUST		0x62a	300	1
-CALL		0x62e	300	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"handle_start"	0
-ADJUST		0x630	300	-1
-ADJUST		0x990	416	1
-ADJUST		0x9ba	416	-1
-ADJUST		0x9d0	417	1
-ADJUST		0x9d4	417	1
-ADJUST		0x9da	417	1
-ADJUST		0x9ea	417	1
-CALL		0x9ec	417	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
-ADJUST		0x9f0	417	-4
-ADJUST		0xa4a	423	1
-ADJUST		0xa4c	423	1
-ADJUST		0xa52	423	1
-ADJUST		0xa56	423	1
-CALL		0xa58	423	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
-ADJUST		0xa5c	423	-4
-ADJUST		0xa84	428	1
-ADJUST		0xa88	428	1
-ADJUST		0xa8e	428	1
-ADJUST		0xa90	428	1
-CALL		0xa92	428	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
-ADJUST		0xa96	428	-4
-ADJUST		0xa9a	431	-10
-FN_END		0xaa0	431	
-FN_START	0xaa2	436	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"init_i2c"	"external"	
-ADJUST		0xaa2	436	1
-ADJUST		0xafe	442	-1
-FN_END		0xb04	442	
-FN_START	0xb06	447	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_configure_slave"	"external"	
-ADJUST		0xb06	447	1
-ADJUST		0xb2c	486	-1
-FN_END		0xb32	486	
+CALL		0x76	38	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
+ADJUST		0x88	45	-1
+FN_END		0x8e	45	
+FN_START	0x90	47	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"gets_I2C"	"external"	
+ADJUST		0x90	47	1
+CALL		0xa2	51	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_read.c"	"ReadI2C"	0
+ADJUST		0xa6	51	1
+ADJUST		0xb6	51	-1
+ADJUST		0xea	72	-1
+FN_END		0xf0	72	
+FN_START	0xf2	77	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_configure_master"	"external"	
+ADJUST		0xf2	77	1
+ADJUST		0x114	116	-1
+FN_END		0x11a	116	
+FN_START	0x11c	130	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_send"	"external"	
+ADJUST		0x11c	130	1
+ADJUST		0x162	132	1
+ADJUST		0x194	132	-1
+ADJUST		0x1f6	137	1
+ADJUST		0x208	137	-1
+ADJUST		0x218	141	-1
+FN_END		0x21e	141	
+FN_START	0x220	156	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_recv"	"external"	
+ADJUST		0x220	156	1
+ADJUST		0x22a	156	4
+CALL		0x298	171	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
+ADJUST		0x2a2	175	-5
+FN_END		0x2a8	175	
+FN_START	0x2aa	177	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"start_i2c_slave_reply"	"external"	
+ADJUST		0x2aa	177	1
+ADJUST		0x2f0	180	1
+ADJUST		0x322	180	-1
+ADJUST		0x374	191	-1
+FN_END		0x37a	191	
+FN_START	0x37c	195	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"handle_start"	"external"	
+ADJUST		0x37c	195	1
+ADJUST		0x434	216	-1
+FN_END		0x43a	216	
+FN_START	0x43c	226	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_int_handler"	"external"	
+CALL		0x444	227	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_slave_handler"	0
+CALL		0x448	230	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_handler"	0
+FN_END		0x44a	232	
+FN_START	0x44c	236	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_handler"	"external"	
+ADJUST		0x44c	236	1
+ADJUST		0x456	236	8
+CALL		0x5fe	317	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
+ADJUST		0x6ae	364	-9
+FN_END		0x6b4	364	
+FN_START	0x6b6	531	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_slave_handler"	"external"	
+FN_END		0x6b6	531	
+FN_START	0x6b8	536	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"init_i2c"	"external"	
+ADJUST		0x6b8	536	1
+ADJUST		0x71a	545	-1
+FN_END		0x720	545	
+FN_START	0x722	550	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_configure_slave"	"external"	
+ADJUST		0x722	550	1
+ADJUST		0x748	589	-1
+FN_END		0x74e	589	
 FILE		0x0	0	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"
-FN_START	0xb34	14	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queue"	"external"	
-ADJUST		0xb34	14	1
-ADJUST		0xb3e	14	1
-ADJUST		0xb94	22	-2
-FN_END		0xb9a	22	
-FN_START	0xb9c	24	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"send_msg"	"external"	
-ADJUST		0xb9c	24	1
-ADJUST		0xba6	24	5
-ADJUST		0xc16	55	1
-ADJUST		0xc1a	55	1
-ADJUST		0xc1e	55	1
-ADJUST		0xc22	55	1
-ADJUST		0xc3e	55	1
-ADJUST		0xc42	55	1
-CALL		0xc46	55	"memcpy.O"	"memcpy"	0
-ADJUST		0xc4a	55	-6
-ADJUST		0xc60	56	1
-ADJUST		0xc72	56	-1
-ADJUST		0xc86	61	-6
-FN_END		0xc8c	61	
-FN_START	0xc8e	63	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"recv_msg"	"external"	
-ADJUST		0xc8e	63	1
-ADJUST		0xc98	63	5
-ADJUST		0xd00	81	1
-ADJUST		0xd04	81	1
-ADJUST		0xd20	81	1
-ADJUST		0xd24	81	1
-ADJUST		0xd28	81	1
-ADJUST		0xd2c	81	1
-CALL		0xd30	81	"memcpy.O"	"memcpy"	0
-ADJUST		0xd34	81	-6
-ADJUST		0xd4a	87	1
-ADJUST		0xd5c	87	-1
-ADJUST		0xd74	89	1
-ADJUST		0xd7e	89	-1
-ADJUST		0xd98	96	-6
-FN_END		0xd9e	96	
-FN_START	0xda0	103	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	"external"	
-ADJUST		0xda0	103	1
-ADJUST		0xdaa	109	1
-ADJUST		0xdae	109	1
-ADJUST		0xdb2	109	1
-ADJUST		0xdb6	109	1
-ADJUST		0xdbc	109	1
-ADJUST		0xdc0	109	1
-CALL		0xdc2	109	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"send_msg"	0
-ADJUST		0xdc4	109	-6
-ADJUST		0xdc8	110	-1
-FN_END		0xdce	110	
-FN_START	0xdd0	112	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_recvmsg"	"external"	
-ADJUST		0xdd0	112	1
-ADJUST		0xdda	118	1
-ADJUST		0xdde	118	1
-ADJUST		0xde2	118	1
-ADJUST		0xde6	118	1
-ADJUST		0xdea	118	1
-ADJUST		0xdf0	118	1
-ADJUST		0xdf4	118	1
-CALL		0xdf6	118	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"recv_msg"	0
-ADJUST		0xdf8	118	-7
-ADJUST		0xdfc	119	-1
-FN_END		0xe02	119	
-FN_START	0xe04	126	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	"external"	
-ADJUST		0xe04	126	1
-ADJUST		0xe0e	132	1
-ADJUST		0xe12	132	1
-ADJUST		0xe16	132	1
-ADJUST		0xe1a	132	1
-ADJUST		0xe20	132	1
-ADJUST		0xe24	132	1
-CALL		0xe26	132	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"send_msg"	0
-ADJUST		0xe28	132	-6
-ADJUST		0xe2c	133	-1
-FN_END		0xe32	133	
-FN_START	0xe34	135	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_recvmsg"	"external"	
-ADJUST		0xe34	135	1
-ADJUST		0xe3e	141	1
-ADJUST		0xe42	141	1
-ADJUST		0xe46	141	1
-ADJUST		0xe4a	141	1
-ADJUST		0xe4e	141	1
-ADJUST		0xe54	141	1
-ADJUST		0xe58	141	1
-CALL		0xe5a	141	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"recv_msg"	0
-ADJUST		0xe5c	141	-7
-ADJUST		0xe60	142	-1
-FN_END		0xe66	142	
-FN_START	0xe68	150	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"FromMainLow_sendmsg"	"external"	
-ADJUST		0xe68	150	1
-ADJUST		0xe72	156	1
-ADJUST		0xe76	156	1
-ADJUST		0xe7a	156	1
-ADJUST		0xe7e	156	1
-ADJUST		0xe84	156	1
-ADJUST		0xe88	156	1
-CALL		0xe8a	156	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"send_msg"	0
-ADJUST		0xe8c	156	-6
-ADJUST		0xe90	157	-1
-FN_END		0xe96	157	
-FN_START	0xe98	159	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"FromMainLow_recvmsg"	"external"	
-ADJUST		0xe98	159	1
-ADJUST		0xea2	165	1
-ADJUST		0xea6	165	1
-ADJUST		0xeaa	165	1
-ADJUST		0xeae	165	1
-ADJUST		0xeb2	165	1
-ADJUST		0xeb8	165	1
-ADJUST		0xebc	165	1
-CALL		0xebe	165	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"recv_msg"	0
-ADJUST		0xec0	165	-7
-ADJUST		0xec4	166	-1
-FN_END		0xeca	166	
-FN_START	0xecc	174	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"FromMainHigh_sendmsg"	"external"	
-ADJUST		0xecc	174	1
-ADJUST		0xed6	180	1
-ADJUST		0xeda	180	1
-ADJUST		0xede	180	1
-ADJUST		0xee2	180	1
-ADJUST		0xee8	180	1
-ADJUST		0xeec	180	1
-CALL		0xeee	180	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"send_msg"	0
-ADJUST		0xef0	180	-6
-ADJUST		0xef4	181	-1
-FN_END		0xefa	181	
-FN_START	0xefc	183	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"FromMainHigh_recvmsg"	"external"	
-ADJUST		0xefc	183	1
-ADJUST		0xf06	189	1
-ADJUST		0xf0a	189	1
-ADJUST		0xf0e	189	1
-ADJUST		0xf12	189	1
-ADJUST		0xf16	189	1
-ADJUST		0xf1c	189	1
-ADJUST		0xf20	189	1
-CALL		0xf22	189	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"recv_msg"	0
-ADJUST		0xf24	189	-7
-ADJUST		0xf28	190	-1
-FN_END		0xf2e	190	
-FN_START	0xf30	195	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queues"	"external"	
-ADJUST		0xf36	196	1
-ADJUST		0xf3a	196	1
-CALL		0xf3c	196	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queue"	0
-ADJUST		0xf3e	196	-2
-ADJUST		0xf42	197	1
-ADJUST		0xf46	197	1
-CALL		0xf48	197	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queue"	0
-ADJUST		0xf4a	197	-2
-ADJUST		0xf4e	198	1
-ADJUST		0xf52	198	1
-CALL		0xf54	198	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queue"	0
-ADJUST		0xf56	198	-2
-ADJUST		0xf5a	199	1
-ADJUST		0xf5e	199	1
-CALL		0xf60	199	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queue"	0
-ADJUST		0xf62	199	-2
-FN_END		0xf64	200	
-FN_START	0xf66	204	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"enter_sleep_mode"	"external"	
-FN_END		0xf6a	216	
-FN_START	0xf6c	220	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"check_msg"	"external"	
-ADJUST		0xf6c	220	1
-ADJUST		0xfac	222	-1
-FN_END		0xfb2	222	
-FN_START	0xfb4	228	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"SleepIfOkay"	"external"	
-CALL		0xfbc	233	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_low_int"	0
-CALL		0xfd2	238	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_high_int"	0
-ADJUST		0xfea	245	1
-ADJUST		0xfee	245	1
-CALL		0xff0	245	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"check_msg"	0
-ADJUST		0xff2	245	-2
-ADJUST		0xffc	248	1
-ADJUST		0x1000	248	1
-CALL		0x1002	248	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"check_msg"	0
-ADJUST		0x1004	248	-2
-CALL		0x100c	251	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"enter_sleep_mode"	0
-FN_END		0x100e	252	
-FN_START	0x1010	257	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"block_on_To_msgqueues"	"external"	
-CALL		0x1010	257	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_main"	0
-ADJUST		0x1030	265	1
-ADJUST		0x1034	265	1
-CALL		0x1036	265	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"check_msg"	0
-ADJUST		0x1038	265	-2
-ADJUST		0x1048	272	1
-ADJUST		0x104c	272	1
-CALL		0x104e	272	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"check_msg"	0
-ADJUST		0x1050	272	-2
-ADJUST		0x1060	279	1
-CALL		0x1062	279	"d1ktcyx.O"	"Delay1KTCYx"	0
-ADJUST		0x1066	279	-1
-FN_END		0x106c	284	
+FN_START	0x750	14	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queue"	"external"	
+ADJUST		0x750	14	1
+ADJUST		0x75a	14	1
+ADJUST		0x7b0	22	-2
+FN_END		0x7b6	22	
+FN_START	0x7b8	24	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"send_msg"	"external"	
+ADJUST		0x7b8	24	1
+ADJUST		0x7c2	24	5
+ADJUST		0x832	55	1
+ADJUST		0x836	55	1
+ADJUST		0x83a	55	1
+ADJUST		0x83e	55	1
+ADJUST		0x85a	55	1
+ADJUST		0x85e	55	1
+CALL		0x862	55	"memcpy.O"	"memcpy"	0
+ADJUST		0x866	55	-6
+ADJUST		0x87c	56	1
+ADJUST		0x88e	56	-1
+ADJUST		0x8a2	61	-6
+FN_END		0x8a8	61	
+FN_START	0x8aa	63	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"recv_msg"	"external"	
+ADJUST		0x8aa	63	1
+ADJUST		0x8b4	63	5
+ADJUST		0x91c	81	1
+ADJUST		0x920	81	1
+ADJUST		0x93c	81	1
+ADJUST		0x940	81	1
+ADJUST		0x944	81	1
+ADJUST		0x948	81	1
+CALL		0x94c	81	"memcpy.O"	"memcpy"	0
+ADJUST		0x950	81	-6
+ADJUST		0x966	87	1
+ADJUST		0x978	87	-1
+ADJUST		0x990	89	1
+ADJUST		0x99a	89	-1
+ADJUST		0x9b4	96	-6
+FN_END		0x9ba	96	
+FN_START	0x9bc	103	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	"external"	
+ADJUST		0x9bc	103	1
+ADJUST		0x9c6	109	1
+ADJUST		0x9ca	109	1
+ADJUST		0x9ce	109	1
+ADJUST		0x9d2	109	1
+ADJUST		0x9d8	109	1
+ADJUST		0x9dc	109	1
+CALL		0x9de	109	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"send_msg"	0
+ADJUST		0x9e0	109	-6
+ADJUST		0x9e4	110	-1
+FN_END		0x9ea	110	
+FN_START	0x9ec	112	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_recvmsg"	"external"	
+ADJUST		0x9ec	112	1
+ADJUST		0x9f6	118	1
+ADJUST		0x9fa	118	1
+ADJUST		0x9fe	118	1
+ADJUST		0xa02	118	1
+ADJUST		0xa06	118	1
+ADJUST		0xa0c	118	1
+ADJUST		0xa10	118	1
+CALL		0xa12	118	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"recv_msg"	0
+ADJUST		0xa14	118	-7
+ADJUST		0xa18	119	-1
+FN_END		0xa1e	119	
+FN_START	0xa20	126	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	"external"	
+ADJUST		0xa20	126	1
+ADJUST		0xa2a	132	1
+ADJUST		0xa2e	132	1
+ADJUST		0xa32	132	1
+ADJUST		0xa36	132	1
+ADJUST		0xa3c	132	1
+ADJUST		0xa40	132	1
+CALL		0xa42	132	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"send_msg"	0
+ADJUST		0xa44	132	-6
+ADJUST		0xa48	133	-1
+FN_END		0xa4e	133	
+FN_START	0xa50	135	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_recvmsg"	"external"	
+ADJUST		0xa50	135	1
+ADJUST		0xa5a	141	1
+ADJUST		0xa5e	141	1
+ADJUST		0xa62	141	1
+ADJUST		0xa66	141	1
+ADJUST		0xa6a	141	1
+ADJUST		0xa70	141	1
+ADJUST		0xa74	141	1
+CALL		0xa76	141	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"recv_msg"	0
+ADJUST		0xa78	141	-7
+ADJUST		0xa7c	142	-1
+FN_END		0xa82	142	
+FN_START	0xa84	150	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"FromMainLow_sendmsg"	"external"	
+ADJUST		0xa84	150	1
+ADJUST		0xa8e	156	1
+ADJUST		0xa92	156	1
+ADJUST		0xa96	156	1
+ADJUST		0xa9a	156	1
+ADJUST		0xaa0	156	1
+ADJUST		0xaa4	156	1
+CALL		0xaa6	156	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"send_msg"	0
+ADJUST		0xaa8	156	-6
+ADJUST		0xaac	157	-1
+FN_END		0xab2	157	
+FN_START	0xab4	159	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"FromMainLow_recvmsg"	"external"	
+ADJUST		0xab4	159	1
+ADJUST		0xabe	165	1
+ADJUST		0xac2	165	1
+ADJUST		0xac6	165	1
+ADJUST		0xaca	165	1
+ADJUST		0xace	165	1
+ADJUST		0xad4	165	1
+ADJUST		0xad8	165	1
+CALL		0xada	165	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"recv_msg"	0
+ADJUST		0xadc	165	-7
+ADJUST		0xae0	166	-1
+FN_END		0xae6	166	
+FN_START	0xae8	174	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"FromMainHigh_sendmsg"	"external"	
+ADJUST		0xae8	174	1
+ADJUST		0xaf2	180	1
+ADJUST		0xaf6	180	1
+ADJUST		0xafa	180	1
+ADJUST		0xafe	180	1
+ADJUST		0xb04	180	1
+ADJUST		0xb08	180	1
+CALL		0xb0a	180	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"send_msg"	0
+ADJUST		0xb0c	180	-6
+ADJUST		0xb10	181	-1
+FN_END		0xb16	181	
+FN_START	0xb18	183	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"FromMainHigh_recvmsg"	"external"	
+ADJUST		0xb18	183	1
+ADJUST		0xb22	189	1
+ADJUST		0xb26	189	1
+ADJUST		0xb2a	189	1
+ADJUST		0xb2e	189	1
+ADJUST		0xb32	189	1
+ADJUST		0xb38	189	1
+ADJUST		0xb3c	189	1
+CALL		0xb3e	189	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"recv_msg"	0
+ADJUST		0xb40	189	-7
+ADJUST		0xb44	190	-1
+FN_END		0xb4a	190	
+FN_START	0xb4c	195	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queues"	"external"	
+ADJUST		0xb52	196	1
+ADJUST		0xb56	196	1
+CALL		0xb58	196	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queue"	0
+ADJUST		0xb5a	196	-2
+ADJUST		0xb5e	197	1
+ADJUST		0xb62	197	1
+CALL		0xb64	197	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queue"	0
+ADJUST		0xb66	197	-2
+ADJUST		0xb6a	198	1
+ADJUST		0xb6e	198	1
+CALL		0xb70	198	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queue"	0
+ADJUST		0xb72	198	-2
+ADJUST		0xb76	199	1
+ADJUST		0xb7a	199	1
+CALL		0xb7c	199	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queue"	0
+ADJUST		0xb7e	199	-2
+FN_END		0xb80	200	
+FN_START	0xb82	204	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"enter_sleep_mode"	"external"	
+FN_END		0xb86	216	
+FN_START	0xb88	220	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"check_msg"	"external"	
+ADJUST		0xb88	220	1
+ADJUST		0xbc8	222	-1
+FN_END		0xbce	222	
+FN_START	0xbd0	228	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"SleepIfOkay"	"external"	
+CALL		0xbd8	233	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_low_int"	0
+CALL		0xbee	238	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_high_int"	0
+ADJUST		0xc06	245	1
+ADJUST		0xc0a	245	1
+CALL		0xc0c	245	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"check_msg"	0
+ADJUST		0xc0e	245	-2
+ADJUST		0xc18	248	1
+ADJUST		0xc1c	248	1
+CALL		0xc1e	248	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"check_msg"	0
+ADJUST		0xc20	248	-2
+CALL		0xc28	251	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"enter_sleep_mode"	0
+FN_END		0xc2a	252	
+FN_START	0xc2c	257	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"block_on_To_msgqueues"	"external"	
+CALL		0xc2c	257	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_main"	0
+ADJUST		0xc4c	265	1
+ADJUST		0xc50	265	1
+CALL		0xc52	265	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"check_msg"	0
+ADJUST		0xc54	265	-2
+ADJUST		0xc64	272	1
+ADJUST		0xc68	272	1
+CALL		0xc6a	272	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"check_msg"	0
+ADJUST		0xc6c	272	-2
+ADJUST		0xc7c	279	1
+CALL		0xc7e	279	"d1ktcyx.O"	"Delay1KTCYx"	0
+ADJUST		0xc82	279	-1
+FN_END		0xc88	284	
 FILE		0x0	0	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\main.c"
-FN_START	0x106e	129	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\main.c"	"main"	"external"	
-ADJUST		0x106e	129	1
-ADJUST		0x1078	129	63
-CALL		0x1080	163	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"	"initADC"	0
-ADJUST		0x1088	166	1
-ADJUST		0x108a	166	1
-CALL		0x108e	166	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_uart.c"	"init_uart_recv"	0
-ADJUST		0x1092	166	-2
-ADJUST		0x1098	169	1
-ADJUST		0x109a	169	1
-CALL		0x109e	169	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"init_i2c"	0
-ADJUST		0x10a2	169	-2
-ADJUST		0x10a8	172	1
-ADJUST		0x10aa	172	1
-CALL		0x10ae	172	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer1_thread.c"	"init_timer1_lthread"	0
-ADJUST		0x10b2	172	-2
-CALL		0x10b4	175	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queues"	0
-ADJUST		0x10be	194	1
-CALL		0x10c0	194	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0open.c"	"OpenTimer0"	0
-ADJUST		0x10c4	194	-1
-ADJUST		0x10c8	199	1
-CALL		0x10ca	199	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1open.c"	"OpenTimer1"	0
-ADJUST		0x10ce	199	-1
-ADJUST		0x10da	222	1
-CALL		0x10dc	222	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_configure_master"	0
-ADJUST		0x10e0	222	-1
-ADJUST		0x10ea	250	1
-ADJUST		0x10ec	250	1
-ADJUST		0x10f0	250	1
-CALL		0x10f2	250	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uopen.c"	"OpenUSART"	0
-ADJUST		0x10f6	250	-3
-CALL		0x10f8	255	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"enable_interrupts"	0
-ADJUST		0x1104	273	1
-ADJUST		0x1106	273	1
-ADJUST		0x1108	273	1
-ADJUST		0x110c	273	1
-CALL		0x1110	273	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"	"createQueue"	0
-ADJUST		0x1114	273	-4
-ADJUST		0x1142	291	1
-ADJUST		0x1146	291	1
-ADJUST		0x114c	291	1
-CALL		0x114e	291	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_send"	0
-ADJUST		0x1152	291	-3
-CALL		0x1154	297	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"block_on_To_msgqueues"	0
-ADJUST		0x115c	304	1
-ADJUST		0x115e	304	1
-ADJUST		0x1166	304	1
-ADJUST		0x1168	304	1
-ADJUST		0x116e	304	1
-CALL		0x1170	304	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_recvmsg"	0
-ADJUST		0x1174	304	-5
-ADJUST		0x119c	314	1
-ADJUST		0x119e	314	1
-ADJUST		0x11ae	314	1
-ADJUST		0x11b2	314	1
-ADJUST		0x11b8	314	1
-ADJUST		0x11ba	314	1
-ADJUST		0x11c0	314	1
-ADJUST		0x11c2	314	1
-CALL		0x11c6	314	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer0_thread.c"	"timer0_lthread"	0
-ADJUST		0x11ca	314	-8
-ADJUST		0x11fa	321	1
-ADJUST		0x11fe	321	1
-CALL		0x1202	321	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"	"readQueue"	0
-ADJUST		0x1206	321	-2
-ADJUST		0x1208	321	1
-ADJUST		0x1222	321	-1
-ADJUST		0x1230	323	1
-ADJUST		0x1232	323	1
-ADJUST		0x123e	323	1
-CALL		0x1242	323	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"start_i2c_slave_reply"	0
-ADJUST		0x1246	323	-3
-ADJUST		0x1290	365	1
-ADJUST		0x1292	365	1
-ADJUST		0x1296	365	1
-CALL		0x129a	365	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"start_i2c_slave_reply"	0
-ADJUST		0x129e	365	-3
-ADJUST		0x12a6	377	1
-ADJUST		0x12a8	377	1
-ADJUST		0x12b0	377	1
-ADJUST		0x12b2	377	1
-ADJUST		0x12b8	377	1
-CALL		0x12ba	377	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_recvmsg"	0
-ADJUST		0x12be	377	-5
-ADJUST		0x12ea	387	1
-ADJUST		0x12ec	387	1
-ADJUST		0x12fc	387	1
-ADJUST		0x1300	387	1
-ADJUST		0x1306	387	1
-ADJUST		0x1308	387	1
-ADJUST		0x130e	387	1
-ADJUST		0x1310	387	1
-CALL		0x1314	387	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer1_thread.c"	"timer1_lthread"	0
-ADJUST		0x1318	387	-8
-ADJUST		0x131c	393	1
-ADJUST		0x1320	393	1
-ADJUST		0x1328	393	1
-ADJUST		0x132a	393	1
-ADJUST		0x133a	393	1
-ADJUST		0x133e	393	1
-ADJUST		0x1344	393	1
-ADJUST		0x1346	393	1
-ADJUST		0x134c	393	1
-ADJUST		0x134e	393	1
-CALL		0x1352	393	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\uart_thread.c"	"uart_lthread"	0
-ADJUST		0x1356	393	-10
-ADJUST		0x135a	398	1
-ADJUST		0x135e	398	1
-ADJUST		0x1366	398	1
-ADJUST		0x1368	398	1
-ADJUST		0x1378	398	1
-ADJUST		0x137c	398	1
-ADJUST		0x1382	398	1
-ADJUST		0x1384	398	1
-ADJUST		0x138a	398	1
-ADJUST		0x138c	398	1
-CALL		0x1390	398	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\uart_thread.c"	"uart_lthread"	0
-ADJUST		0x1394	398	-10
-ADJUST		0x13a2	414	-63
-ADJUST		0x13a4	414	-1
-FN_END		0x13aa	414	
+FN_START	0xc8a	130	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\main.c"	"main"	"external"	
+ADJUST		0xc8a	130	1
+ADJUST		0xc94	130	63
+CALL		0xc9c	164	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"	"initADC"	0
+ADJUST		0xca4	167	1
+ADJUST		0xca6	167	1
+CALL		0xcaa	167	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_uart.c"	"init_uart_recv"	0
+ADJUST		0xcae	167	-2
+ADJUST		0xcb4	170	1
+ADJUST		0xcb6	170	1
+CALL		0xcba	170	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"init_i2c"	0
+ADJUST		0xcbe	170	-2
+ADJUST		0xcc4	173	1
+ADJUST		0xcc6	173	1
+CALL		0xcca	173	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer1_thread.c"	"init_timer1_lthread"	0
+ADJUST		0xcce	173	-2
+CALL		0xcd0	176	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"init_queues"	0
+ADJUST		0xcda	195	1
+CALL		0xcdc	195	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0open.c"	"OpenTimer0"	0
+ADJUST		0xce0	195	-1
+ADJUST		0xce4	200	1
+CALL		0xce6	200	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1open.c"	"OpenTimer1"	0
+ADJUST		0xcea	200	-1
+ADJUST		0xcf6	223	1
+CALL		0xcf8	223	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_configure_master"	0
+ADJUST		0xcfc	223	-1
+ADJUST		0xd04	251	1
+ADJUST		0xd06	251	1
+ADJUST		0xd0a	251	1
+CALL		0xd0c	251	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uopen.c"	"OpenUSART"	0
+ADJUST		0xd10	251	-3
+CALL		0xd12	256	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"enable_interrupts"	0
+ADJUST		0xd1e	274	1
+ADJUST		0xd20	274	1
+ADJUST		0xd22	274	1
+ADJUST		0xd26	274	1
+CALL		0xd2a	274	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"	"createQueue"	0
+ADJUST		0xd2e	274	-4
+CALL		0xd5c	299	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"block_on_To_msgqueues"	0
+ADJUST		0xd64	306	1
+ADJUST		0xd66	306	1
+ADJUST		0xd6e	306	1
+ADJUST		0xd70	306	1
+ADJUST		0xd76	306	1
+CALL		0xd78	306	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_recvmsg"	0
+ADJUST		0xd7c	306	-5
+ADJUST		0xda4	316	1
+ADJUST		0xda6	316	1
+ADJUST		0xdb6	316	1
+ADJUST		0xdba	316	1
+ADJUST		0xdc0	316	1
+ADJUST		0xdc2	316	1
+ADJUST		0xdc8	316	1
+ADJUST		0xdca	316	1
+CALL		0xdce	316	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer0_thread.c"	"timer0_lthread"	0
+ADJUST		0xdd2	316	-8
+ADJUST		0xe02	322	1
+ADJUST		0xe06	322	1
+CALL		0xe0a	322	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"	"readQueue"	0
+ADJUST		0xe0e	322	-2
+ADJUST		0xe10	322	1
+ADJUST		0xe2a	322	-1
+ADJUST		0xe7e	378	1
+ADJUST		0xe80	378	1
+ADJUST		0xe88	378	1
+ADJUST		0xe8a	378	1
+ADJUST		0xe90	378	1
+CALL		0xe92	378	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_recvmsg"	0
+ADJUST		0xe96	378	-5
+ADJUST		0xec2	388	1
+ADJUST		0xec4	388	1
+ADJUST		0xed4	388	1
+ADJUST		0xed8	388	1
+ADJUST		0xede	388	1
+ADJUST		0xee0	388	1
+ADJUST		0xee6	388	1
+ADJUST		0xee8	388	1
+CALL		0xeec	388	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer1_thread.c"	"timer1_lthread"	0
+ADJUST		0xef0	388	-8
+ADJUST		0xef6	395	1
+ADJUST		0xefa	395	1
+CALL		0xefc	395	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_recv"	0
+ADJUST		0xf00	395	-2
+ADJUST		0xf04	400	1
+ADJUST		0xf08	400	1
+ADJUST		0xf10	400	1
+ADJUST		0xf12	400	1
+ADJUST		0xf22	400	1
+ADJUST		0xf26	400	1
+ADJUST		0xf2c	400	1
+ADJUST		0xf2e	400	1
+ADJUST		0xf34	400	1
+ADJUST		0xf36	400	1
+CALL		0xf3a	400	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\uart_thread.c"	"uart_lthread"	0
+ADJUST		0xf3e	400	-10
+ADJUST		0xf4c	416	-63
+ADJUST		0xf4e	416	-1
+FN_END		0xf54	416	
 FILE		0x0	0	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"
-FN_START	0x13ac	3	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"	"appendQueue"	"external"	
-ADJUST		0x13ac	3	1
-ADJUST		0x1482	22	-1
-FN_END		0x1488	22	
-FN_START	0x148a	24	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"	"readQueue"	"external"	
-ADJUST		0x148a	24	1
-ADJUST		0x1494	24	3
-ADJUST		0x1528	38	1
-ADJUST		0x154a	38	-1
-ADJUST		0x1570	43	-4
-FN_END		0x1576	43	
-FN_START	0x1578	45	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"	"createQueue"	"external"	
-ADJUST		0x1578	45	1
-ADJUST		0x1608	57	-1
-FN_END		0x160e	57	
+FN_START	0xf56	3	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"	"appendQueue"	"external"	
+ADJUST		0xf56	3	1
+ADJUST		0x102c	22	-1
+FN_END		0x1032	22	
+FN_START	0x1034	24	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"	"readQueue"	"external"	
+ADJUST		0x1034	24	1
+ADJUST		0x103e	24	3
+ADJUST		0x10d2	38	1
+ADJUST		0x10f4	38	-1
+ADJUST		0x111a	43	-4
+FN_END		0x1120	43	
+FN_START	0x1122	45	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"	"createQueue"	"external"	
+ADJUST		0x1122	45	1
+ADJUST		0x11b2	57	-1
+FN_END		0x11b8	57	
 FILE		0x0	0	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"
-FN_START	0x1610	17	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"enable_interrupts"	"external"	
-FN_END		0x1616	20	
-FN_START	0x1618	23	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_high_int"	"external"	
-FN_END		0x1638	24	
-FN_START	0x163a	27	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"low_int_active"	"external"	
-FN_END		0x165a	28	
-FN_START	0x165c	31	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_low_int"	"external"	
-CALL		0x166a	33	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_high_int"	0
-FN_END		0x168e	38	
-FN_START	0x1690	41	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_main"	"external"	
-CALL		0x1690	41	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_low_int"	0
-CALL		0x16a2	41	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_high_int"	0
-FN_END		0x16c6	46	
-FN_START	0x16c8	83	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"InterruptHandlerHigh"	"external"	
-ADJUST		0x1718	83	18
-CALL		0x1720	92	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_int_handler"	0
-CALL		0x172a	99	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\user_interrupts.c"	"timer0_int_handler"	0
-CALL		0x172e	109	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"SleepIfOkay"	0
-ADJUST		0x177c	110	-18
-FN_END		0x1780	110	
-FN_START	0x1782	122	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"InterruptHandlerLow"	"external"	
-ADJUST		0x17dc	122	19
-CALL		0x17e4	126	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\user_interrupts.c"	"timer1_int_handler"	0
-CALL		0x17ee	131	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"	"adc_int_handler"	0
-CALL		0x17f8	138	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_uart.c"	"uart_recv_int_handler"	0
-ADJUST		0x1850	140	-19
-FN_END		0x1854	140	
+FN_START	0x11ba	17	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"enable_interrupts"	"external"	
+FN_END		0x11c0	20	
+FN_START	0x11c2	23	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_high_int"	"external"	
+FN_END		0x11e2	24	
+FN_START	0x11e4	27	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"low_int_active"	"external"	
+FN_END		0x1204	28	
+FN_START	0x1206	31	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_low_int"	"external"	
+CALL		0x1214	33	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_high_int"	0
+FN_END		0x1238	38	
+FN_START	0x123a	41	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_main"	"external"	
+CALL		0x123a	41	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_low_int"	0
+CALL		0x124c	41	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"in_high_int"	0
+FN_END		0x1270	46	
+FN_START	0x1272	83	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"InterruptHandlerHigh"	"external"	
+ADJUST		0x12c2	83	18
+CALL		0x12ca	92	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_i2c.c"	"i2c_int_handler"	0
+CALL		0x12d4	99	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\user_interrupts.c"	"timer0_int_handler"	0
+CALL		0x12d8	109	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"SleepIfOkay"	0
+ADJUST		0x1326	110	-18
+FN_END		0x132a	110	
+FN_START	0x132c	122	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\interrupts.c"	"InterruptHandlerLow"	"external"	
+ADJUST		0x1386	122	19
+CALL		0x138e	126	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\user_interrupts.c"	"timer1_int_handler"	0
+CALL		0x1398	131	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"	"adc_int_handler"	0
+CALL		0x13a2	138	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_uart.c"	"uart_recv_int_handler"	0
+ADJUST		0x13fa	140	-19
+FN_END		0x13fe	140	
 FILE		0x0	0	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\user_interrupts.c"
-FN_START	0x1856	16	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\user_interrupts.c"	"timer0_int_handler"	"external"	
-ADJUST		0x1856	16	1
-ADJUST		0x1860	16	6
-ADJUST		0x1866	25	1
-ADJUST		0x1868	25	1
-CALL		0x186a	25	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0write.c"	"WriteTimer0"	0
-ADJUST		0x186e	25	-2
-ADJUST		0x1874	27	1
-ADJUST		0x1876	27	1
-ADJUST		0x187e	27	1
-ADJUST		0x1880	27	1
-ADJUST		0x1886	27	1
-CALL		0x1888	27	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"FromMainHigh_recvmsg"	0
-ADJUST		0x188c	27	-5
-ADJUST		0x18a4	29	1
-ADJUST		0x18a6	29	1
-ADJUST		0x18ac	29	1
-ADJUST		0x18b0	29	1
-CALL		0x18b2	29	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
-ADJUST		0x18b6	29	-4
-ADJUST		0x18b8	31	-7
-FN_END		0x18be	31	
-FN_START	0x18c0	36	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\user_interrupts.c"	"timer1_int_handler"	"external"	
-ADJUST		0x18c0	36	1
-ADJUST		0x18ca	36	2
-CALL		0x18d2	44	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1read.c"	"ReadTimer1"	0
-ADJUST		0x18e0	45	1
-ADJUST		0x18e2	45	1
-ADJUST		0x18e6	45	1
-ADJUST		0x18e8	45	1
-CALL		0x18ea	45	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
-ADJUST		0x18ee	45	-4
-ADJUST		0x18f2	48	1
-ADJUST		0x18f4	48	1
-CALL		0x18f6	48	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1write.c"	"WriteTimer1"	0
-ADJUST		0x18fa	48	-2
-ADJUST		0x18fc	49	-3
-FN_END		0x1902	49	
-FN_START	0x1904	51	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\user_interrupts.c"	"timer3_int_handler"	"external"	
-ADJUST		0x1904	51	1
-ADJUST		0x190e	51	2
-CALL		0x1912	59	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t3read.c"	"ReadTimer3"	0
-ADJUST		0x1920	60	1
-ADJUST		0x1922	60	1
-ADJUST		0x1926	60	1
-ADJUST		0x1928	60	1
-CALL		0x192a	60	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
-ADJUST		0x192e	60	-4
-ADJUST		0x1932	63	1
-ADJUST		0x1934	63	1
-CALL		0x1936	63	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t3write.c"	"WriteTimer3"	0
-ADJUST		0x193a	63	-2
-ADJUST		0x193c	64	-3
-FN_END		0x1942	64	
+FN_START	0x1400	16	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\user_interrupts.c"	"timer0_int_handler"	"external"	
+ADJUST		0x1400	16	1
+ADJUST		0x140a	16	6
+ADJUST		0x1410	25	1
+ADJUST		0x1412	25	1
+CALL		0x1414	25	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0write.c"	"WriteTimer0"	0
+ADJUST		0x1418	25	-2
+ADJUST		0x141e	27	1
+ADJUST		0x1420	27	1
+ADJUST		0x1428	27	1
+ADJUST		0x142a	27	1
+ADJUST		0x1430	27	1
+CALL		0x1432	27	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"FromMainHigh_recvmsg"	0
+ADJUST		0x1436	27	-5
+ADJUST		0x144e	29	1
+ADJUST		0x1450	29	1
+ADJUST		0x1456	29	1
+ADJUST		0x145a	29	1
+CALL		0x145c	29	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0x1460	29	-4
+ADJUST		0x1462	31	-7
+FN_END		0x1468	31	
+FN_START	0x146a	36	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\user_interrupts.c"	"timer1_int_handler"	"external"	
+ADJUST		0x146a	36	1
+ADJUST		0x1474	36	2
+CALL		0x147c	44	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1read.c"	"ReadTimer1"	0
+ADJUST		0x148a	45	1
+ADJUST		0x148c	45	1
+ADJUST		0x1490	45	1
+ADJUST		0x1492	45	1
+CALL		0x1494	45	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x1498	45	-4
+ADJUST		0x149c	48	1
+ADJUST		0x149e	48	1
+CALL		0x14a0	48	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1write.c"	"WriteTimer1"	0
+ADJUST		0x14a4	48	-2
+ADJUST		0x14a6	49	-3
+FN_END		0x14ac	49	
+FN_START	0x14ae	51	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\user_interrupts.c"	"timer3_int_handler"	"external"	
+ADJUST		0x14ae	51	1
+ADJUST		0x14b8	51	2
+CALL		0x14bc	59	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t3read.c"	"ReadTimer3"	0
+ADJUST		0x14ca	60	1
+ADJUST		0x14cc	60	1
+ADJUST		0x14d0	60	1
+ADJUST		0x14d2	60	1
+CALL		0x14d4	60	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x14d8	60	-4
+ADJUST		0x14dc	63	1
+ADJUST		0x14de	63	1
+CALL		0x14e0	63	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t3write.c"	"WriteTimer3"	0
+ADJUST		0x14e4	63	-2
+ADJUST		0x14e6	64	-3
+FN_END		0x14ec	64	
 FILE		0x0	0	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_uart.c"
-FN_START	0x1944	16	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_uart.c"	"uart_recv_int_handler"	"external"	
-CALL		0x1948	17	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uread.c"	"ReadUSART"	0
-ADJUST		0x194c	17	1
-ADJUST		0x1976	17	-1
-ADJUST		0x19ae	23	1
-ADJUST		0x19b2	23	1
-ADJUST		0x19b8	23	1
-ADJUST		0x19c6	23	1
-CALL		0x19c8	23	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
-ADJUST		0x19cc	23	-4
-ADJUST		0x19ec	36	1
-ADJUST		0x19ee	36	1
-ADJUST		0x19f2	36	1
-ADJUST		0x19f4	36	1
-CALL		0x19f6	36	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
-ADJUST		0x19fa	36	-4
-FN_END		0x19fc	38	
-FN_START	0x19fe	40	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_uart.c"	"init_uart_recv"	"external"	
-ADJUST		0x19fe	40	1
-ADJUST		0x1a22	43	-1
-FN_END		0x1a28	43	
+FN_START	0x14ee	16	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_uart.c"	"uart_recv_int_handler"	"external"	
+CALL		0x14f2	17	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uread.c"	"ReadUSART"	0
+ADJUST		0x14f6	17	1
+ADJUST		0x1520	17	-1
+ADJUST		0x1558	23	1
+ADJUST		0x155c	23	1
+ADJUST		0x1562	23	1
+ADJUST		0x1570	23	1
+CALL		0x1572	23	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x1576	23	-4
+ADJUST		0x1596	36	1
+ADJUST		0x1598	36	1
+ADJUST		0x159c	36	1
+ADJUST		0x159e	36	1
+CALL		0x15a0	36	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x15a4	36	-4
+FN_END		0x15a6	38	
+FN_START	0x15a8	40	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_uart.c"	"init_uart_recv"	"external"	
+ADJUST		0x15a8	40	1
+ADJUST		0x15cc	43	-1
+FN_END		0x15d2	43	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"
+FN_START	0x15d4	81	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"	"_do_cinit"	"external"	
+FN_END		0x1670	184	
 FILE		0x0	0	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\uart_thread.c"
-FN_START	0x1a2a	9	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\uart_thread.c"	"uart_lthread"	"external"	
-ADJUST		0x1a2a	9	1
-ADJUST		0x1a34	9	2
-ADJUST		0x1a88	26	1
-ADJUST		0x1a8c	26	1
-ADJUST		0x1a90	26	1
-CALL		0x1a94	26	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"	"appendQueue"	0
-ADJUST		0x1a98	26	-3
-ADJUST		0x1aa8	28	1
-CALL		0x1aaa	28	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uwrite.c"	"WriteUSART"	0
-ADJUST		0x1aae	28	-1
-ADJUST		0x1ab2	29	1
-CALL		0x1ab4	29	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uwrite.c"	"WriteUSART"	0
-ADJUST		0x1ab8	29	-1
-ADJUST		0x1ac4	32	1
-ADJUST		0x1ac6	32	1
-ADJUST		0x1aca	32	1
-ADJUST		0x1acc	32	1
-CALL		0x1ace	32	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
-ADJUST		0x1ad2	32	-4
-ADJUST		0x1ad4	34	-3
-FN_END		0x1ada	34	
-FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"
-FN_START	0x1adc	81	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"	"_do_cinit"	"external"	
-FN_END		0x1b78	184	
+FN_START	0x1672	9	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\uart_thread.c"	"uart_lthread"	"external"	
+ADJUST		0x1672	9	1
+ADJUST		0x167c	9	2
+ADJUST		0x16d0	26	1
+ADJUST		0x16d4	26	1
+ADJUST		0x16d8	26	1
+CALL		0x16dc	26	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\queue.c"	"appendQueue"	0
+ADJUST		0x16e0	26	-3
+ADJUST		0x16ec	32	1
+ADJUST		0x16ee	32	1
+ADJUST		0x16f2	32	1
+ADJUST		0x16f4	32	1
+CALL		0x16f6	32	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0x16fa	32	-4
+ADJUST		0x16fc	34	-3
+FN_END		0x1702	34	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uopen.c"
-FN_START	0x1b7a	73	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uopen.c"	"OpenUSART"	"external"	
-FN_END		0x1bfa	143	
+FN_START	0x1704	73	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uopen.c"	"OpenUSART"	"external"	
+FN_END		0x1784	143	
 FILE		0x0	0	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"
-FN_START	0x1bfc	6	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"	"adc_int_handler"	"external"	
-ADJUST		0x1bfe	6	1
-ADJUST		0x1c00	6	1
-ADJUST		0x1c04	6	1
-ADJUST		0x1c06	6	1
-CALL		0x1c08	6	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
-ADJUST		0x1c0c	6	-4
-FN_END		0x1c0e	7	
-FN_START	0x1c10	14	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"	"initADC"	"external"	
-ADJUST		0x1c12	14	1
-ADJUST		0x1c16	14	1
-ADJUST		0x1c1a	11	1
-CALL		0x1c1c	14	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcopen.c"	"OpenADC"	0
-ADJUST		0x1c20	14	-3
-ADJUST		0x1c24	16	1
-CALL		0x1c26	16	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcsetch.c"	"SetChanADC"	0
-ADJUST		0x1c2a	16	-1
-FN_END		0x1c2c	18	
-FN_START	0x1c2e	20	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"	"readADC"	"external"	
-ADJUST		0x1c2e	20	1
-CALL		0x1c38	22	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcconv.c"	"ConvertADC"	0
-CALL		0x1c3c	23	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcbusy.c"	"BusyADC"	0
-CALL		0x1c46	24	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcread.c"	"ReadADC"	0
-ADJUST		0x1c62	26	-1
-FN_END		0x1c68	26	
-FN_START	0x1c6a	30	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"	"stopADC"	"external"	
-BRANCH	0x1c6a	30	0x2026
-FN_END		0x1c6c	30	
+FN_START	0x1786	6	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"	"adc_int_handler"	"external"	
+ADJUST		0x1788	6	1
+ADJUST		0x178a	6	1
+ADJUST		0x178e	6	1
+ADJUST		0x1790	6	1
+CALL		0x1792	6	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x1796	6	-4
+FN_END		0x1798	7	
+FN_START	0x179a	14	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"	"initADC"	"external"	
+ADJUST		0x179c	14	1
+ADJUST		0x17a0	14	1
+ADJUST		0x17a4	11	1
+CALL		0x17a6	14	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcopen.c"	"OpenADC"	0
+ADJUST		0x17aa	14	-3
+ADJUST		0x17ae	16	1
+CALL		0x17b0	16	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcsetch.c"	"SetChanADC"	0
+ADJUST		0x17b4	16	-1
+FN_END		0x17b6	18	
+FN_START	0x17b8	20	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"	"readADC"	"external"	
+ADJUST		0x17b8	20	1
+CALL		0x17c2	22	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcconv.c"	"ConvertADC"	0
+CALL		0x17c6	23	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcbusy.c"	"BusyADC"	0
+CALL		0x17d0	24	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcread.c"	"ReadADC"	0
+ADJUST		0x17ec	26	-1
+FN_END		0x17f2	26	
+FN_START	0x17f4	30	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\my_adc.c"	"stopADC"	"external"	
+BRANCH	0x17f4	30	0x1baa
+FN_END		0x17f6	30	
 FILE		0x0	0	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer1_thread.c"
-FN_START	0x1c6e	7	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer1_thread.c"	"init_timer1_lthread"	"external"	
-ADJUST		0x1c6e	7	1
-ADJUST		0x1c84	9	-1
-FN_END		0x1c8a	9	
-FN_START	0x1c8c	17	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer1_thread.c"	"timer1_lthread"	"external"	
-ADJUST		0x1c8c	17	1
-ADJUST		0x1cc4	22	1
-ADJUST		0x1cc6	22	1
-ADJUST		0x1cca	22	1
-ADJUST		0x1ccc	22	1
-CALL		0x1cce	22	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
-ADJUST		0x1cd2	22	-4
-ADJUST		0x1cd4	24	-1
-FN_END		0x1cda	24	
+FN_START	0x17f8	7	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer1_thread.c"	"init_timer1_lthread"	"external"	
+ADJUST		0x17f8	7	1
+ADJUST		0x180e	9	-1
+FN_END		0x1814	9	
+FN_START	0x1816	17	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer1_thread.c"	"timer1_lthread"	"external"	
+ADJUST		0x1816	17	1
+ADJUST		0x184e	22	1
+ADJUST		0x1850	22	1
+ADJUST		0x1854	22	1
+ADJUST		0x1856	22	1
+CALL		0x1858	22	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x185c	22	-4
+ADJUST		0x185e	24	-1
+FN_END		0x1864	24	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcopen.c"
-FN_START	0x1cdc	68	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcopen.c"	"OpenADC"	"external"	
-FN_END		0x1d3e	89	
+FN_START	0x1866	68	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcopen.c"	"OpenADC"	"external"	
+FN_END		0x18c8	89	
 FILE		0x0	0	"memcpy.O"
-FN_START	0x1d40	30	"memcpy.O"	"memcpy"	"visibility"	
-ADJUST		0x1d40	30	1
-ADJUST		0x1d44	30	1
-ADJUST		0x1d4a	34	1
-ADJUST		0x1d50	34	1
-ADJUST		0x1d56	38	1
-ADJUST		0x1d5c	38	1
-ADJUST		0x1d6a	49	1
-ADJUST		0x1d70	49	1
-ADJUST		0x1d76	53	1
-ADJUST		0x1d7c	53	1
-ADJUST		0x1d86	61	1
-ADJUST		0x1d8a	61	-1
-ADJUST		0x1d8e	61	1
-ADJUST		0x1d92	61	-1
-FN_END		0x1d94	63	
+FN_START	0x18ca	30	"memcpy.O"	"memcpy"	"visibility"	
+ADJUST		0x18ca	30	1
+ADJUST		0x18ce	30	1
+ADJUST		0x18d4	34	1
+ADJUST		0x18da	34	1
+ADJUST		0x18e0	38	1
+ADJUST		0x18e6	38	1
+ADJUST		0x18f4	49	1
+ADJUST		0x18fa	49	1
+ADJUST		0x1900	53	1
+ADJUST		0x1906	53	1
+ADJUST		0x1910	61	1
+ADJUST		0x1914	61	-1
+ADJUST		0x1918	61	1
+ADJUST		0x191c	61	-1
+FN_END		0x191e	63	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1open.c"
-FN_START	0x1d96	16	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1open.c"	"OpenTimer1"	"external"	
-FN_END		0x1dd4	36	
+FN_START	0x1920	16	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1open.c"	"OpenTimer1"	"external"	
+FN_END		0x195e	36	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uread.c"
-FN_START	0x1dd6	15	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uread.c"	"ReadUSART"	"external"	
-FN_END		0x1e12	37	
+FN_START	0x1960	15	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uread.c"	"ReadUSART"	"external"	
+FN_END		0x199c	37	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0open.c"
-FN_START	0x1e14	18	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0open.c"	"OpenTimer0"	"external"	
-FN_END		0x1e48	31	
+FN_START	0x199e	18	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0open.c"	"OpenTimer0"	"external"	
+FN_END		0x19d2	31	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t3write.c"
-FN_START	0x1e4a	12	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t3write.c"	"WriteTimer3"	"external"	
-FN_END		0x1e78	19	
+FN_START	0x19d4	12	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t3write.c"	"WriteTimer3"	"external"	
+FN_END		0x1a02	19	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t3read.c"
-FN_START	0x1e7a	13	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t3read.c"	"ReadTimer3"	"external"	
-FN_END		0x1ea8	21	
+FN_START	0x1a04	13	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t3read.c"	"ReadTimer3"	"external"	
+FN_END		0x1a32	21	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1write.c"
-FN_START	0x1eaa	14	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1write.c"	"WriteTimer1"	"external"	
-FN_END		0x1ed8	22	
+FN_START	0x1a34	14	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1write.c"	"WriteTimer1"	"external"	
+FN_END		0x1a62	22	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1read.c"
-FN_START	0x1eda	15	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1read.c"	"ReadTimer1"	"external"	
-FN_END		0x1f08	23	
+FN_START	0x1a64	15	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1read.c"	"ReadTimer1"	"external"	
+FN_END		0x1a92	23	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0write.c"
-FN_START	0x1f0a	16	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0write.c"	"WriteTimer0"	"external"	
-FN_END		0x1f38	24	
+FN_START	0x1a94	16	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0write.c"	"WriteTimer0"	"external"	
+FN_END		0x1ac2	24	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcsetch.c"
-FN_START	0x1f3a	30	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcsetch.c"	"SetChanADC"	"external"	
-FN_END		0x1f68	36	
-FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uwrite.c"
-FN_START	0x1f6a	13	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uwrite.c"	"WriteUSART"	"external"	
-FN_END		0x1f96	23	
+FN_START	0x1ac4	30	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcsetch.c"	"SetChanADC"	"external"	
+FN_END		0x1af2	36	
 FILE		0x0	0	"d1ktcyx.O"
-FN_START	0x1f98	19	"d1ktcyx.O"	"Delay1KTCYx"	"visibility"	
-ADJUST		0x1f9a	21	1
-FN_END		0x1fb6	41	
+FN_START	0x1af4	19	"d1ktcyx.O"	"Delay1KTCYx"	"visibility"	
+ADJUST		0x1af6	21	1
+FN_END		0x1b12	41	
 FILE		0x0	0	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer0_thread.c"
-FN_START	0x1fd8	9	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer0_thread.c"	"timer0_lthread"	"external"	
-ADJUST		0x1fd8	9	1
-ADJUST		0x1fe2	9	2
-ADJUST		0x1fec	16	-3
-FN_END		0x1ff2	16	
+FN_START	0x1b34	9	"C:\Users\ECE4534\Documents\ECE-4534\PICCode\PICFrameworkWindows\src\timer0_thread.c"	"timer0_lthread"	"external"	
+ADJUST		0x1b34	9	1
+ADJUST		0x1b3e	9	2
+ADJUST		0x1b48	16	-3
+FN_END		0x1b4e	16	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"
-FN_START	0x1ff4	34	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"	"_startup"	"external"	
-FN_END		0x200c	51	
+FN_START	0x1b50	34	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"	"_startup"	"external"	
+FN_END		0x1b68	51	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_read.c"
+FN_START	0x1b6a	13	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_read.c"	"ReadI2C"	"external"	
+FN_END		0x1b82	17	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcread.c"
-FN_START	0x200e	26	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcread.c"	"ReadADC"	"external"	
-FN_END		0x2024	27	
+FN_START	0x1b84	26	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcread.c"	"ReadADC"	"external"	
+FN_END		0x1b9a	27	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_idle.c"
+FN_START	0x1b9c	26	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	"external"	
+FN_END		0x1ba8	28	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcclose.c"
-FN_START	0x2026	25	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcclose.c"	"CloseADC"	"external"	
-LABEL	0x2026	25	0x2026
-FN_END		0x202a	27	
+FN_START	0x1baa	25	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcclose.c"	"CloseADC"	"external"	
+LABEL	0x1baa	25	0x1baa
+FN_END		0x1bae	27	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcconv.c"
-FN_START	0x202c	24	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcconv.c"	"ConvertADC"	"external"	
-FN_END		0x202e	25	
+FN_START	0x1bb0	24	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcconv.c"	"ConvertADC"	"external"	
+FN_END		0x1bb2	25	
 FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\extended\stdclib\__init.c"
-FN_START	0x2030	9	"E:\3.45\pic18-lt\cxx-framework\src\extended\stdclib\__init.c"	"__init"	"external"	
-FN_END		0x2030	9	
+FN_START	0x1bb4	9	"E:\3.45\pic18-lt\cxx-framework\src\extended\stdclib\__init.c"	"__init"	"external"	
+FN_END		0x1bb4	9	

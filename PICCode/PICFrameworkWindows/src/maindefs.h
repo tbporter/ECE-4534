@@ -48,7 +48,7 @@
 
 // DEBUG UART
 //#define DEBUG_WRITE 1
-#define DEBUG_READ 1
+//#define DEBUG_READ 1
 
 #endif
 
