@@ -72,7 +72,7 @@ portBASE_TYPE SendTempTimerMsg(vtTempStruct *tempData,portTickType ticksElapsed,
 	}
 	memcpy(tempBuffer.buf,(char *)&ticksElapsed,sizeof(ticksElapsed));
 	tempBuffer.msgType = TempMsgTypeTimer;
-	return(xQueueSend(tempData->inQ,(void *) (&tempBuffer),ticksToBlock));
+	return(xQueueSend(tempData->inQ,(void *)(&tempBuffer),ticksToBlock));
 }
 
 portBASE_TYPE SendTempValueMsg(vtTempStruct *tempData,uint8_t msgType,uint8_t *value,portTickType ticksToBlock)
@@ -147,9 +147,9 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 	//   whether or not the state should change.
 	//
 	// Temperature sensor configuration sequence (DS1621) Address 0x4F
-	if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempInit,0x4F,sizeof(i2cCmdInit),i2cCmdInit,0) != pdTRUE) {
-		VT_HANDLE_FATAL_ERROR(0);
-	}
+	//if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempInit,0x4F,sizeof(i2cCmdInit),i2cCmdInit,0) != pdTRUE) {
+	//	VT_HANDLE_FATAL_ERROR(0);
+	//}
 	currentState = vtI2CMsgTypeTempRead1;
 	// Like all good tasks, this should never exit
 	for(;;)
@@ -181,11 +181,17 @@ static portTASK_FUNCTION( vi2cTempUpdateTask, pvParameters )
 		case TempMsgTypeTimer: {
 			// Timer messages never change the state, they just cause an action (or not) 
 			if ((currentState != fsmStateInit1Sent) && (currentState != fsmStateInit2Sent)) {
+				printf("got a timer call yo");
+				
 				// Read in the values from the temperature sensor
 				// We have three transactions on i2c to read the full temperature 
 				//   we send all three requests to the I2C thread (via a Queue) -- responses come back through the conductor thread
 				// Temperature read -- use a convenient routine defined above
-				if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempRead1,0x4F,sizeof(i2cCmdReadVals),i2cCmdReadVals,2) != pdTRUE) {
+				//if (vtI2CEnQ(devPtr,vtI2CMsgTypeTempRead1,0x4F,sizeof(i2cCmdReadVals),i2cCmdReadVals,2) != pdTRUE) {
+				//	VT_HANDLE_FATAL_ERROR(0);
+				//}
+				printf("TIMER GET\n");
+				if (vtI2CEnQ(devPtr,voidMsg,0x4F,sizeof(i2cCmdReadVals),i2cCmdReadVals,4) != pdTRUE) {
 					VT_HANDLE_FATAL_ERROR(0);
 				}
 				// Read in the read counter

@@ -97,11 +97,17 @@ You should read the note above.
 #define USE_G9_OSCOPE 0
 // Define whether to use my temperature sensor read task (the sensor is on the PIC v4 demo board, so if that isn't connected
 //   then this should be off
-#define USE_MTJ_V4Temp_Sensor 0
+#define USE_MTJ_V4Temp_Sensor 1
 // Define whether to use my USB task
-#define USE_MTJ_USE_USB 0
+#define USE_MTJ_USE_USB 1
 // Define whether to use the navigation task
 #define USE_NAV_TASK 1
+// Define whether or not to send fake I2C messages
+#if USE_I2C == 1
+	#define USE_FAKE_I2C 1
+#else
+	#define USE_FAKE_I2C 0
+#endif
 
 #if USE_FREERTOS_DEMO == 1
 /* Demo app includes. */
@@ -124,6 +130,7 @@ You should read the note above.
 #include "lcdTask.h"
 #include "g9_LCDOScopeTask.h"
 #include "g9_oScopeTask.h"
+#include "g9_NavTask.h"
 #include "i2cTemp.h"
 #include "vtI2C.h"
 #include "myTimers.h"
@@ -132,6 +139,7 @@ You should read the note above.
 /* syscalls initialization -- *must* occur first */
 #include "syscalls.h"
 #include "extUSB.h"
+#include <stdlib.h>
 #include <stdio.h>
 /*-----------------------------------------------------------*/
 
@@ -191,27 +199,20 @@ char *pcGetTaskStatusMessage( void );
 /* Holds the status message displayed by the WEB server. */
 static char *pcStatusMessage = mainPASS_STATUS_MESSAGE;
 
-
-#if USE_MTJ_V4Temp_Sensor == 1
 // data structure required for one temperature sensor task
-static vtTempStruct tempSensorData;
-#endif
-
-#if USE_I2C == 1
+static vtTempStruct* tempSensorData;
+// data structure required for LCDtask API
+static lcdOScopeStruct* vtOScopeData;
+// data structure required for OScopeTask
+static oScopeStruct* oScopeData;
 // data structure required for one I2C task
-static vtI2CStruct vtI2C0;
+static vtI2CStruct* vtI2C0;
+// data structure required for the navigation Task
+static navStruct* navData;
 // data structure required for conductor task
 static vtConductorStruct conductorData;
-#endif
+ 
 
-#if USE_MTJ_LCD == 1
-// data structure required for LCDtask API
-static vtLCDStruct vtLCDdata; 
-//#elif USE_G9_OSCOPE == 1
-// data structure required for LCDtask API
-static lcdOScopeStruct vtOScopeData;
-//static oScopeStruct oScopeData; 
-#endif
 
 /*-----------------------------------------------------------*/
 
@@ -227,6 +228,7 @@ int main( void )
 	/* Configure the hardware for use by this demo. */
 	prvSetupHardware();
 
+
 	#if USE_FREERTOS_DEMO == 1
 	/* Start the standard demo tasks.  These are just here to exercise the
 	kernel port and provide examples of how the FreeRTOS API can be used. */
@@ -241,6 +243,27 @@ int main( void )
 	vStartLEDFlashTasks( mainFLASH_TASK_PRIORITY );
 	#endif
 
+	//Setup param structs for used devices
+	#if USE_MTJ_V4Temp_Sensor == 1
+	tempSensorData = (vtTempStruct*)malloc(sizeof(vtTempStruct));
+	#endif
+	
+	#if USE_MTJ_LCD == 1 || USE_G9_OSCOPE == 1
+		vtOScopeData = (lcdOScopeStruct*)malloc(sizeof(lcdOScopeStruct)); 
+	#endif
+
+	#if USE_G9_OSCOPE == 1
+		oScopeData = (oScopeStruct*)malloc(sizeof(oScopeStruct));
+	#endif
+
+	#if USE_I2C == 1
+		vtI2C0 = (vtI2CStruct*)malloc(sizeof(vtI2CStruct));
+	#endif
+
+	#if USE_NAV_TASK == 1
+		navData = (navStruct*)malloc(sizeof(navStruct));	
+	#endif
+
 	#if USE_WEB_SERVER == 1
 	// Not a standard demo -- but also not one of mine (MTJ)
 	/* Create the uIP task.  The WEB server runs in this task. */
@@ -248,38 +271,30 @@ int main( void )
 	#endif
 
 	#if USE_I2C == 1
-		if (vtI2CInit(&vtI2C0,0,mainI2CMONITOR_TASK_PRIORITY,100000) != vtI2CInitSuccess) {
+		if (vtI2CInit(vtI2C0,0,mainI2CMONITOR_TASK_PRIORITY,100000) != vtI2CInitSuccess) {
 				VT_HANDLE_FATAL_ERROR(0);
 		}
-		vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,&vtI2C0,&oScopeData);
 	#endif
 
 
 	#if USE_MTJ_LCD == 1
-		// MTJ: My LCD demonstration task
-		//StartLCDTask(&vtLCDdata,mainLCD_TASK_PRIORITY);
-		startLcdOScopeTask(&vtOScopeData,mainLCD_TASK_PRIORITY);
-		startTimerForLCDOScope(&vtOScopeData);
-		// LCD Task creates a queue to receive messages -- what it does with those messages will depend on how the task is configured (see LCDtask.c)
-		// Here we set up a timer that will send messages to the LCD task.  You don't have to have this timer for the LCD task, it is just showing
-		//  how to use a timer and how to send messages from that timer.
-		//startTimerForLCD(&vtLCDdata);
+		startLcdOScopeTask(vtOScopeData,mainLCD_TASK_PRIORITY);
+		startTimerForLCDOScope(vtOScopeData);
 		#if USE_MTJ_V4Temp_Sensor == 1
-			#if USE_MTJ_LCD == 1
-				vStarti2cTempTask(&tempSensorData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,&vtOScopeData);
-			#else
-				vStarti2cTempTask(&tempSensorData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,NULL);
-			#endif
-			startTimerForTemperature(&tempSensorData);
+			vStarti2cTempTask(tempSensorData,mainI2CTEMP_TASK_PRIORITY,vtI2C0,vtOScopeData);
+			startTimerForTemperature(tempSensorData);
 		#endif
 	#elif USE_G9_OSCOPE == 1
 		//Start OScopeTask
-		startLcdOScopeTask(&vtOScopeData,mainLCD_TASK_PRIORITY);
+		startLcdOScopeTask(vtOScopeData,mainLCD_TASK_PRIORITY);
 		//Start Timer for redrawing the OScope
-		startTimerForLCDOScope(&vtOScopeData);
-		//startOScopeTask(&oScopeData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,&vtOScopeData);
-		startOScopeTask(&oScopeData,mainI2CTEMP_TASK_PRIORITY,&vtI2C0,NULL);
-		startTimerForTemperature(&oScopeData);
+		startTimerForLCDOScope(vtOScopeData);
+		startOScopeTask(oScopeData,mainI2CTEMP_TASK_PRIORITY,vtI2C0,NULL);
+		startTimerForTemperature(oScopeData);
+	#endif
+	
+	#if USE_FAKE_I2C == 1
+		startTimerForFakeI2CMsg(vtI2C0);
 	#endif	
 
     /* Create the USB task. MTJ: This routine has been modified from the original example (which is not a FreeRTOS standard demo) */
@@ -288,6 +303,13 @@ int main( void )
     xTaskCreate( vUSBTask, ( signed char * ) "USB", configMINIMAL_STACK_SIZE, ( void * ) NULL, mainUSB_TASK_PRIORITY, NULL );
 	#endif
 	
+	#if USE_NAV_TASK == 1
+		vStartNavigationTask(navData,mainNAVIGATOR_TASK_PRIORITY, vtI2C0);
+	#endif
+	
+	vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,vtI2C0,tempSensorData,oScopeData,navData);
+	
+
 	/* Start the scheduler. */
 	// IMPORTANT: Once you start the scheduler, any variables on the stack from main (local variables in main) can be (will be...) written over
 	//            because the stack is used by the interrupt handler
