@@ -31,14 +31,19 @@ typedef enum {
 	//IR/Line
 	navLineFoundMsg,
 	navIRDataMsg,
-	
+
+	//lap message from web
+	navWebLapMsg,
+	navWebStartMsg,
+		
 	//RFID
 	navRFIDFoundMsg,
 	
 	//Webpage
 	webDebugMsg,
-	/* TODO: Define webpage messages */
-	
+	webPowerMsg,
+	webNavMsg,
+
 	//void, just cause
 	voidMsg
 } g9MsgType;
