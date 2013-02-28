@@ -629,6 +629,13 @@
         </Group>
         <Group>
           <GroupName>UART</GroupName>
+          <Files>
+            <File>
+              <FileName>g9_UART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>Z:/ARMCode/RTOSDemo/MainFiles/g9_UART.c</FilePath>
+            </File>
+          </Files>
         </Group>
       </Groups>
     </Target>

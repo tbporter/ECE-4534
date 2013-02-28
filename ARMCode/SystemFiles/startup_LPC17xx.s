@@ -89,10 +89,10 @@ __cs3_interrupt_vector_cortex_m:
     .long   TIMER1_IRQHandler           /* 18: Timer1                       */
     .long   TIMER2_IRQHandler           /* 19: Timer2                       */
     .long   TIMER3_IRQHandler           /* 20: Timer3                       */
-    .long   UART0_IRQHandler            /* 21: UART0                        */
-    .long   UART1_IRQHandler            /* 22: UART1                        */
-    .long   UART2_IRQHandler            /* 23: UART2                        */
-    .long   UART3_IRQHandler            /* 24: UART3                        */
+    .long   g9UART0Isr		            /* BLS changed from UART0_IRQHandler 21: UART0                        */
+    .long   g9UART1Isr		            /* BLS changed from UART1_IRQHandler 22: UART1                        */
+    .long   g9UART2Isr		            /* BLS changed from UART2_IRQHandler 23: UART2                        */
+    .long   g9UART3Isr		            /* BLS changed from UART3_IRQHandler 24: UART3                        */
     .long   PWM1_IRQHandler             /* 25: PWM1                         */
     .long   vtI2C0Isr      		       /* MTJ changed from default I2C0_IRQHandler 26: I2C0                         */
     .long   vtI2C1Isr      		       /* MTJ changed from default I2C1_IRQHandler             /* 27: I2C1                         */

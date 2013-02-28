@@ -90,7 +90,9 @@ You should read the note above.
    unless the files are actually removed from the project */
 #define USE_FREERTOS_DEMO 0
 // Define whether or not to use I2C
-#define USE_I2C 1
+#define USE_I2C 0
+// Define whether or not to use XBEE
+#define USE_XBEE 1
 // Define whether or not to use my LCD task
 #define USE_MTJ_LCD 1
 // Define whether or not to use the OScope task
@@ -133,6 +135,7 @@ You should read the note above.
 #include "g9_NavTask.h"
 #include "i2cTemp.h"
 #include "vtI2C.h"
+#include "g9_UART.h"
 #include "myTimers.h"
 #include "conductor.h"
 
@@ -162,6 +165,7 @@ tick hook). */
 #define mainI2CMONITOR_TASK_PRIORITY	( tskIDLE_PRIORITY )
 #define mainCONDUCTOR_TASK_PRIORITY		( tskIDLE_PRIORITY )
 #define mainNAVIGATOR_TASK_PRIORITY		( tskIDLE_PRIORITY )
+#define mainUARTMONITOR_TASK_PRIORITY	( tskIDLE_PRIORITY )
 
 /* The WEB server has a larger stack as it utilises stack hungry string
 handling library calls. */
@@ -207,6 +211,8 @@ static lcdOScopeStruct* vtOScopeData;
 static oScopeStruct* oScopeData;
 // data structure required for one I2C task
 static vtI2CStruct* vtI2C0;
+// data structure required for UART Task
+static g9UARTStruct* g9UART1;
 // data structure required for the navigation Task
 static navStruct* navData;
 // data structure required for conductor task
@@ -264,6 +270,10 @@ int main( void )
 		navData = (navStruct*)malloc(sizeof(navStruct));	
 	#endif
 
+	#if USE_XBEE == 1
+		g9UART1 = (g9UARTStruct*)malloc(sizeof(g9UARTStruct));
+	#endif
+
 	#if USE_WEB_SERVER == 1
 	// Not a standard demo -- but also not one of mine (MTJ)
 	/* Create the uIP task.  The WEB server runs in this task. */
@@ -272,7 +282,13 @@ int main( void )
 
 	#if USE_I2C == 1
 		if (vtI2CInit(vtI2C0,0,mainI2CMONITOR_TASK_PRIORITY,100000) != vtI2CInitSuccess) {
-				VT_HANDLE_FATAL_ERROR(0);
+			VT_HANDLE_FATAL_ERROR(0);
+		}
+	#elif USE_XBEE == 1
+		UART_CFG_Type uartConfig;
+		UART_ConfigStructInit(&uartConfig);
+		if ( g9UartInit(g9UART1,1,mainUARTMONITOR_TASK_PRIORITY,&uartConfig) != g9UartInitSuccess) {
+			VT_HANDLE_FATAL_ERROR(0);
 		}
 	#endif
 

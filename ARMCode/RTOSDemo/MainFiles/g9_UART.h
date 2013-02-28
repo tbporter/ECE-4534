@@ -48,7 +48,7 @@ typedef struct __g9UARTStruct {
 //   if successful, returns UartInitSuccess
 //   if not, should return UartErrInit
 // Must be called for each UART device initialized (0, 1, or 2) and used
-int UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE taskPriority,UART_CFG_Type* uartCfg);
+int g9UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE taskPriority,UART_CFG_Type* uartCfg);
 
 // A simple routine to use for filling out and sending a message to the UART thread
 //   You may want to make your own versions of these as they are not suited to all purposes
@@ -61,7 +61,7 @@ int UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE task
 //   rxLen: The number of bytes that you would like to receive
 // Return:
 //   Result of the call to xQueueSend()
-portBASE_TYPE UartEnQ(g9UARTStruct *dev,uint8_t msgType,uint8_t txLen,const uint8_t *txBuf,uint8_t rxLen);
+portBASE_TYPE g9UartEnQ(g9UARTStruct *dev,uint8_t msgType,uint8_t txLen,const uint8_t *txBuf,uint8_t rxLen);
 
 // A simple routine to use for retrieving a message from the UART thread
 // Args
@@ -73,6 +73,6 @@ portBASE_TYPE UartEnQ(g9UARTStruct *dev,uint8_t msgType,uint8_t txLen,const uint
 //   status: Return code of the operation (you will need to dive into the code to understand the status values)
 // Return:
 //   Result of the call to xQueueReceive()
-portBASE_TYPE UartDeQ(g9UARTStruct *dev,uint8_t maxRxLen,uint8_t *rxBuf,uint8_t *rxLen,uint8_t *msgType,uint8_t *status);
+portBASE_TYPE g9UartDeQ(g9UARTStruct *dev,uint8_t maxRxLen,uint8_t *rxBuf,uint8_t *rxLen,uint8_t *msgType,uint8_t *status);
 
 #endif
