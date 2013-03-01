@@ -117,6 +117,10 @@ int g9UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE ta
 	// Initialize  UART peripheral
 	UART_Init(devPtr->devAddr, uartCfg);
 
+	// Enable interrupts
+	UART_IntConfig(devPtr->devAddr, UART_INT_THRE, ENABLE);
+	UART_IntConfig(devPtr->devAddr, UART_INT_RBR, ENABLE);
+
 	// Enable  UART operation
 	UART_TxCmd(devPtr->devAddr, ENABLE);
 
@@ -177,7 +181,7 @@ portBASE_TYPE g9UARTDeQ(g9UARTStruct *dev,uint8_t maxRxLen,uint8_t *rxBuf,uint8_
 
 // uart interrupt handler
 static __INLINE void g9UARTIsr(LPC_UART_TypeDef *devAddr,xSemaphoreHandle *binSemaphore) {
-	printf("Interrupted.\n");
+	vtLEDOn(0xAA);
 //	UART_MasterHandler(devAddr);
 //	if (UART_MasterTransferComplete(devAddr)) {
 //		static signed portBASE_TYPE xHigherPriorityTaskWoken;

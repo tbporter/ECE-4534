@@ -14,6 +14,10 @@
 .extern vtI2C0Isr
 .extern vtI2C1Isr
 .extern vtI2C2Isr
+.extern g9UART0Isr
+.extern g9UART1Isr
+.extern g9UART2Isr
+.extern g9UART3Isr
 /*
 // <h> Stack Configuration
 //   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
