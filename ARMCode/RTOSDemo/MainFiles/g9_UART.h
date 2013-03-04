@@ -44,11 +44,12 @@ typedef struct __g9UARTStruct {
 //   uartDevNum: The number of the uart device -- 0, 1, or 2
 //   taskPriority: At what priority should this task be run?
 //   uartCfg: Contains the setting for baudrate, parity, stop bits, and data bits
+//	 fifoCfg: Contains the serrtings for fifo operation
 // Return:
 //   if successful, returns UartInitSuccess
 //   if not, should return UartErrInit
 // Must be called for each UART device initialized (0, 1, or 2) and used
-int g9UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE taskPriority,UART_CFG_Type* uartCfg);
+int g9UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE taskPriority,UART_CFG_Type* uartCfg, UART_FIFO_CFG_Type* fifoCfg);
 
 // A simple routine to use for filling out and sending a message to the UART thread
 //   You may want to make your own versions of these as they are not suited to all purposes

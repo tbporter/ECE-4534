@@ -38,7 +38,7 @@ static portTASK_FUNCTION_PROTO( vUARTMonitorTask, pvParameters );
 // Public API Functions
 //
 // Note: This will startup an UART thread, once for each call to this routine
-int g9UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE taskPriority,UART_CFG_Type* uartCfg)
+int g9UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE taskPriority,UART_CFG_Type* uartCfg, UART_FIFO_CFG_Type* fifoCfg)
 {
 	PINSEL_CFG_Type PinCfg;
 
@@ -117,10 +117,14 @@ int g9UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE ta
 	// Initialize  UART peripheral
 	UART_Init(devPtr->devAddr, uartCfg);
 
-	// Enable interrupts
-	UART_IntConfig(devPtr->devAddr, UART_INT_THRE, ENABLE);
-	UART_IntConfig(devPtr->devAddr, UART_INT_RBR, ENABLE);
+	//Setup FIFO
+	UART_FIFOConfig(devPtr->devAddr, fifoCfg);
 
+	// Enable interrupts
+	UART_IntConfig(devPtr->devAddr, UART_INTCFG_THRE, ENABLE);
+	UART_IntConfig(devPtr->devAddr, UART_INTCFG_RBR, ENABLE);
+	NVIC_EnableIRQ(UART1_IRQn);
+	
 	// Enable  UART operation
 	UART_TxCmd(devPtr->devAddr, ENABLE);
 
@@ -181,7 +185,15 @@ portBASE_TYPE g9UARTDeQ(g9UARTStruct *dev,uint8_t maxRxLen,uint8_t *rxBuf,uint8_
 
 // uart interrupt handler
 static __INLINE void g9UARTIsr(LPC_UART_TypeDef *devAddr,xSemaphoreHandle *binSemaphore) {
-	vtLEDOn(0xAA);
+	vtLEDOff(0xFF);
+	uint32_t IIR = UART_GetIntId(devAddr);
+	if(IIR & UART_IIR_INTID_RDA){
+		vtLEDOn(0x80);
+	}
+
+	 else if(IIR & UART_IIR_INTID_THRE){
+		vtLEDOn(0x40);
+	}
 //	UART_MasterHandler(devAddr);
 //	if (UART_MasterTransferComplete(devAddr)) {
 //		static signed portBASE_TYPE xHigherPriorityTaskWoken;
@@ -198,6 +210,7 @@ void g9UART0Isr(void) {
 // Simply pass on the information to the real interrupt handler above (have to do this to work for multiple uart peripheral units on the LPC1768
 void g9UART1Isr(void) {
 	g9UARTIsr(devStaticPtr[1]->devAddr,&(devStaticPtr[1]->binSemaphore));
+	NVIC_ClearPendingIRQ(UART1_IRQn);   // Clear Interrupt
 }
 
 // Simply pass on the information to the real interrupt handler above (have to do this to work for multiple uart peripheral units on the LPC1768
@@ -226,8 +239,19 @@ static portTASK_FUNCTION( vUARTMonitorTask, pvParameters )
 //		}
 //		//Log that we are processing a message
 //		vtITMu8(vtITMPortUARTMsg,msgBuffer.msgType);
+//		UART_SendByte(devPtr->devAddr,'1');
+//		UART_SendByte(devPtr->devAddr,'2');
+//		UART_SendByte(devPtr->devAddr,'3');
+//		UART_SendByte(devPtr->devAddr,'4');
+//		UART_SendByte(devPtr->devAddr,'5');
+//		UART_SendByte(devPtr->devAddr,'6');
+//		UART_SendByte(devPtr->devAddr,'7');
+//		UART_SendByte(devPtr->devAddr,'8');
 
-		UART_SendByte(devPtr->devAddr,'a');
+		uint8_t buf[8] = {'1','2','3','4','5','6','7','8'};
+		if(UART_CheckBusy(devPtr->devAddr)==RESET){
+			UART_Send(devPtr->devAddr, buf, 8, NONE_BLOCKING);
+		}
 
 		// process the messsage and perform the UART transaction
 //		transferMCfg.tx_data = msgBuffer.buf;
