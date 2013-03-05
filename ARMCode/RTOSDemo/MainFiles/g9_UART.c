@@ -4,21 +4,25 @@
 /* ************************************************ */
 // Private definitions used in the Public API
 // Structure used to define the messages that are sent to/from the UART thread 
-typedef struct __g9UARTMsg {
-	uint8_t msgType; // A field you will likely use in your communications between processors (and for debugging)
-	uint8_t	rxLen;	 // Length of the message you *expect* to receive (or, on the way back, the length that *was* received)
-	uint8_t txLen;   // Length of the message you want to sent (or, on the way back, the length that *was* sent)
-	uint8_t status;  // status of the completed operation -- I've not done anything much here, you probably should...
-	uint8_t buf[g9UARTMLen]; // On the way in, message to be sent, on the way out, message received (if any)
-} g9UARTMsg;
+//typedef struct __g9UARTMsg {
+//	uint8_t msgType; // A field you will likely use in your communications between processors (and for debugging)
+//	uint8_t	rxLen;	 // Length of the message you *expect* to receive (or, on the way back, the length that *was* received)
+//	uint8_t txLen;   // Length of the message you want to sent (or, on the way back, the length that *was* sent)
+//	uint8_t status;  // status of the completed operation -- I've not done anything much here, you probably should...
+//	uint8_t buf[g9UARTMLen]; // On the way in, message to be sent, on the way out, message received (if any)
+//} g9UARTMsg;
 // Length of the message queues to/from this task
-#define g9UARTQLen 10
+#define g9UARTQLen 10 /*FIFOs*/
 
 #define g9UARTTransferFailed -2
 #define g9UARTIntPriority 7
 
 // Here is where we define an array of pointers that lets communication occur between the interrupt handler and the rest of the code in this file
 static 	g9UARTStruct *devStaticPtr[3];
+
+// Variables to control read and write or UART
+static Bool bReadReady[3] = {0,0,0};
+static Bool bWriteReady[3] = {0,0,0};
 
 // I have set this to a large stack size because of (a) using printf() and (b) the depth of function calls
 //   for some of the UART operations -- it is possible/very likely these are much larger than needed (see LCDtask.c for how to check the stack size)
@@ -101,15 +105,15 @@ int g9UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE ta
 	}
 
 	// Allocate the two queues to be used to communicate with other tasks
-	if ((devPtr->inQ = xQueueCreate(g9UARTQLen,sizeof(g9UARTMsg))) == NULL) {
+	if ((devPtr->inQ = xQueueCreate(g9UARTQLen*g9UARTMLen,1)) == NULL) {
 		// free up everyone and go home
 		vQueueDelete(devPtr->binSemaphore);
 		return(g9UartErrInit);
 	}
-	if ((devPtr->outQ = xQueueCreate(g9UARTQLen,sizeof(g9UARTMsg))) == NULL) {
+	if ((devPtr->outQ = xQueueCreate(g9UARTQLen*g9UARTMLen,1)) == NULL) {
 		// free up everyone and go home
 		vQueueDelete(devPtr->binSemaphore);
-		vQueueDelete(devPtr->outQ);
+		vQueueDelete(devPtr->inQ);
 		return(g9UartErrInit);
 	}
 
@@ -141,58 +145,79 @@ int g9UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE ta
 
 // A simple routine to use for filling out and sending a message to the UART thread
 //   You may want to make your own versions of these as they are not suited to all purposes
-portBASE_TYPE g9UARTEnQ(g9UARTStruct *dev,uint8_t msgType,uint8_t txLen,const uint8_t *txBuf,uint8_t rxLen)
-{
-	g9UARTMsg msgBuf;
-	int i;
-
-	msgBuf.msgType = msgType;
-	msgBuf.rxLen = rxLen;
-	if (msgBuf.rxLen > g9UARTMLen) {
-		VT_HANDLE_FATAL_ERROR(0);
-	}
-	msgBuf.txLen = txLen;
-	if (msgBuf.txLen > g9UARTMLen) {
-		VT_HANDLE_FATAL_ERROR(0);
-	}
-	for (i=0;i<msgBuf.txLen;i++) {
-		msgBuf.buf[i] = txBuf[i];
-	}
-	return(xQueueSend(dev->inQ,(void *) (&msgBuf),portMAX_DELAY));
-}
-
-// A simple routine to use for retrieving a message from the UART thread
-portBASE_TYPE g9UARTDeQ(g9UARTStruct *dev,uint8_t maxRxLen,uint8_t *rxBuf,uint8_t *rxLen,uint8_t *msgType,uint8_t *status)
-{
-	g9UARTMsg msgBuf;
-	int i;
-
-	if (xQueueReceive(dev->outQ,(void *) (&msgBuf),portMAX_DELAY) != pdTRUE) {
-		return(pdFALSE);
-	}
-	(*status) = msgBuf.status;
-	(*rxLen) = msgBuf.rxLen;
-	if (msgBuf.rxLen > maxRxLen) msgBuf.rxLen = maxRxLen;
-	for (i=0;i<msgBuf.rxLen;i++) {
-		rxBuf[i] = msgBuf.buf[i];
-	}
-	(*msgType) = msgBuf.msgType;
-	return(pdTRUE);
-}
+//portBASE_TYPE g9UARTEnQ(g9UARTStruct *dev,uint8_t msgType,uint8_t txLen,const uint8_t *txBuf,uint8_t rxLen)
+//{
+//	g9UARTMsg msgBuf;
+//	int i;
+//
+//	msgBuf.msgType = msgType;
+//	msgBuf.rxLen = rxLen;
+//	if (msgBuf.rxLen > g9UARTMLen) {
+//		VT_HANDLE_FATAL_ERROR(0);
+//	}
+//	msgBuf.txLen = txLen;
+//	if (msgBuf.txLen > g9UARTMLen) {
+//		VT_HANDLE_FATAL_ERROR(0);
+//	}
+//	for (i=0;i<msgBuf.txLen;i++) {
+//		msgBuf.buf[i] = txBuf[i];
+//	}
+//	return(xQueueSend(dev->inQ,(void *) (&msgBuf),portMAX_DELAY));
+//}
+//
+//// A simple routine to use for retrieving a message from the UART thread
+//portBASE_TYPE g9UARTDeQ(g9UARTStruct *dev,uint8_t maxRxLen,uint8_t *rxBuf,uint8_t *rxLen,uint8_t *msgType,uint8_t *status)
+//{
+//	g9UARTMsg msgBuf;
+//	int i;
+//
+//	if (xQueueReceive(dev->outQ,(void *) (&msgBuf),portMAX_DELAY) != pdTRUE) {
+//		return(pdFALSE);
+//	}
+//	(*status) = msgBuf.status;
+//	(*rxLen) = msgBuf.rxLen;
+//	if (msgBuf.rxLen > maxRxLen) msgBuf.rxLen = maxRxLen;
+//	for (i=0;i<msgBuf.rxLen;i++) {
+//		rxBuf[i] = msgBuf.buf[i];
+//	}
+//	(*msgType) = msgBuf.msgType;
+//	return(pdTRUE);
+//}
 
 // End of public API Functions
 /* ************************************************ */
 
 // uart interrupt handler
-static __INLINE void g9UARTIsr(LPC_UART_TypeDef *devAddr,xSemaphoreHandle *binSemaphore) {
-	vtLEDOff(0xFF);
-	uint32_t IIR = UART_GetIntId(devAddr);
+static __INLINE void g9UARTIsr(g9UARTStruct* devPtr) {
+	static uint8_t data[UART_TX_FIFO_SIZE];
+	vtLEDOff(0xC0);
+	uint32_t IIR = UART_GetIntId(devPtr->devAddr);
 	if(IIR & UART_IIR_INTID_RDA){
 		vtLEDOn(0x80);
+		//Grab bytes put in queue
+		uint32_t bRecv = UART_Receive(devPtr->devAddr,data,UART_TX_FIFO_SIZE,NONE_BLOCKING);
+		int i=0;
+		for(i=0;i<bRecv;i++){
+			if( xQueueSendToBackFromISR(devPtr->outQ,&data[i],0) != pdTRUE ){
+				//OOPS.....
+				VT_HANDLE_FATAL_ERROR(0xC0DE1);
+			}
+		}
 	}
 
-	 else if(IIR & UART_IIR_INTID_THRE){
+	if(IIR & UART_IIR_INTID_THRE){
 		vtLEDOn(0x40);
+		//Load up the FIFO
+		unsigned portBASE_TYPE len = uxQueueMessagesWaitingFromISR(devPtr->inQ);
+		if( len > UART_TX_FIFO_SIZE) len = UART_TX_FIFO_SIZE;
+		int i=0;
+		for(i=0;i<len;i++){
+			if( xQueueReceiveFromISR(devPtr->inQ,&data[i],0) != pdTRUE ){
+				//OOPS.....
+				VT_HANDLE_FATAL_ERROR(0xC0DE2);
+			}
+		}
+		uint32_t bSent = UART_Send(devPtr->devAddr,data,len,NONE_BLOCKING);
 	}
 //	UART_MasterHandler(devAddr);
 //	if (UART_MasterTransferComplete(devAddr)) {
@@ -204,23 +229,23 @@ static __INLINE void g9UARTIsr(LPC_UART_TypeDef *devAddr,xSemaphoreHandle *binSe
 }
 // Simply pass on the information to the real interrupt handler above (have to do this to work for multiple uart peripheral units on the LPC1768
 void g9UART0Isr(void) {
-	g9UARTIsr(devStaticPtr[0]->devAddr,&(devStaticPtr[0]->binSemaphore));
+	g9UARTIsr(devStaticPtr[0]);
 }
 
 // Simply pass on the information to the real interrupt handler above (have to do this to work for multiple uart peripheral units on the LPC1768
 void g9UART1Isr(void) {
-	g9UARTIsr(devStaticPtr[1]->devAddr,&(devStaticPtr[1]->binSemaphore));
-	NVIC_ClearPendingIRQ(UART1_IRQn);   // Clear Interrupt
+	g9UARTIsr(devStaticPtr[1]);
+	//NVIC_ClearPendingIRQ(UART1_IRQn);   // Clear Interrupt
 }
 
 // Simply pass on the information to the real interrupt handler above (have to do this to work for multiple uart peripheral units on the LPC1768
 void g9UART2Isr(void) {
-	g9UARTIsr(devStaticPtr[2]->devAddr,&(devStaticPtr[2]->binSemaphore));
+	g9UARTIsr(devStaticPtr[2]);
 }
 
 // Simply pass on the information to the real interrupt handler above (have to do this to work for multiple uart peripheral units on the LPC1768
 void g9UART3Isr(void) {
-	g9UARTIsr(devStaticPtr[3]->devAddr,&(devStaticPtr[3]->binSemaphore));
+	g9UARTIsr(devStaticPtr[3]);
 }
 
 // This is the actual task that is run
@@ -228,9 +253,9 @@ static portTASK_FUNCTION( vUARTMonitorTask, pvParameters )
 {
 	// Get the uart structure for this task/device
 	g9UARTStruct *devPtr = (g9UARTStruct *) pvParameters;
-	g9UARTMsg msgBuffer;
-	uint8_t tmpRxBuf[g9UARTMLen];
-	int i;
+	//g9UARTMsg msgBuffer;
+	//uint8_t tmpRxBuf[g9UARTMLen];
+	//int i;
 
 	for (;;) {
 		// wait for a message from another task telling us to send/recv over uart

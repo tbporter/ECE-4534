@@ -17,12 +17,14 @@
 #include "lpc17xx_libcfg_default.h"
 #include "lpc17xx_pinsel.h"
 
+#include "messages.h"
+
 // return codes for g9UartInit()
 #define g9UartErrInit -1
 #define g9UartInitSuccess 0
 
 // The maximum length of a message to be sent/received over UART 
-#define g9UARTMLen 64
+#define g9UARTMLen UART_TX_FIFO_SIZE // 1 FIFO
 
 // Structure that is used to define the operate of an UART peripheral using the g9Uart routines
 //   It should be initialized by UartInit() and then not changed by anything... ever
