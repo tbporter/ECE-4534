@@ -7,3 +7,4 @@
 ARMCode/RTOSDemo/ObjectFiles/
 *.ECE4534
 *.GateKeeperX
+*.uvopt
