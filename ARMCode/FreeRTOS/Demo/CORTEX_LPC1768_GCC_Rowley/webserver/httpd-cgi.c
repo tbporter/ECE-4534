@@ -64,11 +64,9 @@ HTTPD_CGI_CALL(run, "run-time", run_time );
 HTTPD_CGI_CALL(io, "led-io", led_io );
 HTTPD_CGI_CALL(debug, "debug-out", debug_out );
 HTTPD_CGI_CALL(info, "info-out", info_out );
-
 static const struct httpd_cgi_call *calls[] = { &file, &tcp, &net, &rtos, &run, &io, &debug, &info, NULL };
-
 /*---------------------------------------------------------------------------*/
-static
+static						  
 PT_THREAD(nullfunction(struct httpd_state *s, char *ptr))
 {
   PSOCK_BEGIN(&s->sout);

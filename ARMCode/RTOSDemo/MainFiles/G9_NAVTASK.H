@@ -10,7 +10,7 @@
 /* include files. */
 #include "vtUtilities.h"
 #include "vtI2C.h"
-#include "messages.h"
+#include "messages_g9.h"
 
 typedef struct __navStruct {
 	vtI2CStruct *i2c; //Needed for sending messages out

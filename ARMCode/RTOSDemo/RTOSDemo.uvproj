@@ -629,6 +629,23 @@
         </Group>
         <Group>
           <GroupName>UART</GroupName>
+          <Files>
+            <File>
+              <FileName>g9_UART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MainFiles/g9_UART.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ZigBee</GroupName>
+          <Files>
+            <File>
+              <FileName>g9_ZigBee.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MainFiles/g9_ZigBee.c</FilePath>
+            </File>
+          </Files>
         </Group>
       </Groups>
     </Target>

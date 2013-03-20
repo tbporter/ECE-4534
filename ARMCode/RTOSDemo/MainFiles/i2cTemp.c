@@ -14,7 +14,7 @@
 #include "vtI2C.h"
 #include "g9_LCDOScopeTask.h"
 #include "i2cTemp.h"
-#include "messages.h"
+#include "messages_g9.h"
 
 /* *********************************************** */
 // definitions and data structures that are private to this file
