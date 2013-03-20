@@ -138,6 +138,7 @@ You should read the note above.
 #include "g9_UART.h"
 #include "myTimers.h"
 #include "conductor.h"
+#include "g9_ZigBee.h"
 
 /* syscalls initialization -- *must* occur first */
 #include "syscalls.h"
@@ -166,6 +167,7 @@ tick hook). */
 #define mainCONDUCTOR_TASK_PRIORITY		( tskIDLE_PRIORITY )
 #define mainNAVIGATOR_TASK_PRIORITY		( tskIDLE_PRIORITY )
 #define mainUARTMONITOR_TASK_PRIORITY	( tskIDLE_PRIORITY )
+#define mainZIGBEE_TASK_PRIORITY		( tskIDLE_PRIORITY )
 
 /* The WEB server has a larger stack as it utilises stack hungry string
 handling library calls. */
@@ -204,17 +206,19 @@ char *pcGetTaskStatusMessage( void );
 static char *pcStatusMessage = mainPASS_STATUS_MESSAGE;
 
 // data structure required for one temperature sensor task
-static vtTempStruct* tempSensorData;
+static vtTempStruct* tempSensorData = 0;
 // data structure required for LCDtask API
-static lcdOScopeStruct* vtOScopeData;
+static lcdOScopeStruct* vtOScopeData = 0;
 // data structure required for OScopeTask
-static oScopeStruct* oScopeData;
+static oScopeStruct* oScopeData = 0;
 // data structure required for one I2C task
-static vtI2CStruct* vtI2C0;
+static vtI2CStruct* vtI2C0 = 0;
 // data structure required for UART Task
-static g9UARTStruct* g9UART1;
+static g9UARTStruct* g9UART1 = 0;
 // data structure required for the navigation Task
-static navStruct* navData;
+static navStruct* navData = 0;
+// data structure requred for the zigBee task
+static g9ZigBeeStruct* zigBeeData = 0;
 // data structure required for conductor task
 static vtConductorStruct conductorData;
  
@@ -272,6 +276,7 @@ int main( void )
 
 	#if USE_XBEE == 1
 		g9UART1 = (g9UARTStruct*)malloc(sizeof(g9UARTStruct));
+		zigBeeData = (g9ZigBeeStruct*)malloc(sizeof(g9ZigBeeStruct));
 	#endif
 
 	#if USE_WEB_SERVER == 1
@@ -291,6 +296,9 @@ int main( void )
 		UART_ConfigStructInit(uartConfig);
 		UART_FIFOConfigStructInit(fifoConfig);
 		if ( g9UartInit(g9UART1,1,mainUARTMONITOR_TASK_PRIORITY,uartConfig,fifoConfig) != g9UartInitSuccess) {
+			VT_HANDLE_FATAL_ERROR(0);
+		}
+		if( startG9ZigBeeTask(zigBeeData, g9UART1, mainZIGBEE_TASK_PRIORITY)!= g9Success){
 			VT_HANDLE_FATAL_ERROR(0);
 		}
 	#endif
@@ -328,7 +336,7 @@ int main( void )
 	
 	vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,vtI2C0,tempSensorData,oScopeData,navData);
 	
-
+													  
 	/* Start the scheduler. */
 	// IMPORTANT: Once you start the scheduler, any variables on the stack from main (local variables in main) can be (will be...) written over
 	//            because the stack is used by the interrupt handler

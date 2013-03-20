@@ -9,7 +9,7 @@
 //	uint8_t	rxLen;	 // Length of the message you *expect* to receive (or, on the way back, the length that *was* received)
 //	uint8_t txLen;   // Length of the message you want to sent (or, on the way back, the length that *was* sent)
 //	uint8_t status;  // status of the completed operation -- I've not done anything much here, you probably should...
-//	uint8_t buf[g9UARTMLen]; // On the way in, message to be sent, on the way out, message received (if any)
+//	uint8_t buf[UART_TX_FIFO_SIZE]; // On the way in, message to be sent, on the way out, message received (if any)
 //} g9UARTMsg;
 // Length of the message queues to/from this task
 #define g9UARTQLen 10 /*FIFOs*/
@@ -21,8 +21,8 @@
 static 	g9UARTStruct *devStaticPtr[3];
 
 // Variables to control read and write or UART
-static Bool bReadReady[3] = {0,0,0};
-static Bool bWriteReady[3] = {0,0,0};
+//static Bool bReadReady[3] = {0,0,0};
+//static Bool bWriteReady[3] = {0,0,0};
 
 // I have set this to a large stack size because of (a) using printf() and (b) the depth of function calls
 //   for some of the UART operations -- it is possible/very likely these are much larger than needed (see LCDtask.c for how to check the stack size)
@@ -33,8 +33,6 @@ static Bool bWriteReady[3] = {0,0,0};
 #define uartSTACK_SIZE		(baseStack*configMINIMAL_STACK_SIZE)
 #endif
 
-/* The UART monitor tasks. */
-static portTASK_FUNCTION_PROTO( vUARTMonitorTask, pvParameters );
 // End of private definitions
 /* ************************************************ */
 
@@ -105,12 +103,12 @@ int g9UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE ta
 	}
 
 	// Allocate the two queues to be used to communicate with other tasks
-	if ((devPtr->inQ = xQueueCreate(g9UARTQLen*g9UARTMLen,1)) == NULL) {
+	if ((devPtr->inQ = xQueueCreate(g9UARTQLen*UART_TX_FIFO_SIZE,sizeof(uint8_t))) == NULL) {
 		// free up everyone and go home
 		vQueueDelete(devPtr->binSemaphore);
 		return(g9UartErrInit);
 	}
-	if ((devPtr->outQ = xQueueCreate(g9UARTQLen*g9UARTMLen,1)) == NULL) {
+	if ((devPtr->outQ = xQueueCreate(g9UARTQLen*UART_TX_FIFO_SIZE,sizeof(uint8_t))) == NULL) {
 		// free up everyone and go home
 		vQueueDelete(devPtr->binSemaphore);
 		vQueueDelete(devPtr->inQ);
@@ -132,57 +130,28 @@ int g9UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE ta
 	// Enable  UART operation
 	UART_TxCmd(devPtr->devAddr, ENABLE);
 
-	/* Start the task */
-	char taskLabel[8];
-	sprintf(taskLabel,"UART%d",devPtr->devNum);
-	if ((retval = xTaskCreate( vUARTMonitorTask, (signed char*) taskLabel, uartSTACK_SIZE,(void *) devPtr, devPtr->taskPriority, ( xTaskHandle * ) NULL )) != pdPASS) {
-		VT_HANDLE_FATAL_ERROR(retval);
-		return(g9UartErrInit); // return is just to keep the compiler happy, we will never get here
-	} else {
-		return g9UartInitSuccess;
-	}
+	return(g9UartInitSuccess);
 }
 
 // A simple routine to use for filling out and sending a message to the UART thread
 //   You may want to make your own versions of these as they are not suited to all purposes
-//portBASE_TYPE g9UARTEnQ(g9UARTStruct *dev,uint8_t msgType,uint8_t txLen,const uint8_t *txBuf,uint8_t rxLen)
-//{
-//	g9UARTMsg msgBuf;
-//	int i;
-//
-//	msgBuf.msgType = msgType;
-//	msgBuf.rxLen = rxLen;
-//	if (msgBuf.rxLen > g9UARTMLen) {
-//		VT_HANDLE_FATAL_ERROR(0);
-//	}
-//	msgBuf.txLen = txLen;
-//	if (msgBuf.txLen > g9UARTMLen) {
-//		VT_HANDLE_FATAL_ERROR(0);
-//	}
-//	for (i=0;i<msgBuf.txLen;i++) {
-//		msgBuf.buf[i] = txBuf[i];
-//	}
-//	return(xQueueSend(dev->inQ,(void *) (&msgBuf),portMAX_DELAY));
-//}
-//
-//// A simple routine to use for retrieving a message from the UART thread
-//portBASE_TYPE g9UARTDeQ(g9UARTStruct *dev,uint8_t maxRxLen,uint8_t *rxBuf,uint8_t *rxLen,uint8_t *msgType,uint8_t *status)
-//{
-//	g9UARTMsg msgBuf;
-//	int i;
-//
-//	if (xQueueReceive(dev->outQ,(void *) (&msgBuf),portMAX_DELAY) != pdTRUE) {
-//		return(pdFALSE);
-//	}
-//	(*status) = msgBuf.status;
-//	(*rxLen) = msgBuf.rxLen;
-//	if (msgBuf.rxLen > maxRxLen) msgBuf.rxLen = maxRxLen;
-//	for (i=0;i<msgBuf.rxLen;i++) {
-//		rxBuf[i] = msgBuf.buf[i];
-//	}
-//	(*msgType) = msgBuf.msgType;
-//	return(pdTRUE);
-//}
+portBASE_TYPE SendUartMsg(g9UARTStruct *dev,uint8_t txLen, uint8_t *txBuf){
+	int i=0;
+	portBASE_TYPE success = pdTRUE;
+
+	if(UART_CheckBusy(dev->devAddr)==RESET){
+		uint8_t len = txLen;
+		if( len > UART_TX_FIFO_SIZE ) len = UART_TX_FIFO_SIZE;
+		uint32_t bSent = UART_Send(dev->devAddr,txBuf,len,NONE_BLOCKING);
+		//printf("Sent %u Bytes.\n",(unsigned int)bSent);
+		i = len;
+	}
+
+	for (i=i;i<txLen;i++) {
+		success &= xQueueSend(dev->inQ,(void *)&(txBuf[i]),portMAX_DELAY);
+	}
+	return success;
+}
 
 // End of public API Functions
 /* ************************************************ */
@@ -198,7 +167,7 @@ static __INLINE void g9UARTIsr(g9UARTStruct* devPtr) {
 		uint32_t bRecv = UART_Receive(devPtr->devAddr,data,UART_TX_FIFO_SIZE,NONE_BLOCKING);
 		int i=0;
 		for(i=0;i<bRecv;i++){
-			if( xQueueSendToBackFromISR(devPtr->outQ,&data[i],0) != pdTRUE ){
+			if( xQueueSendToBackFromISR(devPtr->outQ,(void*)&(data[i]),0) != pdTRUE ){
 				//OOPS.....
 				VT_HANDLE_FATAL_ERROR(0xC0DE1);
 			}
@@ -212,12 +181,16 @@ static __INLINE void g9UARTIsr(g9UARTStruct* devPtr) {
 		if( len > UART_TX_FIFO_SIZE) len = UART_TX_FIFO_SIZE;
 		int i=0;
 		for(i=0;i<len;i++){
-			if( xQueueReceiveFromISR(devPtr->inQ,&data[i],0) != pdTRUE ){
+			static signed portBASE_TYPE xHigherPriorityTaskWoken;
+			xHigherPriorityTaskWoken = pdFALSE;
+			if( xQueueReceiveFromISR(devPtr->inQ,(void*)&(data[i]),&xHigherPriorityTaskWoken) != pdTRUE ){
 				//OOPS.....
 				VT_HANDLE_FATAL_ERROR(0xC0DE2);
 			}
+			portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
 		}
 		uint32_t bSent = UART_Send(devPtr->devAddr,data,len,NONE_BLOCKING);
+		//printf("TX sent - %u\n",(unsigned int)bSent);
 	}
 //	UART_MasterHandler(devAddr);
 //	if (UART_MasterTransferComplete(devAddr)) {
@@ -235,7 +208,7 @@ void g9UART0Isr(void) {
 // Simply pass on the information to the real interrupt handler above (have to do this to work for multiple uart peripheral units on the LPC1768
 void g9UART1Isr(void) {
 	g9UARTIsr(devStaticPtr[1]);
-	//NVIC_ClearPendingIRQ(UART1_IRQn);   // Clear Interrupt
+	//NVIC_ClearPendingIRQ(UART1_IRQn);
 }
 
 // Simply pass on the information to the real interrupt handler above (have to do this to work for multiple uart peripheral units on the LPC1768
@@ -246,65 +219,4 @@ void g9UART2Isr(void) {
 // Simply pass on the information to the real interrupt handler above (have to do this to work for multiple uart peripheral units on the LPC1768
 void g9UART3Isr(void) {
 	g9UARTIsr(devStaticPtr[3]);
-}
-
-// This is the actual task that is run
-static portTASK_FUNCTION( vUARTMonitorTask, pvParameters )
-{
-	// Get the uart structure for this task/device
-	g9UARTStruct *devPtr = (g9UARTStruct *) pvParameters;
-	//g9UARTMsg msgBuffer;
-	//uint8_t tmpRxBuf[g9UARTMLen];
-	//int i;
-
-	for (;;) {
-		// wait for a message from another task telling us to send/recv over uart
-//		if (xQueueReceive(devPtr->inQ,(void *) &msgBuffer,portMAX_DELAY) != pdTRUE) {
-//			VT_HANDLE_FATAL_ERROR(0);
-//		}
-//		//Log that we are processing a message
-//		vtITMu8(vtITMPortUARTMsg,msgBuffer.msgType);
-//		UART_SendByte(devPtr->devAddr,'1');
-//		UART_SendByte(devPtr->devAddr,'2');
-//		UART_SendByte(devPtr->devAddr,'3');
-//		UART_SendByte(devPtr->devAddr,'4');
-//		UART_SendByte(devPtr->devAddr,'5');
-//		UART_SendByte(devPtr->devAddr,'6');
-//		UART_SendByte(devPtr->devAddr,'7');
-//		UART_SendByte(devPtr->devAddr,'8');
-
-		uint8_t buf[8] = {'1','2','3','4','5','6','7','8'};
-		if(UART_CheckBusy(devPtr->devAddr)==RESET){
-			UART_Send(devPtr->devAddr, buf, 8, NONE_BLOCKING);
-		}
-
-		// process the messsage and perform the UART transaction
-//		transferMCfg.tx_data = msgBuffer.buf;
-//		transferMCfg.tx_length = msgBuffer.txLen;
-//		transferMCfg.rx_data = tmpRxBuf;
-//		transferMCfg.rx_length = msgBuffer.rxLen;
-//		transferMCfg.retransmissions_max = 3;
-//		transferMCfg.retransmissions_count = 0;	 // this *should* be initialized in the LPC code, but is not for interrupt mode
-//		msgBuffer.status = UART_MasterTransferData(devPtr->devAddr, &transferMCfg, UART_TRANSFER_INTERRUPT);
-
-		
-
-//		// Block until the UART operation is complete -- we *cannot* overlap operations on the UART bus...
-//		if (xSemaphoreTake(devPtr->binSemaphore,portMAX_DELAY) != pdTRUE) {
-//			// something went wrong 
-//			VT_HANDLE_FATAL_ERROR(0);
-//		}
-//		msgBuffer.txLen = transferMCfg.tx_count;
-//		msgBuffer.rxLen = transferMCfg.rx_count;
-//		// Now send out a message with the data that was read
-//		// First, copy over the buffer that was received (if any)
-//		for (i=0;i<msgBuffer.rxLen;i++) {
-//			msgBuffer.buf[i] = tmpRxBuf[i];
-//		}
-//		// now put a message in the message queue
-//		if (xQueueSend(devPtr->outQ,(void*)(&msgBuffer),portMAX_DELAY) != pdTRUE) {
-//			// something went wrong 
-//			VT_HANDLE_FATAL_ERROR(0);
-//		} 
-	}
 }

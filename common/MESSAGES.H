@@ -52,7 +52,7 @@ typedef enum {
 
 #define MAX_MSG_LEN 10
 
-typedef struct __g9Msg {
+typedef struct __attribute__((__packed__)) __g9Msg {
 	uint8_t msgType;// Use Enum defined above to set. Declared as uint8_t to force casting, thus reducing size.
 	uint8_t length;
 	uint8_t id;			// Used to check for dropped messages **Won't be used until wireless**
