@@ -147,7 +147,7 @@ void startTimerForLCDOScope(lcdOScopeStruct *lcdOScopeData) {
 //
 // how often the timer that sends messages to the LCD task should run
 // Set the task up to run every 30 ms
-#define fakeI2C_RATE_BASE	( ( portTickType ) 500 / portTICK_RATE_MS)
+#define fakeI2C_RATE_BASE	( ( portTickType ) 2000 / portTICK_RATE_MS)
 
 // Callback function that is called by the LCDTimer
 //   Sends a message to the queue that is read by the LCD OScope Task
@@ -166,7 +166,7 @@ void fakeI2CTimerCallback(xTimerHandle pxTimer)
 		g9Msg msg;
 		uint8_t* buf = (uint8_t*)malloc(sizeof(uint8_t)*3);
 
-		switch (count) {
+		switch (count%3) {
 		  case 0:
 		  	msg.id = 1;
 		  	msgBuf->msgType = navLineFoundMsg;
@@ -181,7 +181,7 @@ void fakeI2CTimerCallback(xTimerHandle pxTimer)
 			buf[0] = 1;
 			buf[1] = 2;
 			buf[2] = 3;
-			msg.buf = buf;
+//			msg.buf = buf;
 			break;
 		  case 2:
 		  	msg.id = 3;
@@ -189,7 +189,7 @@ void fakeI2CTimerCallback(xTimerHandle pxTimer)
 		  	msg.msgType = msgBuf->msgType;
 			msgBuf->rxLen = navRFIDFoundLen + sizeof(g9Msg);
 			buf[0] = 0x69;
-			msg.buf = buf;
+//			msg.buf = buf;
 			break;
 		}		
 
@@ -199,7 +199,7 @@ void fakeI2CTimerCallback(xTimerHandle pxTimer)
 			// Here is where you would do something if you wanted to handle the queue being full
 			VT_HANDLE_FATAL_ERROR(0);
 		}
-		count = (count+1)%3;
+		count++;
 		free(msgBuf);
 		free(buf);
 	}

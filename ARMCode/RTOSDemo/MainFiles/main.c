@@ -109,6 +109,8 @@ You should read the note above.
 	#define USE_FAKE_I2C 0
 #endif
 
+// Define where or not to use web server
+#define USE_WEB_SERVER 1
 #if USE_FREERTOS_DEMO == 1
 /* Demo app includes. */
 #include "BlockQ.h"
@@ -131,6 +133,7 @@ You should read the note above.
 #include "g9_LCDOScopeTask.h"
 #include "g9_oScopeTask.h"
 #include "g9_NavTask.h"
+#include "g9_webTask.h"
 #include "i2cTemp.h"
 #include "vtI2C.h"
 #include "myTimers.h"
@@ -211,7 +214,12 @@ static vtI2CStruct* vtI2C0;
 static navStruct* navData;
 // data structure required for conductor task
 static vtConductorStruct conductorData;
- 
+
+static webStruct* webData; 
+
+/*----web server things-------*/
+
+
 
 
 /*-----------------------------------------------------------*/
@@ -250,7 +258,7 @@ int main( void )
 	
 	#if USE_MTJ_LCD == 1 || USE_G9_OSCOPE == 1
 		vtOScopeData = (lcdOScopeStruct*)malloc(sizeof(lcdOScopeStruct)); 
-	#endif
+	#endif											  
 
 	#if USE_G9_OSCOPE == 1
 		oScopeData = (oScopeStruct*)malloc(sizeof(oScopeStruct));
@@ -264,10 +272,14 @@ int main( void )
 		navData = (navStruct*)malloc(sizeof(navStruct));	
 	#endif
 
+	
 	#if USE_WEB_SERVER == 1
 	// Not a standard demo -- but also not one of mine (MTJ)
 	/* Create the uIP task.  The WEB server runs in this task. */
-    xTaskCreate( vuIP_Task, ( signed char * ) "uIP", mainBASIC_WEB_STACK_SIZE, ( void * ) NULL, mainUIP_TASK_PRIORITY, NULL );
+ 
+		xTaskCreate( vuIP_Task, ( signed char * ) "uIP", mainBASIC_WEB_STACK_SIZE, ( void * ) NULL, mainUIP_TASK_PRIORITY, NULL );
+		webData = (webStruct*)malloc(sizeof(webStruct));
+		startWebTask(webData,mainLCD_TASK_PRIORITY);
 	#endif
 
 	#if USE_I2C == 1
@@ -289,7 +301,7 @@ int main( void )
 		startLcdOScopeTask(vtOScopeData,mainLCD_TASK_PRIORITY);
 		//Start Timer for redrawing the OScope
 		startTimerForLCDOScope(vtOScopeData);
-		startOScopeTask(oScopeData,mainI2CTEMP_TASK_PRIORITY,vtI2C0,NULL);
+		startOScopeTaskf(oScopeData,mainI2CTEMP_TASK_PRIORITY,vtI2C0,NULL);
 		startTimerForTemperature(oScopeData);
 	#endif
 	
@@ -375,7 +387,10 @@ static unsigned long ulTicksSinceLastDisplay = 0;
 	}
 }
 /*-----------------------------------------------------------*/
+char* testWeb(void){
 
+	return "TEST";
+}
 char *pcGetTaskStatusMessage( void )
 {
 	/* Not bothered about a critical section here. */
