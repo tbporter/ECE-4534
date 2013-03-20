@@ -14,7 +14,7 @@
 #include "vtI2C.h"
 #include "g9_LcdOScopeTask.h"
 #include "g9_oScopeTask.h"
-#include "messages.h"
+#include "messages_g9.h"
 
 #define oScopeQLen 10
 

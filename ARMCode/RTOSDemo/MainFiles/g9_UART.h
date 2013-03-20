@@ -17,7 +17,7 @@
 #include "lpc17xx_libcfg_default.h"
 #include "lpc17xx_pinsel.h"
 
-#include "messages.h"
+#include "messages_g9.h"
 
 // return codes for g9UartInit()
 #define g9UartErrInit -1

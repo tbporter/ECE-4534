@@ -10,7 +10,7 @@
 
 #include "g9_UART.h"
 #include "vtUtilities.h"
-#include "messages.h"
+#include "messages_g9.h"
 
 // return codes for startG9ZigBeeTask()
 #define g9Err -1

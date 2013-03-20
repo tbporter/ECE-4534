@@ -9,7 +9,7 @@
 #include "g9_LCDOScopeTask.h"
 #include "lcdTask.h"
 #include "myTimers.h"
-#include "messages.h"
+#include "messages_g9.h"
 #include "vtI2C.h"
 
 #include <string.h>

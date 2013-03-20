@@ -11,7 +11,7 @@
 
 /* include files. */
 #include "vtUtilities.h"
-#include "messages.h"
+#include "messages_g9.h"
 #include "conductor.h"
 
 /* *********************************************** */
