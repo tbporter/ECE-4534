@@ -90,7 +90,7 @@ You should read the note above.
    unless the files are actually removed from the project */
 #define USE_FREERTOS_DEMO 0
 // Define whether or not to use I2C
-#define USE_I2C 1
+#define USE_I2C 0
 // Define whether or not to use XBEE
 #define USE_XBEE 1
 // Define whether or not to use my LCD task
@@ -170,7 +170,7 @@ tick hook). */
 #define mainCONDUCTOR_TASK_PRIORITY		( tskIDLE_PRIORITY )
 #define mainNAVIGATOR_TASK_PRIORITY		( tskIDLE_PRIORITY )
 #define mainUARTMONITOR_TASK_PRIORITY	( tskIDLE_PRIORITY )
-#define mainZIGBEE_TASK_PRIORITY		( tskIDLE_PRIORITY )
+#define mainZIGBEE_TASK_PRIORITY		( 7UL )
 
 /* The WEB server has a larger stack as it utilises stack hungry string
 handling library calls. */
@@ -291,7 +291,6 @@ int main( void )
 	#if USE_WEB_SERVER == 1
 	// Not a standard demo -- but also not one of mine (MTJ)
 	/* Create the uIP task.  The WEB server runs in this task. */
- 
 		xTaskCreate( vuIP_Task, ( signed char * ) "uIP", mainBASIC_WEB_STACK_SIZE, ( void * ) NULL, mainUIP_TASK_PRIORITY, NULL );
 		webData = (webStruct*)malloc(sizeof(webStruct));
 		startWebTask(webData,mainLCD_TASK_PRIORITY);
@@ -310,7 +309,7 @@ int main( void )
 		if ( g9UartInit(g9UART1,1,mainUARTMONITOR_TASK_PRIORITY,uartConfig,fifoConfig) != g9UartInitSuccess) {
 			VT_HANDLE_FATAL_ERROR(0);
 		}
-		if( startG9ZigBeeTask(zigBeeData, g9UART1, mainZIGBEE_TASK_PRIORITY)!= g9Success){
+		if( startG9ZigBeeTask(zigBeeData, g9UART1, &conductorData, mainZIGBEE_TASK_PRIORITY)!= g9Success){
 			VT_HANDLE_FATAL_ERROR(0);
 		}
 	#endif

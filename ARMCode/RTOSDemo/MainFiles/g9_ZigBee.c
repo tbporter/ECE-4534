@@ -11,7 +11,7 @@
 #define zigBeeSTACK_SIZE		(baseStack*configMINIMAL_STACK_SIZE)
 #endif
 
-#define DEMO_MSG_RECV 1
+#define DEMO_MSG_RECV 0
 #define USE_FAKE_TX_MSG 1
 
 // Length of the message queues to/from this task
@@ -60,9 +60,6 @@ uint8_t generateChecksum(zigBeeMsg* msg){
 	return (check & 0xFF);
 }
 
-void g9Msg2ZigBee(g9Msg* inMsg){return;};
-void ZigBee2g9Msg(g9Msg* outMsg){return;};
-
 void serializeZigBeeMsg(zigBeeMsg* msg, uint8_t* const buf){
 	buf[0] = msg->start;
 	buf[1] = msg->len.HI;
@@ -79,11 +76,13 @@ void serializeZigBeeMsg(zigBeeMsg* msg, uint8_t* const buf){
 
 // End of private definitions
 
-int startG9ZigBeeTask(g9ZigBeeStruct* zigBeePtr, g9UARTStruct* uartDev, unsigned portBASE_TYPE taskPriority){
+int startG9ZigBeeTask(g9ZigBeeStruct* zigBeePtr, g9UARTStruct* uartDev, vtConductorStruct* conPtr, unsigned portBASE_TYPE taskPriority){
 	if( zigBeePtr == 0 ) return g9Err;
 	if( uartDev == 0 ) return g9Err;
+	if( conPtr == 0 ) return g9Err;
 	
 	zigBeePtr->uartDev = uartDev;
+	zigBeePtr->conPtr = conPtr;
 	zigBeePtr->taskPriority = taskPriority;	
 
 	// Allocate a queue to be used to communicate with other tasks
@@ -193,11 +192,14 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){
 					#endif
 					break;
 				case 0x81: //RX - 16bit
-					#if DEMO_MSG_RECV == 1
-						printw("ZigBee - Received RX 16 Message\n");
-					#endif
+					//#if DEMO_MSG_RECV == 1
+						printw("ZigBee - Received RX 16 Message");
+					//#endif
 					//TODO: Validate ID
 					//Send to conductor
+					if( SendConductorMsg(zigBeePtr->conPtr,(g9Msg*)&(msg.data[5]),10) != pdTRUE){
+						VT_HANDLE_FATAL_ERROR(0xD34D8);
+					}
 					break;
 				case 0x00: //TX Request - 64bit
 				case 0x01: //TX Request - 16bit

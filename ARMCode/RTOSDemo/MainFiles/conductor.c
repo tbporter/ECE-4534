@@ -26,6 +26,9 @@
 #else
 #define conSTACK_SIZE		(baseStack*configMINIMAL_STACK_SIZE)
 #endif
+
+
+#define conQLen 10 /*g9Msgs*/
 // end of defs
 /* *********************************************** */
 
@@ -42,9 +45,23 @@ void vStartConductorTask(vtConductorStruct* params,unsigned portBASE_TYPE uxPrio
 	params->tempData = temperature;
 	params->oScopeData = oScopeData;
 	params->navData = navData;
+
+	// Allocate a queue to be used to communicate with other tasks
+	if ((params->inQ = xQueueCreate(conQLen,sizeof(g9Msg))) == NULL) {
+		// free up everyone and go home
+		VT_HANDLE_FATAL_ERROR(1);
+	}
+
 	if ((retval = xTaskCreate( vConductorUpdateTask, ( signed char * ) "Conductor", conSTACK_SIZE, (void *) params, uxPriority, ( xTaskHandle * ) NULL )) != pdPASS) {
 		VT_HANDLE_FATAL_ERROR(retval);
 	}
+}
+
+portBASE_TYPE SendConductorMsg(vtConductorStruct* conPtr,g9Msg* msg,portTickType ticksToBlock){
+	//Do any need processing here
+		//NONE
+	//Add the msg to the queue.
+	return xQueueSend(conPtr->inQ,(void*)(msg), ticksToBlock);
 }
 
 // End of Public API
@@ -54,8 +71,7 @@ void vStartConductorTask(vtConductorStruct* params,unsigned portBASE_TYPE uxPrio
 static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 {
 	uint8_t rxLen, status;
-	uint8_t Buffer[vtI2CMLen];
-	uint8_t *valPtr = &(Buffer[0]);
+	g9Msg inMsg;
 	// Get the parameters
 	vtConductorStruct *param = (vtConductorStruct *) pvParameters;
 	// Get the I2C device pointer
@@ -64,14 +80,13 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 	vtTempStruct *tempData = param->tempData;
 	// Get Navigation task pointer
 	navStruct* navData = param->navData;
-	uint8_t recvMsgType;
 
 	// Like all good tasks, this should never exit
 	for(;;)
 	{
 		// Wait for a message from an I2C operation
-		if (vtI2CDeQ(i2cPtr,vtI2CMLen,Buffer,&rxLen,&recvMsgType,&status) != pdTRUE) {
-			VT_HANDLE_FATAL_ERROR(0);
+		if( xQueueReceive(param->inQ,(void*)&inMsg,portMAX_DELAY) != pdTRUE ){
+			VT_HANDLE_FATAL_ERROR(2);
 		}
 		// Decide where to send the message 
 		//   This just shows going to one task/queue, but you could easily send to
@@ -79,15 +94,15 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 		// This isn't a state machine, it is just acting as a router for messages
 		
 		//TODO: Requests are made with conReuqestMsg, but the first byte we recieve is the msg type, so change it to that
-		if(recvMsgType==conRequestMsg){
-			recvMsgType = Buffer[0];
+		if(inMsg.msgType == conRequestMsg){
+			//recvMsgType = Buffer[0];
 		}
-		switch(recvMsgType) {
+		switch(inMsg.msgType) {
 		case vtI2CMsgTypeTempInit:
 		case vtI2CMsgTypeTempRead1:
 		case vtI2CMsgTypeTempRead2:
 		case vtI2CMsgTypeTempRead3:
-			SendTempValueMsg(tempData,recvMsgType,Buffer,portMAX_DELAY);
+			SendTempValueMsg(tempData,inMsg.msgType,(uint8_t*)&inMsg,portMAX_DELAY);
 			break;
 
 		case navMotorCmdMsg:
@@ -97,13 +112,13 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 		case navLineFoundMsg:
 		case navIRDataMsg:
 		case navRFIDFoundMsg:
-			SendNavigationMsg(navData,(uint8_t*)Buffer,portMAX_DELAY);
+			SendNavigationMsg(navData,(uint8_t*)&inMsg,portMAX_DELAY);
 			break;
 		case voidMsg:
 			printf("VOID YO\n");
 			break;
 		default:
-			VT_HANDLE_FATAL_ERROR(recvMsgType);
+			VT_HANDLE_FATAL_ERROR(inMsg.msgType);
 			break;
 		}
 
