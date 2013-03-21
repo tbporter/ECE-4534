@@ -1,5 +1,6 @@
 
 #include "g9_ZigBee.h"
+#include "g9_webTask.h"
 
 // I have set this to a large stack size because of (a) using printf() and (b) the depth of function calls
 //   for some of the ZigBee operations -- it is possible/very likely these are much larger than needed (see LCDtask.c for how to check the stack size)
@@ -10,7 +11,8 @@
 #define zigBeeSTACK_SIZE		(baseStack*configMINIMAL_STACK_SIZE)
 #endif
 
-#define DEMO_MSG_RECV 0
+#define DEMO_MSG_RECV 1
+#define USE_FAKE_TX_MSG 1
 
 // Length of the message queues to/from this task
 #define g9ZigBeeQLen 10 /*g9Msgs*/
@@ -47,7 +49,7 @@ void setLen(zigBeeMsg* msg, uint16_t len){
 	return;
 }
 
-void generateChecksum(zigBeeMsg* msg){
+uint8_t generateChecksum(zigBeeMsg* msg){
 	uint8_t check = 0;
 	uint16_t len = getLen(*msg);
 	int i = 0;
@@ -55,8 +57,7 @@ void generateChecksum(zigBeeMsg* msg){
 		check += msg->data[i];
 	}
 	check = 0xFF - (check & 0xFF);
-	msg->checksum = check & 0xFF;
-	return;
+	return (check & 0xFF);
 }
 
 void g9Msg2ZigBee(g9Msg* inMsg){return;};
@@ -144,70 +145,74 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){
 				success &= xQueueReceive(zigBeePtr->uartDev->outQ,(void*)&(check),10);	
 				msg.checksum = check;
 				if( success != pdTRUE ) VT_HANDLE_FATAL_ERROR(0xD34D4);
-				//TODO: Validate Checksum	
+				//Validate Checksum
+				if( msg.checksum != generateChecksum(&msg) ){
+					//TODO: Handle bad checksum
+				}	
 				//Look at msg type
 				switch(msg.data[0] /*CmdID*/){
 				case 0x8A: //Modem Status
 					#if DEMO_MSG_RECV == 1
-						printf("ZigBee - Received Status Message\n");
+						printw("ZigBee - Received Status Message\n");
 					#endif
 					break;
 				case 0x08: //AT Command
 					#if DEMO_MSG_RECV == 1
-						printf("ZigBee - Received AT Message\n");
+						printw("ZigBee - Received AT Message\n");
 					#endif
 					break;
 				case 0x09: //AT Command - Queue	Param Value
 					#if DEMO_MSG_RECV == 1
-						printf("ZigBee - Received AT Queue Message\n");
+						printw("ZigBee - Received AT Queue Message\n");
 					#endif
 					break;
 				case 0x88: //AT Command Response
 					#if DEMO_MSG_RECV == 1
-						printf("ZigBee - Received AT Response Message\n");
+						printw("ZigBee - Received AT Response Message\n");
 					#endif
 					break;
 				case 0x17: //Remote AT Command Request
 					#if DEMO_MSG_RECV == 1
-						printf("ZigBee - Received AT Remote Message\n");
+						printw("ZigBee - Received AT Remote Message\n");
 					#endif
 					break;
 				case 0x97: //Remote Command Response
 					#if DEMO_MSG_RECV == 1
-						printf("ZigBee - Received AT Remote Response Message\n");
+						printw("ZigBee - Received AT Remote Response Message\n");
 					#endif
 					break;
 				case 0x89: //TX Status
 					#if DEMO_MSG_RECV == 1
-						printf("ZigBee - Received Tx Status Message\n");
+						printw("ZigBee - Received Tx Status Message\n");
 					#endif
+					//TODO: Check for failed message Tx
 					break;
 				case 0x80: //RX - 64bit
 					#if DEMO_MSG_RECV == 1
-						printf("ZigBee - Received RX 64 Message\n");
+						printw("ZigBee - Received RX 64 Message\n");
 					#endif
 					break;
 				case 0x81: //RX - 16bit
 					#if DEMO_MSG_RECV == 1
-						printf("ZigBee - Received RX 16 Message\n");
+						printw("ZigBee - Received RX 16 Message\n");
 					#endif
+					//TODO: Validate ID
+					//Send to conductor
 					break;
 				case 0x00: //TX Request - 64bit
 				case 0x01: //TX Request - 16bit
 					#if DEMO_MSG_RECV == 1
-						printf("ZigBee - Received Tx Message????\n");
+						printw("ZigBee - Received Tx Message????\n");
 					#endif
 				default:
 					#if DEMO_MSG_RECV == 1
-						printf("ZigBee - Received Unknown Message\n");
+						printw("ZigBee - Received Unknown Message\n");
 					#endif
 					//Shouldn't get here.
 					VT_HANDLE_FATAL_ERROR(0xD34D5);
 					break;
 				}
 					
-			//TODO: Validate ID
-			//Send to conductor
 			free(msg.data); //Free allocated array
 			}
 		}
@@ -215,46 +220,55 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){
 	//Handle TX
 		//Get Message from queue
 		static g9Msg inMsg;
-		//TODO: actually get message
-		inMsg.msgType = navMotorCmdMsg;
-		inMsg.length = navMotorCmdLen;
-		inMsg.id = 0x69;
-		inMsg.buf[0] = 0x27;
-		inMsg.buf[1] = 0x72;
+		//Get Message
+		if( uxQueueMessagesWaiting(zigBeePtr->inQ) >= 1 || USE_FAKE_TX_MSG == 1 ){
 
-		//Get Len
-		uint16_t len = 5 /*API Format*/ + (3 + navMotorCmdLen) /*g9Msg*/;
-		setLen(&msg,len);
-
-		msg.data = (uint8_t*)malloc(sizeof(uint8_t)*len);
-
-		//Wrap in ZigBee headers
-		msg.start = ZigBeeStart;
-			//Fill in API Message Info
-		msg.data[0] = 0x01; //TX 16bit
-		msg.data[1] = 0x01;	//Response Frame
-		msg.data[2] = 0x00;	//Dest. Addr.
-		msg.data[3] = 0x02;
-		msg.data[4] = 0x00; //Options
-
-		msg.data[5] = inMsg.msgType;
-		msg.data[6] = inMsg.length;
-		msg.data[7] = inMsg.id;
-
-		int i = 0;
-		for(i=8; i<len; i++){
-			msg.data[i] = inMsg.buf[i-8];
+			#if USE_FAKE_TX_MSG == 1
+				inMsg.msgType = navMotorCmdMsg;
+				inMsg.length = navMotorCmdLen;
+				inMsg.id = 0x69;
+				inMsg.buf[0] = 0x27;
+				inMsg.buf[1] = 0x72;
+			#else
+				if( xQueueReceive(zigBeePtr->inQ,(void*)&inMsg,10) != pdTRUE ){
+					VT_HANDLE_FATAL_ERROR(0xD34D6);
+				}	
+			#endif
+	
+			//Get Len
+			uint16_t len = 5 /*API Format*/ + 3 /*g9Msg*/ + inMsg.length;
+			setLen(&msg,len);
+	
+			msg.data = (uint8_t*)malloc(sizeof(uint8_t)*len);
+	
+			//Wrap in ZigBee headers
+			msg.start = ZigBeeStart;
+				//Fill in API Message Info
+			msg.data[0] = 0x01; //TX 16bit
+			msg.data[1] = 0x01;	//Response Frame
+			msg.data[2] = 0x00;	//Dest. Addr.
+			msg.data[3] = 0x02;
+			msg.data[4] = 0x00; //Options
+	
+			msg.data[5] = inMsg.msgType;
+			msg.data[6] = inMsg.length;
+			msg.data[7] = inMsg.id;
+	
+			int i = 0;
+			for(i=8; i<len; i++){
+				msg.data[i] = inMsg.buf[i-8];
+			}
+				//Generate checksum
+			msg.checksum = generateChecksum(&msg);
+	
+			//Send to UART
+			uint8_t* txBuf = (uint8_t*)malloc(sizeof(uint8_t)*(len+4));
+			serializeZigBeeMsg(&msg,txBuf);
+			if( SendUartMsg(zigBeePtr->uartDev,len+4, txBuf) != pdTRUE ){
+				VT_HANDLE_FATAL_ERROR(0xD34D7);
+			}
+			free(txBuf);
+			free(msg.data); //Free allocated array
 		}
-			//Generate checksum
-		generateChecksum(&msg);
-
-		//Send to UART
-		uint8_t* txBuf = (uint8_t*)malloc(sizeof(uint8_t)*(len+4));
-		serializeZigBeeMsg(&msg,txBuf);
-		if( SendUartMsg(zigBeePtr->uartDev,len+4, txBuf) != pdTRUE ){
-			VT_HANDLE_FATAL_ERROR(0xD34D6);
-		}
-		free(txBuf);
-		free(msg.data); //Free allocated array
 	}
 }

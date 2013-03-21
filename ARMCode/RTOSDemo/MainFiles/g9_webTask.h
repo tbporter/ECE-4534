@@ -9,7 +9,7 @@
 
 #include "vtUtilities.h"
 #include "vtI2C.h"
-#include "messages.h"
+#include "messages_g9.h"
 
 
 #define DEBUG_LINES 20

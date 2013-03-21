@@ -248,8 +248,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../FreeRTOS/Source/queue.c</PathWithFileName>
       <FilenameWithoutPath>queue.c</FilenameWithoutPath>
@@ -325,8 +325,8 @@
       <Focus>0</Focus>
       <ColumnNumber>44</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>139</TopLine>
-      <CurrentLine>139</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/i2cTemp.c</PathWithFileName>
       <FilenameWithoutPath>i2cTemp.c</FilenameWithoutPath>
@@ -367,8 +367,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>193</TopLine>
-      <CurrentLine>196</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/myTimers.c</PathWithFileName>
       <FilenameWithoutPath>myTimers.c</FilenameWithoutPath>
@@ -379,10 +379,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>38</ColumnNumber>
+      <ColumnNumber>17</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>78</TopLine>
-      <CurrentLine>90</CurrentLine>
+      <TopLine>19</TopLine>
+      <CurrentLine>19</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/conductor.c</PathWithFileName>
       <FilenameWithoutPath>conductor.c</FilenameWithoutPath>
@@ -395,8 +395,8 @@
       <Focus>0</Focus>
       <ColumnNumber>37</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>91</TopLine>
-      <CurrentLine>91</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_LcdOScopeTask.c</PathWithFileName>
       <FilenameWithoutPath>g9_LcdOScopeTask.c</FilenameWithoutPath>
@@ -969,8 +969,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>67</TopLine>
-      <CurrentLine>67</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../NXPDrivers/source/lpc17xx_ssp.c</PathWithFileName>
       <FilenameWithoutPath>lpc17xx_ssp.c</FilenameWithoutPath>
@@ -983,8 +983,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../NXPDrivers/source/lpc17xx_uart.c</PathWithFileName>
       <FilenameWithoutPath>lpc17xx_uart.c</FilenameWithoutPath>
@@ -1004,8 +1004,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>171</TopLine>
-      <CurrentLine>179</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../vtCode/vtI2C/vtI2C.c</PathWithFileName>
       <FilenameWithoutPath>vtI2C.c</FilenameWithoutPath>
@@ -1023,10 +1023,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>44</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>116</TopLine>
-      <CurrentLine>122</CurrentLine>
+      <TopLine>31</TopLine>
+      <CurrentLine>31</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_UART.c</PathWithFileName>
       <FilenameWithoutPath>g9_UART.c</FilenameWithoutPath>
@@ -1044,58 +1044,98 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>23</ColumnNumber>
+      <ColumnNumber>53</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>13</CurrentLine>
+      <TopLine>223</TopLine>
+      <CurrentLine>235</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_ZigBee.c</PathWithFileName>
       <FilenameWithoutPath>g9_ZigBee.c</FilenameWithoutPath>
     </File>
   </Group>
 
+  <AlienFiles>
+    <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_ZIGBEE.H</PathWithFilename>
+    <TopLine>8</TopLine>
+    <CurrentLine>13</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\COMMON\MESSAGES_G9.H</PathWithFilename>
+    <TopLine>63</TopLine>
+    <CurrentLine>75</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
   <MDIGroups>
-    <Orientation>1</Orientation>
+    <Orientation>3</Orientation>
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
-      <Size>100</Size>
+      <Size>70</Size>
       <ActiveTab>0</ActiveTab>
       <Documents>
         <Doc>
-          <Name>.\MainFiles/main.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>226</TopLine>
-          <CurrentLine>230</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\MainFiles/g9_NavTask.c</Name>
-          <ColumnNumber>59</ColumnNumber>
-          <TopLine>131</TopLine>
-          <CurrentLine>137</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\MainFiles/g9_UART.c</Name>
-          <ColumnNumber>44</ColumnNumber>
-          <TopLine>116</TopLine>
-          <CurrentLine>122</CurrentLine>
-        </Doc>
-        <Doc>
           <Name>.\MainFiles/g9_ZigBee.c</Name>
-          <ColumnNumber>23</ColumnNumber>
-          <TopLine>1</TopLine>
+          <ColumnNumber>53</ColumnNumber>
+          <TopLine>223</TopLine>
+          <CurrentLine>235</CurrentLine>
+        </Doc>
+      </Documents>
+    </MDIGroup>
+    <MDIGroup>
+      <Size>30</Size>
+      <ActiveTab>0</ActiveTab>
+      <Documents>
+        <Doc>
+          <Name>\\vmware-host\Shared Folders\ECE-4534\COMMON\MESSAGES_G9.H</Name>
+          <ColumnNumber>58</ColumnNumber>
+          <TopLine>63</TopLine>
+          <CurrentLine>75</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_ZIGBEE.H</Name>
+          <ColumnNumber>16</ColumnNumber>
+          <TopLine>8</TopLine>
           <CurrentLine>13</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>../NXPDrivers/source/lpc17xx_gpio.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>1</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>../vtCode/vtUtilities.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>1</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>
