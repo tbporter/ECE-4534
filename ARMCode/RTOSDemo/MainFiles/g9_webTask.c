@@ -84,7 +84,7 @@ void printw(char* msg){
 //TODO: keep track of position or linked list, moving the whole array is slow.
 void processWebDebugMsg(char* msg){
 	int i;
-	for(i=0; i<DEBUG_LINES-1; i++){
+	for(i=DEBUG_LINES-1; i>0; i--){
 		strncpy(webDebugOut[i+1], webDebugOut[i], DEBUG_LENGTH);
 	}
 	strncpy(webDebugOut[0], msg, DEBUG_LENGTH);	
