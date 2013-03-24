@@ -89,9 +89,9 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,uint8_t* buffer,portTickType tick
 	int i =0;
 	for(; i<msg->length; i++){
 		msg->buf[i]=buffer[i];
-		printf("%X|",msg->buf[i]);
+		//printf("%X|",msg->buf[i]);
 	}
-	printf("\n");
+	//printf("\n");
 	return(xQueueSend(nav->inQ,(void*)(msg),ticksToBlock));
 }
 
