@@ -21,7 +21,7 @@
 // I have set this to a large stack size because of (a) using printf() and (b) the depth of function calls
 //   for some of the i2c operations	-- almost certainly too large, see LCDTask.c for details on how to check the size
 #define INSPECT_STACK 1
-#define baseStack 2
+#define baseStack 3
 #if PRINTF_VERSION == 1
 #define conSTACK_SIZE		((baseStack+5)*configMINIMAL_STACK_SIZE)
 #else

@@ -11,7 +11,7 @@
 #define zigBeeSTACK_SIZE		(baseStack*configMINIMAL_STACK_SIZE)
 #endif
 
-#define DEMO_MSG_RECV 0
+#define DEMO_MSG_RECV 1
 #define USE_FAKE_TX_MSG 0
 
 // Length of the message queues to/from this task
@@ -256,10 +256,7 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){
 			inMsg.buf[0] = 0x27;
 			inMsg.buf[1] = 0x72;
 		#else
-		if( uxQueueMessagesWaiting(zigBeePtr->inQ) >= 1 ){
-			if( xQueueReceive(zigBeePtr->inQ,(void*)&inMsg,10) != pdTRUE ){
-				VT_HANDLE_FATAL_ERROR(0xD34D6);
-			}
+		if( xQueueReceive(zigBeePtr->inQ,(void*)&inMsg,10) == pdTRUE ){
 			printf("recvMsg: %X\n",inMsg.msgType);	
 		#endif
 	
