@@ -11,6 +11,7 @@ typedef struct __ConductorStruct {
 	vtTempStruct* tempData;
 	oScopeStruct* oScopeData;
 	navStruct* navData;
+	xQueueHandle inQ;			// Queue used by the conductor task to receive messages
 } vtConductorStruct;
 
 // Public API
@@ -24,4 +25,7 @@ typedef struct __ConductorStruct {
 //   i2c: pointer to the data structure for an i2c task
 //   temperature: pointer to the data structure for an LCD task (may be NULL)
 void vStartConductorTask(vtConductorStruct *conductorData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,vtTempStruct *temperature,oScopeStruct* oScopeData,navStruct* navData);
+
+portBASE_TYPE SendConductorMsg(vtConductorStruct* conPtr,g9Msg* msg,portTickType ticksToBlock);
+
 #endif

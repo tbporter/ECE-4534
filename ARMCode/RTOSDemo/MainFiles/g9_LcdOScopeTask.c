@@ -8,7 +8,7 @@
 
 /* include files. */
 #include "GLCD.h"
-#include "messages.h"
+#include "messages_g9.h"
 #include "vtUtilities.h"
 #include "g9_LCDOScopeTask.h"
 #include "string.h"

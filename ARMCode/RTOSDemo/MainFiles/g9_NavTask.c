@@ -1,7 +1,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-
+#include "g9_webTask.h"
 #include "g9_NavTask.h"
 
 #define NavQLen 20 //Lots of messages
@@ -21,7 +21,9 @@ void setMotorData(uint16_t* data, uint8_t left, uint8_t right){
 	*data = 0x0080 | (right<<8) | left;
 }
 
+#define IRBUF_SIZE 20;
 
+//static uint8_t IRBuf[IRBUF_SIZE];
 
 // I have set this to a large stack size because of (a) using printf() and (b) the depth of function calls
 //   for some of the i2c operations	-- almost certainly too large, see LCDTask.c for details on how to check the size
@@ -57,22 +59,22 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,uint8_t* buffer,portTickType tick
 	msg->msgType = buffer[0];
 	switch (msg->msgType){
 		case navMotorCmdMsg:
-			printf("navMotorCmdMsg: ");
+			printw("navMotorCmdMsg");
 			msg->length = navMotorCmdLen;
 			break;
 		
 		case navLineFoundMsg:
-			printf("navLineFoundMsg: ");
+			printw("navLineFoundMsg");
 			msg->length = navLineFoundLen;
 			break;
 		
 		case navIRDataMsg:
-			printf("navIRDataMsg: ");
+			printw("navIRDataMsg");
 			msg->length = navIRDataLen;
 			break;
 		
 		case navRFIDFoundMsg:
-			printf("navRFIDFoundMsg: ");
+			printw("navRFIDFoundMsg");
 			msg->length = navRFIDFoundLen;
 			break;	
 
@@ -87,9 +89,9 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,uint8_t* buffer,portTickType tick
 	int i =0;
 	for(; i<msg->length; i++){
 		msg->buf[i]=buffer[i];
-		printf("%X|",msg->buf[i]);
+		//printf("%X|",msg->buf[i]);
 	}
-	printf("\n");
+	//printf("\n");
 	return(xQueueSend(nav->inQ,(void*)(msg),ticksToBlock));
 }
 
@@ -139,14 +141,15 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			//Invalid message type
 			VT_HANDLE_FATAL_ERROR(INVALID_G9MSG_TYPE);
 			break;
-	}
-
+		}
+		
 	//printf("Motors:    %X %X\n",0x7F & motorData.left, 0x7F & motorData.right);
 	//msg.buf = &(motorData.data);
 	//printf("Re-Motors: %X %X\n",msg.buf[0],msg.buf[1]);
 
 	//vtI2CEnQ(i2cPtr,navMotorCmdMsg,0x4F,sizeof(navMAX_LEN),(uint8_t*)&msg,0);
-	const uint8_t test[]= {0xAA};
-	vtI2CEnQ(i2cPtr,conRequestMsg,0x4F,sizeof(test),test,3);
+	//const uint8_t test[]= {0xAA};
+	//vtI2CEnQ(i2cPtr,conRequestMsg,0x4F,sizeof(test),test,3);
 	}
 }
+

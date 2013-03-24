@@ -9,7 +9,11 @@
 
 #include "vtUtilities.h"
 #include "vtI2C.h"
-#include "messages.h"
+#include "messages_g9.h"
+
+
+#define DEBUG_LINES 20
+#define DEBUG_LENGTH 50
 
 typedef struct __webStruct {
 	vtI2CStruct *i2c; //Needed for sending messages out
@@ -23,11 +27,17 @@ typedef struct __webStruct {
 //   webData: Data structure used by the task
 //   uxPriority -- the priority you want this task to be run at
 //   i2c: pointer to the data structure for an i2c task
-void vStartNavigationTask(webStruct* webData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c);
+void startWebTask(webStruct* webData,unsigned portBASE_TYPE uxPriority);
 
 //Sends a message to the web task
 //	msg -- a pointer to a variable of type g9Msg
 //	ticksToBlock -- how long the routine should wait if the queue is full
 //	Return: Result of the call to xQueueSend()
 portBASE_TYPE SendWebMsg(webStruct* web,g9Msg* msg,portTickType ticksToBlock);
+
+void printw(char* msg);
+void processWebDebugMsg(char* msg);
+
+char (*getWebDebug())[DEBUG_LENGTH];
+void getWebStatusText(char* buf);
 #endif

@@ -50,6 +50,8 @@
 #include "httpd.h"
 #include "httpd-cgi.h"
 #include "httpd-fs.h"
+#include "g9_webTask.h"
+
 
 #include <stdio.h>
 #include <string.h>
@@ -61,11 +63,10 @@ HTTPD_CGI_CALL(rtos, "rtos-stats", rtos_stats );
 HTTPD_CGI_CALL(run, "run-time", run_time );
 HTTPD_CGI_CALL(io, "led-io", led_io );
 HTTPD_CGI_CALL(debug, "debug-out", debug_out );
-
-static const struct httpd_cgi_call *calls[] = { &file, &tcp, &net, &rtos, &run, &io, &debug, NULL };
-
+HTTPD_CGI_CALL(info, "info-out", info_out );
+static const struct httpd_cgi_call *calls[] = { &file, &tcp, &net, &rtos, &run, &io, &debug, &info, NULL };
 /*---------------------------------------------------------------------------*/
-static
+static						  
 PT_THREAD(nullfunction(struct httpd_state *s, char *ptr))
 {
   PSOCK_BEGIN(&s->sout);
@@ -77,7 +78,6 @@ httpd_cgifunction
 httpd_cgi(char *name)
 {
   const struct httpd_cgi_call **f;
-
   /* Find the matching name in the table, return the function. */
   for(f = calls; *f != NULL; ++f) {
     if(strncmp((*f)->name, name, strlen((*f)->name)) == 0) {
@@ -87,6 +87,65 @@ httpd_cgi(char *name)
   return nullfunction;
 }
 /*---------------------------------------------------------------------------*/
+
+
+static unsigned short
+generate_info_out(void *arg)
+{
+	char buffer[500];
+	getWebStatusText(buffer);
+	strcat(uip_appdata,"<input type=\"submit\" value=\"START\">");
+	strcat(uip_appdata,"<input type=\"submit\" value=\"STOP\">");
+	strcat(uip_appdata,buffer);
+
+	return strlen(uip_appdata);							 
+}
+
+
+static
+PT_THREAD(info_out(struct httpd_state *s, char *ptr))
+{
+	
+  PSOCK_BEGIN(&s->sout);
+  PSOCK_GENERATOR_SEND(&s->sout, generate_info_out, strchr(ptr, ' ') + 1);
+  PSOCK_END(&s->sout);
+}
+
+
+
+
+
+/*---------------------------------------------------------------------------*/
+
+
+static unsigned short
+generate_debug_out(void *arg)
+{
+
+ 	char (*debug)[DEBUG_LENGTH];
+	debug = getWebDebug();
+	int i;
+	for(i=0;i<DEBUG_LINES;i++){
+		strcat( uip_appdata,debug[i]);
+		strcat( uip_appdata,"\n");				
+	}
+	return strlen(uip_appdata);							 
+}
+
+
+static
+PT_THREAD(debug_out(struct httpd_state *s, char *ptr))
+{
+	
+  PSOCK_BEGIN(&s->sout);
+  PSOCK_GENERATOR_SEND(&s->sout, generate_debug_out, strchr(ptr, ' ') + 1);
+  PSOCK_END(&s->sout);
+}
+
+
+
+
+
 static unsigned short
 generate_file_stats(void *arg)
 {
@@ -218,8 +277,9 @@ generate_rtos_stats(void *arg)
 	lRefreshCount++;
 	sprintf( cCountBuf, "<p><br>Refresh count = %d<p><br>%s", (int)lRefreshCount, pcGetTaskStatusMessage() );
     vTaskList( uip_appdata );
+	
 	strcat( uip_appdata, cCountBuf );
-
+								 
 	return strlen( uip_appdata );
 }
 /*---------------------------------------------------------------------------*/

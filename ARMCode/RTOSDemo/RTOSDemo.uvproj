@@ -560,6 +560,11 @@
               <FileType>1</FileType>
               <FilePath>../FreeRTOS/Demo/Common/ethernet/uIP/uip-1.0/uip/uip.c</FilePath>
             </File>
+            <File>
+              <FileName>g9_webTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MainFiles/g9_webTask.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -629,6 +634,23 @@
         </Group>
         <Group>
           <GroupName>UART</GroupName>
+          <Files>
+            <File>
+              <FileName>g9_UART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MainFiles/g9_UART.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>ZigBee</GroupName>
+          <Files>
+            <File>
+              <FileName>g9_ZigBee.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\MainFiles/g9_ZigBee.c</FilePath>
+            </File>
+          </Files>
         </Group>
       </Groups>
     </Target>
