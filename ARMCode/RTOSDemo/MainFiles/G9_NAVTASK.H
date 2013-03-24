@@ -9,11 +9,11 @@
 
 /* include files. */
 #include "vtUtilities.h"
-#include "vtI2C.h"
 #include "messages_g9.h"
+#include "g9_zigbee.h"
 
 typedef struct __navStruct {
-	vtI2CStruct *i2c; //Needed for sending messages out
+	g9ZigBeeStruct* zigBeePtr; //Needed for sending messages out
 	xQueueHandle inQ; //Queue for incoming messages
 } navStruct;
 
@@ -23,12 +23,12 @@ typedef struct __navStruct {
 // Args:
 //   navData: Data structure used by the task
 //   uxPriority -- the priority you want this task to be run at
-//   i2c: pointer to the data structure for an i2c task
-void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c);
+//   zigBeePtr: pointer to the zigBee task
+void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, g9ZigBeeStruct* zigBeePtr);
 
 //Sends a message to the Navigation task
 //	msg -- a pointer to a variable of type g9Msg
 //	ticksToBlock -- how long the routine should wait if the queue is full
 //	Return: Result of the call to xQueueSend()
-portBASE_TYPE SendNavigationMsg(navStruct* nav,uint8_t* msg,portTickType ticksToBlock);
+portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBlock);
 #endif

@@ -12,10 +12,10 @@
 #endif
 
 #define DEMO_MSG_RECV 0
-#define USE_FAKE_TX_MSG 1
+#define USE_FAKE_TX_MSG 0
 
 // Length of the message queues to/from this task
-#define g9ZigBeeQLen 10 /*g9Msgs*/
+#define g9ZigBeeQLen 20 /*g9Msgs*/
 
 // Define the zigBee API messages
 #define ZigBeeStart 0x7E
@@ -74,20 +74,41 @@ void serializeZigBeeMsg(zigBeeMsg* msg, uint8_t* const buf){
 	return;
 }
 
+portBASE_TYPE zigBee2G9Msg(zigBeeMsg* in, g9Msg* out){
+	if( in == NULL || out == NULL ) return pdFALSE;
+	if( in->data[0] != 0x81 ) return pdFALSE;
+
+	out->msgType = in->data[5];
+	out->length = in->data[6];
+	out->id = in->data[7];
+
+	int i=0;
+	for(i=0; i<out->length; i++){
+		out->buf[i] = in->data[i+8];
+	}
+
+	return pdTRUE;
+}
+
 // End of private definitions
 
-int startG9ZigBeeTask(g9ZigBeeStruct* zigBeePtr, g9UARTStruct* uartDev, vtConductorStruct* conPtr, unsigned portBASE_TYPE taskPriority){
+int startG9ZigBeeTask(g9ZigBeeStruct* zigBeePtr, g9UARTStruct* uartDev, unsigned portBASE_TYPE taskPriority){
 	if( zigBeePtr == 0 ) return g9Err;
 	if( uartDev == 0 ) return g9Err;
-	if( conPtr == 0 ) return g9Err;
 	
 	zigBeePtr->uartDev = uartDev;
-	zigBeePtr->conPtr = conPtr;
 	zigBeePtr->taskPriority = taskPriority;	
 
 	// Allocate a queue to be used to communicate with other tasks
 	if ((zigBeePtr->inQ = xQueueCreate(g9ZigBeeQLen,sizeof(g9Msg))) == NULL) {
 		// free up everyone and go home
+		return(g9Err);
+	}
+
+	// Allocate a queue to be used to communicate with other tasks
+	if ((zigBeePtr->outQ = xQueueCreate(g9ZigBeeQLen,sizeof(g9Msg))) == NULL) {
+		// free up everyone and go home
+		vQueueDelete(zigBeePtr->inQ);
 		return(g9Err);
 	}
 
@@ -98,10 +119,11 @@ int startG9ZigBeeTask(g9ZigBeeStruct* zigBeePtr, g9UARTStruct* uartDev, vtConduc
 	return g9Success;
 }
 
-portBASE_TYPE SendZigBeeMsg(g9ZigBeeStruct* zigBeePtr,g9Msg* msg,portTickType ticksToBlock){
+inline portBASE_TYPE SendZigBeeMsg(g9ZigBeeStruct* zigBeePtr,g9Msg* msg,portTickType ticksToBlock){
 	//Do any need processing here
 		//NONE
 	//Add the msg to the queue.
+	printf("sendMsg: %X\n",msg->msgType);
 	return xQueueSend(zigBeePtr->inQ,(void*)(msg), ticksToBlock);
 }
 
@@ -147,7 +169,8 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){
 				//Validate Checksum
 				if( msg.checksum != generateChecksum(&msg) ){
 					//TODO: Handle bad checksum
-				}	
+				}
+				g9Msg outMsg;	
 				//Look at msg type
 				switch(msg.data[0] /*CmdID*/){
 				case 0x8A: //Modem Status
@@ -192,12 +215,13 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){
 					#endif
 					break;
 				case 0x81: //RX - 16bit
-					//#if DEMO_MSG_RECV == 1
+					#if DEMO_MSG_RECV == 1
 						printw("ZigBee - Received RX 16 Message");
-					//#endif
+					#endif
 					//TODO: Validate ID
 					//Send to conductor
-					if( SendConductorMsg(zigBeePtr->conPtr,(g9Msg*)&(msg.data[5]),10) != pdTRUE){
+					zigBee2G9Msg(&msg,&outMsg);
+					if( xQueueSend(zigBeePtr->outQ,(void*)&outMsg,10) != pdTRUE){
 						VT_HANDLE_FATAL_ERROR(0xD34D8);
 					}
 					break;
@@ -223,19 +247,21 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){
 		//Get Message from queue
 		static g9Msg inMsg;
 		//Get Message
-		if( uxQueueMessagesWaiting(zigBeePtr->inQ) >= 1 || USE_FAKE_TX_MSG == 1 ){
 
-			#if USE_FAKE_TX_MSG == 1
-				inMsg.msgType = navMotorCmdMsg;
-				inMsg.length = navMotorCmdLen;
-				inMsg.id = 0x69;
-				inMsg.buf[0] = 0x27;
-				inMsg.buf[1] = 0x72;
-			#else
-				if( xQueueReceive(zigBeePtr->inQ,(void*)&inMsg,10) != pdTRUE ){
-					VT_HANDLE_FATAL_ERROR(0xD34D6);
-				}	
-			#endif
+		#if USE_FAKE_TX_MSG == 1
+		 if(1){
+			inMsg.msgType = navMotorCmdMsg;
+			inMsg.length = navMotorCmdLen;
+			inMsg.id = 0x69;
+			inMsg.buf[0] = 0x27;
+			inMsg.buf[1] = 0x72;
+		#else
+		if( uxQueueMessagesWaiting(zigBeePtr->inQ) >= 1 ){
+			if( xQueueReceive(zigBeePtr->inQ,(void*)&inMsg,10) != pdTRUE ){
+				VT_HANDLE_FATAL_ERROR(0xD34D6);
+			}
+			printf("recvMsg: %X\n",inMsg.msgType);	
+		#endif
 	
 			//Get Len
 			uint16_t len = 5 /*API Format*/ + 3 /*g9Msg*/ + inMsg.length;

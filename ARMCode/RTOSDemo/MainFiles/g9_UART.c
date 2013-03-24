@@ -90,27 +90,13 @@ int g9UartInit(g9UARTStruct *devPtr,uint8_t uartDevNum,unsigned portBASE_TYPE ta
 		}
 	}
 
-	// Create semaphore to communicate with interrupt handler
-	vSemaphoreCreateBinary(devPtr->binSemaphore);
-	if (devPtr->binSemaphore == NULL) {
-		return(g9UartErrInit);
-	}
-	// Need to do an initial "take" on the semaphore to ensure that it is initially blocked
-	if (xSemaphoreTake(devPtr->binSemaphore,0) != pdTRUE) {
-		// free up everyone and go home
-		vQueueDelete(devPtr->binSemaphore);
-		return(g9UartErrInit);
-	}
-
 	// Allocate the two queues to be used to communicate with other tasks
 	if ((devPtr->inQ = xQueueCreate(g9UARTQLen*UART_TX_FIFO_SIZE,sizeof(uint8_t))) == NULL) {
 		// free up everyone and go home
-		vQueueDelete(devPtr->binSemaphore);
 		return(g9UartErrInit);
 	}
 	if ((devPtr->outQ = xQueueCreate(g9UARTQLen*UART_TX_FIFO_SIZE,sizeof(uint8_t))) == NULL) {
 		// free up everyone and go home
-		vQueueDelete(devPtr->binSemaphore);
 		vQueueDelete(devPtr->inQ);
 		return(g9UartErrInit);
 	}
@@ -167,10 +153,13 @@ static __INLINE void g9UARTIsr(g9UARTStruct* devPtr) {
 		uint32_t bRecv = UART_Receive(devPtr->devAddr,data,UART_TX_FIFO_SIZE,NONE_BLOCKING);
 		int i=0;
 		for(i=0;i<bRecv;i++){
-			if( xQueueSendToBackFromISR(devPtr->outQ,(void*)&(data[i]),0) != pdTRUE ){
+			static signed portBASE_TYPE xHigherPriorityTaskWoken;
+			xHigherPriorityTaskWoken = pdFALSE;
+			if( xQueueSendToBackFromISR(devPtr->outQ,(void*)&(data[i]),&xHigherPriorityTaskWoken) != pdTRUE ){
 				//OOPS.....
 				VT_HANDLE_FATAL_ERROR(0xC0DE1);
 			}
+			portEND_SWITCHING_ISR(xHigherPriorityTaskWoken);
 		}
 	}
 

@@ -27,7 +27,7 @@ void setMotorData(uint16_t* data, uint8_t left, uint8_t right){
 
 // I have set this to a large stack size because of (a) using printf() and (b) the depth of function calls
 //   for some of the i2c operations	-- almost certainly too large, see LCDTask.c for details on how to check the size
-#define baseStack 3
+#define baseStack 5
 #if PRINTF_VERSION == 1
 #define navSTACK_SIZE		((baseStack+5)*configMINIMAL_STACK_SIZE)
 #else
@@ -38,60 +38,45 @@ void setMotorData(uint16_t* data, uint8_t left, uint8_t right){
 static portTASK_FUNCTION_PROTO( navigationUpdateTask, pvParameters );
 
 
-void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c){
+void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, g9ZigBeeStruct* zigBeePtr){
 	// Create the queue that will be used to talk to this task
-	if ((navData->inQ = xQueueCreate(NavQLen,10)) == NULL) {
+	if ((navData->inQ = xQueueCreate(NavQLen,sizeof(g9Msg))) == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
 	/* Start the task */
 	portBASE_TYPE retval;
-	navData->i2c = i2c;
+	navData->zigBeePtr = zigBeePtr;
 	if ((retval = xTaskCreate( navigationUpdateTask, ( signed char * ) "Navi", navSTACK_SIZE, (void *) navData, uxPriority, ( xTaskHandle * ) NULL )) != pdPASS) {
 		VT_HANDLE_FATAL_ERROR(retval);
 	}
 }
 
-portBASE_TYPE SendNavigationMsg(navStruct* nav,uint8_t* buffer,portTickType ticksToBlock){
-	if (buffer == NULL || nav == NULL ) {
-		VT_HANDLE_FATAL_ERROR(0);
+portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBlock){
+	if (msg == NULL || nav == NULL ) {
+		return pdFALSE;
 	}
-	g9Msg* msg = (g9Msg*) malloc(sizeof(g9Msg));
-	msg->msgType = buffer[0];
+
 	switch (msg->msgType){
 		case navMotorCmdMsg:
 			printw("navMotorCmdMsg");
-			msg->length = navMotorCmdLen;
 			break;
 		
 		case navLineFoundMsg:
 			printw("navLineFoundMsg");
-			msg->length = navLineFoundLen;
 			break;
 		
 		case navIRDataMsg:
 			printw("navIRDataMsg");
-			msg->length = navIRDataLen;
 			break;
 		
 		case navRFIDFoundMsg:
 			printw("navRFIDFoundMsg");
-			msg->length = navRFIDFoundLen;
 			break;	
 
 	default:
+		printw("Incorrect Navigation Msg");
 		VT_HANDLE_FATAL_ERROR(0xDEAD);
 	}
-	if (msg->length > navMAX_LEN) {
-		// no room for this message
-		VT_HANDLE_FATAL_ERROR(0);
-	}
-	//msg->buf = malloc(sizeof(uint8_t) * msg->length);
-	int i =0;
-	for(; i<msg->length; i++){
-		msg->buf[i]=buffer[i];
-		//printf("%X|",msg->buf[i]);
-	}
-	//printf("\n");
 	return(xQueueSend(nav->inQ,(void*)(msg),ticksToBlock));
 }
 
@@ -100,9 +85,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 {
 	static motorData_t motorData;
 	// Get the parameters
-	navStruct *param = (navStruct *) pvParameters;
-	// Get the I2C device pointer
-	vtI2CStruct *i2cPtr = param->i2c;
+	navStruct *navData = (navStruct *) pvParameters;
 	// Buffer for receiving messages
 	g9Msg msgBuffer;
 
@@ -112,12 +95,13 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	for(;;)
 	{
 		// Wait for a message from the "otherside"
-		if (xQueueReceive(param->inQ,(void *) &msgBuffer,portMAX_DELAY) != pdTRUE) {
+		if (xQueueReceive(navData->inQ,(void *) &msgBuffer,portMAX_DELAY) != pdTRUE) {
 			VT_HANDLE_FATAL_ERROR(0);
 		}
 
 		g9Msg msg;
 		msg.id = msgBuffer.id + 1;
+		msg.length = 2;
 		msg.msgType = navMotorCmdMsg;
 
 		// Now, based on the type of the message, we decide on the action to take
@@ -142,14 +126,10 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			VT_HANDLE_FATAL_ERROR(INVALID_G9MSG_TYPE);
 			break;
 		}
-		
-	//printf("Motors:    %X %X\n",0x7F & motorData.left, 0x7F & motorData.right);
-	//msg.buf = &(motorData.data);
-	//printf("Re-Motors: %X %X\n",msg.buf[0],msg.buf[1]);
 
-	//vtI2CEnQ(i2cPtr,navMotorCmdMsg,0x4F,sizeof(navMAX_LEN),(uint8_t*)&msg,0);
-	//const uint8_t test[]= {0xAA};
-	//vtI2CEnQ(i2cPtr,conRequestMsg,0x4F,sizeof(test),test,3);
+		msg.buf[0] = motorData.left;
+		msg.buf[1] = motorData.right;		
+		SendZigBeeMsg(navData->zigBeePtr,&msg,portMAX_DELAY);
 	}
 }
 

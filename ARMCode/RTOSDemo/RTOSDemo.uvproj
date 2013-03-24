@@ -652,6 +652,21 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>Misc Headers</GroupName>
+          <Files>
+            <File>
+              <FileName>MESSAGES_G9.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\common\MESSAGES_G9.h</FilePath>
+            </File>
+            <File>
+              <FileName>g9_SysFlags.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\MainFiles\g9_SysFlags.h</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
   </Targets>

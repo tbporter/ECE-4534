@@ -86,33 +86,8 @@
 You should read the note above.
 #endif
 
-/* Define whether or not to start the standard FreeRTOS demo tasks (the code is still included in the project
-   unless the files are actually removed from the project */
-#define USE_FREERTOS_DEMO 0
-// Define whether or not to use I2C
-#define USE_I2C 0
-// Define whether or not to use XBEE
-#define USE_XBEE 1
-// Define whether or not to use my LCD task
-#define USE_MTJ_LCD 0
-// Define whether or not to use the OScope task
-#define USE_G9_OSCOPE 0
-// Define whether to use my temperature sensor read task (the sensor is on the PIC v4 demo board, so if that isn't connected
-//   then this should be off
-#define USE_MTJ_V4Temp_Sensor 0
-// Define whether to use my USB task
-#define USE_MTJ_USE_USB 0
-// Define whether to use the navigation task
-#define USE_NAV_TASK 1
-// Define whether or not to send fake I2C messages
-#if USE_I2C == 1
-	#define USE_FAKE_I2C 0
-#else
-	#define USE_FAKE_I2C 0
-#endif
+#include "g9_SysFlags.h"
 
-// Define where or not to use web server
-#define USE_WEB_SERVER 1
 #if USE_FREERTOS_DEMO == 1
 /* Demo app includes. */
 #include "BlockQ.h"
@@ -296,11 +271,6 @@ int main( void )
 		startWebTask(webData,mainLCD_TASK_PRIORITY);
 	#endif
 
-	#if USE_I2C == 1
-		if (vtI2CInit(vtI2C0,0,mainI2CMONITOR_TASK_PRIORITY,100000) != vtI2CInitSuccess) {
-			VT_HANDLE_FATAL_ERROR(0);
-		}
-	#endif
 	#if USE_XBEE == 1
 		UART_CFG_Type* uartConfig = (UART_CFG_Type*)malloc(sizeof(UART_CFG_Type));
 		UART_FIFO_CFG_Type* fifoConfig = (UART_FIFO_CFG_Type*)malloc(sizeof(UART_FIFO_CFG_Type));
@@ -309,7 +279,11 @@ int main( void )
 		if ( g9UartInit(g9UART1,1,mainUARTMONITOR_TASK_PRIORITY,uartConfig,fifoConfig) != g9UartInitSuccess) {
 			VT_HANDLE_FATAL_ERROR(0);
 		}
-		if( startG9ZigBeeTask(zigBeeData, g9UART1, &conductorData, mainZIGBEE_TASK_PRIORITY)!= g9Success){
+		if( startG9ZigBeeTask(zigBeeData, g9UART1, mainZIGBEE_TASK_PRIORITY)!= g9Success){
+			VT_HANDLE_FATAL_ERROR(0);
+		}
+	#elif USE_I2C == 1
+		if (vtI2CInit(vtI2C0,0,mainI2CMONITOR_TASK_PRIORITY,100000) != vtI2CInitSuccess) {
 			VT_HANDLE_FATAL_ERROR(0);
 		}
 	#endif
@@ -342,10 +316,10 @@ int main( void )
 	#endif
 	
 	#if USE_NAV_TASK == 1
-		vStartNavigationTask(navData,mainNAVIGATOR_TASK_PRIORITY, vtI2C0);
+		vStartNavigationTask(navData,mainNAVIGATOR_TASK_PRIORITY,zigBeeData);
 	#endif
 	
-	vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,vtI2C0,tempSensorData,oScopeData,navData);
+	vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,vtI2C0,tempSensorData,oScopeData,navData,zigBeeData);
 	
 													  
 	/* Start the scheduler. */

@@ -4,6 +4,7 @@
 #include "i2cTemp.h"
 #include "g9_NavTask.h"
 #include "g9_oScopeTask.h"
+#include "g9_ZigBee.h"
 // Structure used to pass parameters to the task
 // Do not touch...
 typedef struct __ConductorStruct {
@@ -11,6 +12,7 @@ typedef struct __ConductorStruct {
 	vtTempStruct* tempData;
 	oScopeStruct* oScopeData;
 	navStruct* navData;
+	g9ZigBeeStruct* zigBeeData;
 	xQueueHandle inQ;			// Queue used by the conductor task to receive messages
 } vtConductorStruct;
 
@@ -24,8 +26,6 @@ typedef struct __ConductorStruct {
 //   uxPriority -- the priority you want this task to be run at
 //   i2c: pointer to the data structure for an i2c task
 //   temperature: pointer to the data structure for an LCD task (may be NULL)
-void vStartConductorTask(vtConductorStruct *conductorData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,vtTempStruct *temperature,oScopeStruct* oScopeData,navStruct* navData);
-
-portBASE_TYPE SendConductorMsg(vtConductorStruct* conPtr,g9Msg* msg,portTickType ticksToBlock);
+void vStartConductorTask(vtConductorStruct *conductorData,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,vtTempStruct *temperature,oScopeStruct* oScopeData,navStruct* navData,g9ZigBeeStruct* zigBeeData);
 
 #endif

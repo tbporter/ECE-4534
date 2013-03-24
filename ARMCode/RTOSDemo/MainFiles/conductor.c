@@ -13,6 +13,7 @@
 #include "vtUtilities.h"
 #include "messages_g9.h"
 #include "conductor.h"
+#include "g9_SysFlags.h"
 
 /* *********************************************** */
 // definitions and data structures that are private to this file
@@ -27,8 +28,6 @@
 #define conSTACK_SIZE		(baseStack*configMINIMAL_STACK_SIZE)
 #endif
 
-
-#define conQLen 10 /*g9Msgs*/
 // end of defs
 /* *********************************************** */
 
@@ -37,7 +36,7 @@ static portTASK_FUNCTION_PROTO( vConductorUpdateTask, pvParameters );
 
 /*-----------------------------------------------------------*/
 // Public API
-void vStartConductorTask(vtConductorStruct* params,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,vtTempStruct *temperature,oScopeStruct* oScopeData,navStruct* navData)
+void vStartConductorTask(vtConductorStruct* params,unsigned portBASE_TYPE uxPriority, vtI2CStruct *i2c,vtTempStruct *temperature,oScopeStruct* oScopeData,navStruct* navData,g9ZigBeeStruct* zigBeeData)
 {
 	/* Start the task */
 	portBASE_TYPE retval;
@@ -45,23 +44,11 @@ void vStartConductorTask(vtConductorStruct* params,unsigned portBASE_TYPE uxPrio
 	params->tempData = temperature;
 	params->oScopeData = oScopeData;
 	params->navData = navData;
-
-	// Allocate a queue to be used to communicate with other tasks
-	if ((params->inQ = xQueueCreate(conQLen,sizeof(g9Msg))) == NULL) {
-		// free up everyone and go home
-		VT_HANDLE_FATAL_ERROR(1);
-	}
+	params->zigBeeData = zigBeeData;
 
 	if ((retval = xTaskCreate( vConductorUpdateTask, ( signed char * ) "Conductor", conSTACK_SIZE, (void *) params, uxPriority, ( xTaskHandle * ) NULL )) != pdPASS) {
 		VT_HANDLE_FATAL_ERROR(retval);
 	}
-}
-
-portBASE_TYPE SendConductorMsg(vtConductorStruct* conPtr,g9Msg* msg,portTickType ticksToBlock){
-	//Do any need processing here
-		//NONE
-	//Add the msg to the queue.
-	return xQueueSend(conPtr->inQ,(void*)(msg), ticksToBlock);
 }
 
 // End of Public API
@@ -80,14 +67,23 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 	vtTempStruct *tempData = param->tempData;
 	// Get Navigation task pointer
 	navStruct* navData = param->navData;
+	// Get the zigBee task pointer
+	g9ZigBeeStruct* zigBeeData = param->zigBeeData;
 
 	// Like all good tasks, this should never exit
 	for(;;)
 	{
-		// Wait for a message from an I2C operation
-		if( xQueueReceive(param->inQ,(void*)&inMsg,portMAX_DELAY) != pdTRUE ){
+		// Wait for a message
+		#if USE_XBEE == 1
+		if( xQueueReceive(zigBeeData->outQ,(void*)&inMsg,portMAX_DELAY) != pdTRUE ){
 			VT_HANDLE_FATAL_ERROR(2);
 		}
+		#elif USE_I2C == 1
+			//TODO: setup I2C for conductor
+			#error "I2C Conductor not implemented... yet."
+		#else
+			#error "Must have XBee or I2C enabled!"
+		#endif
 		// Decide where to send the message 
 		//   This just shows going to one task/queue, but you could easily send to
 		//   other Q/tasks for other message types
@@ -112,7 +108,9 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 		case navLineFoundMsg:
 		case navIRDataMsg:
 		case navRFIDFoundMsg:
-			SendNavigationMsg(navData,(uint8_t*)&inMsg,portMAX_DELAY);
+			if( SendNavigationMsg(navData,&inMsg,portMAX_DELAY) != pdTRUE ){
+				VT_HANDLE_FATAL_ERROR(3);
+			}
 			break;
 		case voidMsg:
 			printf("VOID YO\n");

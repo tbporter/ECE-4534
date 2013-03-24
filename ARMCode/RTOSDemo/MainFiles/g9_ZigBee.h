@@ -11,7 +11,6 @@
 #include "g9_UART.h"
 #include "vtUtilities.h"
 #include "messages_g9.h"
-#include "conductor.h"
 
 // return codes for startG9ZigBeeTask()
 #define g9Err -1
@@ -22,13 +21,13 @@
 //   A user of the API should never change or access it, it should only pass it as a parameter
 typedef struct __g9ZigBeeStruct {
 	g9UARTStruct* uartDev;	 				// Memory address of the UART task information
-	vtConductorStruct* conPtr;				// Used to send messages to the conductor
 	unsigned portBASE_TYPE taskPriority;   	// Priority of the I2C task
 	xQueueHandle inQ;						// Queue used by the zigbee task to receive messages to TX
+	xQueueHandle outQ;						// Queue used by the zigbee task to send messages to other tasks (conductor)
 } g9ZigBeeStruct;
 
-int startG9ZigBeeTask(g9ZigBeeStruct* zigBeePtr, g9UARTStruct* uartDev, vtConductorStruct* conPtr, unsigned portBASE_TYPE taskPriority);
+int startG9ZigBeeTask(g9ZigBeeStruct* zigBeePtr, g9UARTStruct* uartDev, unsigned portBASE_TYPE taskPriority);
 
-portBASE_TYPE SendZigBeeMsg(g9ZigBeeStruct* zigBeePtr,g9Msg* msg,portTickType ticksToBlock);
+inline portBASE_TYPE SendZigBeeMsg(g9ZigBeeStruct* zigBeePtr,g9Msg* msg,portTickType ticksToBlock);
 
 #endif
