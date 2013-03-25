@@ -56,6 +56,7 @@
 
 #include "adapter.h"
 #include "LPC17xx.h"
+#include "g9_SysFlags.h"
 
 /*-----------------------------------------------------------
  * Application specific definitions.
@@ -118,10 +119,10 @@ to exclude the API function. */
 #define configMAC_ADDR5	0x11
 
 /* IP address configuration. */
-#define configIP_ADDR0		192
-#define configIP_ADDR1		168
-#define configIP_ADDR2		1
-#define configIP_ADDR3		4
+#define configIP_ADDR0		g9IP_ADDR0
+#define configIP_ADDR1		g9IP_ADDR1
+#define configIP_ADDR2		g9IP_ADDR2
+#define configIP_ADDR3		g9IP_ADDR3
 
 /* Netmask configuration. */
 #define configNET_MASK0		255
