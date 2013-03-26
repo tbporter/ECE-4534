@@ -77,8 +77,11 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 
 	}
 }
-void printw(char* msg){
-
+void printw(const char* fmt, ...){
+	char msg[DEBUG_LENGTH];
+	va_list args;
+	va_start( args, fmt );
+	vsnprintf( msg, DEBUG_LENGTH, fmt, args );
 	processWebDebugMsg(msg);
 }
 //TODO: keep track of position or linked list, moving the whole array is slow.

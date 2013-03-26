@@ -321,6 +321,7 @@ int main( void )
 	
 	vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,vtI2C0,tempSensorData,oScopeData,navData,zigBeeData);
 	
+	printw("%s %d 0x%Xh", "ARM Started. Testing:", 123, 123);
 													  
 	/* Start the scheduler. */
 	// IMPORTANT: Once you start the scheduler, any variables on the stack from main (local variables in main) can be (will be...) written over

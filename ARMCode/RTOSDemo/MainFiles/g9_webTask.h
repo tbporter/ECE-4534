@@ -1,6 +1,8 @@
 #ifndef __WEB_TASK_H__
 #define __WEB_TASK_H__
 
+#include <stdarg.h>
+
 /* Scheduler include files. */
 #include "FreeRTOS.h"
 #include "task.h"
@@ -35,7 +37,7 @@ void startWebTask(webStruct* webData,unsigned portBASE_TYPE uxPriority);
 //	Return: Result of the call to xQueueSend()
 portBASE_TYPE SendWebMsg(webStruct* web,g9Msg* msg,portTickType ticksToBlock);
 
-void printw(char* msg);
+void printw(const char* fmt, ...);
 void processWebDebugMsg(char* msg);
 
 char (*getWebDebug())[DEBUG_LENGTH];
