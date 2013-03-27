@@ -1,6 +1,167 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[s S2088 `i 1 ]
-[n S2088 __timer0_thread_struct data ]
+[s S2097 `uc 1 `uc 1 ]
+[n S2097 . HI LO ]
+[s S2096 `uc 1 `S2097 1 ]
+[n S2096 . start len ]
+[u S2095 `S2096 1 `uc -> 3 `i ]
+[n S2095 . . header ]
+[s S2094 `S2095 1 `*uc 1 `uc 1 ]
+[n S2094 __zigBeeMsg . data checksum ]
+"27 ../src/zigBee.c
+[v F16589 `*uc ~T0 @X0 1 t ]
+[s S2092 `i 1 `i 1 `i 1 `*uc 1 ]
+[n S2092 Queue size first last messages ]
+[c E16546 0 1 2 3 .. ]
+[n E16546 . HEADER GATHER PROCESS CLEANUP  ]
+"22 C:\Program Files\Microchip\xc8\v1.12\include\string.h
+[v _memcpy `(*v ~T0 @X0 0 ef3`*v`*Cv`ui ]
+"20 ../src/queue.h
+[v _readQueue `(uc ~T0 @X0 0 ef2`*S2092`*uc ]
+"87 C:\Program Files\Microchip\xc8\v1.12\include\stdlib.h
+[v _malloc `(*v ~T0 @X0 0 ef1`ui ]
+"22 ../src/queue.h
+[v _getNumMessagesQueue `(i ~T0 @X0 0 ef1`*S2092 ]
+"88 C:\Program Files\Microchip\xc8\v1.12\include\stdlib.h
+[v _free `(v ~T0 @X0 0 ef1`*v ]
+[; ;string.h: 4: typedef int ptrdiff_t;
+[; ;string.h: 5: typedef unsigned size_t;
+[; ;string.h: 6: typedef unsigned short wchar_t;
+[; ;string.h: 9: extern int errno;
+[; ;string.h: 22: extern void * memcpy(void *, const void *, size_t);
+[; ;string.h: 23: extern void * memmove(void *, const void *, size_t);
+[; ;string.h: 24: extern void * memset(void *, int, size_t);
+[; ;string.h: 35: extern char * strcat(char *, const char *);
+[; ;string.h: 36: extern char * strcpy(char *, const char *);
+[; ;string.h: 37: extern char * strncat(char *, const char *, size_t);
+[; ;string.h: 38: extern char * strncpy(char *, const char *, size_t);
+[; ;string.h: 39: extern char * strdup(const char *);
+[; ;string.h: 40: extern char * strtok(char *, const char *);
+[; ;string.h: 43: extern int memcmp(const void *, const void *, size_t);
+[; ;string.h: 44: extern int strcmp(const char *, const char *);
+[; ;string.h: 45: extern int stricmp(const char *, const char *);
+[; ;string.h: 46: extern int strncmp(const char *, const char *, size_t);
+[; ;string.h: 47: extern int strnicmp(const char *, const char *, size_t);
+[; ;string.h: 48: extern void * memchr(const void *, int, size_t);
+[; ;string.h: 49: extern size_t strcspn(const char *, const char *);
+[; ;string.h: 50: extern char * strpbrk(const char *, const char *);
+[; ;string.h: 51: extern size_t strspn(const char *, const char *);
+[; ;string.h: 52: extern char * strstr(const char *, const char *);
+[; ;string.h: 53: extern char * stristr(const char *, const char *);
+[; ;string.h: 54: extern char * strerror(int);
+[; ;string.h: 55: extern size_t strlen(const char *);
+[; ;string.h: 56: extern char * strchr(const char *, int);
+[; ;string.h: 57: extern char * strichr(const char *, int);
+[; ;string.h: 58: extern char * strrchr(const char *, int);
+[; ;string.h: 59: extern char * strrichr(const char *, int);
+[; ;stdlib.h: 27: typedef struct {
+[; ;stdlib.h: 28: int rem;
+[; ;stdlib.h: 29: int quot;
+[; ;stdlib.h: 30: } div_t;
+[; ;stdlib.h: 31: typedef struct {
+[; ;stdlib.h: 32: unsigned rem;
+[; ;stdlib.h: 33: unsigned quot;
+[; ;stdlib.h: 34: } udiv_t;
+[; ;stdlib.h: 35: typedef struct {
+[; ;stdlib.h: 36: long quot;
+[; ;stdlib.h: 37: long rem;
+[; ;stdlib.h: 38: } ldiv_t;
+[; ;stdlib.h: 39: typedef struct {
+[; ;stdlib.h: 40: unsigned long quot;
+[; ;stdlib.h: 41: unsigned long rem;
+[; ;stdlib.h: 42: } uldiv_t;
+[; ;stdlib.h: 65: extern double atof(const char *);
+[; ;stdlib.h: 66: extern double strtod(const char *, const char **);
+[; ;stdlib.h: 67: extern int atoi(const char *);
+[; ;stdlib.h: 68: extern unsigned xtoi(const char *);
+[; ;stdlib.h: 69: extern long atol(const char *);
+[; ;stdlib.h: 70: extern long strtol(const char *, char **, int);
+[; ;stdlib.h: 72: extern int rand(void);
+[; ;stdlib.h: 73: extern void srand(unsigned int);
+[; ;stdlib.h: 74: extern void * calloc(size_t, size_t);
+[; ;stdlib.h: 75: extern div_t div(int numer, int denom);
+[; ;stdlib.h: 76: extern udiv_t udiv(unsigned numer, unsigned denom);
+[; ;stdlib.h: 77: extern ldiv_t ldiv(long numer, long denom);
+[; ;stdlib.h: 78: extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+[; ;stdlib.h: 79: extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 80: extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 81: extern unsigned int _rotl(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 82: extern unsigned int _rotr(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 87: extern void * malloc(size_t);
+[; ;stdlib.h: 88: extern void free(void *);
+[; ;stdlib.h: 89: extern void * realloc(void *, size_t);
+[; ;stdlib.h: 91: extern void abort(void);
+[; ;stdlib.h: 92: extern void exit(int);
+[; ;stdlib.h: 93: extern int atexit(void (*)(void));
+[; ;stdlib.h: 94: extern char * getenv(const char *);
+[; ;stdlib.h: 95: extern char ** environ;
+[; ;stdlib.h: 96: extern int system(char *);
+[; ;stdlib.h: 97: extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+[; ;stdlib.h: 98: extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+[; ;stdlib.h: 99: extern int abs(int);
+[; ;stdlib.h: 100: extern long labs(long);
+[; ;stdlib.h: 103: extern char * itoa(char * buf, int val, int base);
+[; ;stdlib.h: 104: extern char * utoa(char * buf, unsigned val, int base);
+[; ;stdlib.h: 109: extern char * ltoa(char * buf, long val, int base);
+[; ;stdlib.h: 110: extern char * ultoa(char * buf, unsigned long val, int base);
+[; ;stdlib.h: 112: extern char * ftoa(float f, int * status);
+[; ;stdarg.h: 7: typedef void * va_list[1];
+[; ;stdarg.h: 10: extern void * __va_start(void);
+[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 23: extern int errno;
+[; ;stdio.h: 54: struct __prbuf
+[; ;stdio.h: 55: {
+[; ;stdio.h: 56: char * ptr;
+[; ;stdio.h: 57: void (* func)(char);
+[; ;stdio.h: 58: };
+[; ;conio.h: 17: extern int errno;
+[; ;conio.h: 20: extern void init_uart(void);
+[; ;conio.h: 22: extern char getch(void);
+[; ;conio.h: 23: extern char getche(void);
+[; ;conio.h: 24: extern void putch(char);
+[; ;conio.h: 25: extern void ungetch(char);
+[; ;conio.h: 27: extern __bit kbhit(void);
+[; ;conio.h: 31: extern char * cgets(char *);
+[; ;conio.h: 32: extern void cputs(const char *);
+[; ;stdio.h: 99: extern int cprintf(char *, ...);
+[; ;stdio.h: 104: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 194: extern char * gets(char *);
+[; ;stdio.h: 195: extern int puts(const char *);
+[; ;stdio.h: 196: extern int scanf(const char *, ...);
+[; ;stdio.h: 197: extern int sscanf(const char *, const char *, ...);
+[; ;stdio.h: 198: extern int vprintf(const char *, va_list);
+[; ;stdio.h: 199: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
+[; ;stdio.h: 200: extern int vscanf(const char *, va_list ap);
+[; ;stdio.h: 201: extern int vsscanf(const char *, const char *, va_list);
+[; ;stdio.h: 205: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 206: extern int printf(const char *, ...);
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef signed short long int int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 43: typedef unsigned char uint8_t;
+[; ;stdint.h: 49: typedef unsigned int uint16_t;
+[; ;stdint.h: 56: typedef unsigned short long int uint24_t;
+[; ;stdint.h: 63: typedef unsigned long int uint32_t;
+[; ;stdint.h: 71: typedef signed char int_least8_t;
+[; ;stdint.h: 78: typedef signed int int_least16_t;
+[; ;stdint.h: 90: typedef signed short long int int_least24_t;
+[; ;stdint.h: 98: typedef signed long int int_least32_t;
+[; ;stdint.h: 105: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 111: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 121: typedef unsigned short long int uint_least24_t;
+[; ;stdint.h: 128: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 137: typedef signed char int_fast8_t;
+[; ;stdint.h: 144: typedef signed int int_fast16_t;
+[; ;stdint.h: 156: typedef signed short long int int_fast24_t;
+[; ;stdint.h: 164: typedef signed long int int_fast32_t;
+[; ;stdint.h: 171: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 177: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 187: typedef unsigned short long int uint_fast24_t;
+[; ;stdint.h: 194: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 200: typedef int32_t intmax_t;
+[; ;stdint.h: 205: typedef uint32_t uintmax_t;
+[; ;stdint.h: 210: typedef int16_t intptr_t;
+[; ;stdint.h: 215: typedef uint16_t uintptr_t;
 [; ;pic18f2680.h: 44: extern volatile unsigned char RXF6SIDH @ 0xD60;
 "46 C:\Program Files\Microchip\xc8\v1.12\include\pic18f2680.h
 [; ;pic18f2680.h: 46: asm("RXF6SIDH equ 0D60h");
@@ -14191,9 +14352,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;EEP.h: 36: void Busy_eep ( void );
 [; ;EEP.h: 37: unsigned char Read_b_eep( unsigned int badd );
 [; ;EEP.h: 38: void Write_b_eep( unsigned int badd, unsigned char bdata );
-[; ;stddef.h: 2: typedef int ptrdiff_t;
-[; ;stddef.h: 3: typedef unsigned size_t;
-[; ;stddef.h: 4: typedef unsigned short wchar_t;
 [; ;stddef.h: 13: extern int errno;
 [; ;GenericTypeDefs.h: 65: typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
 [; ;GenericTypeDefs.h: 68: typedef enum _BIT { CLEAR = 0, SET } BIT;
@@ -14726,57 +14884,374 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 144: extern void _delay(unsigned long);
 [; ;pic18.h: 146: extern void _delaywdt(unsigned long);
 [; ;pic18.h: 148: extern void _delay3(unsigned char);
-[; ;stdarg.h: 7: typedef void * va_list[1];
-[; ;stdarg.h: 10: extern void * __va_start(void);
-[; ;stdarg.h: 13: extern void * __va_arg(void *, ...);
-[; ;stdio.h: 23: extern int errno;
-[; ;stdio.h: 54: struct __prbuf
-[; ;stdio.h: 55: {
-[; ;stdio.h: 56: char * ptr;
-[; ;stdio.h: 57: void (* func)(char);
-[; ;stdio.h: 58: };
-[; ;conio.h: 17: extern int errno;
-[; ;conio.h: 20: extern void init_uart(void);
-[; ;conio.h: 22: extern char getch(void);
-[; ;conio.h: 23: extern char getche(void);
-[; ;conio.h: 24: extern void putch(char);
-[; ;conio.h: 25: extern void ungetch(char);
-[; ;conio.h: 27: extern __bit kbhit(void);
-[; ;conio.h: 31: extern char * cgets(char *);
-[; ;conio.h: 32: extern void cputs(const char *);
-[; ;stdio.h: 99: extern int cprintf(char *, ...);
-[; ;stdio.h: 104: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
-[; ;stdio.h: 194: extern char * gets(char *);
-[; ;stdio.h: 195: extern int puts(const char *);
-[; ;stdio.h: 196: extern int scanf(const char *, ...);
-[; ;stdio.h: 197: extern int sscanf(const char *, const char *, ...);
-[; ;stdio.h: 198: extern int vprintf(const char *, va_list);
-[; ;stdio.h: 199: extern int vsprintf(char *, const char *, va_list) __attribute__((unsupported("vsprintf() is not supported by this compiler")));
-[; ;stdio.h: 200: extern int vscanf(const char *, va_list ap);
-[; ;stdio.h: 201: extern int vsscanf(const char *, const char *, va_list);
-[; ;stdio.h: 205: extern int sprintf(char *, const char *, ...);
-[; ;stdio.h: 206: extern int printf(const char *, ...);
-[; ;timer0_thread.h: 1: typedef struct __timer0_thread_struct {
-[; ;timer0_thread.h: 3: int data;
-[; ;timer0_thread.h: 4: } timer0_thread_struct;
-[; ;timer0_thread.h: 6: int timer0_lthread(timer0_thread_struct *,int,int,unsigned char*);
-"9 ../src/timer0_thread.c
-[v _timer0_lthread `(i ~T0 @X0 1 ef4`*S2088`i`i`*uc ]
+[; ;queue.h: 11: typedef struct Queue
+[; ;queue.h: 12: {
+[; ;queue.h: 13: int size;
+[; ;queue.h: 14: int first;
+[; ;queue.h: 15: int last;
+[; ;queue.h: 16: unsigned char* messages;
+[; ;queue.h: 17: }Queue;
+[; ;queue.h: 19: int appendQueue(Queue *Q, unsigned char msg);
+[; ;queue.h: 20: unsigned char readQueue(Queue *Q, unsigned char* msg);
+[; ;queue.h: 21: int createQueue(Queue *Q, int Qsize);
+[; ;queue.h: 22: int getNumMessagesQueue(Queue *Q);
+[; ;queue.h: 23: inline unsigned char isQueueEmpty(Queue *Q);
+[; ;queue.h: 24: inline unsigned char isQueueFull(Queue *Q);
+[; ;zigBee.h: 15: typedef enum{HEADER,GATHER,PROCESS,CLEANUP} ESTATE;
+[; ;zigBee.h: 27: typedef struct __zigBeeTxStat{
+[; ;zigBee.h: 28: uint8_t cmdId;
+[; ;zigBee.h: 29: uint8_t frameId;
+[; ;zigBee.h: 30: uint8_t status;
+[; ;zigBee.h: 31: } zigBeeTxStat;
+[; ;zigBee.h: 33: typedef struct __zigBeeMsg{
+[; ;zigBee.h: 34: union {
+[; ;zigBee.h: 35: struct {
+[; ;zigBee.h: 36: uint8_t start;
+[; ;zigBee.h: 37: struct {
+[; ;zigBee.h: 38: uint8_t HI;
+[; ;zigBee.h: 39: uint8_t LO;
+[; ;zigBee.h: 40: } len;
+[; ;zigBee.h: 41: };
+[; ;zigBee.h: 42: uint8_t header[3];
+[; ;zigBee.h: 43: };
+[; ;zigBee.h: 44: uint8_t* data;
+[; ;zigBee.h: 45: uint8_t checksum;
+[; ;zigBee.h: 47: } zigBeeMsg;
+[; ;zigBee.h: 49: void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ);
+"6 ../src/zigBee.c
+[v _getLen `(ui ~T0 @X0 1 ef1`S2094 ]
 {
-[; ;timer0_thread.c: 9: int timer0_lthread(timer0_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
-[e :U _timer0_lthread ]
-[v _tptr `*S2088 ~T0 @X0 1 r1 ]
-[v _msgtype `i ~T0 @X0 1 r2 ]
-[v _length `i ~T0 @X0 1 r3 ]
-[v _msgbuffer `*uc ~T0 @X0 1 r4 ]
+[; ;zigBee.c: 6: uint16_t getLen(zigBeeMsg msg){
+[e :U _getLen ]
+[v _msg `S2094 ~T0 @X0 1 r1 ]
 [f ]
+[; ;zigBee.c: 7: return (((uint16_t)msg.len.HI << 8) | (msg.len.LO));
+"7
+[e ) | << -> . . . . _msg 0 0 1 0 `ui -> 8 `i -> . . . . _msg 0 0 1 1 `ui ]
+[e $UE 2098  ]
+[; ;zigBee.c: 8: }
+"8
+[e :UE 2098 ]
+}
 "10
-[v _msgval `*ui ~T0 @X0 1 a ]
-[; ;timer0_thread.c: 10: unsigned int *msgval;
-[; ;timer0_thread.c: 12: msgval = (unsigned int *) msgbuffer;
+[v _setLen `(v ~T0 @X0 1 ef2`*S2094`ui ]
+{
+[; ;zigBee.c: 10: void setLen(zigBeeMsg* msg, uint16_t len){
+[e :U _setLen ]
+[v _msg `*S2094 ~T0 @X0 1 r1 ]
+[v _len `ui ~T0 @X0 1 r2 ]
+[f ]
+[; ;zigBee.c: 11: msg->len.HI = (len >> 8)& 0x00FF;
+"11
+[e = . . . . *U _msg 0 0 1 0 -> & >> _len -> 8 `i -> -> 255 `i `ui `uc ]
+[; ;zigBee.c: 12: msg->len.LO = len & 0x00FF;
 "12
-[e = _msgval -> _msgbuffer `*ui ]
-[; ;timer0_thread.c: 16: }
+[e = . . . . *U _msg 0 0 1 1 -> & _len -> -> 255 `i `ui `uc ]
+[; ;zigBee.c: 13: return;
+"13
+[e $UE 2099  ]
+[; ;zigBee.c: 14: }
+"14
+[e :UE 2099 ]
+}
 "16
-[e :UE 2089 ]
+[v _generateChecksum `(uc ~T0 @X0 1 ef1`*S2094 ]
+{
+[; ;zigBee.c: 16: uint8_t generateChecksum(zigBeeMsg* msg){
+[e :U _generateChecksum ]
+[v _msg `*S2094 ~T0 @X0 1 r1 ]
+[f ]
+"17
+[v _check `uc ~T0 @X0 1 a ]
+[; ;zigBee.c: 17: uint8_t check = 0;
+[e = _check -> -> 0 `i `uc ]
+"18
+[v _len `ui ~T0 @X0 1 a ]
+[; ;zigBee.c: 18: uint16_t len = getLen(*msg);
+[e = _len ( _getLen (1 *U _msg ]
+"19
+[v _i `i ~T0 @X0 1 a ]
+[; ;zigBee.c: 19: int i = 0;
+[e = _i -> 0 `i ]
+[; ;zigBee.c: 20: for(i=0; i<len; i++){
+"20
+{
+[e = _i -> 0 `i ]
+[e $U 2104  ]
+[e :U 2101 ]
+{
+[; ;zigBee.c: 21: check += msg->data[i];
+"21
+[e =+ _check *U + . *U _msg 1 * -> _i `x -> -> # *U . *U _msg 1 `i `x ]
+"22
+}
+"20
+[e ++ _i -> 1 `i ]
+[e :U 2104 ]
+[e $ < -> _i `ui _len 2101  ]
+[e :U 2102 ]
+"22
+}
+[; ;zigBee.c: 22: }
+[; ;zigBee.c: 23: check = 0xFF - (check & 0xFF);
+"23
+[e = _check -> - -> 255 `i & -> _check `i -> 255 `i `uc ]
+[; ;zigBee.c: 24: return (check & 0xFF);
+"24
+[e ) -> & -> _check `i -> 255 `i `uc ]
+[e $UE 2100  ]
+[; ;zigBee.c: 25: }
+"25
+[e :UE 2100 ]
+}
+"27
+[v _serializeZigBeeMsg `(v ~T0 @X0 1 ef2`*S2094`C*uc ]
+{
+[; ;zigBee.c: 27: void serializeZigBeeMsg(zigBeeMsg* msg, uint8_t* const buf){
+[e :U _serializeZigBeeMsg ]
+[v _msg `*S2094 ~T0 @X0 1 r1 ]
+[v _buf `C*uc ~T0 @X0 1 r2 ]
+[f ]
+[; ;zigBee.c: 28: buf[0] = msg->start;
+"28
+[e = *U + _buf * -> -> 0 `i `x -> -> # *U _buf `i `x . . . *U _msg 0 0 0 ]
+[; ;zigBee.c: 29: buf[1] = msg->len.HI;
+"29
+[e = *U + _buf * -> -> 1 `i `x -> -> # *U _buf `i `x . . . . *U _msg 0 0 1 0 ]
+[; ;zigBee.c: 30: buf[2] = msg->len.LO;
+"30
+[e = *U + _buf * -> -> 2 `i `x -> -> # *U _buf `i `x . . . . *U _msg 0 0 1 1 ]
+"32
+[v _i `i ~T0 @X0 1 a ]
+[; ;zigBee.c: 32: int i = 0;
+[e = _i -> 0 `i ]
+"33
+[v _len `ui ~T0 @X0 1 a ]
+[; ;zigBee.c: 33: uint16_t len = getLen(*msg);
+[e = _len ( _getLen (1 *U _msg ]
+[; ;zigBee.c: 34: for(i=0; i<len; i++){
+"34
+{
+[e = _i -> 0 `i ]
+[e $U 2109  ]
+[e :U 2106 ]
+{
+[; ;zigBee.c: 35: buf[i+3] = msg->data[i];
+"35
+[e = *U + _buf * -> + _i -> 3 `i `x -> -> # *U _buf `i `x *U + . *U _msg 1 * -> _i `x -> -> # *U . *U _msg 1 `i `x ]
+"36
+}
+"34
+[e ++ _i -> 1 `i ]
+[e :U 2109 ]
+[e $ < -> _i `ui _len 2106  ]
+[e :U 2107 ]
+"36
+}
+[; ;zigBee.c: 36: }
+[; ;zigBee.c: 37: buf[len+3] = msg->checksum;
+"37
+[e = *U + _buf * -> + _len -> -> 3 `i `ui `ux -> -> # *U _buf `ui `ux . *U _msg 2 ]
+[; ;zigBee.c: 38: return;
+"38
+[e $UE 2105  ]
+[; ;zigBee.c: 39: }
+"39
+[e :UE 2105 ]
+}
+"41
+[v _doZigBee `(v ~T0 @X0 1 ef3`i`*uc`*S2092 ]
+{
+[; ;zigBee.c: 41: void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ){
+[e :U _doZigBee ]
+[v _length `i ~T0 @X0 1 r1 ]
+[v _msgbuffer `*uc ~T0 @X0 1 r2 ]
+[v _rcvQ `*S2092 ~T0 @X0 1 r3 ]
+[f ]
+"42
+[v F16595 `E16546 ~T0 @X0 1 s state ]
+[i F16595
+-> . `E16546 0 `E16546
+]
+"43
+[v F16596 `ui ~T0 @X0 1 s len ]
+[i F16596
+-> -> 0 `i `ui
+]
+"44
+[v F16597 `S2094 ~T0 @X0 1 s msg ]
+"45
+[v F16598 `i ~T0 @X0 1 s curI ]
+[i F16598
+-> 0 `i
+]
+"47
+[v _i `i ~T0 @X0 1 a ]
+[; ;zigBee.c: 42: static ESTATE state = HEADER;
+[; ;zigBee.c: 43: static uint16_t len = 0;
+[; ;zigBee.c: 44: static zigBeeMsg msg;
+[; ;zigBee.c: 45: static int curI=0;
+[; ;zigBee.c: 47: int i = 0;
+[e = _i -> 0 `i ]
+[; ;zigBee.c: 49: switch( state ){
+"49
+[e $U 2112  ]
+{
+[; ;zigBee.c: 50: case HEADER:
+"50
+[e :U 2113 ]
+[; ;zigBee.c: 51: {
+"51
+{
+[; ;zigBee.c: 53: memcpy(msg.header,msgbuffer,sizeof(unsigned char)*3);
+"53
+[e ( _memcpy (3 , , -> &U . . F16597 0 1 `*v -> _msgbuffer `*Cv * -> # `uc `ui -> -> 3 `i `ui ]
+[; ;zigBee.c: 55: if( msg.start != 0x7E ){
+"55
+[e $ ! != -> . . . F16597 0 0 0 `i -> 126 `i 2114  ]
+{
+[; ;zigBee.c: 58: for( i=0; i<length; i++){
+"58
+{
+[e = _i -> 0 `i ]
+[e $U 2118  ]
+[e :U 2115 ]
+{
+[; ;zigBee.c: 59: readQueue(rcvQ,0);
+"59
+[e ( _readQueue (2 , _rcvQ -> -> 0 `i `*uc ]
+"60
+}
+"58
+[e ++ _i -> 1 `i ]
+[e :U 2118 ]
+[e $ < _i _length 2115  ]
+[e :U 2116 ]
+"60
+}
+[; ;zigBee.c: 60: }
+[; ;zigBee.c: 61: break;
+"61
+[e $U 2111  ]
+"62
+}
+[e :U 2114 ]
+[; ;zigBee.c: 62: }
+[; ;zigBee.c: 64: len = getLen(msg);
+"64
+[e = F16596 ( _getLen (1 F16597 ]
+[; ;zigBee.c: 66: msg.data = (uint8_t*)malloc(sizeof(uint8_t)*len);
+"66
+[e = . F16597 1 -> ( _malloc (1 * -> # `uc `ui F16596 `*uc ]
+[; ;zigBee.c: 68: state = GATHER;
+"68
+[e = F16595 -> . `E16546 1 `E16546 ]
+[; ;zigBee.c: 69: break;
+"69
+[e $U 2111  ]
+"70
+}
+[; ;zigBee.c: 70: }
+[; ;zigBee.c: 71: case GATHER:
+"71
+[e :U 2119 ]
+[; ;zigBee.c: 72: {
+"72
+{
+"74
+[v _numMsgs `i ~T0 @X0 1 a ]
+[; ;zigBee.c: 74: int numMsgs = getNumMessagesQueue(rcvQ);
+[e = _numMsgs ( _getNumMessagesQueue (1 _rcvQ ]
+[; ;zigBee.c: 75: for( i=0; i<numMsgs || curI<len ; i++, curI++){
+"75
+{
+[e = _i -> 0 `i ]
+[e $U 2123  ]
+[e :U 2120 ]
+{
+[; ;zigBee.c: 76: readQueue(rcvQ,&(msg.data[curI]));
+"76
+[e ( _readQueue (2 , _rcvQ &U *U + . F16597 1 * -> F16598 `x -> -> # *U . F16597 1 `i `x ]
+"77
+}
+"75
+[e ; ++ _i -> 1 `i ++ F16598 -> 1 `i ]
+[e :U 2123 ]
+[e $ || < _i _numMsgs < -> F16598 `ui F16596 2120  ]
+[e :U 2121 ]
+"77
+}
+[; ;zigBee.c: 77: }
+[; ;zigBee.c: 80: if( curI == len){
+"80
+[e $ ! == -> F16598 `ui F16596 2124  ]
+{
+[; ;zigBee.c: 83: state = PROCESS;
+"83
+[e = F16595 -> . `E16546 2 `E16546 ]
+"84
+}
+[e :U 2124 ]
+[; ;zigBee.c: 84: }
+[; ;zigBee.c: 85: break;
+"85
+[e $U 2111  ]
+"86
+}
+[; ;zigBee.c: 86: }
+[; ;zigBee.c: 87: case PROCESS:
+"87
+[e :U 2125 ]
+[; ;zigBee.c: 88: {
+"88
+{
+[; ;zigBee.c: 91: break;
+"91
+[e $U 2111  ]
+"92
+}
+[; ;zigBee.c: 92: }
+[; ;zigBee.c: 93: case CLEANUP:
+"93
+[e :U 2126 ]
+[; ;zigBee.c: 94: {
+"94
+{
+[; ;zigBee.c: 96: curI = 0;
+"96
+[e = F16598 -> 0 `i ]
+[; ;zigBee.c: 98: free(msg.data);
+"98
+[e ( _free (1 -> . F16597 1 `*v ]
+"99
+}
+[; ;zigBee.c: 99: }
+[; ;zigBee.c: 100: default:
+"100
+[e :U 2127 ]
+[; ;zigBee.c: 101: {
+"101
+{
+[; ;zigBee.c: 103: break;
+"103
+[e $U 2111  ]
+"104
+}
+"105
+}
+[; ;zigBee.c: 104: }
+[; ;zigBee.c: 105: }
+[e $U 2111  ]
+"49
+[e :U 2112 ]
+[e [\ F16595 , $ -> . `E16546 0 `E16546 2113
+ , $ -> . `E16546 1 `E16546 2119
+ , $ -> . `E16546 2 `E16546 2125
+ , $ -> . `E16546 3 `E16546 2126
+ 2127 ]
+"105
+[e :U 2111 ]
+[; ;zigBee.c: 106: }
+"106
+[e :UE 2110 ]
 }

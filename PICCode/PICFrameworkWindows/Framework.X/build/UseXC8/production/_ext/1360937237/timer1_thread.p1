@@ -1,8 +1,8 @@
 Version 3.2 HI-TECH Software Intermediate Code
 [s S2090 `ui 1 ]
-[n S2090 __timer1_thread_struct msgcount ]
-"78 ../src/messages.h
-[v _FromMainHigh_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
+[n S2090 __timer1_thread_struct counter ]
+"57 ../src/messages.h
+[v _ToMainLow_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
 [; ;pic18f2680.h: 44: extern volatile unsigned char RXF6SIDH @ 0xD60;
 "46 C:\Program Files\Microchip\xc8\v1.12\include\pic18f2680.h
 [; ;pic18f2680.h: 46: asm("RXF6SIDH equ 0D60h");
@@ -14781,60 +14781,61 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;messages.h: 78: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
 [; ;messages.h: 79: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 [; ;timer1_thread.h: 1: typedef struct __timer1_thread_struct {
-[; ;timer1_thread.h: 3: unsigned int msgcount;
-[; ;timer1_thread.h: 4: } timer1_thread_struct;
-[; ;timer1_thread.h: 6: void init_timer1_lthread(timer1_thread_struct *);
-[; ;timer1_thread.h: 7: int timer1_lthread(timer1_thread_struct *,int,int,unsigned char*);
-"6 ../src/timer1_thread.c
+[; ;timer1_thread.h: 4: unsigned int counter;
+[; ;timer1_thread.h: 5: } timer1_thread_struct;
+[; ;timer1_thread.h: 7: void init_timer1_lthread(timer1_thread_struct *);
+[; ;timer1_thread.h: 8: int timer1_lthread(timer1_thread_struct *,int,int,unsigned char*);
+[; ;my_adc.h: 7: void adc_int_handler(void);
+[; ;my_adc.h: 9: void initADC(void);
+[; ;my_adc.h: 11: void readADC(int *value);
+[; ;my_adc.h: 13: void stopADC(void);
+"7 ../src/timer1_thread.c
 [v _init_timer1_lthread `(v ~T0 @X0 1 ef1`*S2090 ]
 {
-[; ;timer1_thread.c: 6: void init_timer1_lthread(timer1_thread_struct *tptr) {
+[; ;timer1_thread.c: 7: void init_timer1_lthread(timer1_thread_struct *tptr) {
 [e :U _init_timer1_lthread ]
 [v _tptr `*S2090 ~T0 @X0 1 r1 ]
 [f ]
-[; ;timer1_thread.c: 7: tptr->msgcount = 0;
-"7
-[e = . *U _tptr 0 -> -> 0 `i `ui ]
-[; ;timer1_thread.c: 8: }
+[; ;timer1_thread.c: 8: tptr->counter = 0;
 "8
+[e = . *U _tptr 0 -> -> 0 `i `ui ]
+[; ;timer1_thread.c: 9: }
+"9
 [e :UE 2091 ]
 }
-"14
+"15
+[v _value `i ~T0 @X0 1 e ]
+[; ;timer1_thread.c: 15: int value;
+"17
 [v _timer1_lthread `(i ~T0 @X0 1 ef4`*S2090`i`i`*uc ]
 {
-[; ;timer1_thread.c: 14: int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
+[; ;timer1_thread.c: 17: int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
 [e :U _timer1_lthread ]
 [v _tptr `*S2090 ~T0 @X0 1 r1 ]
 [v _msgtype `i ~T0 @X0 1 r2 ]
 [v _length `i ~T0 @X0 1 r3 ]
 [v _msgbuffer `*uc ~T0 @X0 1 r4 ]
 [f ]
-"15
-[v _retval `c ~T0 @X0 1 a ]
-[; ;timer1_thread.c: 15: signed char retval;
-[; ;timer1_thread.c: 17: tptr->msgcount++;
-"17
+[; ;timer1_thread.c: 18: tptr->counter++;
+"18
 [e ++ . *U _tptr 0 -> -> 1 `i `ui ]
-[; ;timer1_thread.c: 20: if ((tptr->msgcount % 10) == 9) {
+[; ;timer1_thread.c: 19: if (tptr->counter == 1)
+"19
+[e $ ! == . *U _tptr 0 -> -> 1 `i `ui 2093  ]
+[; ;timer1_thread.c: 20: {
 "20
-[e $ ! == % . *U _tptr 0 -> -> 10 `i `ui -> -> 9 `i `ui 2093  ]
 {
-[; ;timer1_thread.c: 21: retval = FromMainHigh_sendmsg(sizeof (tptr->msgcount), 20, (void *) &(tptr->msgcount));
+[; ;timer1_thread.c: 21: tptr->counter = 0;
 "21
-[e = _retval ( _FromMainHigh_sendmsg (3 , , -> -> # . *U _tptr 0 `ui `uc -> -> 20 `i `uc -> &U . *U _tptr 0 `*v ]
-[; ;timer1_thread.c: 22: if (retval < 0) {
+[e = . *U _tptr 0 -> -> 0 `i `ui ]
+[; ;timer1_thread.c: 22: ToMainLow_sendmsg(0, 31, (void *) 0);
 "22
-[e $ ! < -> _retval `i -> 0 `i 2094  ]
-{
-"24
-}
-[e :U 2094 ]
-"25
+[e ( _ToMainLow_sendmsg (3 , , -> -> 0 `i `uc -> -> 31 `i `uc -> -> 0 `i `*v ]
+"23
 }
 [e :U 2093 ]
+[; ;timer1_thread.c: 23: }
 [; ;timer1_thread.c: 24: }
-[; ;timer1_thread.c: 25: }
-[; ;timer1_thread.c: 26: }
-"26
+"24
 [e :UE 2092 ]
 }

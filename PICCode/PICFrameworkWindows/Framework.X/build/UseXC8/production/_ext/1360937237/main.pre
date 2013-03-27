@@ -18715,6 +18715,22 @@ extern int vsscanf(const char *, const char *, va_list);
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
+# 11 "../src/queue.h"
+typedef struct Queue
+{
+int size;
+int first;
+int last;
+unsigned char* messages;
+}Queue;
+
+int appendQueue(Queue *Q, unsigned char msg);
+unsigned char readQueue(Queue *Q, unsigned char* msg);
+int createQueue(Queue *Q, int Qsize);
+int getNumMessagesQueue(Queue *Q);
+inline unsigned char isQueueEmpty(Queue *Q);
+inline unsigned char isQueueFull(Queue *Q);
+
 # 12 "../src/interrupts.h"
 void enable_interrupts(void);
 
@@ -18777,10 +18793,11 @@ unsigned char buflen;
 void init_uart_recv(uart_comm *);
 void uart_recv_int_handler(void);
 
-# 7 "../src/my_i2c.h"
+# 9 "../src/my_i2c.h"
 typedef struct __i2c_comm {
 unsigned char buffer[10];
-unsigned char buflen;
+volatile unsigned char explen;
+volatile unsigned char buflen;
 unsigned char event_count;
 unsigned char status;
 unsigned char error_code;
@@ -18791,27 +18808,40 @@ unsigned char outbufind;
 unsigned char slave_addr;
 } i2c_comm;
 
-# 32
+# 45
 void init_i2c(i2c_comm *);
 void i2c_int_handler(void);
+void i2c_master_handler(void);
+void i2c_slave_handler(void);
 void start_i2c_slave_reply(unsigned char,unsigned char *);
 void i2c_configure_slave(unsigned char);
 void i2c_configure_master(unsigned char);
 unsigned char i2c_master_send(unsigned char,unsigned char *);
-unsigned char i2c_master_recv(unsigned char);
+unsigned char i2c_master_recv(unsigned char, unsigned char);
 
-# 1 "../src/uart_thread.h"
+# 7 "../src/my_adc.h"
+void adc_int_handler(void);
+
+void initADC(void);
+
+void readADC(int *value);
+
+void stopADC(void);
+
+# 4 "../src/uart_thread.h"
 typedef struct __uart_thread_struct {
 
+Queue* uartRXQ;
 int data;
 } uart_thread_struct;
 
-int uart_lthread(uart_thread_struct *,int,int,unsigned char*);
+int uart_lthread(uart_thread_struct *,int,int,unsigned char*, Queue *rcvQ);
 
 # 1 "../src/timer1_thread.h"
 typedef struct __timer1_thread_struct {
 
-unsigned int msgcount;
+
+unsigned int counter;
 } timer1_thread_struct;
 
 void init_timer1_lthread(timer1_thread_struct *);
@@ -18826,7 +18856,7 @@ int data;
 int timer0_lthread(timer0_thread_struct *,int,int,unsigned char*);
 
 
-# 48 "../src/main.c"
+# 54 "../src/main.c"
 #pragma config OSC = IRCIO67
 #pragma config FCMEN = OFF
 #pragma config IESO = OFF
@@ -18850,10 +18880,12 @@ int timer0_lthread(timer0_thread_struct *,int,int,unsigned char*);
 #pragma config LVP = OFF
 #pragma config BBSIZ = 1024
 
-# 123
+# 130
 void main(void) {
-char c;
+Queue* uartRXQ;
+Queue* uartTXQ;
 signed char length;
+int count = 0;
 unsigned char msgtype;
 unsigned char last_reg_recvd;
 uart_comm uc;
@@ -18863,13 +18895,18 @@ unsigned char i;
 uart_thread_struct uthread_data;
 timer1_thread_struct t1thread_data;
 timer0_thread_struct t0thread_data;
+unsigned char *testmsg;
+
 
 
 OSCCON = 0xFC;
 
 OSCTUNEbits.PLLEN = 1;
 
-# 155
+# 166
+initADC();
+
+
 init_uart_recv(&uc);
 
 
@@ -18883,31 +18920,38 @@ init_queues();
 
 
 
+
 TRISB = 0x0;
 LATB = 0x0;
 
-# 182
-OpenTimer0(0b11111111 & 0b10111111 & 0b11011111 & 0b11110110);
+# 197
+OpenTimer0(0b11111111 & 0b10111111 & 0b11011111 & 0b11101111 & 0b11111111);
 
 
 
 
-OpenTimer1(0b11111111 & 0b11111111 & 0b11111111 & 0b11111101 & 0b11110111 & 0b11111111);
+OpenTimer1(0b11111111 & 0b10111111 & 0b11001111 & 0b11111101 & 0b11110111 & 0b11111111);
 
-# 193
+# 209
 IPR1bits.TMR1IP = 0;
 
 IPR1bits.RCIP = 0;
 
 IPR1bits.SSPIP = 1;
 
-# 206
-i2c_configure_slave(0x9E);
+IPR1bits.ADIP = 0;
 
-# 221
+# 225
+i2c_configure_master(0x9E);
+
+# 240
 PIE1bits.SSPIE = 1;
 
-# 228
+PIE1bits.TMR1IE = 1;
+
+PIE2bits.TMR3IE = 1;
+
+# 254
 OpenUSART(0b01111111 & 0b11111111 & 0b11111110 & 0b11111101 &
 0b11111111 & 0b11101111, 0x19);
 
@@ -18916,14 +18960,29 @@ OpenUSART(0b01111111 & 0b11111111 & 0b11111110 & 0b11111101 &
 
 enable_interrupts();
 
-# 254
+# 274
+LATB = 0x3F;
+LATB = 0x0;
+
+
+createQueue(uartRXQ, 5);
+createQueue(uartTXQ, 5);
+
+testmsg[0] = 158;
+
+testmsg[1] = 'H';
+testmsg[2] = 'i';
+LATB = 0x00;
+
+# 293
 while (1) {
+char byte1;
+char byte2;
 
-
-
+# 304
 block_on_To_msgqueues();
 
-# 265
+# 311
 length = ToMainHigh_recvmsg(10, &msgtype, (void *) msgbuffer);
 if (length < 0) {
 
@@ -18938,6 +18997,30 @@ timer0_lthread(&t0thread_data, msgtype, length, msgbuffer);
 break;
 };
 case 40:
+{
+for (i = 0; i < length; i++)
+{
+appendQueue(uartTXQ, msgbuffer[i]);
+}
+for (i = 0; i <uartTXQ->last+1; i++ )
+{
+unsigned char msg;
+readQueue(uartTXQ,&msg);
+WriteUSART(msg);
+}
+break;
+};
+case 47:
+{
+msgbuffer[0] = 0x9E;
+for (i = 1; i < uartRXQ->size; i++)
+{
+readQueue(uartRXQ,&(msgbuffer[i]));
+}
+
+i2c_master_send(uartRXQ->last+2, msgbuffer);
+break;
+};
 case 41:
 {
 
@@ -18948,19 +19031,22 @@ break;
 case 42:
 {
 
-# 295
+# 365
 switch (last_reg_recvd) {
 case 0xaa:
 {
-length = 2;
-msgbuffer[0] = 0x55;
-msgbuffer[1] = 0xAA;
+length = 3;
+msgbuffer[0] = byte1;
+msgbuffer[1] = byte2;
+msgbuffer[2] = 0xAA;
 break;
 }
 case 0xa8:
 {
-length = 1;
-msgbuffer[0] = 0x3A;
+length = 3;
+msgbuffer[0] = byte2;
+msgbuffer[1] = byte1;
+msgbuffer[2] = 0xA8;
 break;
 }
 case 0xa9:
@@ -18970,7 +19056,7 @@ msgbuffer[0] = 0xA3;
 break;
 }
 };
-start_i2c_slave_reply(length, msgbuffer);
+
 break;
 };
 default:
@@ -18998,8 +19084,22 @@ break;
 case 30:
 case 31:
 {
-uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+count++;
+
+if (count % 2)
+i2c_master_recv(2, 0x9E);
+else
+i2c_master_recv(2, 0x9A);
 break;
+};
+case 32:
+{
+uart_lthread(&uthread_data, msgtype, length, msgbuffer, uartRXQ);
+}
+case 50:
+{
+byte1 = msgbuffer[0];
+byte2 = msgbuffer[1];
 };
 default:
 {

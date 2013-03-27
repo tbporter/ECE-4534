@@ -3,4 +3,5 @@
  ../src/timer1_thread.c  \
 ../src/maindefs.h  \
 ../src/messages.h  \
+../src/my_adc.h  \
 ../src/timer1_thread.h 

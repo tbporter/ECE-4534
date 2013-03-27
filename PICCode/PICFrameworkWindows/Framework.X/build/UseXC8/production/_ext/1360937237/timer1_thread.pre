@@ -18759,28 +18759,35 @@ signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 # 1 "../src/timer1_thread.h"
 typedef struct __timer1_thread_struct {
 
-unsigned int msgcount;
+
+unsigned int counter;
 } timer1_thread_struct;
 
 void init_timer1_lthread(timer1_thread_struct *);
 int timer1_lthread(timer1_thread_struct *,int,int,unsigned char*);
 
-# 6 "../src/timer1_thread.c"
+# 7 "../src/my_adc.h"
+void adc_int_handler(void);
+
+void initADC(void);
+
+void readADC(int *value);
+
+void stopADC(void);
+
+# 7 "../src/timer1_thread.c"
 void init_timer1_lthread(timer1_thread_struct *tptr) {
-tptr->msgcount = 0;
+tptr->counter = 0;
 }
 
-# 14
+# 15
+int value;
+
 int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned char *msgbuffer) {
-signed char retval;
-
-tptr->msgcount++;
-
-
-if ((tptr->msgcount % 10) == 9) {
-retval = FromMainHigh_sendmsg(sizeof (tptr->msgcount), 20, (void *) &(tptr->msgcount));
-if (retval < 0) {
-
-}
+tptr->counter++;
+if (tptr->counter == 1)
+{
+tptr->counter = 0;
+ToMainLow_sendmsg(0, 31, (void *) 0);
 }
 }

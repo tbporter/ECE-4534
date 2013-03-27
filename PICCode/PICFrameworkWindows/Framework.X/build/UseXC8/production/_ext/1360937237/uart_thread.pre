@@ -18715,21 +18715,210 @@ extern int vsscanf(const char *, const char *, va_list);
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 1 "../src/uart_thread.h"
+# 11 "../src/queue.h"
+typedef struct Queue
+{
+int size;
+int first;
+int last;
+unsigned char* messages;
+}Queue;
+
+int appendQueue(Queue *Q, unsigned char msg);
+unsigned char readQueue(Queue *Q, unsigned char* msg);
+int createQueue(Queue *Q, int Qsize);
+int getNumMessagesQueue(Queue *Q);
+inline unsigned char isQueueEmpty(Queue *Q);
+inline unsigned char isQueueFull(Queue *Q);
+
+# 10 "../src/messages.h"
+typedef struct __msg {
+unsigned char full;
+unsigned char length;
+unsigned char msgtype;
+unsigned char data[10];
+} msg;
+
+typedef struct __msg_queue {
+msg queue[4];
+unsigned char cur_write_ind;
+unsigned char cur_read_ind;
+} msg_queue;
+
+# 43
+void init_queues(void);
+
+
+
+void SleepIfOkay(void);
+
+
+
+void block_on_To_msgqueues(void);
+
+# 57
+signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+
+# 64
+signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+
+# 71
+signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+
+# 78
+signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+
+# 4 "../src/uart_thread.h"
 typedef struct __uart_thread_struct {
 
+Queue* uartRXQ;
 int data;
 } uart_thread_struct;
 
-int uart_lthread(uart_thread_struct *,int,int,unsigned char*);
+int uart_lthread(uart_thread_struct *,int,int,unsigned char*, Queue *rcvQ);
+
+# 13 "C:\Program Files\Microchip\xc8\v1.12\include\stdint.h"
+typedef signed char int8_t;
+
+# 20
+typedef signed int int16_t;
+
+# 28
+typedef signed short long int int24_t;
+
+# 36
+typedef signed long int int32_t;
+
+# 43
+typedef unsigned char uint8_t;
+
+# 49
+typedef unsigned int uint16_t;
+
+# 56
+typedef unsigned short long int uint24_t;
+
+# 63
+typedef unsigned long int uint32_t;
+
+# 71
+typedef signed char int_least8_t;
+
+# 78
+typedef signed int int_least16_t;
+
+# 90
+typedef signed short long int int_least24_t;
+
+# 98
+typedef signed long int int_least32_t;
+
+# 105
+typedef unsigned char uint_least8_t;
+
+# 111
+typedef unsigned int uint_least16_t;
+
+# 121
+typedef unsigned short long int uint_least24_t;
+
+# 128
+typedef unsigned long int uint_least32_t;
+
+# 137
+typedef signed char int_fast8_t;
+
+# 144
+typedef signed int int_fast16_t;
+
+# 156
+typedef signed short long int int_fast24_t;
+
+# 164
+typedef signed long int int_fast32_t;
+
+# 171
+typedef unsigned char uint_fast8_t;
+
+# 177
+typedef unsigned int uint_fast16_t;
+
+# 187
+typedef unsigned short long int uint_fast24_t;
+
+# 194
+typedef unsigned long int uint_fast32_t;
+
+# 200
+typedef int32_t intmax_t;
+
+
+
+
+typedef uint32_t uintmax_t;
+
+
+
+
+typedef int16_t intptr_t;
+
+
+
+
+typedef uint16_t uintptr_t;
+
+# 15 "../src/zigBee.h"
+typedef enum{HEADER,GATHER,PROCESS,CLEANUP} ESTATE;
+
+# 27
+typedef struct __zigBeeTxStat{
+uint8_t cmdId;
+uint8_t frameId;
+uint8_t status;
+} zigBeeTxStat;
+
+typedef struct __zigBeeMsg{
+union {
+struct {
+uint8_t start;
+struct {
+uint8_t HI;
+uint8_t LO;
+} len;
+};
+uint8_t header[3];
+};
+uint8_t* data;
+uint8_t checksum;
+
+} zigBeeMsg;
+
+void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ);
 
 # 9 "../src/uart_thread.c"
-int uart_lthread(uart_thread_struct *uptr, int msgtype, int length, unsigned char *msgbuffer) {
+int uart_lthread(uart_thread_struct *uptr, int msgtype, int length, unsigned char *msgbuffer, Queue *rcvQ) {
+int i;
 if (msgtype == 30) {
 } else if (msgtype == 31) {
 
 
 msgbuffer[length] = '\0';
 
+# 21
+}
+else if (msgtype == 32)
+{
+for (i = 0; i < length; i++)
+{
+appendQueue(rcvQ, msgbuffer[i]);
+
+# 31
+}
+doZigBee(length,msgbuffer,rcvQ);
+ToMainHigh_sendmsg(0, 47, (void *) 0);
 }
 }

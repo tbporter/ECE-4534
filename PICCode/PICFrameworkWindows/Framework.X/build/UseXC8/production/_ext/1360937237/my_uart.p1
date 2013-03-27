@@ -14807,9 +14807,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "22
 [e $ ! == -> . *U _uc_ptr 1 `i -> 4 `i 2092  ]
 {
-[; ;my_uart.c: 23: ToMainLow_sendmsg(uc_ptr->buflen, 31, (void *) uc_ptr->buffer);
+[; ;my_uart.c: 23: ToMainLow_sendmsg(uc_ptr->buflen, 32, (void *) uc_ptr->buffer);
 "23
-[e ( _ToMainLow_sendmsg (3 , , . *U _uc_ptr 1 -> -> 31 `i `uc -> &U . *U _uc_ptr 0 `*v ]
+[e ( _ToMainLow_sendmsg (3 , , . *U _uc_ptr 1 -> -> 32 `i `uc -> &U . *U _uc_ptr 0 `*v ]
 [; ;my_uart.c: 24: uc_ptr->buflen = 0;
 "24
 [e = . *U _uc_ptr 1 -> -> 0 `i `uc ]

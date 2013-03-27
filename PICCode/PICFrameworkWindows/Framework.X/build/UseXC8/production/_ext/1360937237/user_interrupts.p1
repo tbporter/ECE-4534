@@ -27,12 +27,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _FromMainHigh_recvmsg `(c ~T0 @X0 0 ef3`uc`*uc`*v ]
 "64
 [v _ToMainHigh_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
+"32583 C:\Program Files\Microchip\xc8\v1.12\include\pic18f2680.h
+[v _TMR1L `Vuc ~T0 @X0 0 e@4046 ]
 "238 C:\Program Files\Microchip\xc8\v1.12\include\plib\timers.h
 [v _ReadTimer1 `(ui ~T0 @X0 0 ef ]
 "57 ../src/messages.h
 [v _ToMainLow_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
 "239 C:\Program Files\Microchip\xc8\v1.12\include\plib\timers.h
 [v _WriteTimer1 `(v ~T0 @X0 0 ef1`ui ]
+"393
+[v _ReadTimer3 `(ui ~T0 @X0 0 ef ]
+"394
+[v _WriteTimer3 `(v ~T0 @X0 0 ef1`ui ]
 [; ;pic18f2680.h: 44: extern volatile unsigned char RXF6SIDH @ 0xD60;
 "46 C:\Program Files\Microchip\xc8\v1.12\include\pic18f2680.h
 [; ;pic18f2680.h: 46: asm("RXF6SIDH equ 0D60h");
@@ -14760,6 +14766,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 148: extern void _delay3(unsigned char);
 [; ;user_interrupts.h: 10: void timer0_int_handler(void);
 [; ;user_interrupts.h: 12: void timer1_int_handler(void);
+[; ;user_interrupts.h: 15: void timer3_int_handler(void);
 [; ;messages.h: 10: typedef struct __msg {
 [; ;messages.h: 11: unsigned char full;
 [; ;messages.h: 12: unsigned char length;
@@ -14788,25 +14795,32 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;my_uart.h: 13: } uart_comm;
 [; ;my_uart.h: 15: void init_uart_recv(uart_comm *);
 [; ;my_uart.h: 16: void uart_recv_int_handler(void);
-[; ;my_i2c.h: 7: typedef struct __i2c_comm {
-[; ;my_i2c.h: 8: unsigned char buffer[10];
-[; ;my_i2c.h: 9: unsigned char buflen;
-[; ;my_i2c.h: 10: unsigned char event_count;
-[; ;my_i2c.h: 11: unsigned char status;
-[; ;my_i2c.h: 12: unsigned char error_code;
-[; ;my_i2c.h: 13: unsigned char error_count;
-[; ;my_i2c.h: 14: unsigned char outbuffer[10];
-[; ;my_i2c.h: 15: unsigned char outbuflen;
-[; ;my_i2c.h: 16: unsigned char outbufind;
-[; ;my_i2c.h: 17: unsigned char slave_addr;
-[; ;my_i2c.h: 18: } i2c_comm;
-[; ;my_i2c.h: 32: void init_i2c(i2c_comm *);
-[; ;my_i2c.h: 33: void i2c_int_handler(void);
-[; ;my_i2c.h: 34: void start_i2c_slave_reply(unsigned char,unsigned char *);
-[; ;my_i2c.h: 35: void i2c_configure_slave(unsigned char);
-[; ;my_i2c.h: 36: void i2c_configure_master(unsigned char);
-[; ;my_i2c.h: 37: unsigned char i2c_master_send(unsigned char,unsigned char *);
-[; ;my_i2c.h: 38: unsigned char i2c_master_recv(unsigned char);
+[; ;my_i2c.h: 9: typedef struct __i2c_comm {
+[; ;my_i2c.h: 10: unsigned char buffer[10];
+[; ;my_i2c.h: 11: volatile unsigned char explen;
+[; ;my_i2c.h: 12: volatile unsigned char buflen;
+[; ;my_i2c.h: 13: unsigned char event_count;
+[; ;my_i2c.h: 14: unsigned char status;
+[; ;my_i2c.h: 15: unsigned char error_code;
+[; ;my_i2c.h: 16: unsigned char error_count;
+[; ;my_i2c.h: 17: unsigned char outbuffer[10];
+[; ;my_i2c.h: 18: unsigned char outbuflen;
+[; ;my_i2c.h: 19: unsigned char outbufind;
+[; ;my_i2c.h: 20: unsigned char slave_addr;
+[; ;my_i2c.h: 21: } i2c_comm;
+[; ;my_i2c.h: 45: void init_i2c(i2c_comm *);
+[; ;my_i2c.h: 46: void i2c_int_handler(void);
+[; ;my_i2c.h: 47: void i2c_master_handler(void);
+[; ;my_i2c.h: 48: void i2c_slave_handler(void);
+[; ;my_i2c.h: 49: void start_i2c_slave_reply(unsigned char,unsigned char *);
+[; ;my_i2c.h: 50: void i2c_configure_slave(unsigned char);
+[; ;my_i2c.h: 51: void i2c_configure_master(unsigned char);
+[; ;my_i2c.h: 52: unsigned char i2c_master_send(unsigned char,unsigned char *);
+[; ;my_i2c.h: 53: unsigned char i2c_master_recv(unsigned char, unsigned char);
+[; ;my_adc.h: 7: void adc_int_handler(void);
+[; ;my_adc.h: 9: void initADC(void);
+[; ;my_adc.h: 11: void readADC(int *value);
+[; ;my_adc.h: 13: void stopADC(void);
 "16 ../src/user_interrupts.c
 [v _timer0_int_handler `(v ~T0 @X0 1 ef ]
 {
@@ -14856,6 +14870,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;user_interrupts.c: 41: LATBbits.LATB1 = !LATBbits.LATB1;
 "41
 [e = . . _LATBbits 0 1 -> -> ! != -> . . _LATBbits 0 1 `i -> -> -> 0 `i `Vuc `i `i `uc ]
+[; ;user_interrupts.c: 43: TMR1L = 50;
+"43
+[e = _TMR1L -> -> 50 `i `uc ]
 [; ;user_interrupts.c: 44: result = ReadTimer1();
 "44
 [e = _result ( _ReadTimer1 ..  ]
@@ -14868,4 +14885,29 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;user_interrupts.c: 49: }
 "49
 [e :UE 2093 ]
+}
+"51
+[v _timer3_int_handler `(v ~T0 @X0 1 ef ]
+{
+[; ;user_interrupts.c: 51: void timer3_int_handler() {
+[e :U _timer3_int_handler ]
+[f ]
+"52
+[v _result `ui ~T0 @X0 1 a ]
+[; ;user_interrupts.c: 52: unsigned int result;
+[; ;user_interrupts.c: 56: LATBbits.LATB3 = !LATBbits.LATB3;
+"56
+[e = . . _LATBbits 0 3 -> -> ! != -> . . _LATBbits 0 3 `i -> -> -> 0 `i `Vuc `i `i `uc ]
+[; ;user_interrupts.c: 59: result = ReadTimer3();
+"59
+[e = _result ( _ReadTimer3 ..  ]
+[; ;user_interrupts.c: 60: ToMainLow_sendmsg(0, 12, (void *) 0);
+"60
+[e ( _ToMainLow_sendmsg (3 , , -> -> 0 `i `uc -> -> 12 `i `uc -> -> 0 `i `*v ]
+[; ;user_interrupts.c: 63: WriteTimer3(0);
+"63
+[e ( _WriteTimer3 (1 -> -> 0 `i `ui ]
+[; ;user_interrupts.c: 64: }
+"64
+[e :UE 2094 ]
 }

@@ -329,7 +329,9 @@ void main(void) {
                     }
                     for (i = 0; i <uartTXQ->last+1; i++ )
                     {
-                        WriteUSART(readQueue(uartTXQ));
+                        unsigned char msg;
+                        readQueue(uartTXQ,&msg);
+                        WriteUSART(msg);
                     }
                     break;
                 };
@@ -338,7 +340,7 @@ void main(void) {
                     msgbuffer[0] = 0x9E;
                     for (i = 1; i < uartRXQ->size; i++)
                     {
-                        msgbuffer[i] = readQueue(uartRXQ);
+                        readQueue(uartRXQ,&(msgbuffer[i]));
                     }
                     //WriteUSART('0'+uartRXQ->last);
                     i2c_master_send(uartRXQ->last+2, msgbuffer);

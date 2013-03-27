@@ -1,0 +1,238 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[s S1 `i 1 `i 1 `i 1 `*uc 1 ]
+[n S1 Queue size first last messages ]
+"24 ../src/queue.h
+[v F23 `(uc ~T0 @X0 1 tf1`*S1 ]
+[v _isQueueFull `TF23 ~T0 @X0 0 e ]
+"23
+[v F20 `(uc ~T0 @X0 1 tf1`*S1 ]
+[v _isQueueEmpty `TF20 ~T0 @X0 0 e ]
+[; ;queue.h: 11: typedef struct Queue
+[; ;queue.h: 12: {
+[; ;queue.h: 13: int size;
+[; ;queue.h: 14: int first;
+[; ;queue.h: 15: int last;
+[; ;queue.h: 16: unsigned char* messages;
+[; ;queue.h: 17: }Queue;
+[; ;queue.h: 19: int appendQueue(Queue *Q, unsigned char msg);
+[; ;queue.h: 20: unsigned char readQueue(Queue *Q, unsigned char* msg);
+[; ;queue.h: 21: int createQueue(Queue *Q, int Qsize);
+[; ;queue.h: 22: int getNumMessagesQueue(Queue *Q);
+[; ;queue.h: 23: inline unsigned char isQueueEmpty(Queue *Q);
+[; ;queue.h: 24: inline unsigned char isQueueFull(Queue *Q);
+"3 ../src/queue.c
+[v _appendQueue `(i ~T0 @X0 1 ef2`*S1`uc ]
+{
+[; ;queue.c: 3: int appendQueue(Queue *Q, unsigned char msg) {
+[e :U _appendQueue ]
+[v _Q `*S1 ~T0 @X0 1 r1 ]
+[v _msg `uc ~T0 @X0 1 r2 ]
+[f ]
+[; ;queue.c: 4: if (isQueueFull(Q)) {
+"4
+[e $ ! != -> ( _isQueueFull (1 _Q `i -> -> -> 0 `i `uc `i 3  ]
+{
+[; ;queue.c: 5: return 0;
+"5
+[e ) -> 0 `i ]
+[e $UE 2  ]
+"6
+}
+[; ;queue.c: 6: } else {
+[e $U 4  ]
+[e :U 3 ]
+{
+[; ;queue.c: 7: if (Q->last == -1) {
+"7
+[e $ ! == . *U _Q 2 -U -> 1 `i 5  ]
+{
+[; ;queue.c: 8: Q->messages[0] = msg;
+"8
+[e = *U + . *U _Q 3 * -> -> 0 `i `x -> -> # *U . *U _Q 3 `i `x _msg ]
+[; ;queue.c: 9: Q->last++;
+"9
+[e ++ . *U _Q 2 -> 1 `i ]
+"10
+}
+[; ;queue.c: 10: } else {
+[e $U 6  ]
+[e :U 5 ]
+{
+[; ;queue.c: 11: Q->last++;
+"11
+[e ++ . *U _Q 2 -> 1 `i ]
+[; ;queue.c: 12: Q->messages[Q->last] = msg;
+"12
+[e = *U + . *U _Q 3 * -> . *U _Q 2 `x -> -> # *U . *U _Q 3 `i `x _msg ]
+"14
+}
+[e :U 6 ]
+[; ;queue.c: 14: }
+[; ;queue.c: 15: return 1;
+"15
+[e ) -> 1 `i ]
+[e $UE 2  ]
+"16
+}
+[e :U 4 ]
+[; ;queue.c: 16: }
+[; ;queue.c: 17: }
+"17
+[e :UE 2 ]
+}
+"19
+[v _readQueue `(uc ~T0 @X0 1 ef2`*S1`*uc ]
+{
+[; ;queue.c: 19: unsigned char readQueue(Queue *Q, unsigned char* msg){
+[e :U _readQueue ]
+[v _Q `*S1 ~T0 @X0 1 r1 ]
+[v _msg `*uc ~T0 @X0 1 r2 ]
+[f ]
+"20
+[v _i `i ~T0 @X0 1 a ]
+[; ;queue.c: 20: int i;
+[; ;queue.c: 21: if ( msg == 0 ) return 0;
+"21
+[e $ ! == _msg -> -> 0 `i `*uc 8  ]
+[e ) -> -> 0 `i `uc ]
+[e $UE 7  ]
+[e :U 8 ]
+[; ;queue.c: 22: if (isQueueEmpty(Q)) {
+"22
+[e $ ! != -> ( _isQueueEmpty (1 _Q `i -> -> -> 0 `i `uc `i 9  ]
+{
+[; ;queue.c: 24: return 0;
+"24
+[e ) -> -> 0 `i `uc ]
+[e $UE 7  ]
+"25
+}
+[; ;queue.c: 25: } else {
+[e $U 10  ]
+[e :U 9 ]
+{
+[; ;queue.c: 26: *msg = Q->messages[0];
+"26
+[e = *U _msg *U + . *U _Q 3 * -> -> 0 `i `x -> -> # *U . *U _Q 3 `i `x ]
+[; ;queue.c: 27: for (i = 0; i < Q->last; i++) {
+"27
+{
+[e = _i -> 0 `i ]
+[e $U 14  ]
+[e :U 11 ]
+{
+[; ;queue.c: 28: Q->messages[i] = Q->messages[i + 1];
+"28
+[e = *U + . *U _Q 3 * -> _i `x -> -> # *U . *U _Q 3 `i `x *U + . *U _Q 3 * -> + _i -> 1 `i `x -> -> # *U . *U _Q 3 `i `x ]
+"29
+}
+"27
+[e ++ _i -> 1 `i ]
+[e :U 14 ]
+[e $ < _i . *U _Q 2 11  ]
+[e :U 12 ]
+"29
+}
+[; ;queue.c: 29: }
+[; ;queue.c: 30: Q->last--;
+"30
+[e -- . *U _Q 2 -> 1 `i ]
+[; ;queue.c: 31: return 1;
+"31
+[e ) -> -> 1 `i `uc ]
+[e $UE 7  ]
+"32
+}
+[e :U 10 ]
+[; ;queue.c: 32: }
+[; ;queue.c: 33: }
+"33
+[e :UE 7 ]
+}
+"35
+[v _createQueue `(i ~T0 @X0 1 ef2`*S1`i ]
+{
+[; ;queue.c: 35: int createQueue(Queue *Q, int Qsize) {
+[e :U _createQueue ]
+[v _Q `*S1 ~T0 @X0 1 r1 ]
+[v _Qsize `i ~T0 @X0 1 r2 ]
+[f ]
+[; ;queue.c: 36: if (Qsize > 0) {
+"36
+[e $ ! > _Qsize -> 0 `i 16  ]
+{
+[; ;queue.c: 37: Q->size = Qsize;
+"37
+[e = . *U _Q 0 _Qsize ]
+[; ;queue.c: 38: Q->first = 0;
+"38
+[e = . *U _Q 1 -> 0 `i ]
+[; ;queue.c: 39: Q->last = -1;
+"39
+[e = . *U _Q 2 -U -> 1 `i ]
+[; ;queue.c: 40: Q->messages[Q->size];
+"40
+[e *U + . *U _Q 3 * -> . *U _Q 0 `x -> -> # *U . *U _Q 3 `i `x ]
+[; ;queue.c: 41: return 1;
+"41
+[e ) -> 1 `i ]
+[e $UE 15  ]
+"42
+}
+[; ;queue.c: 42: } else
+[e $U 17  ]
+[e :U 16 ]
+[; ;queue.c: 43: return 0;
+"43
+[e ) -> 0 `i ]
+[e $UE 15  ]
+[e :U 17 ]
+[; ;queue.c: 44: }
+"44
+[e :UE 15 ]
+}
+"46
+[v _getNumMessagesQueue `(i ~T0 @X0 1 ef1`*S1 ]
+{
+[; ;queue.c: 46: int getNumMessagesQueue(Queue *Q){
+[e :U _getNumMessagesQueue ]
+[v _Q `*S1 ~T0 @X0 1 r1 ]
+[f ]
+[; ;queue.c: 47: return (Q->last-Q->first);
+"47
+[e ) - . *U _Q 2 . *U _Q 1 ]
+[e $UE 18  ]
+[; ;queue.c: 48: }
+"48
+[e :UE 18 ]
+}
+"50
+[v _isQueueEmpty `TF20 ~T0 @X0 1 e ]
+{
+[; ;queue.c: 50: inline unsigned char isQueueEmpty(Queue *Q){
+[e :U _isQueueEmpty ]
+[v _Q `*S1 ~T0 @X0 1 r1 ]
+[f ]
+[; ;queue.c: 51: return (Q->last == -1);
+"51
+[e ) -> -> == . *U _Q 2 -U -> 1 `i `i `uc ]
+[e $UE 19  ]
+[; ;queue.c: 52: }
+"52
+[e :UE 19 ]
+}
+"53
+[v _isQueueFull `TF23 ~T0 @X0 1 e ]
+{
+[; ;queue.c: 53: inline unsigned char isQueueFull(Queue *Q){
+[e :U _isQueueFull ]
+[v _Q `*S1 ~T0 @X0 1 r1 ]
+[f ]
+[; ;queue.c: 54: return (Q->last == Q->size);
+"54
+[e ) -> -> == . *U _Q 2 . *U _Q 0 `i `uc ]
+[e $UE 20  ]
+[; ;queue.c: 55: }
+"55
+[e :UE 20 ]
+}

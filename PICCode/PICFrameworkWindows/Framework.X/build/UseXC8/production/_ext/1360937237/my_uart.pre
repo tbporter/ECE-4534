@@ -18717,7 +18717,7 @@ uc_ptr->buffer[uc_ptr->buflen] = ReadUSART();
 uc_ptr->buflen++;
 
 if (uc_ptr->buflen == 4) {
-ToMainLow_sendmsg(uc_ptr->buflen, 31, (void *) uc_ptr->buffer);
+ToMainLow_sendmsg(uc_ptr->buflen, 32, (void *) uc_ptr->buffer);
 uc_ptr->buflen = 0;
 }
 }

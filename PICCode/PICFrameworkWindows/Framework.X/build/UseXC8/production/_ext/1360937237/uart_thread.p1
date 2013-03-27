@@ -1,6 +1,14 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[s S2088 `i 1 ]
-[n S2088 __uart_thread_struct data ]
+[s S2088 `i 1 `i 1 `i 1 `*uc 1 ]
+[n S2088 Queue size first last messages ]
+[s S2091 `*S2088 1 `i 1 ]
+[n S2091 __uart_thread_struct uartRXQ data ]
+"19 ../src/queue.h
+[v _appendQueue `(i ~T0 @X0 0 ef2`*S2088`uc ]
+"49 ../src/zigBee.h
+[v _doZigBee `(v ~T0 @X0 0 ef3`i`*uc`*S2088 ]
+"64 ../src/messages.h
+[v _ToMainHigh_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
 [; ;pic18f2680.h: 44: extern volatile unsigned char RXF6SIDH @ 0xD60;
 "46 C:\Program Files\Microchip\xc8\v1.12\include\pic18f2680.h
 [; ;pic18f2680.h: 46: asm("RXF6SIDH equ 0D60h");
@@ -14756,40 +14764,169 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 201: extern int vsscanf(const char *, const char *, va_list);
 [; ;stdio.h: 205: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 206: extern int printf(const char *, ...);
-[; ;uart_thread.h: 1: typedef struct __uart_thread_struct {
-[; ;uart_thread.h: 3: int data;
-[; ;uart_thread.h: 4: } uart_thread_struct;
-[; ;uart_thread.h: 6: int uart_lthread(uart_thread_struct *,int,int,unsigned char*);
+[; ;queue.h: 11: typedef struct Queue
+[; ;queue.h: 12: {
+[; ;queue.h: 13: int size;
+[; ;queue.h: 14: int first;
+[; ;queue.h: 15: int last;
+[; ;queue.h: 16: unsigned char* messages;
+[; ;queue.h: 17: }Queue;
+[; ;queue.h: 19: int appendQueue(Queue *Q, unsigned char msg);
+[; ;queue.h: 20: unsigned char readQueue(Queue *Q, unsigned char* msg);
+[; ;queue.h: 21: int createQueue(Queue *Q, int Qsize);
+[; ;queue.h: 22: int getNumMessagesQueue(Queue *Q);
+[; ;queue.h: 23: inline unsigned char isQueueEmpty(Queue *Q);
+[; ;queue.h: 24: inline unsigned char isQueueFull(Queue *Q);
+[; ;messages.h: 10: typedef struct __msg {
+[; ;messages.h: 11: unsigned char full;
+[; ;messages.h: 12: unsigned char length;
+[; ;messages.h: 13: unsigned char msgtype;
+[; ;messages.h: 14: unsigned char data[10];
+[; ;messages.h: 15: } msg;
+[; ;messages.h: 17: typedef struct __msg_queue {
+[; ;messages.h: 18: msg queue[4];
+[; ;messages.h: 19: unsigned char cur_write_ind;
+[; ;messages.h: 20: unsigned char cur_read_ind;
+[; ;messages.h: 21: } msg_queue;
+[; ;messages.h: 43: void init_queues(void);
+[; ;messages.h: 47: void SleepIfOkay(void);
+[; ;messages.h: 51: void block_on_To_msgqueues(void);
+[; ;messages.h: 57: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 58: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 64: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 65: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 71: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 72: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 78: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 79: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;uart_thread.h: 4: typedef struct __uart_thread_struct {
+[; ;uart_thread.h: 6: Queue* uartRXQ;
+[; ;uart_thread.h: 7: int data;
+[; ;uart_thread.h: 8: } uart_thread_struct;
+[; ;uart_thread.h: 10: int uart_lthread(uart_thread_struct *,int,int,unsigned char*, Queue *rcvQ);
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef signed short long int int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 43: typedef unsigned char uint8_t;
+[; ;stdint.h: 49: typedef unsigned int uint16_t;
+[; ;stdint.h: 56: typedef unsigned short long int uint24_t;
+[; ;stdint.h: 63: typedef unsigned long int uint32_t;
+[; ;stdint.h: 71: typedef signed char int_least8_t;
+[; ;stdint.h: 78: typedef signed int int_least16_t;
+[; ;stdint.h: 90: typedef signed short long int int_least24_t;
+[; ;stdint.h: 98: typedef signed long int int_least32_t;
+[; ;stdint.h: 105: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 111: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 121: typedef unsigned short long int uint_least24_t;
+[; ;stdint.h: 128: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 137: typedef signed char int_fast8_t;
+[; ;stdint.h: 144: typedef signed int int_fast16_t;
+[; ;stdint.h: 156: typedef signed short long int int_fast24_t;
+[; ;stdint.h: 164: typedef signed long int int_fast32_t;
+[; ;stdint.h: 171: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 177: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 187: typedef unsigned short long int uint_fast24_t;
+[; ;stdint.h: 194: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 200: typedef int32_t intmax_t;
+[; ;stdint.h: 205: typedef uint32_t uintmax_t;
+[; ;stdint.h: 210: typedef int16_t intptr_t;
+[; ;stdint.h: 215: typedef uint16_t uintptr_t;
+[; ;zigBee.h: 15: typedef enum{HEADER,GATHER,PROCESS,CLEANUP} ESTATE;
+[; ;zigBee.h: 27: typedef struct __zigBeeTxStat{
+[; ;zigBee.h: 28: uint8_t cmdId;
+[; ;zigBee.h: 29: uint8_t frameId;
+[; ;zigBee.h: 30: uint8_t status;
+[; ;zigBee.h: 31: } zigBeeTxStat;
+[; ;zigBee.h: 33: typedef struct __zigBeeMsg{
+[; ;zigBee.h: 34: union {
+[; ;zigBee.h: 35: struct {
+[; ;zigBee.h: 36: uint8_t start;
+[; ;zigBee.h: 37: struct {
+[; ;zigBee.h: 38: uint8_t HI;
+[; ;zigBee.h: 39: uint8_t LO;
+[; ;zigBee.h: 40: } len;
+[; ;zigBee.h: 41: };
+[; ;zigBee.h: 42: uint8_t header[3];
+[; ;zigBee.h: 43: };
+[; ;zigBee.h: 44: uint8_t* data;
+[; ;zigBee.h: 45: uint8_t checksum;
+[; ;zigBee.h: 47: } zigBeeMsg;
+[; ;zigBee.h: 49: void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ);
 "9 ../src/uart_thread.c
-[v _uart_lthread `(i ~T0 @X0 1 ef4`*S2088`i`i`*uc ]
+[v _uart_lthread `(i ~T0 @X0 1 ef5`*S2091`i`i`*uc`*S2088 ]
 {
-[; ;uart_thread.c: 9: int uart_lthread(uart_thread_struct *uptr, int msgtype, int length, unsigned char *msgbuffer) {
+[; ;uart_thread.c: 9: int uart_lthread(uart_thread_struct *uptr, int msgtype, int length, unsigned char *msgbuffer, Queue *rcvQ) {
 [e :U _uart_lthread ]
-[v _uptr `*S2088 ~T0 @X0 1 r1 ]
+[v _uptr `*S2091 ~T0 @X0 1 r1 ]
 [v _msgtype `i ~T0 @X0 1 r2 ]
 [v _length `i ~T0 @X0 1 r3 ]
 [v _msgbuffer `*uc ~T0 @X0 1 r4 ]
+[v _rcvQ `*S2088 ~T0 @X0 1 r5 ]
 [f ]
-[; ;uart_thread.c: 10: if (msgtype == 30) {
 "10
-[e $ ! == _msgtype -> 30 `i 2090  ]
-{
+[v _i `i ~T0 @X0 1 a ]
+[; ;uart_thread.c: 10: int i;
+[; ;uart_thread.c: 11: if (msgtype == 30) {
 "11
-}
-[; ;uart_thread.c: 11: } else if (msgtype == 31) {
-[e $U 2091  ]
-[e :U 2090 ]
-[e $ ! == _msgtype -> 31 `i 2092  ]
+[e $ ! == _msgtype -> 30 `i 2098  ]
 {
-[; ;uart_thread.c: 14: msgbuffer[length] = '\0';
-"14
-[e = *U + _msgbuffer * -> _length `x -> -> # *U _msgbuffer `i `x -> -> 0 `ui `uc ]
-"16
+"12
 }
-[e :U 2092 ]
-"17
-[e :U 2091 ]
-[; ;uart_thread.c: 16: }
-[; ;uart_thread.c: 17: }
-[e :UE 2089 ]
+[; ;uart_thread.c: 12: } else if (msgtype == 31) {
+[e $U 2099  ]
+[e :U 2098 ]
+[e $ ! == _msgtype -> 31 `i 2100  ]
+{
+[; ;uart_thread.c: 15: msgbuffer[length] = '\0';
+"15
+[e = *U + _msgbuffer * -> _length `x -> -> # *U _msgbuffer `i `x -> -> 0 `ui `uc ]
+"21
+}
+[; ;uart_thread.c: 21: }
+[e $U 2101  ]
+"22
+[e :U 2100 ]
+[; ;uart_thread.c: 22: else if (msgtype == 32)
+[e $ ! == _msgtype -> 32 `i 2102  ]
+[; ;uart_thread.c: 23: {
+"23
+{
+[; ;uart_thread.c: 24: for (i = 0; i < length; i++)
+"24
+{
+[e = _i -> 0 `i ]
+[e $U 2106  ]
+"25
+[e :U 2103 ]
+[; ;uart_thread.c: 25: {
+{
+[; ;uart_thread.c: 26: appendQueue(rcvQ, msgbuffer[i]);
+"26
+[e ( _appendQueue (2 , _rcvQ *U + _msgbuffer * -> _i `x -> -> # *U _msgbuffer `i `x ]
+"31
+}
+"24
+[e ++ _i -> 1 `i ]
+[e :U 2106 ]
+[e $ < _i _length 2103  ]
+[e :U 2104 ]
+"31
+}
+[; ;uart_thread.c: 31: }
+[; ;uart_thread.c: 32: doZigBee(length,msgbuffer,rcvQ);
+"32
+[e ( _doZigBee (3 , , _length _msgbuffer _rcvQ ]
+[; ;uart_thread.c: 33: ToMainHigh_sendmsg(0, 47, (void *) 0);
+"33
+[e ( _ToMainHigh_sendmsg (3 , , -> -> 0 `i `uc -> -> 47 `i `uc -> -> 0 `i `*v ]
+"34
+}
+[e :U 2102 ]
+"35
+[e :U 2101 ]
+[e :U 2099 ]
+[; ;uart_thread.c: 34: }
+[; ;uart_thread.c: 35: }
+[e :UE 2097 ]
 }
