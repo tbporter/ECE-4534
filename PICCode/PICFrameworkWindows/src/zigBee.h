@@ -8,8 +8,11 @@
 #define	ZIGBEE_H
 
 #include <stdint.h>
+#include <stdlib.h>
 #include "maindefs.h"
+#include "messages.h"
 #include "queue.h"
+#include "../../../common/MESSAGES_G9.h"
 
 
 typedef enum{HEADER,GATHER,PROCESS,CLEANUP,RETRY} ESTATE;
@@ -30,6 +33,8 @@ typedef struct __zigBeeTxStat{
 	uint8_t status;
 } zigBeeTxStat;
 
+#define MAX_DATA_LEN max(sizeof(g9Msg)+5 /*API Formatting*/,36 /*Max ZigBee API MSG size*/)
+
 typedef struct __zigBeeMsg{
 	union {
 	 struct {
@@ -41,7 +46,7 @@ typedef struct __zigBeeMsg{
 	 };
 	 uint8_t header[3];
 	};
-	uint8_t data[32]; //big cuz... fuck you malloc
+	uint8_t data[MAX_DATA_LEN]; //big cuz... fuck you malloc
 	uint8_t checksum;
 
 } zigBeeMsg;

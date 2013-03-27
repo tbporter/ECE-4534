@@ -22,7 +22,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE \
-  C:\Users\ECE4534\AppData\Local\Temp\s1nk.obj \
+  C:\Users\ECE4534\AppData\Local\Temp\s39k.obj \
   dist/UseC18/production\Framework.X.production.obj 
 
 Object code version is 3.10
@@ -35,7 +35,7 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\ECE4534\AppData\Local\Temp\s1nk.obj
+C:\Users\ECE4534\AppData\Local\Temp\s39k.obj
                 end_init                             D2       D2        4        C       0
                 reset_vec                             0        0        4        0       0
                 idloc                            200000   200000        8   200000       0
@@ -43,82 +43,84 @@ C:\Users\ECE4534\AppData\Local\Temp\s1nk.obj
 dist/UseC18/production\Framework.X.production.obj
                 intcodelo                            18       18       BA        C       0
                 intcode                               8        8       10        4       0
-                text68                             1F02     1F02       56        C       0
-                text67                             23F8     23F8       1C        C       0
-                text66                             2162     2162       38        C       0
-                text65                             132A     132A      106        C       0
-                text64                             22B0     22B0       2C        C       0
-                text63                              FB6      FB6      140        C       0
-                text62                             2470     2470       14        C       0
-                text61                             1DF6     1DF6       5E        C       0
-                text60                             24BA     24BA       12        C       0
-                text59                              708      708      3CA        C       0
-                text58                             24EE     24EE        2        C       0
-                text57                             24E8     24E8        6        C       0
-                text56                             21FA     21FA       30        C       0
-                text55                             1988     1988       9A        C       0
-                text54                             15EC     15EC       C8        C       0
-                text53                             23DC     23DC       1C        C       0
-                intcode_body                       1A22     1A22       8C        C       0
-                text51                             1FFA     1FFA       48        C       0
-                text50                             18D6     18D6       B2        C       0
-                text49                             2306     2306       24        C       0
-                text48                             24A8     24A8       12        C       0
-                text47                             2496     2496       12        C       0
-                text46                             212A     212A       38        C       0
-                text45                             176C     176C       B6        C       0
-                text44                             236A     236A       1E        C       0
-                text43                             1F58     1F58       54        C       0
-                text41                             222A     222A       2E        C       0
-                text40                             2080     2080       3A        C       0
-                text39                             23C0     23C0       1C        C       0
-                text38                             1B34     1B34       84        C       0
-                text37                             23A4     23A4       1C        C       0
-                text36                             245C     245C       14        C       0
-                text35                             20F2     20F2       38        C       0
-                text34                             1EAC     1EAC       56        C       0
-                text33                             1224     1224      106        C       0
-                text32                             2284     2284       2C        C       0
-                text31                             2258     2258       2C        C       0
-                text30                              E76      E76      140        C       0
-                text29                             1AAE     1AAE       86        C       0
-                text28                             234A     234A       20        C       0
-                text27                             1C3A     1C3A       80        C       0
-                text26                             1510     1510       DC        C       0
-                text25                             242E     242E       1A        C       0
-                text24                              AD2      AD2      25E        C       0
-                text23                             10F6     10F6      12E        C       0
-                text22                             16B4     16B4       B8        C       0
-                text21                             1D2C     1D2C       6C        C       0
-                text20                             21CA     21CA       30        C       0
-                text19                              D30      D30      146        C       0
-                text18                             2388     2388       1C        C       0
-                text17                             24D6     24D6        A        C       0
-                text16                             219A     219A       30        C       0
-                text15                             2448     2448       14        C       0
-                text14                             1D98     1D98       5E        C       0
-                text13                             1E54     1E54       58        C       0
-                text12                             1430     1430       E0        C       0
-                text11                             24CC     24CC        A        C       0
-                text10                             1822     1822       B4        C       0
-                text9                              232A     232A       20        C       0
-                text8                              2042     2042       3E        C       0
-                text7                              22DC     22DC       2A        C       0
-                text6                              1CBA     1CBA       72        C       0
-                text5                              2484     2484       12        C       0
-                text4                              1BB8     1BB8       82        C       0
-                text3                              2414     2414       1A        C       0
-                text2                              1FAC     1FAC       4E        C       0
-                text1                              24E0     24E0        8        C       0
+                text70                             22DA     22DA       56        C       0
+                text69                             27D0     27D0       1C        C       0
+                text68                             253A     253A       38        C       0
+                text67                             1624     1624      106        C       0
+                text66                             2688     2688       2C        C       0
+                text65                             12B0     12B0      140        C       0
+                text64                             2848     2848       14        C       0
+                text63                             21CE     21CE       5E        C       0
+                text62                             2892     2892       12        C       0
+                text61                              ADC      ADC      3CA        C       0
+                text60                             28C6     28C6        2        C       0
+                text59                             28C0     28C0        6        C       0
+                text58                             25D2     25D2       30        C       0
+                text57                             1D60     1D60       9A        C       0
+                text56                             19C4     19C4       C8        C       0
+                text55                             27B4     27B4       1C        C       0
+                intcode_body                       1DFA     1DFA       8C        C       0
+                text53                             23D2     23D2       48        C       0
+                text52                             1CAE     1CAE       B2        C       0
+                text51                             26DE     26DE       24        C       0
+                text50                             2880     2880       12        C       0
+                text49                             286E     286E       12        C       0
+                text48                             2502     2502       38        C       0
+                text47                             1B44     1B44       B6        C       0
+                text46                             2742     2742       1E        C       0
+                text45                             2330     2330       54        C       0
+                text43                             2602     2602       2E        C       0
+                text42                             2458     2458       3A        C       0
+                text41                             2798     2798       1C        C       0
+                text40                             1F0C     1F0C       84        C       0
+                text39                             277C     277C       1C        C       0
+                text38                             2834     2834       14        C       0
+                text37                             24CA     24CA       38        C       0
+                text36                             2284     2284       56        C       0
+                text35                             151E     151E      106        C       0
+                text34                             265C     265C       2C        C       0
+                text33                             1170     1170      140        C       0
+                text32                             1E86     1E86       86        C       0
+                text31                             2722     2722       20        C       0
+                text30                             2630     2630       2C        C       0
+                text29                             18E8     18E8       DC        C       0
+                text28                             2012     2012       80        C       0
+                text27                              EA6      EA6      184        C       0
+                text26                             2806     2806       1A        C       0
+                text25                             180A     180A       DE        C       0
+                text24                              708      708      3D4        C       0
+                text23                             13F0     13F0      12E        C       0
+                text22                             1A8C     1A8C       B8        C       0
+                text21                             2104     2104       6C        C       0
+                text20                             25A2     25A2       30        C       0
+                text19                             102A     102A      146        C       0
+                text18                             2760     2760       1C        C       0
+                text17                             28AE     28AE        A        C       0
+                text16                             2572     2572       30        C       0
+                text15                             2820     2820       14        C       0
+                text14                             2170     2170       5E        C       0
+                text13                             222C     222C       58        C       0
+                text12                             172A     172A       E0        C       0
+                text11                             28A4     28A4        A        C       0
+                text10                             1BFA     1BFA       B4        C       0
+                text9                              2702     2702       20        C       0
+                text8                              241A     241A       3E        C       0
+                text7                              26B4     26B4       2A        C       0
+                text6                              2092     2092       72        C       0
+                text5                              285C     285C       12        C       0
+                text4                              1F90     1F90       82        C       0
+                text3                              27EC     27EC       1A        C       0
+                text2                              2384     2384       4E        C       0
+                text1                              28B8     28B8        8        C       0
                 cstackCOMRAM                          1        1       2F        1       1
-                cstackBANK0                          60       60       3D       60       1
-                cstackBANK1                         1A2      1A2       44      100       1
-                cstackBANK2                         200      200       43      200       1
-                bssBANK2                            243      243       36      200       1
-                bssBANK1                            100      100       A2      100       1
-                bssBANK0                             9D       9D       2E       60       1
+                cstackBANK0                          60       60       38       60       1
+                cstackBANK1                         16C      16C       5D      100       1
+                cstackBANK2                         26C      26C       43      200       1
+                bssBANK2                            200      200       6C      200       1
+                bssBANK1                            100      100       6C      100       1
+                bssBANK0                             98       98       33       60       1
                 bssCOMRAM                            30       30        5        1       1
-                cinit                              20BA     20BA       38        C       0
+                cinit                              2492     2492       38        C       0
                 text0                                D6       D6      632        C       0
 
 TOTAL           Name                               Link     Load   Length     Space
@@ -127,74 +129,76 @@ TOTAL           Name                               Link     Load   Length     Sp
                 intcodelo                            18       18       BA         0
                 intcode                               8        8       10         0
                 reset_vec                             0        0        4         0
-                text68                             1F02     1F02       56         0
-                text67                             23F8     23F8       1C         0
-                text66                             2162     2162       38         0
-                text65                             132A     132A      106         0
-                text64                             22B0     22B0       2C         0
-                text63                              FB6      FB6      140         0
-                text62                             2470     2470       14         0
-                text61                             1DF6     1DF6       5E         0
-                text60                             24BA     24BA       12         0
-                text59                              708      708      3CA         0
-                text58                             24EE     24EE        2         0
-                text57                             24E8     24E8        6         0
-                text56                             21FA     21FA       30         0
-                text55                             1988     1988       9A         0
-                text54                             15EC     15EC       C8         0
-                text53                             23DC     23DC       1C         0
-                intcode_body                       1A22     1A22       8C         0
-                text51                             1FFA     1FFA       48         0
-                text50                             18D6     18D6       B2         0
-                text49                             2306     2306       24         0
-                text48                             24A8     24A8       12         0
-                text47                             2496     2496       12         0
-                text46                             212A     212A       38         0
-                text45                             176C     176C       B6         0
-                text44                             236A     236A       1E         0
-                text43                             1F58     1F58       54         0
-                text41                             222A     222A       2E         0
-                text40                             2080     2080       3A         0
-                text39                             23C0     23C0       1C         0
-                text38                             1B34     1B34       84         0
-                text37                             23A4     23A4       1C         0
-                text36                             245C     245C       14         0
-                text35                             20F2     20F2       38         0
-                text34                             1EAC     1EAC       56         0
-                text33                             1224     1224      106         0
-                text32                             2284     2284       2C         0
-                text31                             2258     2258       2C         0
-                text30                              E76      E76      140         0
-                text29                             1AAE     1AAE       86         0
-                text28                             234A     234A       20         0
-                text27                             1C3A     1C3A       80         0
-                text26                             1510     1510       DC         0
-                text25                             242E     242E       1A         0
-                text24                              AD2      AD2      25E         0
-                text23                             10F6     10F6      12E         0
-                text22                             16B4     16B4       B8         0
-                text21                             1D2C     1D2C       6C         0
-                text20                             21CA     21CA       30         0
-                text19                              D30      D30      146         0
-                text18                             2388     2388       1C         0
-                text17                             24D6     24D6        A         0
-                text16                             219A     219A       30         0
-                text15                             2448     2448       14         0
-                text14                             1D98     1D98       5E         0
-                text13                             1E54     1E54       58         0
-                text12                             1430     1430       E0         0
-                text11                             24CC     24CC        A         0
-                text10                             1822     1822       B4         0
-                text9                              232A     232A       20         0
-                text8                              2042     2042       3E         0
-                text7                              22DC     22DC       2A         0
-                text6                              1CBA     1CBA       72         0
-                text5                              2484     2484       12         0
-                text4                              1BB8     1BB8       82         0
-                text3                              2414     2414       1A         0
-                text2                              1FAC     1FAC       4E         0
-                text1                              24E0     24E0        8         0
-                cinit                              20BA     20BA       38         0
+                text70                             22DA     22DA       56         0
+                text69                             27D0     27D0       1C         0
+                text68                             253A     253A       38         0
+                text67                             1624     1624      106         0
+                text66                             2688     2688       2C         0
+                text65                             12B0     12B0      140         0
+                text64                             2848     2848       14         0
+                text63                             21CE     21CE       5E         0
+                text62                             2892     2892       12         0
+                text61                              ADC      ADC      3CA         0
+                text60                             28C6     28C6        2         0
+                text59                             28C0     28C0        6         0
+                text58                             25D2     25D2       30         0
+                text57                             1D60     1D60       9A         0
+                text56                             19C4     19C4       C8         0
+                text55                             27B4     27B4       1C         0
+                intcode_body                       1DFA     1DFA       8C         0
+                text53                             23D2     23D2       48         0
+                text52                             1CAE     1CAE       B2         0
+                text51                             26DE     26DE       24         0
+                text50                             2880     2880       12         0
+                text49                             286E     286E       12         0
+                text48                             2502     2502       38         0
+                text47                             1B44     1B44       B6         0
+                text46                             2742     2742       1E         0
+                text45                             2330     2330       54         0
+                text43                             2602     2602       2E         0
+                text42                             2458     2458       3A         0
+                text41                             2798     2798       1C         0
+                text40                             1F0C     1F0C       84         0
+                text39                             277C     277C       1C         0
+                text38                             2834     2834       14         0
+                text37                             24CA     24CA       38         0
+                text36                             2284     2284       56         0
+                text35                             151E     151E      106         0
+                text34                             265C     265C       2C         0
+                text33                             1170     1170      140         0
+                text32                             1E86     1E86       86         0
+                text31                             2722     2722       20         0
+                text30                             2630     2630       2C         0
+                text29                             18E8     18E8       DC         0
+                text28                             2012     2012       80         0
+                text27                              EA6      EA6      184         0
+                text26                             2806     2806       1A         0
+                text25                             180A     180A       DE         0
+                text24                              708      708      3D4         0
+                text23                             13F0     13F0      12E         0
+                text22                             1A8C     1A8C       B8         0
+                text21                             2104     2104       6C         0
+                text20                             25A2     25A2       30         0
+                text19                             102A     102A      146         0
+                text18                             2760     2760       1C         0
+                text17                             28AE     28AE        A         0
+                text16                             2572     2572       30         0
+                text15                             2820     2820       14         0
+                text14                             2170     2170       5E         0
+                text13                             222C     222C       58         0
+                text12                             172A     172A       E0         0
+                text11                             28A4     28A4        A         0
+                text10                             1BFA     1BFA       B4         0
+                text9                              2702     2702       20         0
+                text8                              241A     241A       3E         0
+                text7                              26B4     26B4       2A         0
+                text6                              2092     2092       72         0
+                text5                              285C     285C       12         0
+                text4                              1F90     1F90       82         0
+                text3                              27EC     27EC       1A         0
+                text2                              2384     2384       4E         0
+                text1                              28B8     28B8        8         0
+                cinit                              2492     2492       38         0
                 text0                                D6       D6      632         0
 
         CLASS   CONST          
@@ -214,16 +218,16 @@ TOTAL           Name                               Link     Load   Length     Sp
         CLASS   RAM            
 
         CLASS   BANK0          
-                cstackBANK0                          60       60       3D         1
-                bssBANK0                             9D       9D       2E         1
+                cstackBANK0                          60       60       38         1
+                bssBANK0                             98       98       33         1
 
         CLASS   BANK1          
-                cstackBANK1                         1A2      1A2       44         1
-                bssBANK1                            100      100       A2         1
+                cstackBANK1                         16C      16C       5D         1
+                bssBANK1                            100      100       6C         1
 
         CLASS   BANK2          
-                cstackBANK2                         200      200       43         1
-                bssBANK2                            243      243       36         1
+                cstackBANK2                         26C      26C       43         1
+                bssBANK2                            200      200       6C         1
 
         CLASS   BANK3          
 
@@ -264,10 +268,10 @@ SEGMENTS        Name                           Load    Length   Top    Selector 
                 reset_vec                      000000  000004  000004         0       0  CODE    
                 cstackCOMRAM                   000001  000034  000035         1       1  COMRAM  
                 intcode                        000008  000010  000018         4       0  CODE    
-                intcodelo                      000018  0024D8  0024F0         C       0  CODE    
+                intcodelo                      000018  0028B0  0028C8         C       0  CODE    
                 cstackBANK0                    000060  00006B  0000CB        60       1  BANK0   
-                bssBANK1                       000100  0000E6  0001E6       100       1  BANK1   
-                cstackBANK2                    000200  000079  000279       200       1  BANK2   
+                bssBANK1                       000100  0000C9  0001C9       100       1  BANK1   
+                bssBANK2                       000200  0000AF  0002AF       200       1  BANK2   
                 idloc                          200000  000008  200008    200000       0  IDLOC   
                 config                         300000  00000E  30000E    300000       0  CONFIG  
 
@@ -276,11 +280,11 @@ UNUSED ADDRESS RANGES
 
         Name                Unused          Largest block    Delta
         BANK0            0000CB-0000FF               35
-        BANK1            0001E6-0001FF               1A
+        BANK1            0001C9-0001FF               37
         BANK10           000A00-000AFF              100
         BANK11           000B00-000BFF              100
         BANK12           000C00-000CFF              100
-        BANK2            000279-0002FF               87
+        BANK2            0002AF-0002FF               51
         BANK3            000300-0003FF              100
         BANK4            000400-0004FF              100
         BANK5            000500-0005FF              100
@@ -290,20 +294,20 @@ UNUSED ADDRESS RANGES
         BANK9            000900-0009FF              100
         BIGRAM           000035-00005F               2B
                          0000CB-0000FF               35
-                         0001E6-0001FF               1A
-                         000279-000CFF              A87
+                         0001C9-0001FF               37
+                         0002AF-000CFF              A51
         CODE             000004-000007                4
-                         0024F0-00FFFF             DB10
+                         0028C8-00FFFF             D738
         COMRAM           000035-00005F               2B
         CONST            000004-000007                4
-                         0024F0-00FFFF             DB10
+                         0028C8-00FFFF             D738
         EEDATA           F00000-F003FF              400
-        MEDIUMCONST      0024F0-00FFFF             DB10
+        MEDIUMCONST      0028C8-00FFFF             D738
         RAM              0000CB-0000FF               35
-                         0001E6-0001FF               1A
-                         000279-000CFF              100
+                         0001C9-0001FF               37
+                         0002AF-000CFF              100
         SFR              000D00-000FFF              100
-        SMALLCONST       0024F0-00FFFF              100
+        SMALLCONST       0028C8-00FFFF              100
 
                                   Symbol Table
 
@@ -315,38 +319,40 @@ UNUSED ADDRESS RANGES
 ?_OpenUSART                      cstackBANK0  000095
 ?_ReadTimer1                     cstackCOMRAM 000001
 ?_SetChanADC                     cstackBANK0  000095
-?_ToMainHigh_recvmsg             cstackBANK1  0001B2
-?_ToMainHigh_sendmsg             cstackBANK1  0001B1
-?_ToMainLow_recvmsg              cstackBANK1  0001B2
-?_ToMainLow_sendmsg              cstackBANK1  0001B1
+?_ToMainHigh_recvmsg             cstackBANK1  000182
+?_ToMainHigh_sendmsg             cstackBANK1  000181
+?_ToMainLow_recvmsg              cstackBANK1  000182
+?_ToMainLow_sendmsg              cstackBANK1  000181
 ?_WriteTimer0                    cstackBANK0  000060
 ?_WriteTimer1                    cstackCOMRAM 000001
 ?_WriteUSART                     cstackBANK0  000095
-?_appendQueue                    cstackBANK0  000097
+?_appendQueue                    cstackBANK1  00016C
 ?_check_msg                      cstackBANK0  000095
-?_createQueue                    cstackBANK0  000095
-?_doZigBee                       cstackBANK1  0001C6
-?_getLen                         cstackBANK1  0001A2
+?_createQueue                    cstackBANK1  00016C
+?_doZigBee                       cstackBANK1  00019B
+?_generateChecksum               cstackBANK0  000095
+?_getLen                         cstackBANK1  00016C
 ?_getNumMessagesQueue            cstackBANK0  000095
 ?_i2c_configure_master           cstackBANK0  000095
 ?_i2c_master_recv                cstackBANK0  000095
 ?_i2c_master_send                cstackBANK0  000095
 ?_in_high_int                    cstackBANK0  000095
-?_in_low_int                     cstackBANK0  000097
-?_in_main                        cstackBANK0  000099
+?_in_low_int                     cstackBANK1  00016C
+?_in_main                        cstackBANK1  00016E
 ?_init_i2c                       cstackBANK0  000095
 ?_init_queue                     cstackBANK0  000095
 ?_init_timer1_lthread            cstackBANK0  000095
 ?_init_uart_recv                 cstackBANK0  000095
 ?_isQueueEmpty                   cstackBANK0  000095
 ?_isQueueFull                    cstackBANK0  000095
-?_memcpy                         cstackBANK0  000095
-?_readQueue                      cstackBANK0  000097
-?_recv_msg                       cstackBANK1  0001A6
-?_send_msg                       cstackBANK1  0001A6
-?_timer0_lthread                 cstackBANK0  000095
-?_timer1_lthread                 cstackBANK1  0001B5
-?_uart_lthread                   cstackBANK1  0001D1
+?_memcpy                         cstackBANK1  00016C
+?_readQueue                      cstackBANK1  00016C
+?_recv_msg                       cstackBANK1  000176
+?_send_msg                       cstackBANK1  000176
+?_timer0_lthread                 cstackBANK1  00016C
+?_timer1_lthread                 cstackBANK1  000185
+?_uart_lthread                   cstackBANK1  0001B4
+?_zigBee2G9Msg                   cstackBANK1  00016C
 ?i1_ToMainLow_sendmsg            cstackCOMRAM 000017
 ?i1_memcpy                       cstackCOMRAM 000001
 ?i1_send_msg                     cstackCOMRAM 00000B
@@ -371,18 +377,18 @@ OpenUSART@spbrg                  cstackBANK0  000096
 ReadTimer1@timer                 cstackCOMRAM 000003
 ReadUSART@data                   cstackCOMRAM 000001
 SetChanADC@channel               cstackBANK0  000095
-ToMainHigh_recvmsg@data          cstackBANK1  0001B5
-ToMainHigh_recvmsg@maxlength     cstackBANK1  0001B2
-ToMainHigh_recvmsg@msgtype       cstackBANK1  0001B3
-ToMainHigh_sendmsg@data          cstackBANK1  0001B3
-ToMainHigh_sendmsg@length        cstackBANK1  0001B1
-ToMainHigh_sendmsg@msgtype       cstackBANK1  0001B2
-ToMainLow_recvmsg@data           cstackBANK1  0001B5
-ToMainLow_recvmsg@maxlength      cstackBANK1  0001B2
-ToMainLow_recvmsg@msgtype        cstackBANK1  0001B3
-ToMainLow_sendmsg@data           cstackBANK1  0001B3
-ToMainLow_sendmsg@length         cstackBANK1  0001B1
-ToMainLow_sendmsg@msgtype        cstackBANK1  0001B2
+ToMainHigh_recvmsg@data          cstackBANK1  000185
+ToMainHigh_recvmsg@maxlength     cstackBANK1  000182
+ToMainHigh_recvmsg@msgtype       cstackBANK1  000183
+ToMainHigh_sendmsg@data          cstackBANK1  000183
+ToMainHigh_sendmsg@length        cstackBANK1  000181
+ToMainHigh_sendmsg@msgtype       cstackBANK1  000182
+ToMainLow_recvmsg@data           cstackBANK1  000185
+ToMainLow_recvmsg@maxlength      cstackBANK1  000182
+ToMainLow_recvmsg@msgtype        cstackBANK1  000183
+ToMainLow_sendmsg@data           cstackBANK1  000183
+ToMainLow_sendmsg@length         cstackBANK1  000181
+ToMainLow_sendmsg@msgtype        cstackBANK1  000182
 WriteTimer0@timer                cstackBANK0  000062
 WriteTimer0@timer0               cstackBANK0  000060
 WriteTimer1@timer                cstackCOMRAM 000003
@@ -394,25 +400,25 @@ _ADCON1                          (abs)        000FC1
 _ADCON2                          (abs)        000FC0
 _ADRESH                          (abs)        000FC4
 _ADRESL                          (abs)        000FC3
-_Delay1KTCYx                     text36       00245C
-_FromMainHigh_MQ                 bssBANK2     000243
-_FromMainHigh_recvmsg            text56       0021FA
-_FromMainLow_MQ                  bssBANK1     000100
+_Delay1KTCYx                     text38       002834
+_FromMainHigh_MQ                 bssBANK2     000200
+_FromMainHigh_recvmsg            text58       0025D2
+_FromMainLow_MQ                  bssBANK2     000236
 _INTCONbits                      (abs)        000FF2
 _IPR1bits                        (abs)        000F9F
-_IdleI2C                         text37       0023A4
+_IdleI2C                         text39       00277C
 _InterruptHandlerHigh            intcode      000008
 _InterruptHandlerLow             intcodelo    000018
 _LATB                            (abs)        000F8A
 _LATBbits                        (abs)        000F8A
-_MQ_Main_Willing_to_block        bssBANK0     0000A3
+_MQ_Main_Willing_to_block        bssBANK0     00009E
 _OSCCON                          (abs)        000FD3
 _OSCCONbits                      (abs)        000FD3
 _OSCTUNEbits                     (abs)        000F9B
-_OpenADC                         text38       001B34
-_OpenTimer0                      text7        0022DC
-_OpenTimer1                      text8        002042
-_OpenUSART                       text10       001822
+_OpenADC                         text40       001F0C
+_OpenTimer0                      text7        0026B4
+_OpenTimer1                      text8        00241A
+_OpenUSART                       text10       001BFA
 _PIE1bits                        (abs)        000F9D
 _PIE2bits                        (abs)        000FA0
 _PIR1bits                        (abs)        000F9E
@@ -420,8 +426,8 @@ _RCONbits                        (abs)        000FD0
 _RCREG                           (abs)        000FAE
 _RCSTA                           (abs)        000FAB
 _RCSTAbits                       (abs)        000FAB
-_ReadTimer1                      text47       002496
-_ReadUSART                       text46       00212A
+_ReadTimer1                      text49       00286E
+_ReadUSART                       text48       002502
 _SPBRG                           (abs)        000FAF
 _SPBRGH                          (abs)        000FB0
 _SSPADD                          (abs)        000FC8
@@ -432,8 +438,8 @@ _SSPCON2                         (abs)        000FC5
 _SSPCON2bits                     (abs)        000FC5
 _SSPSTAT                         (abs)        000FC7
 _SSPSTATbits                     (abs)        000FC7
-_SetChanADC                      text39       0023C0
-_SleepIfOkay                     text55       001988
+_SetChanADC                      text41       002798
+_SleepIfOkay                     text57       001D60
 _T0CON                           (abs)        000FD5
 _T0CONbits                       (abs)        000FD5
 _T1CON                           (abs)        000FCD
@@ -449,16 +455,16 @@ _TRISCbits                       (abs)        000F94
 _TXREG                           (abs)        000FAD
 _TXSTA                           (abs)        000FAC
 _TXSTAbits                       (abs)        000FAC
-_ToMainHigh_MQ                   bssBANK1     000136
-_ToMainHigh_recvmsg              text16       00219A
-_ToMainHigh_sendmsg              text32       002284
-_ToMainLow_MQ                    bssBANK1     00016C
-_ToMainLow_recvmsg               text20       0021CA
-_ToMainLow_sendmsg               text31       002258
+_ToMainHigh_MQ                   bssBANK1     000100
+_ToMainHigh_recvmsg              text16       002572
+_ToMainHigh_sendmsg              text30       002630
+_ToMainLow_MQ                    bssBANK1     000136
+_ToMainLow_recvmsg               text20       0025A2
+_ToMainLow_sendmsg               text34       00265C
 _USART_Status                    bssCOMRAM    000034
-_WriteTimer0                     text60       0024BA
-_WriteTimer1                     text48       0024A8
-_WriteUSART                      text18       002388
+_WriteTimer0                     text62       002892
+_WriteTimer1                     text50       002880
+_WriteUSART                      text18       002760
 __CFG_BBSIZ$1024                 (abs)        000000
 __CFG_BOREN$OFF                  (abs)        000000
 __CFG_BORV$3                     (abs)        000000
@@ -576,8 +582,8 @@ __Htext39                        text39       000000
 __Htext4                         text4        000000
 __Htext40                        text40       000000
 __Htext41                        text41       000000
+__Htext42                        text42       000000
 __Htext43                        text43       000000
-__Htext44                        text44       000000
 __Htext45                        text45       000000
 __Htext46                        text46       000000
 __Htext47                        text47       000000
@@ -586,8 +592,8 @@ __Htext49                        text49       000000
 __Htext5                         text5        000000
 __Htext50                        text50       000000
 __Htext51                        text51       000000
+__Htext52                        text52       000000
 __Htext53                        text53       000000
-__Htext54                        text54       000000
 __Htext55                        text55       000000
 __Htext56                        text56       000000
 __Htext57                        text57       000000
@@ -605,6 +611,8 @@ __Htext67                        text67       000000
 __Htext68                        text68       000000
 __Htext69                        text69       000000
 __Htext7                         text7        000000
+__Htext70                        text70       000000
+__Htext71                        text71       000000
 __Htext8                         text8        000000
 __Htext9                         text9        000000
 __LRAM                           (abs)        000001
@@ -710,8 +718,8 @@ __Ltext39                        text39       000000
 __Ltext4                         text4        000000
 __Ltext40                        text40       000000
 __Ltext41                        text41       000000
+__Ltext42                        text42       000000
 __Ltext43                        text43       000000
-__Ltext44                        text44       000000
 __Ltext45                        text45       000000
 __Ltext46                        text46       000000
 __Ltext47                        text47       000000
@@ -720,8 +728,8 @@ __Ltext49                        text49       000000
 __Ltext5                         text5        000000
 __Ltext50                        text50       000000
 __Ltext51                        text51       000000
+__Ltext52                        text52       000000
 __Ltext53                        text53       000000
-__Ltext54                        text54       000000
 __Ltext55                        text55       000000
 __Ltext56                        text56       000000
 __Ltext57                        text57       000000
@@ -739,164 +747,170 @@ __Ltext67                        text67       000000
 __Ltext68                        text68       000000
 __Ltext69                        text69       000000
 __Ltext7                         text7        000000
+__Ltext70                        text70       000000
+__Ltext71                        text71       000000
 __Ltext8                         text8        000000
 __Ltext9                         text9        000000
 __S0                             (abs)        30000E
-__S1                             (abs)        000279
+__S1                             (abs)        0002AF
 __accesstop                      (abs)        000060
 __activetblptr                   (abs)        000002
-__end_of_Delay1KTCYx             text36       002470
-__end_of_FromMainHigh_recvmsg    text56       00222A
-__end_of_IdleI2C                 text37       0023C0
-__end_of_InterruptHandlerHigh    intcode_body 001AAE
+__end_of_Delay1KTCYx             text38       002848
+__end_of_FromMainHigh_recvmsg    text58       002602
+__end_of_IdleI2C                 text39       002798
+__end_of_InterruptHandlerHigh    intcode_body 001E86
 __end_of_InterruptHandlerLow     intcodelo    0000D2
-__end_of_OpenADC                 text38       001BB8
-__end_of_OpenTimer0              text7        002306
-__end_of_OpenTimer1              text8        002080
-__end_of_OpenUSART               text10       0018D6
-__end_of_ReadTimer1              text47       0024A8
-__end_of_ReadUSART               text46       002162
-__end_of_SetChanADC              text39       0023DC
-__end_of_SleepIfOkay             text55       001A22
-__end_of_ToMainHigh_recvmsg      text16       0021CA
-__end_of_ToMainHigh_sendmsg      text32       0022B0
-__end_of_ToMainLow_recvmsg       text20       0021FA
-__end_of_ToMainLow_sendmsg       text31       002284
-__end_of_WriteTimer0             text60       0024CC
-__end_of_WriteTimer1             text48       0024BA
-__end_of_WriteUSART              text18       0023A4
-__end_of__initialization         cinit        0020E8
-__end_of_adc_int_handler         text44       002388
-__end_of_appendQueue             text28       00236A
-__end_of_block_on_To_msgqueues   text12       001510
-__end_of_check_msg               text35       00212A
-__end_of_createQueue             text11       0024D6
-__end_of_doZigBee                text24       000D30
-__end_of_enable_interrupts       text1        0024E8
-__end_of_enter_sleep_mode        text57       0024EE
-__end_of_getLen                  text25       002448
-__end_of_getNumMessagesQueue     text27       001CBA
-__end_of_i2c_configure_master    text9        00234A
-__end_of_i2c_int_handler         text53       0023F8
-__end_of_i2c_master_handler      text59       000AD2
-__end_of_i2c_master_recv         text22       00176C
-__end_of_i2c_master_send         text19       000E76
-__end_of_i2c_slave_handler       text58       0024F0
-__end_of_in_high_int             text15       00245C
-__end_of_in_low_int              text14       001DF6
-__end_of_in_main                 text13       001EAC
-__end_of_initADC                 text2        001FFA
-__end_of_init_i2c                text4        001C3A
-__end_of_init_queue              text29       001B34
-__end_of_init_queues             text6        001D2C
-__end_of_init_timer1_lthread     text5        002496
-__end_of_init_uart_recv          text3        00242E
-__end_of_isQueueEmpty            text41       002258
-__end_of_isQueueFull             text40       0020BA
+__end_of_OpenADC                 text40       001F90
+__end_of_OpenTimer0              text7        0026DE
+__end_of_OpenTimer1              text8        002458
+__end_of_OpenUSART               text10       001CAE
+__end_of_ReadTimer1              text49       002880
+__end_of_ReadUSART               text48       00253A
+__end_of_SetChanADC              text41       0027B4
+__end_of_SleepIfOkay             text57       001DFA
+__end_of_ToMainHigh_recvmsg      text16       0025A2
+__end_of_ToMainHigh_sendmsg      text30       00265C
+__end_of_ToMainLow_recvmsg       text20       0025D2
+__end_of_ToMainLow_sendmsg       text34       002688
+__end_of_WriteTimer0             text62       0028A4
+__end_of_WriteTimer1             text50       002892
+__end_of_WriteUSART              text18       00277C
+__end_of__initialization         cinit        0024C0
+__end_of_adc_int_handler         text46       002760
+__end_of_appendQueue             text31       002742
+__end_of_block_on_To_msgqueues   text12       00180A
+__end_of_check_msg               text37       002502
+__end_of_createQueue             text11       0028AE
+__end_of_doZigBee                text24       000ADC
+__end_of_enable_interrupts       text1        0028C0
+__end_of_enter_sleep_mode        text59       0028C6
+__end_of_generateChecksum        text25       0018E8
+__end_of_getLen                  text26       002820
+__end_of_getNumMessagesQueue     text28       002092
+__end_of_i2c_configure_master    text9        002722
+__end_of_i2c_int_handler         text55       0027D0
+__end_of_i2c_master_handler      text61       000EA6
+__end_of_i2c_master_recv         text22       001B44
+__end_of_i2c_master_send         text19       001170
+__end_of_i2c_slave_handler       text60       0028C8
+__end_of_in_high_int             text15       002834
+__end_of_in_low_int              text14       0021CE
+__end_of_in_main                 text13       002284
+__end_of_initADC                 text2        0023D2
+__end_of_init_i2c                text4        002012
+__end_of_init_queue              text32       001F0C
+__end_of_init_queues             text6        002104
+__end_of_init_timer1_lthread     text5        00286E
+__end_of_init_uart_recv          text3        002806
+__end_of_isQueueEmpty            text43       002630
+__end_of_isQueueFull             text42       002492
 __end_of_main                    text0        000708
-__end_of_memcpy                  text34       001F02
-__end_of_readQueue               text26       0015EC
-__end_of_recv_msg                text30       000FB6
-__end_of_send_msg                text33       00132A
-__end_of_timer0_int_handler      text54       0016B4
-__end_of_timer0_lthread          text17       0024E0
-__end_of_timer1_int_handler      text43       001FAC
-__end_of_timer1_lthread          text21       001D98
-__end_of_uart_lthread            text23       001224
-__end_of_uart_recv_int_handler   text45       001822
-__end_ofi1_ToMainLow_sendmsg     text49       00232A
-__end_ofi1_memcpy                text51       002042
-__end_ofi1_send_msg              text50       001988
-__end_ofi2_IdleI2C               text67       002414
-__end_ofi2_ToMainHigh_sendmsg    text64       0022DC
-__end_ofi2_check_msg             text66       00219A
-__end_ofi2_in_high_int           text62       002484
-__end_ofi2_in_low_int            text61       001E54
-__end_ofi2_memcpy                text68       001F58
-__end_ofi2_recv_msg              text63       0010F6
-__end_ofi2_send_msg              text65       001430
-__initialization                 cinit        0020BA
+__end_of_memcpy                  text36       0022DA
+__end_of_readQueue               text29       0019C4
+__end_of_recv_msg                text33       0012B0
+__end_of_send_msg                text35       001624
+__end_of_timer0_int_handler      text56       001A8C
+__end_of_timer0_lthread          text17       0028B8
+__end_of_timer1_int_handler      text45       002384
+__end_of_timer1_lthread          text21       002170
+__end_of_uart_lthread            text23       00151E
+__end_of_uart_recv_int_handler   text47       001BFA
+__end_of_zigBee2G9Msg            text27       00102A
+__end_ofi1_ToMainLow_sendmsg     text51       002702
+__end_ofi1_memcpy                text53       00241A
+__end_ofi1_send_msg              text52       001D60
+__end_ofi2_IdleI2C               text69       0027EC
+__end_ofi2_ToMainHigh_sendmsg    text66       0026B4
+__end_ofi2_check_msg             text68       002572
+__end_ofi2_in_high_int           text64       00285C
+__end_ofi2_in_low_int            text63       00222C
+__end_ofi2_memcpy                text70       002330
+__end_ofi2_recv_msg              text65       0013F0
+__end_ofi2_send_msg              text67       00172A
+__initialization                 cinit        002492
 __mediumconst                    mediumconst  000000
-__pbssBANK0                      bssBANK0     00009D
+__pbssBANK0                      bssBANK0     000098
 __pbssBANK1                      bssBANK1     000100
-__pbssBANK2                      bssBANK2     000243
+__pbssBANK2                      bssBANK2     000200
 __pbssCOMRAM                     bssCOMRAM    000030
-__pcinit                         cinit        0020BA
+__pcinit                         cinit        002492
 __pcstackBANK0                   cstackBANK0  000060
-__pcstackBANK1                   cstackBANK1  0001A2
-__pcstackBANK2                   cstackBANK2  000200
+__pcstackBANK1                   cstackBANK1  00016C
+__pcstackBANK2                   cstackBANK2  00026C
 __pcstackCOMRAM                  cstackCOMRAM 000001
 __pintcode                       intcode      000008
-__pintcode_body                  intcode_body 001A22
+__pintcode_body                  intcode_body 001DFA
 __pintcodelo                     intcodelo    000018
 __ptext0                         text0        0000D6
-__ptext1                         text1        0024E0
-__ptext10                        text10       001822
-__ptext11                        text11       0024CC
-__ptext12                        text12       001430
-__ptext13                        text13       001E54
-__ptext14                        text14       001D98
-__ptext15                        text15       002448
-__ptext16                        text16       00219A
-__ptext17                        text17       0024D6
-__ptext18                        text18       002388
-__ptext19                        text19       000D30
-__ptext2                         text2        001FAC
-__ptext20                        text20       0021CA
-__ptext21                        text21       001D2C
-__ptext22                        text22       0016B4
-__ptext23                        text23       0010F6
-__ptext24                        text24       000AD2
-__ptext25                        text25       00242E
-__ptext26                        text26       001510
-__ptext27                        text27       001C3A
-__ptext28                        text28       00234A
-__ptext29                        text29       001AAE
-__ptext3                         text3        002414
-__ptext30                        text30       000E76
-__ptext31                        text31       002258
-__ptext32                        text32       002284
-__ptext33                        text33       001224
-__ptext34                        text34       001EAC
-__ptext35                        text35       0020F2
-__ptext36                        text36       00245C
-__ptext37                        text37       0023A4
-__ptext38                        text38       001B34
-__ptext39                        text39       0023C0
-__ptext4                         text4        001BB8
-__ptext40                        text40       002080
-__ptext41                        text41       00222A
-__ptext43                        text43       001F58
-__ptext44                        text44       00236A
-__ptext45                        text45       00176C
-__ptext46                        text46       00212A
-__ptext47                        text47       002496
-__ptext48                        text48       0024A8
-__ptext49                        text49       002306
-__ptext5                         text5        002484
-__ptext50                        text50       0018D6
-__ptext51                        text51       001FFA
-__ptext53                        text53       0023DC
-__ptext54                        text54       0015EC
-__ptext55                        text55       001988
-__ptext56                        text56       0021FA
-__ptext57                        text57       0024E8
-__ptext58                        text58       0024EE
-__ptext59                        text59       000708
-__ptext6                         text6        001CBA
-__ptext60                        text60       0024BA
-__ptext61                        text61       001DF6
-__ptext62                        text62       002470
-__ptext63                        text63       000FB6
-__ptext64                        text64       0022B0
-__ptext65                        text65       00132A
-__ptext66                        text66       002162
-__ptext67                        text67       0023F8
-__ptext68                        text68       001F02
-__ptext69                        text69       000000
-__ptext7                         text7        0022DC
-__ptext8                         text8        002042
-__ptext9                         text9        00232A
+__ptext1                         text1        0028B8
+__ptext10                        text10       001BFA
+__ptext11                        text11       0028A4
+__ptext12                        text12       00172A
+__ptext13                        text13       00222C
+__ptext14                        text14       002170
+__ptext15                        text15       002820
+__ptext16                        text16       002572
+__ptext17                        text17       0028AE
+__ptext18                        text18       002760
+__ptext19                        text19       00102A
+__ptext2                         text2        002384
+__ptext20                        text20       0025A2
+__ptext21                        text21       002104
+__ptext22                        text22       001A8C
+__ptext23                        text23       0013F0
+__ptext24                        text24       000708
+__ptext25                        text25       00180A
+__ptext26                        text26       002806
+__ptext27                        text27       000EA6
+__ptext28                        text28       002012
+__ptext29                        text29       0018E8
+__ptext3                         text3        0027EC
+__ptext30                        text30       002630
+__ptext31                        text31       002722
+__ptext32                        text32       001E86
+__ptext33                        text33       001170
+__ptext34                        text34       00265C
+__ptext35                        text35       00151E
+__ptext36                        text36       002284
+__ptext37                        text37       0024CA
+__ptext38                        text38       002834
+__ptext39                        text39       00277C
+__ptext4                         text4        001F90
+__ptext40                        text40       001F0C
+__ptext41                        text41       002798
+__ptext42                        text42       002458
+__ptext43                        text43       002602
+__ptext45                        text45       002330
+__ptext46                        text46       002742
+__ptext47                        text47       001B44
+__ptext48                        text48       002502
+__ptext49                        text49       00286E
+__ptext5                         text5        00285C
+__ptext50                        text50       002880
+__ptext51                        text51       0026DE
+__ptext52                        text52       001CAE
+__ptext53                        text53       0023D2
+__ptext55                        text55       0027B4
+__ptext56                        text56       0019C4
+__ptext57                        text57       001D60
+__ptext58                        text58       0025D2
+__ptext59                        text59       0028C0
+__ptext6                         text6        002092
+__ptext60                        text60       0028C6
+__ptext61                        text61       000ADC
+__ptext62                        text62       002892
+__ptext63                        text63       0021CE
+__ptext64                        text64       002848
+__ptext65                        text65       0012B0
+__ptext66                        text66       002688
+__ptext67                        text67       001624
+__ptext68                        text68       00253A
+__ptext69                        text69       0027D0
+__ptext7                         text7        0026B4
+__ptext70                        text70       0022DA
+__ptext71                        text71       000000
+__ptext8                         text8        00241A
+__ptext9                         text9        002702
 __ramtop                         ramtop       000D00
 __size_of_Delay1KTCYx            (abs)        000000
 __size_of_FromMainHigh_recvmsg   (abs)        000000
@@ -926,6 +940,7 @@ __size_of_createQueue            (abs)        000000
 __size_of_doZigBee               (abs)        000000
 __size_of_enable_interrupts      (abs)        000000
 __size_of_enter_sleep_mode       (abs)        000000
+__size_of_generateChecksum       (abs)        000000
 __size_of_getLen                 (abs)        000000
 __size_of_getNumMessagesQueue    (abs)        000000
 __size_of_i2c_configure_master   (abs)        000000
@@ -956,6 +971,7 @@ __size_of_timer1_int_handler     (abs)        000000
 __size_of_timer1_lthread         (abs)        000000
 __size_of_uart_lthread           (abs)        000000
 __size_of_uart_recv_int_handler  (abs)        000000
+__size_of_zigBee2G9Msg           (abs)        000000
 __size_ofi1_ToMainLow_sendmsg    (abs)        000000
 __size_ofi1_memcpy               (abs)        000000
 __size_ofi1_send_msg             (abs)        000000
@@ -968,70 +984,77 @@ __size_ofi2_memcpy               (abs)        000000
 __size_ofi2_recv_msg             (abs)        000000
 __size_ofi2_send_msg             (abs)        000000
 __smallconst                     smallconst   000000
-_adc_int_handler                 text44       00236A
-_appendQueue                     text28       00234A
-_block_on_To_msgqueues           text12       001430
-_buflen1                         bssBANK0     0000A4
-_check_msg                       text35       0020F2
-_createQueue                     text11       0024CC
-_doZigBee                        text24       000AD2
-_enable_interrupts               text1        0024E0
-_enter_sleep_mode                text57       0024E8
-_explen1                         bssBANK0     0000A5
-_getLen                          text25       00242E
-_getNumMessagesQueue             text27       001C3A
-_i2c_configure_master            text9        00232A
-_i2c_int_handler                 text53       0023DC
-_i2c_master_handler              text59       000708
-_i2c_master_recv                 text22       0016B4
-_i2c_master_send                 text19       000D30
-_i2c_slave_handler               text58       0024EE
-_ic_ptr                          bssBANK0     00009D
-_in_high_int                     text15       002448
-_in_low_int                      text14       001D98
-_in_main                         text13       001E54
-_initADC                         text2        001FAC
-_init_i2c                        text4        001BB8
-_init_queue                      text29       001AAE
-_init_queues                     text6        001CBA
-_init_timer1_lthread             text5        002484
-_init_uart_recv                  text3        002414
-_isQueueEmpty                    text41       00222A
-_isQueueFull                     text40       002080
+_adc_int_handler                 text46       002742
+_appendQueue                     text31       002722
+_block_on_To_msgqueues           text12       00172A
+_buflen1                         bssBANK0     00009F
+_check_msg                       text37       0024CA
+_createQueue                     text11       0028A4
+_doZigBee                        text24       000708
+_enable_interrupts               text1        0028B8
+_enter_sleep_mode                text59       0028C0
+_explen1                         bssBANK0     0000A0
+_generateChecksum                text25       00180A
+_getLen                          text26       002806
+_getNumMessagesQueue             text28       002012
+_i2c_configure_master            text9        002702
+_i2c_int_handler                 text55       0027B4
+_i2c_master_handler              text61       000ADC
+_i2c_master_recv                 text22       001A8C
+_i2c_master_send                 text19       00102A
+_i2c_slave_handler               text60       0028C6
+_ic_ptr                          bssBANK0     000098
+_in_high_int                     text15       002820
+_in_low_int                      text14       002170
+_in_main                         text13       00222C
+_initADC                         text2        002384
+_init_i2c                        text4        001F90
+_init_queue                      text32       001E86
+_init_queues                     text6        002092
+_init_timer1_lthread             text5        00285C
+_init_uart_recv                  text3        0027EC
+_isQueueEmpty                    text43       002602
+_isQueueFull                     text42       002458
 _main                            text0        0000D6
-_memcpy                          text34       001EAC
-_readQueue                       text26       001510
-_recv_msg                        text30       000E76
-_send_msg                        text33       001224
-_timer0_int_handler              text54       0015EC
-_timer0_lthread                  text17       0024D6
-_timer1_int_handler              text43       001F58
-_timer1_lthread                  text21       001D2C
-_uart_lthread                    text23       0010F6
-_uart_recv_int_handler           text45       00176C
+_memcpy                          text36       002284
+_readQueue                       text29       0018E8
+_recv_msg                        text33       001170
+_send_msg                        text35       00151E
+_timer0_int_handler              text56       0019C4
+_timer0_lthread                  text17       0028AE
+_timer1_int_handler              text45       002330
+_timer1_lthread                  text21       002104
+_uart_lthread                    text23       0013F0
+_uart_recv_int_handler           text47       001B44
 _uc_ptr                          bssCOMRAM    000030
 _value                           bssCOMRAM    000032
-appendQueue@Q                    cstackBANK0  000097
+_zigBee2G9Msg                    text27       000EA6
+appendQueue@Q                    cstackBANK1  00016C
 check_msg@qptr                   cstackBANK0  000095
-createQueue@Qsize                cstackBANK0  000097
-doZigBee@curI                    bssBANK0     00009F
-doZigBee@i                       cstackBANK1  0001CF
-doZigBee@len                     bssBANK0     0000A1
-doZigBee@length                  cstackBANK1  0001C6
-doZigBee@msg                     bssBANK0     0000A7
-doZigBee@msgbuffer               cstackBANK1  0001C8
-doZigBee@numMsgs                 cstackBANK1  0001CD
-doZigBee@rcvQ                    cstackBANK1  0001CA
-doZigBee@state                   bssBANK0     0000A6
-end_of_initialization            cinit        0020E8
-getLen@msg                       cstackBANK1  0001A2
+createQueue@Qsize                cstackBANK1  00016E
+doZigBee@curI                    bssBANK0     00009A
+doZigBee@i                       cstackBANK1  0001A5
+doZigBee@len                     bssBANK0     00009C
+doZigBee@msg                     bssBANK0     0000A3
+doZigBee@numMsgs                 cstackBANK1  0001A3
+doZigBee@outMsg                  cstackBANK1  0001A7
+doZigBee@pStatus                 cstackBANK1  0001A1
+doZigBee@rcvQ                    cstackBANK1  00019F
+doZigBee@state                   bssBANK0     0000A1
+doZigBee@txState                 bssBANK0     0000A2
+end_of_initialization            cinit        0024C0
+generateChecksum@check           cstackBANK1  00019A
+generateChecksum@i               cstackBANK1  000198
+generateChecksum@len             cstackBANK1  000196
+generateChecksum@msg             cstackBANK0  000095
+getLen@msg                       cstackBANK1  00016C
 getNumMessagesQueue@Q            cstackBANK0  000095
 i1ToMainLow_sendmsg@data         cstackCOMRAM 000019
 i1ToMainLow_sendmsg@length       cstackCOMRAM 000017
 i1ToMainLow_sendmsg@msgtype      cstackCOMRAM 000018
-i1_ToMainLow_sendmsg             text49       002306
-i1_memcpy                        text51       001FFA
-i1_send_msg                      text50       0018D6
+i1_ToMainLow_sendmsg             text51       0026DE
+i1_memcpy                        text53       0023D2
+i1_send_msg                      text52       001CAE
 i1memcpy@d                       cstackCOMRAM 000007
 i1memcpy@d1                      cstackCOMRAM 000001
 i1memcpy@n                       cstackCOMRAM 000005
@@ -1047,14 +1070,14 @@ i1send_msg@tlength               cstackCOMRAM 000012
 i2ToMainHigh_sendmsg@data        cstackBANK0  000078
 i2ToMainHigh_sendmsg@length      cstackBANK0  000076
 i2ToMainHigh_sendmsg@msgtype     cstackBANK0  000077
-i2_IdleI2C                       text67       0023F8
-i2_ToMainHigh_sendmsg            text64       0022B0
-i2_check_msg                     text66       002162
-i2_in_high_int                   text62       002470
-i2_in_low_int                    text61       001DF6
-i2_memcpy                        text68       001F02
-i2_recv_msg                      text63       000FB6
-i2_send_msg                      text65       00132A
+i2_IdleI2C                       text69       0027D0
+i2_ToMainHigh_sendmsg            text66       002688
+i2_check_msg                     text68       00253A
+i2_in_high_int                   text64       002848
+i2_in_low_int                    text63       0021CE
+i2_memcpy                        text70       0022DA
+i2_recv_msg                      text65       0012B0
+i2_send_msg                      text67       001624
 i2c_master_handler@data          cstackBANK0  000081
 i2c_master_handler@data_read     cstackBANK0  000086
 i2c_master_handler@data_written  cstackBANK0  000082
@@ -1064,7 +1087,7 @@ i2c_master_handler@msg_sent      cstackBANK0  000083
 i2c_master_handler@msg_to_send   cstackBANK0  000080
 i2c_master_handler@overrun_error cstackBANK0  000085
 i2c_master_recv@addr             cstackBANK0  000096
-i2c_master_recv@i                cstackBANK0  000098
+i2c_master_recv@i                cstackBANK1  00016C
 i2c_master_recv@length           cstackBANK0  000095
 i2c_master_send@length           cstackBANK0  000095
 i2c_master_send@msg              cstackBANK0  000096
@@ -1089,69 +1112,72 @@ i2send_msg@qptr                  cstackBANK0  00006A
 i2send_msg@slot                  cstackBANK0  000073
 i2send_msg@tlength               cstackBANK0  000071
 init_i2c@ic                      cstackBANK0  000095
-init_queue@i                     cstackBANK0  000098
+init_queue@i                     cstackBANK1  00016C
 init_queue@qptr                  cstackBANK0  000095
 init_timer1_lthread@tptr         cstackBANK0  000095
 init_uart_recv@uc                cstackBANK0  000095
-int_func                         intcode_body 001A22
+int_func                         intcode_body 001DFA
 intlevel0                        text         000000
 intlevel1                        text         000000
 intlevel2                        text         000000
 intlevel3                        text         000000
 isQueueEmpty@Q                   cstackBANK0  000095
 isQueueFull@Q                    cstackBANK0  000095
-main@byte1                       cstackBANK2  000215
-main@byte2                       cstackBANK2  000216
-main@count                       cstackBANK2  000208
-main@i                           cstackBANK2  00021E
-main@ic                          cstackBANK2  000226
-main@last_reg_recvd              cstackBANK2  000207
-main@length                      cstackBANK2  000225
-main@msg                         cstackBANK2  000217
-main@msgbuffer                   cstackBANK2  00020A
-main@msgtype                     cstackBANK2  000224
-main@t0thread_data               cstackBANK2  000205
-main@t1thread_data               cstackBANK2  00021A
-main@uartRXQ                     cstackBANK2  00021C
-main@uartTXQ                     cstackBANK2  000218
-main@uc                          cstackBANK2  00021F
-main@uthread_data                cstackBANK2  000200
-memcpy@d                         cstackBANK1  0001A2
-memcpy@d1                        cstackBANK0  000095
-memcpy@n                         cstackBANK0  000099
-memcpy@s                         cstackBANK1  0001A4
-memcpy@s1                        cstackBANK0  000097
-readQueue@Q                      cstackBANK0  000097
-readQueue@i                      cstackBANK0  00009B
-readQueue@msg                    cstackBANK0  000099
-recv_msg@data                    cstackBANK1  0001AB
-recv_msg@maxlength               cstackBANK1  0001A8
-recv_msg@msgtype                 cstackBANK1  0001A9
-recv_msg@qmsg                    cstackBANK1  0001B0
-recv_msg@qptr                    cstackBANK1  0001A6
-recv_msg@slot                    cstackBANK1  0001AD
-recv_msg@tlength                 cstackBANK1  0001AE
-send_msg@data                    cstackBANK1  0001AA
-send_msg@length                  cstackBANK1  0001A8
-send_msg@msgtype                 cstackBANK1  0001A9
-send_msg@qmsg                    cstackBANK1  0001AF
-send_msg@qptr                    cstackBANK1  0001A6
-send_msg@slot                    cstackBANK1  0001AE
-send_msg@tlength                 cstackBANK1  0001AC
+main@byte1                       cstackBANK2  000281
+main@byte2                       cstackBANK2  000282
+main@count                       cstackBANK2  000274
+main@i                           cstackBANK2  00028F
+main@ic                          cstackBANK2  000292
+main@last_reg_recvd              cstackBANK2  000273
+main@length                      cstackBANK2  000291
+main@msg                         cstackBANK2  000283
+main@msgbuffer                   cstackBANK2  000276
+main@msgtype                     cstackBANK2  000290
+main@t0thread_data               cstackBANK2  000271
+main@t1thread_data               cstackBANK2  000286
+main@uartRXQ                     cstackBANK2  00028D
+main@uartTXQ                     cstackBANK2  000284
+main@uc                          cstackBANK2  000288
+main@uthread_data                cstackBANK2  00026C
+memcpy@d                         cstackBANK1  000172
+memcpy@d1                        cstackBANK1  00016C
+memcpy@n                         cstackBANK1  000170
+memcpy@s                         cstackBANK1  000174
+memcpy@s1                        cstackBANK1  00016E
+readQueue@Q                      cstackBANK1  00016C
+readQueue@i                      cstackBANK1  000175
+readQueue@msg                    cstackBANK1  00016E
+recv_msg@data                    cstackBANK1  00017B
+recv_msg@maxlength               cstackBANK1  000178
+recv_msg@msgtype                 cstackBANK1  000179
+recv_msg@qmsg                    cstackBANK1  000180
+recv_msg@qptr                    cstackBANK1  000176
+recv_msg@slot                    cstackBANK1  00017D
+recv_msg@tlength                 cstackBANK1  00017E
+send_msg@data                    cstackBANK1  00017A
+send_msg@length                  cstackBANK1  000178
+send_msg@msgtype                 cstackBANK1  000179
+send_msg@qmsg                    cstackBANK1  00017F
+send_msg@qptr                    cstackBANK1  000176
+send_msg@slot                    cstackBANK1  00017E
+send_msg@tlength                 cstackBANK1  00017C
 start                            init         0000D2
-start_initialization             cinit        0020BA
+start_initialization             cinit        002492
 timer0_int_handler@length        cstackBANK0  00007F
 timer0_int_handler@msgtype       cstackBANK0  000081
 timer0_int_handler@val           cstackBANK0  000083
-timer0_lthread@msgbuffer         cstackBANK0  00009B
-timer0_lthread@msgval            cstackBANK1  0001A2
+timer0_lthread@msgbuffer         cstackBANK1  000172
+timer0_lthread@msgval            cstackBANK0  000095
 timer1_int_handler@result        cstackCOMRAM 00001D
-timer1_lthread@tptr              cstackBANK1  0001B5
-uart_lthread@i                   cstackBANK1  0001DD
-uart_lthread@length              cstackBANK1  0001D5
-uart_lthread@msgbuffer           cstackBANK1  0001D7
-uart_lthread@msgtype             cstackBANK1  0001D3
-uart_lthread@rcvQ                cstackBANK1  0001D9
+timer1_lthread@tptr              cstackBANK1  000185
+uart_lthread@i                   cstackBANK1  0001C0
+uart_lthread@length              cstackBANK1  0001B8
+uart_lthread@msgbuffer           cstackBANK1  0001BA
+uart_lthread@msgtype             cstackBANK1  0001B6
+uart_lthread@rcvQ                cstackBANK1  0001BC
+zigBee2G9Msg@i                   cstackBANK0  000095
+zigBee2G9Msg@in                  cstackBANK1  00016C
+zigBee2G9Msg@out                 cstackBANK1  00016E
 
 
 FUNCTION INFORMATION:
@@ -1167,9 +1193,9 @@ FUNCTION INFORMATION:
   byte1           1   21[BANK2 ] unsigned char 
   ic             29   38[BANK2 ] volatile struct __i2c_co
   msgbuffer      11   10[BANK2 ] unsigned char [11]
-  uc              5   31[BANK2 ] struct __uart_comm
+  uc              5   28[BANK2 ] struct __uart_comm
   uthread_data    5    0[BANK2 ] struct __uart_thread_str
-  uartRXQ         2   28[BANK2 ] PTR struct Queue
+  uartRXQ         2   33[BANK2 ] PTR struct Queue
   t1thread_dat    2   26[BANK2 ] struct __timer1_thread_s
   uartTXQ         2   24[BANK2 ] PTR struct Queue
   count           2    8[BANK2 ] int 
@@ -1177,7 +1203,7 @@ FUNCTION INFORMATION:
   testmsg         2    0        PTR unsigned char 
   length          1   37[BANK2 ] char 
   msgtype         1   36[BANK2 ] unsigned char 
-  i               1   30[BANK2 ] unsigned char 
+  i               1   35[BANK2 ] unsigned char 
   last_reg_rec    1    7[BANK2 ] unsigned char 
  Return value:  Size  Location     Type
 		None               void
@@ -1193,7 +1219,7 @@ FUNCTION INFORMATION:
       Temps:          0       0       7       0       0       0       0       0       0       0       0       0       0       0
       Totals:         0       0       7      67       0       0       0       0       0       0       0       0       0       0
 Total ram usage:       74 bytes
- Hardware stack levels required when called:   15
+ Hardware stack levels required when called:   16
  This function calls:
 		_initADC
 		_init_uart_recv
@@ -1270,8 +1296,8 @@ Total ram usage:        0 bytes
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
       Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
       Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Temps:          0       3       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       3       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       3       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       3       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:        3 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   12
@@ -1394,8 +1420,8 @@ Total ram usage:        2 bytes
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
       Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
       Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Temps:          0       1       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       1       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       1       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       1       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:        1 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   12
@@ -1531,12 +1557,12 @@ Total ram usage:        3 bytes
  Defined at:
 		line 35 in file "../src/queue.c"
  Parameters:    Size  Location     Type
-  Q               2   53[BANK0 ] PTR struct Queue
-  Qsize           2   55[BANK0 ] int 
+  Q               2    0[BANK1 ] PTR struct Queue
+  Qsize           2    2[BANK1 ] int 
  Auto vars:     Size  Location     Type
 		None
  Return value:  Size  Location     Type
-                  2   53[BANK0 ] int 
+                  2    0[BANK1 ] int 
  Registers used:
 		wreg, status,2, status,0
  Tracked objects:
@@ -1544,10 +1570,10 @@ Total ram usage:        3 bytes
 		On exit  : 
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
-      Params:         0       4       0       0       0       0       0       0       0       0       0       0       0       0
+      Params:         0       0       4       0       0       0       0       0       0       0       0       0       0       0
       Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
       Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       4       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       4       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:        4 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   11
@@ -1576,8 +1602,8 @@ Total ram usage:        4 bytes
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
       Params:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
       Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Temps:          0       1       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       1       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       1       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       1       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:        1 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   14
@@ -1598,7 +1624,7 @@ Total ram usage:        1 bytes
  Auto vars:     Size  Location     Type
 		None
  Return value:  Size  Location     Type
-                  2   57[BANK0 ] int 
+                  2    2[BANK1 ] int 
  Registers used:
 		wreg, status,2, status,0, cstack
  Tracked objects:
@@ -1606,10 +1632,10 @@ Total ram usage:        1 bytes
 		On exit  : 
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
-      Params:         0       2       0       0       0       0       0       0       0       0       0       0       0       0
+      Params:         0       0       2       0       0       0       0       0       0       0       0       0       0       0
       Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
       Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       2       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       2       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:        2 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   13
@@ -1629,7 +1655,7 @@ Total ram usage:        2 bytes
  Auto vars:     Size  Location     Type
 		None
  Return value:  Size  Location     Type
-                  2   55[BANK0 ] int 
+                  2    0[BANK1 ] int 
  Registers used:
 		wreg, status,2, status,0, cstack
  Tracked objects:
@@ -1637,10 +1663,10 @@ Total ram usage:        2 bytes
 		On exit  : 
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
-      Params:         0       2       0       0       0       0       0       0       0       0       0       0       0       0
+      Params:         0       0       2       0       0       0       0       0       0       0       0       0       0       0
       Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
       Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       2       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       2       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:        2 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   12
@@ -1686,10 +1712,10 @@ Total ram usage:        2 bytes
  Defined at:
 		line 135 in file "../src/messages.c"
  Parameters:    Size  Location     Type
-  maxlength       1   16[BANK1 ] unsigned char 
-  msgtype         2   17[BANK1 ] PTR unsigned char 
+  maxlength       1   22[BANK1 ] unsigned char 
+  msgtype         2   23[BANK1 ] PTR unsigned char 
 		 -> main@msgtype(1), 
-  data            2   19[BANK1 ] PTR void 
+  data            2   25[BANK1 ] PTR void 
 		 -> main@msgbuffer(11), 
  Auto vars:     Size  Location     Type
 		None
@@ -1720,17 +1746,17 @@ Total ram usage:        5 bytes
  Defined at:
 		line 9 in file "../src/timer0_thread.c"
  Parameters:    Size  Location     Type
-  tptr            2   53[BANK0 ] PTR struct __timer0_thre
+  tptr            2    0[BANK1 ] PTR struct __timer0_thre
 		 -> main@t0thread_data(2), 
-  msgtype         2   55[BANK0 ] int 
-  length          2   57[BANK0 ] int 
-  msgbuffer       2   59[BANK0 ] PTR unsigned char 
+  msgtype         2    2[BANK1 ] int 
+  length          2    4[BANK1 ] int 
+  msgbuffer       2    6[BANK1 ] PTR unsigned char 
 		 -> main@msgbuffer(11), 
  Auto vars:     Size  Location     Type
-  msgval          2    0[BANK1 ] PTR unsigned int 
+  msgval          2   53[BANK0 ] PTR unsigned int 
 		 -> main@msgbuffer(11), 
  Return value:  Size  Location     Type
-                  2   53[BANK0 ] int 
+                  2    0[BANK1 ] int 
  Registers used:
 		None
  Tracked objects:
@@ -1738,10 +1764,10 @@ Total ram usage:        5 bytes
 		On exit  : 
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
-      Params:         0       8       0       0       0       0       0       0       0       0       0       0       0       0
-      Locals:         0       0       2       0       0       0       0       0       0       0       0       0       0       0
+      Params:         0       0       8       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       2       0       0       0       0       0       0       0       0       0       0       0       0
       Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       8       2       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       2       8       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:       10 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   11
@@ -1802,8 +1828,8 @@ Total ram usage:        1 bytes
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
       Params:         0       3       0       0       0       0       0       0       0       0       0       0       0       0
       Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Temps:          0       2       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       5       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       2       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       3       2       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:        5 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   11
@@ -1818,10 +1844,10 @@ Total ram usage:        5 bytes
  Defined at:
 		line 112 in file "../src/messages.c"
  Parameters:    Size  Location     Type
-  maxlength       1   16[BANK1 ] unsigned char 
-  msgtype         2   17[BANK1 ] PTR unsigned char 
+  maxlength       1   22[BANK1 ] unsigned char 
+  msgtype         2   23[BANK1 ] PTR unsigned char 
 		 -> main@msgtype(1), 
-  data            2   19[BANK1 ] PTR void 
+  data            2   25[BANK1 ] PTR void 
 		 -> main@msgbuffer(11), 
  Auto vars:     Size  Location     Type
 		None
@@ -1852,16 +1878,16 @@ Total ram usage:        5 bytes
  Defined at:
 		line 17 in file "../src/timer1_thread.c"
  Parameters:    Size  Location     Type
-  tptr            2   19[BANK1 ] PTR struct __timer1_thre
+  tptr            2   25[BANK1 ] PTR struct __timer1_thre
 		 -> main@t1thread_data(2), 
-  msgtype         2   21[BANK1 ] int 
-  length          2   23[BANK1 ] int 
-  msgbuffer       2   25[BANK1 ] PTR unsigned char 
+  msgtype         2   27[BANK1 ] int 
+  length          2   29[BANK1 ] int 
+  msgbuffer       2   31[BANK1 ] PTR unsigned char 
 		 -> main@msgbuffer(11), 
  Auto vars:     Size  Location     Type
 		None
  Return value:  Size  Location     Type
-                  2   19[BANK1 ] int 
+                  2   25[BANK1 ] int 
  Registers used:
 		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, prodl, prodh, cstack
  Tracked objects:
@@ -1871,8 +1897,8 @@ Total ram usage:        5 bytes
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
       Params:         0       0       8       0       0       0       0       0       0       0       0       0       0       0
       Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Temps:          0       0       2       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       0      10       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       2       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       2       8       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:       10 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   14
@@ -1890,7 +1916,7 @@ Total ram usage:       10 bytes
   length          1   53[BANK0 ] unsigned char 
   addr            1   54[BANK0 ] unsigned char 
  Auto vars:     Size  Location     Type
-  i               2   56[BANK0 ] int 
+  i               2    0[BANK1 ] int 
   data            1    0        unsigned char 
   status          1    0        unsigned char 
  Return value:  Size  Location     Type
@@ -1903,9 +1929,9 @@ Total ram usage:       10 bytes
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
       Params:         0       2       0       0       0       0       0       0       0       0       0       0       0       0
-      Locals:         0       2       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       2       0       0       0       0       0       0       0       0       0       0       0
       Temps:          0       1       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       5       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       3       2       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:        5 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   12
@@ -1920,19 +1946,19 @@ Total ram usage:        5 bytes
  Defined at:
 		line 9 in file "../src/uart_thread.c"
  Parameters:    Size  Location     Type
-  uptr            2   47[BANK1 ] PTR struct __uart_thread
+  uptr            2   72[BANK1 ] PTR struct __uart_thread
 		 -> main@uthread_data(5), 
-  msgtype         2   49[BANK1 ] int 
-  length          2   51[BANK1 ] int 
-  msgbuffer       2   53[BANK1 ] PTR unsigned char 
+  msgtype         2   74[BANK1 ] int 
+  length          2   76[BANK1 ] int 
+  msgbuffer       2   78[BANK1 ] PTR unsigned char 
 		 -> main@msgbuffer(11), 
-  rcvQ            2   55[BANK1 ] PTR struct Queue
+  rcvQ            2   80[BANK1 ] PTR struct Queue
  Auto vars:     Size  Location     Type
-  i               2   59[BANK1 ] int 
+  i               2   84[BANK1 ] int 
  Return value:  Size  Location     Type
-                  2   47[BANK1 ] int 
+                  2   72[BANK1 ] int 
  Registers used:
-		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, prodl, prodh, cstack
+		wreg, fsr0l, fsr0h, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, pclat, tosl, structret, tblptrl, tblptrh, tblptru, prodl, prodh, bsr, cstack
  Tracked objects:
 		On entry : 
 		On exit  : 
@@ -1944,7 +1970,7 @@ Total ram usage:        5 bytes
       Totals:         0       0      14       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:       14 bytes
  Hardware stack levels used:    1
- Hardware stack levels required when called:   14
+ Hardware stack levels required when called:   15
  This function calls:
 		_appendQueue
 		_doZigBee
@@ -1956,46 +1982,84 @@ Total ram usage:       14 bytes
 
  *************** function _doZigBee *****************
  Defined at:
-		line 39 in file "../src/zigBee.c"
+		line 60 in file "../src/zigBee.c"
  Parameters:    Size  Location     Type
-  length          2   36[BANK1 ] int 
-  msgbuffer       2   38[BANK1 ] PTR unsigned char 
+  length          2   47[BANK1 ] int 
+  msgbuffer       2   49[BANK1 ] PTR unsigned char 
 		 -> main@msgbuffer(11), 
-  rcvQ            2   40[BANK1 ] PTR struct Queue
+  rcvQ            2   51[BANK1 ] PTR struct Queue
  Auto vars:     Size  Location     Type
-  numMsgs         2   43[BANK1 ] int 
-  i               2   45[BANK1 ] int 
+  outMsg         13   59[BANK1 ] struct __g9Msg
+  pStatus         2   53[BANK1 ] PTR struct __zigBeeTxSta
+		 -> doZigBee@msg(40), 
+  numMsgs         2   55[BANK1 ] int 
+  i               2   57[BANK1 ] int 
  Return value:  Size  Location     Type
 		None               void
  Registers used:
-		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+		wreg, fsr0l, fsr0h, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, pclat, tosl, structret, tblptrl, tblptrh, tblptru, prodl, prodh, bsr, cstack
  Tracked objects:
 		On entry : 
 		On exit  : 
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
       Params:         0       0       6       0       0       0       0       0       0       0       0       0       0       0
-      Locals:         0       0       4       0       0       0       0       0       0       0       0       0       0       0
-      Temps:          0       0       1       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       0      11       0       0       0       0       0       0       0       0       0       0       0
-Total ram usage:       11 bytes
+      Locals:         0       0      19       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       1       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       1      25       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:       26 bytes
  Hardware stack levels used:    1
- Hardware stack levels required when called:   13
+ Hardware stack levels required when called:   14
  This function calls:
-		_memcpy
+		_getNumMessagesQueue
 		_readQueue
 		_getLen
-		_getNumMessagesQueue
+		_generateChecksum
+		_zigBee2G9Msg
+		_ToMainHigh_sendmsg
  This function is called by:
 		_uart_lthread
  This function uses a non-reentrant model
 
 
+ *************** function _generateChecksum *****************
+ Defined at:
+		line 19 in file "../src/zigBee.c"
+ Parameters:    Size  Location     Type
+  msg             2   53[BANK0 ] PTR struct __zigBeeMsg
+		 -> doZigBee@msg(40), 
+ Auto vars:     Size  Location     Type
+  i               2   44[BANK1 ] int 
+  len             2   42[BANK1 ] unsigned int 
+  check           1   46[BANK1 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       2       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       5       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       2       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       2       7       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        9 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:   12
+ This function calls:
+		_getLen
+ This function is called by:
+		_doZigBee
+ This function uses a non-reentrant model
+
+
  *************** function _getLen *****************
  Defined at:
-		line 4 in file "../src/zigBee.c"
+		line 9 in file "../src/zigBee.c"
  Parameters:    Size  Location     Type
-  msg            36    0[BANK1 ] struct __zigBeeMsg
+  msg            40    0[BANK1 ] struct __zigBeeMsg
  Auto vars:     Size  Location     Type
 		None
  Return value:  Size  Location     Type
@@ -2007,54 +2071,52 @@ Total ram usage:       11 bytes
 		On exit  : 
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
-      Params:         0       0      36       0       0       0       0       0       0       0       0       0       0       0
+      Params:         0       0      40       0       0       0       0       0       0       0       0       0       0       0
       Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
       Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       0      36       0       0       0       0       0       0       0       0       0       0       0
-Total ram usage:       36 bytes
+      Totals:         0       0      40       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:       40 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:   11
+ This function calls:
+		Nothing
+ This function is called by:
+		_generateChecksum
+		_doZigBee
+		_serializeZigBeeMsg
+ This function uses a non-reentrant model
+
+
+ *************** function _zigBee2G9Msg *****************
+ Defined at:
+		line 44 in file "../src/zigBee.c"
+ Parameters:    Size  Location     Type
+  in              2    0[BANK1 ] PTR struct __zigBeeMsg
+		 -> doZigBee@msg(40), 
+  out             2    2[BANK1 ] PTR struct __g9Msg
+		 -> doZigBee@outMsg(13), 
+ Auto vars:     Size  Location     Type
+  i               2   53[BANK0 ] int 
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       4       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       2       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       4       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       2       8       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:       10 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   11
  This function calls:
 		Nothing
  This function is called by:
 		_doZigBee
-		_generateChecksum
-		_serializeZigBeeMsg
- This function uses a non-reentrant model
-
-
- *************** function _readQueue *****************
- Defined at:
-		line 19 in file "../src/queue.c"
- Parameters:    Size  Location     Type
-  Q               2   55[BANK0 ] PTR struct Queue
-  msg             2   57[BANK0 ] PTR unsigned char 
-		 -> FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), ToMainLow_MQ(54), 
-		 -> main@msg(1), main@msgbuffer(11), main@ic(29), main@uc(5), 
-		 -> NULL(0), doZigBee@msg(36), 
- Auto vars:     Size  Location     Type
-  i               2   59[BANK0 ] int 
- Return value:  Size  Location     Type
-                  1    wreg      unsigned char 
- Registers used:
-		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
- Tracked objects:
-		On entry : 
-		On exit  : 
-		Unchanged: 
- Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
-      Params:         0       4       0       0       0       0       0       0       0       0       0       0       0       0
-      Locals:         0       2       0       0       0       0       0       0       0       0       0       0       0       0
-      Temps:          0       0       5       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       6       5       0       0       0       0       0       0       0       0       0       0       0
-Total ram usage:       11 bytes
- Hardware stack levels used:    1
- Hardware stack levels required when called:   12
- This function calls:
-		_isQueueEmpty
- This function is called by:
-		_doZigBee
-		_main
  This function uses a non-reentrant model
 
 
@@ -2088,16 +2150,83 @@ Total ram usage:       10 bytes
  This function uses a non-reentrant model
 
 
+ *************** function _readQueue *****************
+ Defined at:
+		line 19 in file "../src/queue.c"
+ Parameters:    Size  Location     Type
+  Q               2    0[BANK1 ] PTR struct Queue
+  msg             2    2[BANK1 ] PTR unsigned char 
+		 -> main@msg(1), main@msgbuffer(11), doZigBee@msg(40), 
+ Auto vars:     Size  Location     Type
+  i               2    9[BANK1 ] int 
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, tblptrl, tblptrh, tblptru, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       4       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       2       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       5       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0      11       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:       11 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:   12
+ This function calls:
+		_isQueueEmpty
+ This function is called by:
+		_doZigBee
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _ToMainHigh_sendmsg *****************
+ Defined at:
+		line 126 in file "../src/messages.c"
+ Parameters:    Size  Location     Type
+  length          1   21[BANK1 ] unsigned char 
+  msgtype         1   22[BANK1 ] unsigned char 
+  data            2   23[BANK1 ] PTR void 
+		 -> timer0_int_handler@val(2), main@ic(29), doZigBee@outMsg(13), NULL(0), 
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      char 
+ Registers used:
+		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, prodl, prodh, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
+      Params:         0       0       4       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       4       0       0       0       0       0       0       0       0       0       0       0
+Total ram usage:        4 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:   13
+ This function calls:
+		_send_msg
+ This function is called by:
+		_doZigBee
+		_uart_lthread
+ This function uses a non-reentrant model
+
+
  *************** function _appendQueue *****************
  Defined at:
 		line 3 in file "../src/queue.c"
  Parameters:    Size  Location     Type
-  Q               2   55[BANK0 ] PTR struct Queue
-  msg             1   57[BANK0 ] unsigned char 
+  Q               2    0[BANK1 ] PTR struct Queue
+  msg             1    2[BANK1 ] unsigned char 
  Auto vars:     Size  Location     Type
 		None
  Return value:  Size  Location     Type
-                  2   55[BANK0 ] int 
+                  2    0[BANK1 ] int 
  Registers used:
 		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, cstack
  Tracked objects:
@@ -2105,10 +2234,10 @@ Total ram usage:       10 bytes
 		On exit  : 
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
-      Params:         0       3       0       0       0       0       0       0       0       0       0       0       0       0
+      Params:         0       0       3       0       0       0       0       0       0       0       0       0       0       0
       Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
       Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       3       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0       3       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:        3 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   12
@@ -2127,7 +2256,7 @@ Total ram usage:        3 bytes
   qptr            2   53[BANK0 ] PTR struct __msg_queue
 		 -> FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), ToMainLow_MQ(54), 
  Auto vars:     Size  Location     Type
-  i               1   56[BANK0 ] unsigned char 
+  i               1    0[BANK1 ] unsigned char 
  Return value:  Size  Location     Type
 		None               void
  Registers used:
@@ -2138,9 +2267,9 @@ Total ram usage:        3 bytes
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
       Params:         0       2       0       0       0       0       0       0       0       0       0       0       0       0
-      Locals:         0       1       0       0       0       0       0       0       0       0       0       0       0       0
+      Locals:         0       0       1       0       0       0       0       0       0       0       0       0       0       0
       Temps:          0       1       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       4       0       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       3       1       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:        4 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   11
@@ -2155,18 +2284,18 @@ Total ram usage:        4 bytes
  Defined at:
 		line 63 in file "../src/messages.c"
  Parameters:    Size  Location     Type
-  qptr            2    4[BANK1 ] PTR struct __msg_queue
+  qptr            2   10[BANK1 ] PTR struct __msg_queue
 		 -> FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), ToMainLow_MQ(54), 
-  maxlength       1    6[BANK1 ] unsigned char 
-  msgtype         2    7[BANK1 ] PTR unsigned char 
+  maxlength       1   12[BANK1 ] unsigned char 
+  msgtype         2   13[BANK1 ] PTR unsigned char 
 		 -> timer0_int_handler@msgtype(2), main@msgtype(1), 
-  data            2    9[BANK1 ] PTR void 
+  data            2   15[BANK1 ] PTR void 
 		 -> timer0_int_handler@val(2), main@msgbuffer(11), 
  Auto vars:     Size  Location     Type
-  qmsg            2   14[BANK1 ] PTR struct __msg
+  qmsg            2   20[BANK1 ] PTR struct __msg
 		 -> FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), ToMainLow_MQ(54), 
-  tlength         2   12[BANK1 ] unsigned int 
-  slot            1   11[BANK1 ] unsigned char 
+  tlength         2   18[BANK1 ] unsigned int 
+  slot            1   17[BANK1 ] unsigned char 
  Return value:  Size  Location     Type
                   1    wreg      char 
  Registers used:
@@ -2196,9 +2325,9 @@ Total ram usage:       14 bytes
  Defined at:
 		line 103 in file "../src/messages.c"
  Parameters:    Size  Location     Type
-  length          1   15[BANK1 ] unsigned char 
-  msgtype         1   16[BANK1 ] unsigned char 
-  data            2   17[BANK1 ] PTR void 
+  length          1   21[BANK1 ] unsigned char 
+  msgtype         1   22[BANK1 ] unsigned char 
+  data            2   23[BANK1 ] PTR void 
 		 -> main@uc(5), NULL(0), 
  Auto vars:     Size  Location     Type
 		None
@@ -2226,54 +2355,22 @@ Total ram usage:        4 bytes
  This function uses a non-reentrant model
 
 
- *************** function _ToMainHigh_sendmsg *****************
- Defined at:
-		line 126 in file "../src/messages.c"
- Parameters:    Size  Location     Type
-  length          1   15[BANK1 ] unsigned char 
-  msgtype         1   16[BANK1 ] unsigned char 
-  data            2   17[BANK1 ] PTR void 
-		 -> timer0_int_handler@val(2), main@ic(29), NULL(0), 
- Auto vars:     Size  Location     Type
-		None
- Return value:  Size  Location     Type
-                  1    wreg      char 
- Registers used:
-		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0, prodl, prodh, cstack
- Tracked objects:
-		On entry : 
-		On exit  : 
-		Unchanged: 
- Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
-      Params:         0       0       4       0       0       0       0       0       0       0       0       0       0       0
-      Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       0       4       0       0       0       0       0       0       0       0       0       0       0
-Total ram usage:        4 bytes
- Hardware stack levels used:    1
- Hardware stack levels required when called:   13
- This function calls:
-		_send_msg
- This function is called by:
-		_uart_lthread
- This function uses a non-reentrant model
-
-
  *************** function _send_msg *****************
  Defined at:
 		line 24 in file "../src/messages.c"
  Parameters:    Size  Location     Type
-  qptr            2    4[BANK1 ] PTR struct __msg_queue
+  qptr            2   10[BANK1 ] PTR struct __msg_queue
 		 -> FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), ToMainLow_MQ(54), 
-  length          1    6[BANK1 ] unsigned char 
-  msgtype         1    7[BANK1 ] unsigned char 
-  data            2    8[BANK1 ] PTR void 
-		 -> timer0_int_handler@val(2), main@ic(29), main@uc(5), NULL(0), 
+  length          1   12[BANK1 ] unsigned char 
+  msgtype         1   13[BANK1 ] unsigned char 
+  data            2   14[BANK1 ] PTR void 
+		 -> timer0_int_handler@val(2), main@ic(29), main@uc(5), doZigBee@outMsg(13), 
+		 -> NULL(0), 
  Auto vars:     Size  Location     Type
-  qmsg            2   13[BANK1 ] PTR struct __msg
+  qmsg            2   19[BANK1 ] PTR struct __msg
 		 -> FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), ToMainLow_MQ(54), 
-  tlength         2   10[BANK1 ] unsigned int 
-  slot            1   12[BANK1 ] unsigned char 
+  tlength         2   16[BANK1 ] unsigned int 
+  slot            1   18[BANK1 ] unsigned char 
  Return value:  Size  Location     Type
                   1    wreg      char 
  Registers used:
@@ -2304,26 +2401,24 @@ Total ram usage:       12 bytes
  Defined at:
 		line 13 in file "C:\Program Files\Microchip\xc8\v1.12\sources\memcpy.c"
  Parameters:    Size  Location     Type
-  d1              2   53[BANK0 ] PTR void 
+  d1              2    0[BANK1 ] PTR void 
 		 -> timer0_int_handler@val(2), FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), 
-		 -> ToMainLow_MQ(54), main@msgbuffer(11), main@ic(29), main@uc(5), 
-		 -> NULL(0), doZigBee@msg(36), 
-  s1              2   55[BANK0 ] PTR const void 
+		 -> ToMainLow_MQ(54), main@msgbuffer(11), 
+  s1              2    2[BANK1 ] PTR const void 
 		 -> timer0_int_handler@val(2), FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), 
-		 -> ToMainLow_MQ(54), main@msgbuffer(11), main@ic(29), main@uc(5), 
+		 -> ToMainLow_MQ(54), main@ic(29), main@uc(5), doZigBee@outMsg(13), 
 		 -> NULL(0), 
-  n               2   57[BANK0 ] unsigned int 
+  n               2    4[BANK1 ] unsigned int 
  Auto vars:     Size  Location     Type
-  s               2    2[BANK1 ] PTR const unsigned char 
+  s               2    8[BANK1 ] PTR const unsigned char 
 		 -> timer0_int_handler@val(2), FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), 
-		 -> ToMainLow_MQ(54), main@msgbuffer(11), main@ic(29), main@uc(5), 
+		 -> ToMainLow_MQ(54), main@ic(29), main@uc(5), doZigBee@outMsg(13), 
 		 -> NULL(0), 
-  d               2    0[BANK1 ] PTR unsigned char 
+  d               2    6[BANK1 ] PTR unsigned char 
 		 -> timer0_int_handler@val(2), FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), 
-		 -> ToMainLow_MQ(54), main@msgbuffer(11), main@ic(29), main@uc(5), 
-		 -> NULL(0), doZigBee@msg(36), 
+		 -> ToMainLow_MQ(54), main@msgbuffer(11), 
  Return value:  Size  Location     Type
-                  2   53[BANK0 ] PTR void 
+                  2    0[BANK1 ] PTR void 
  Registers used:
 		wreg, fsr1l, fsr1h, fsr2l, fsr2h, status,2, status,0
  Tracked objects:
@@ -2331,17 +2426,16 @@ Total ram usage:       12 bytes
 		On exit  : 
 		Unchanged: 
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
-      Params:         0       6       0       0       0       0       0       0       0       0       0       0       0       0
+      Params:         0       0       6       0       0       0       0       0       0       0       0       0       0       0
       Locals:         0       0       4       0       0       0       0       0       0       0       0       0       0       0
       Temps:          0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       6       4       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       0      10       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:       10 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   11
  This function calls:
 		Nothing
  This function is called by:
-		_doZigBee
 		_send_msg
 		_recv_msg
  This function uses a non-reentrant model
@@ -2458,8 +2552,8 @@ Total ram usage:        0 bytes
  Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5   BANK6   BANK7   BANK8   BANK9  BANK10  BANK11  BANK12
       Params:         0       3       0       0       0       0       0       0       0       0       0       0       0       0
       Locals:         0       0       0       0       0       0       0       0       0       0       0       0       0       0
-      Temps:          0       2       0       0       0       0       0       0       0       0       0       0       0       0
-      Totals:         0       5       0       0       0       0       0       0       0       0       0       0       0       0
+      Temps:          0       0       2       0       0       0       0       0       0       0       0       0       0       0
+      Totals:         0       3       2       0       0       0       0       0       0       0       0       0       0       0
 Total ram usage:        5 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   11
@@ -2819,7 +2913,8 @@ Total ram usage:        4 bytes
   send_msg        1   12[COMRAM] unsigned char 
   send_msg        1   13[COMRAM] unsigned char 
   send_msg        2   14[COMRAM] PTR void 
-		 -> timer0_int_handler@val(2), main@ic(29), main@uc(5), NULL(0), 
+		 -> timer0_int_handler@val(2), main@ic(29), main@uc(5), doZigBee@outMsg(13), 
+		 -> NULL(0), 
  Auto vars:     Size  Location     Type
   send_msg        2   20[COMRAM] PTR struct __msg
 		 -> FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), ToMainLow_MQ(54), 
@@ -2854,22 +2949,20 @@ Total ram usage:       12 bytes
  Parameters:    Size  Location     Type
   memcpy          2    0[COMRAM] PTR void 
 		 -> timer0_int_handler@val(2), FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), 
-		 -> ToMainLow_MQ(54), main@msgbuffer(11), main@ic(29), main@uc(5), 
-		 -> NULL(0), doZigBee@msg(36), 
+		 -> ToMainLow_MQ(54), main@msgbuffer(11), 
   memcpy          2    2[COMRAM] PTR const void 
 		 -> timer0_int_handler@val(2), FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), 
-		 -> ToMainLow_MQ(54), main@msgbuffer(11), main@ic(29), main@uc(5), 
+		 -> ToMainLow_MQ(54), main@ic(29), main@uc(5), doZigBee@outMsg(13), 
 		 -> NULL(0), 
   memcpy          2    4[COMRAM] unsigned int 
  Auto vars:     Size  Location     Type
   memcpy          2    8[COMRAM] PTR const unsigned char 
 		 -> timer0_int_handler@val(2), FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), 
-		 -> ToMainLow_MQ(54), main@msgbuffer(11), main@ic(29), main@uc(5), 
+		 -> ToMainLow_MQ(54), main@ic(29), main@uc(5), doZigBee@outMsg(13), 
 		 -> NULL(0), 
   memcpy          2    6[COMRAM] PTR unsigned char 
 		 -> timer0_int_handler@val(2), FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), 
-		 -> ToMainLow_MQ(54), main@msgbuffer(11), main@ic(29), main@uc(5), 
-		 -> NULL(0), doZigBee@msg(36), 
+		 -> ToMainLow_MQ(54), main@msgbuffer(11), 
  Return value:  Size  Location     Type
                   2    0[COMRAM] PTR void 
  Registers used:
@@ -3288,7 +3381,7 @@ Total ram usage:       14 bytes
   ToMainHigh_s    1   22[BANK0 ] unsigned char 
   ToMainHigh_s    1   23[BANK0 ] unsigned char 
   ToMainHigh_s    2   24[BANK0 ] PTR void 
-		 -> timer0_int_handler@val(2), main@ic(29), NULL(0), 
+		 -> timer0_int_handler@val(2), main@ic(29), doZigBee@outMsg(13), NULL(0), 
  Auto vars:     Size  Location     Type
 		None
  Return value:  Size  Location     Type
@@ -3324,7 +3417,8 @@ Total ram usage:        4 bytes
   send_msg        1   12[BANK0 ] unsigned char 
   send_msg        1   13[BANK0 ] unsigned char 
   send_msg        2   14[BANK0 ] PTR void 
-		 -> timer0_int_handler@val(2), main@ic(29), main@uc(5), NULL(0), 
+		 -> timer0_int_handler@val(2), main@ic(29), main@uc(5), doZigBee@outMsg(13), 
+		 -> NULL(0), 
  Auto vars:     Size  Location     Type
   send_msg        2   20[BANK0 ] PTR struct __msg
 		 -> FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), ToMainLow_MQ(54), 
@@ -3418,22 +3512,20 @@ Total ram usage:        0 bytes
  Parameters:    Size  Location     Type
   memcpy          2    0[BANK0 ] PTR void 
 		 -> timer0_int_handler@val(2), FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), 
-		 -> ToMainLow_MQ(54), main@msgbuffer(11), main@ic(29), main@uc(5), 
-		 -> NULL(0), doZigBee@msg(36), 
+		 -> ToMainLow_MQ(54), main@msgbuffer(11), 
   memcpy          2    2[BANK0 ] PTR const void 
 		 -> timer0_int_handler@val(2), FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), 
-		 -> ToMainLow_MQ(54), main@msgbuffer(11), main@ic(29), main@uc(5), 
+		 -> ToMainLow_MQ(54), main@ic(29), main@uc(5), doZigBee@outMsg(13), 
 		 -> NULL(0), 
   memcpy          2    4[BANK0 ] unsigned int 
  Auto vars:     Size  Location     Type
   memcpy          2    8[BANK0 ] PTR const unsigned char 
 		 -> timer0_int_handler@val(2), FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), 
-		 -> ToMainLow_MQ(54), main@msgbuffer(11), main@ic(29), main@uc(5), 
+		 -> ToMainLow_MQ(54), main@ic(29), main@uc(5), doZigBee@outMsg(13), 
 		 -> NULL(0), 
   memcpy          2    6[BANK0 ] PTR unsigned char 
 		 -> timer0_int_handler@val(2), FromMainHigh_MQ(54), FromMainLow_MQ(54), ToMainHigh_MQ(54), 
-		 -> ToMainLow_MQ(54), main@msgbuffer(11), main@ic(29), main@uc(5), 
-		 -> NULL(0), doZigBee@msg(36), 
+		 -> ToMainLow_MQ(54), main@msgbuffer(11), 
  Return value:  Size  Location     Type
                   2    0[BANK0 ] PTR void 
  Registers used:
@@ -3462,171 +3554,173 @@ MODULE INFORMATION
 
 Module		Function		Class		Link	Load	Size
 plib/Timers/t0open.c
-		_OpenTimer0    		CODE           	22DC	0000	42
+		_OpenTimer0    		CODE           	26B4	0000	42
 
 plib/Timers/t0open.c estimated size: 42
 
 plib/Timers/t1open.c
-		_OpenTimer1    		CODE           	2042	0000	62
+		_OpenTimer1    		CODE           	241A	0000	62
 
 plib/Timers/t1open.c estimated size: 62
 
 ../src/zigBee.c
-		_getLen        		CODE           	242E	0000	26
-		_doZigBee      		CODE           	0AD2	0000	606
+		_getLen        		CODE           	2806	0000	26
+		_zigBee2G9Msg  		CODE           	0EA6	0000	388
+		_doZigBee      		CODE           	0708	0000	980
+		_generateChecks		CODE           	180A	0000	222
 
-../src/zigBee.c estimated size: 632
+../src/zigBee.c estimated size: 1616
 
 ../src/user_interrupts.c
-		_timer0_int_han		CODE           	15EC	0000	200
-		_timer1_int_han		CODE           	1F58	0000	84
+		_timer0_int_han		CODE           	19C4	0000	200
+		_timer1_int_han		CODE           	2330	0000	84
 
 ../src/user_interrupts.c estimated size: 284
 
 ../src/timer0_thread.c
-		_timer0_lthread		CODE           	24D6	0000	10
+		_timer0_lthread		CODE           	28AE	0000	10
 
 ../src/timer0_thread.c estimated size: 10
 
 shared
-		i1_send_msg    		CODE           	18D6	0000	178
-		i2_send_msg    		CODE           	132A	0000	262
-		i2_ToMainHigh_s		CODE           	22B0	0000	44
-		i2_in_high_int 		CODE           	2470	0000	20
-		i2_recv_msg    		CODE           	0FB6	0000	320
-		__initializatio		CODE           	20BA	0000	46
-		i2_in_low_int  		CODE           	1DF6	0000	94
-		i1_ToMainLow_se		CODE           	2306	0000	36
-		i1_memcpy      		CODE           	1FFA	0000	72
-		i2_memcpy      		CODE           	1F02	0000	86
-		i2_check_msg   		CODE           	2162	0000	56
-		i2_IdleI2C     		CODE           	23F8	0000	28
+		i1_send_msg    		CODE           	1CAE	0000	178
+		i2_send_msg    		CODE           	1624	0000	262
+		i2_ToMainHigh_s		CODE           	2688	0000	44
+		i2_in_high_int 		CODE           	2848	0000	20
+		i2_recv_msg    		CODE           	12B0	0000	320
+		__initializatio		CODE           	2492	0000	46
+		i2_in_low_int  		CODE           	21CE	0000	94
+		i1_ToMainLow_se		CODE           	26DE	0000	36
+		i1_memcpy      		CODE           	23D2	0000	72
+		i2_memcpy      		CODE           	22DA	0000	86
+		i2_check_msg   		CODE           	253A	0000	56
+		i2_IdleI2C     		CODE           	27D0	0000	28
 
 shared estimated size: 1242
 
 ../src/queue.c
-		_appendQueue   		CODE           	234A	0000	32
-		_isQueueFull   		CODE           	2080	0000	58
-		_isQueueEmpty  		CODE           	222A	0000	46
-		_getNumMessages		CODE           	1C3A	0000	128
-		_createQueue   		CODE           	24CC	0000	10
-		_readQueue     		CODE           	1510	0000	220
+		_appendQueue   		CODE           	2722	0000	32
+		_isQueueFull   		CODE           	2458	0000	58
+		_isQueueEmpty  		CODE           	2602	0000	46
+		_getNumMessages		CODE           	2012	0000	128
+		_createQueue   		CODE           	28A4	0000	10
+		_readQueue     		CODE           	18E8	0000	220
 
 ../src/queue.c estimated size: 494
 
 plib/USART/uopen.c
-		_OpenUSART     		CODE           	1822	0000	180
+		_OpenUSART     		CODE           	1BFA	0000	180
 
 plib/USART/uopen.c estimated size: 180
 
 C:\Program Files\Microchip\xc8\v1.12\sources\memcpy.c
-		_memcpy        		CODE           	1EAC	0000	86
+		_memcpy        		CODE           	2284	0000	86
 
 C:\Program Files\Microchip\xc8\v1.12\sources\memcpy.c estimated size: 86
 
 ../src/my_i2c.c
-		_i2c_master_sen		CODE           	0D30	0000	326
-		_i2c_master_rec		CODE           	16B4	0000	184
-		_i2c_configure_		CODE           	232A	0000	32
-		_i2c_master_han		CODE           	0708	0000	970
-		_i2c_slave_hand		CODE           	24EE	0000	2
-		_init_i2c      		CODE           	1BB8	0000	130
-		_i2c_int_handle		CODE           	23DC	0000	28
+		_i2c_master_sen		CODE           	102A	0000	326
+		_i2c_master_rec		CODE           	1A8C	0000	184
+		_i2c_configure_		CODE           	2702	0000	32
+		_i2c_master_han		CODE           	0ADC	0000	970
+		_i2c_slave_hand		CODE           	28C6	0000	2
+		_init_i2c      		CODE           	1F90	0000	130
+		_i2c_int_handle		CODE           	27B4	0000	28
 
 ../src/my_i2c.c estimated size: 1672
 
 ../src/timer1_thread.c
-		_timer1_lthread		CODE           	1D2C	0000	108
-		_init_timer1_lt		CODE           	2484	0000	18
+		_timer1_lthread		CODE           	2104	0000	108
+		_init_timer1_lt		CODE           	285C	0000	18
 
 ../src/timer1_thread.c estimated size: 126
 
 plib/Timers/t0write.c
-		_WriteTimer0   		CODE           	24BA	0000	18
+		_WriteTimer0   		CODE           	2892	0000	18
 
 plib/Timers/t0write.c estimated size: 18
 
 plib/Timers/t1write.c
-		_WriteTimer1   		CODE           	24A8	0000	18
+		_WriteTimer1   		CODE           	2880	0000	18
 
 plib/Timers/t1write.c estimated size: 18
 
 ../src/uart_thread.c
-		_uart_lthread  		CODE           	10F6	0000	302
+		_uart_lthread  		CODE           	13F0	0000	302
 
 ../src/uart_thread.c estimated size: 302
 
 ../src/my_adc.c
-		_initADC       		CODE           	1FAC	0000	78
-		_adc_int_handle		CODE           	236A	0000	30
+		_initADC       		CODE           	2384	0000	78
+		_adc_int_handle		CODE           	2742	0000	30
 
 ../src/my_adc.c estimated size: 108
 
 plib/ADC/adcopen.c
-		_OpenADC       		CODE           	1B34	0000	132
+		_OpenADC       		CODE           	1F0C	0000	132
 
 plib/ADC/adcopen.c estimated size: 132
 
 plib/ADC/adcsetch.c
-		_SetChanADC    		CODE           	23C0	0000	28
+		_SetChanADC    		CODE           	2798	0000	28
 
 plib/ADC/adcsetch.c estimated size: 28
 
 plib/i2c/i2c_idle.c
-		_IdleI2C       		CODE           	23A4	0000	28
+		_IdleI2C       		CODE           	277C	0000	28
 
 plib/i2c/i2c_idle.c estimated size: 28
 
 ../common/d1ktcyx.c
-		_Delay1KTCYx   		CODE           	245C	0000	20
+		_Delay1KTCYx   		CODE           	2834	0000	20
 
 ../common/d1ktcyx.c estimated size: 20
 
 ../src/interrupts.c
-		_enable_interru		CODE           	24E0	0000	8
-		_in_low_int    		CODE           	1D98	0000	94
-		_in_main       		CODE           	1E54	0000	88
-		_in_high_int   		CODE           	2448	0000	20
+		_enable_interru		CODE           	28B8	0000	8
+		_in_low_int    		CODE           	2170	0000	94
+		_in_main       		CODE           	222C	0000	88
+		_in_high_int   		CODE           	2820	0000	20
 		_InterruptHandl		CODE           	0018	0000	186
-		_InterruptHandl		CODE           	0008	0000	6822
+		_InterruptHandl		CODE           	0008	0000	7806
 
-../src/interrupts.c estimated size: 7218
+../src/interrupts.c estimated size: 8202
 
 plib/Timers/t1read.c
-		_ReadTimer1    		CODE           	2496	0000	18
+		_ReadTimer1    		CODE           	286E	0000	18
 
 plib/Timers/t1read.c estimated size: 18
 
 ../src/my_uart.c
-		_init_uart_recv		CODE           	2414	0000	26
-		_uart_recv_int_		CODE           	176C	0000	182
+		_init_uart_recv		CODE           	27EC	0000	26
+		_uart_recv_int_		CODE           	1B44	0000	182
 
 ../src/my_uart.c estimated size: 208
 
 ../src/messages.c
-		_ToMainHigh_sen		CODE           	2284	0000	44
-		_ToMainHigh_rec		CODE           	219A	0000	48
-		_block_on_To_ms		CODE           	1430	0000	224
-		_check_msg     		CODE           	20F2	0000	56
-		_ToMainLow_send		CODE           	2258	0000	44
-		_ToMainLow_recv		CODE           	21CA	0000	48
-		_enter_sleep_mo		CODE           	24E8	0000	6
-		_send_msg      		CODE           	1224	0000	262
-		_FromMainHigh_r		CODE           	21FA	0000	48
-		_init_queue    		CODE           	1AAE	0000	134
-		_init_queues   		CODE           	1CBA	0000	114
-		_recv_msg      		CODE           	0E76	0000	320
-		_SleepIfOkay   		CODE           	1988	0000	154
+		_ToMainHigh_sen		CODE           	2630	0000	44
+		_ToMainHigh_rec		CODE           	2572	0000	48
+		_block_on_To_ms		CODE           	172A	0000	224
+		_check_msg     		CODE           	24CA	0000	56
+		_ToMainLow_send		CODE           	265C	0000	44
+		_ToMainLow_recv		CODE           	25A2	0000	48
+		_enter_sleep_mo		CODE           	28C0	0000	6
+		_send_msg      		CODE           	151E	0000	262
+		_FromMainHigh_r		CODE           	25D2	0000	48
+		_init_queue    		CODE           	1E86	0000	134
+		_init_queues   		CODE           	2092	0000	114
+		_recv_msg      		CODE           	1170	0000	320
+		_SleepIfOkay   		CODE           	1D60	0000	154
 
 ../src/messages.c estimated size: 1502
 
 plib/USART/uwrite.c
-		_WriteUSART    		CODE           	2388	0000	28
+		_WriteUSART    		CODE           	2760	0000	28
 
 plib/USART/uwrite.c estimated size: 28
 
 plib/USART/uread.c
-		_ReadUSART     		CODE           	212A	0000	56
+		_ReadUSART     		CODE           	2502	0000	56
 
 plib/USART/uread.c estimated size: 56
 
