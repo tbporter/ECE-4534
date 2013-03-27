@@ -1,0 +1,681 @@
+FILE		0x0	0	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"
+FN_START	0x0	25	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"	"_entry"	"external"	
+FN_END		0x4	27	
+FILE		0x0	0	"C:\MCC18\v3_39\src\extended\stdclib\__init.c"
+FN_START	0x6	9	"C:\MCC18\v3_39\src\extended\stdclib\__init.c"	"__init"	"external"	
+FN_END		0x6	9	
+FILE		0x0	0	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"
+FN_START	0x8	69	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"InterruptVectorHigh"	"external"	
+FN_END		0xc	71	
+FN_START	0x18	60	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"InterruptVectorLow"	"external"	
+FN_END		0x1c	62	
+FILE		0x0	0	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"
+FN_START	0x2c	15	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"i2c_configure_master"	"external"	
+ADJUST		0x2c	15	1
+ADJUST		0x4e	49	-1
+FN_END		0x54	49	
+FN_START	0x56	63	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_send"	"external"	
+ADJUST		0x56	63	1
+ADJUST		0x9c	67	1
+ADJUST		0xce	67	-1
+ADJUST		0x130	72	1
+ADJUST		0x142	72	-1
+ADJUST		0x152	76	-1
+FN_END		0x158	76	
+FN_START	0x15a	91	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_recv"	"external"	
+ADJUST		0x15a	91	1
+ADJUST		0x164	91	2
+CALL		0x1d2	104	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
+ADJUST		0x1dc	108	-3
+FN_END		0x1e2	108	
+FN_START	0x1e4	110	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"start_i2c_slave_reply"	"external"	
+ADJUST		0x1e4	110	1
+ADJUST		0x22a	113	1
+ADJUST		0x25c	113	-1
+ADJUST		0x2ae	124	-1
+FN_END		0x2b4	124	
+FN_START	0x2b6	128	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"handle_start"	"external"	
+ADJUST		0x2b6	128	1
+ADJUST		0x36e	149	-1
+FN_END		0x374	149	
+FN_START	0x376	159	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"i2c_int_handler"	"external"	
+CALL		0x37e	161	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"i2c_slave_handler"	0
+CALL		0x382	165	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_handler"	0
+FN_END		0x384	167	
+FN_START	0x386	169	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_handler"	"external"	
+ADJUST		0x386	169	1
+ADJUST		0x390	169	6
+CALL		0x3e0	190	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
+ADJUST		0x58a	256	1
+ADJUST		0x58e	256	1
+ADJUST		0x594	256	1
+ADJUST		0x596	256	1
+CALL		0x59a	256	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0x59e	256	-4
+CALL		0x5b8	260	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
+ADJUST		0x5da	275	-7
+FN_END		0x5e0	275	
+FN_START	0x5e2	277	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"i2c_slave_handler"	"external"	
+ADJUST		0x5e2	277	1
+ADJUST		0x5ec	277	9
+ADJUST		0x674	312	1
+CALL		0x678	312	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"handle_start"	0
+ADJUST		0x67a	312	-1
+ADJUST		0x9da	428	1
+ADJUST		0xa04	428	-1
+ADJUST		0xa1a	429	1
+ADJUST		0xa1e	429	1
+ADJUST		0xa24	429	1
+ADJUST		0xa34	429	1
+CALL		0xa36	429	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0xa3a	429	-4
+ADJUST		0xa94	435	1
+ADJUST		0xa96	435	1
+ADJUST		0xa9c	435	1
+ADJUST		0xaa0	435	1
+CALL		0xaa2	435	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0xaa6	435	-4
+ADJUST		0xace	440	1
+ADJUST		0xad2	440	1
+ADJUST		0xad8	440	1
+ADJUST		0xada	440	1
+CALL		0xadc	440	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0xae0	440	-4
+ADJUST		0xae4	443	-10
+FN_END		0xaea	443	
+FN_START	0xaec	448	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"init_i2c"	"external"	
+ADJUST		0xaec	448	1
+ADJUST		0xb4e	457	-1
+FN_END		0xb54	457	
+FN_START	0xb56	462	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"i2c_configure_slave"	"external"	
+ADJUST		0xb56	462	1
+ADJUST		0xb7c	490	-1
+FN_END		0xb82	490	
+FILE		0x0	0	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"
+FN_START	0xb84	14	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"init_queue"	"external"	
+ADJUST		0xb84	14	1
+ADJUST		0xb8e	14	1
+ADJUST		0xbe4	22	-2
+FN_END		0xbea	22	
+FN_START	0xbec	24	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"send_msg"	"external"	
+ADJUST		0xbec	24	1
+ADJUST		0xbf6	24	5
+ADJUST		0xc66	55	1
+ADJUST		0xc6a	55	1
+ADJUST		0xc6e	55	1
+ADJUST		0xc72	55	1
+ADJUST		0xc8e	55	1
+ADJUST		0xc92	55	1
+CALL		0xc96	55	"memcpy.O"	"memcpy"	0
+ADJUST		0xc9a	55	-6
+ADJUST		0xcb0	56	1
+ADJUST		0xcc2	56	-1
+ADJUST		0xcd6	61	-6
+FN_END		0xcdc	61	
+FN_START	0xcde	63	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"recv_msg"	"external"	
+ADJUST		0xcde	63	1
+ADJUST		0xce8	63	5
+ADJUST		0xd50	81	1
+ADJUST		0xd54	81	1
+ADJUST		0xd70	81	1
+ADJUST		0xd74	81	1
+ADJUST		0xd78	81	1
+ADJUST		0xd7c	81	1
+CALL		0xd80	81	"memcpy.O"	"memcpy"	0
+ADJUST		0xd84	81	-6
+ADJUST		0xd9a	87	1
+ADJUST		0xdac	87	-1
+ADJUST		0xdc4	89	1
+ADJUST		0xdce	89	-1
+ADJUST		0xde8	96	-6
+FN_END		0xdee	96	
+FN_START	0xdf0	103	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	"external"	
+ADJUST		0xdf0	103	1
+ADJUST		0xdfa	109	1
+ADJUST		0xdfe	109	1
+ADJUST		0xe02	109	1
+ADJUST		0xe06	109	1
+ADJUST		0xe0c	109	1
+ADJUST		0xe10	109	1
+CALL		0xe12	109	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"send_msg"	0
+ADJUST		0xe14	109	-6
+ADJUST		0xe18	110	-1
+FN_END		0xe1e	110	
+FN_START	0xe20	112	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainLow_recvmsg"	"external"	
+ADJUST		0xe20	112	1
+ADJUST		0xe2a	118	1
+ADJUST		0xe2e	118	1
+ADJUST		0xe32	118	1
+ADJUST		0xe36	118	1
+ADJUST		0xe3a	118	1
+ADJUST		0xe40	118	1
+ADJUST		0xe44	118	1
+CALL		0xe46	118	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"recv_msg"	0
+ADJUST		0xe48	118	-7
+ADJUST		0xe4c	119	-1
+FN_END		0xe52	119	
+FN_START	0xe54	126	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	"external"	
+ADJUST		0xe54	126	1
+ADJUST		0xe5e	132	1
+ADJUST		0xe62	132	1
+ADJUST		0xe66	132	1
+ADJUST		0xe6a	132	1
+ADJUST		0xe70	132	1
+ADJUST		0xe74	132	1
+CALL		0xe76	132	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"send_msg"	0
+ADJUST		0xe78	132	-6
+ADJUST		0xe7c	133	-1
+FN_END		0xe82	133	
+FN_START	0xe84	135	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainHigh_recvmsg"	"external"	
+ADJUST		0xe84	135	1
+ADJUST		0xe8e	141	1
+ADJUST		0xe92	141	1
+ADJUST		0xe96	141	1
+ADJUST		0xe9a	141	1
+ADJUST		0xe9e	141	1
+ADJUST		0xea4	141	1
+ADJUST		0xea8	141	1
+CALL		0xeaa	141	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"recv_msg"	0
+ADJUST		0xeac	141	-7
+ADJUST		0xeb0	142	-1
+FN_END		0xeb6	142	
+FN_START	0xeb8	150	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"FromMainLow_sendmsg"	"external"	
+ADJUST		0xeb8	150	1
+ADJUST		0xec2	156	1
+ADJUST		0xec6	156	1
+ADJUST		0xeca	156	1
+ADJUST		0xece	156	1
+ADJUST		0xed4	156	1
+ADJUST		0xed8	156	1
+CALL		0xeda	156	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"send_msg"	0
+ADJUST		0xedc	156	-6
+ADJUST		0xee0	157	-1
+FN_END		0xee6	157	
+FN_START	0xee8	159	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"FromMainLow_recvmsg"	"external"	
+ADJUST		0xee8	159	1
+ADJUST		0xef2	165	1
+ADJUST		0xef6	165	1
+ADJUST		0xefa	165	1
+ADJUST		0xefe	165	1
+ADJUST		0xf02	165	1
+ADJUST		0xf08	165	1
+ADJUST		0xf0c	165	1
+CALL		0xf0e	165	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"recv_msg"	0
+ADJUST		0xf10	165	-7
+ADJUST		0xf14	166	-1
+FN_END		0xf1a	166	
+FN_START	0xf1c	174	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"FromMainHigh_sendmsg"	"external"	
+ADJUST		0xf1c	174	1
+ADJUST		0xf26	180	1
+ADJUST		0xf2a	180	1
+ADJUST		0xf2e	180	1
+ADJUST		0xf32	180	1
+ADJUST		0xf38	180	1
+ADJUST		0xf3c	180	1
+CALL		0xf3e	180	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"send_msg"	0
+ADJUST		0xf40	180	-6
+ADJUST		0xf44	181	-1
+FN_END		0xf4a	181	
+FN_START	0xf4c	183	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"FromMainHigh_recvmsg"	"external"	
+ADJUST		0xf4c	183	1
+ADJUST		0xf56	189	1
+ADJUST		0xf5a	189	1
+ADJUST		0xf5e	189	1
+ADJUST		0xf62	189	1
+ADJUST		0xf66	189	1
+ADJUST		0xf6c	189	1
+ADJUST		0xf70	189	1
+CALL		0xf72	189	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"recv_msg"	0
+ADJUST		0xf74	189	-7
+ADJUST		0xf78	190	-1
+FN_END		0xf7e	190	
+FN_START	0xf80	195	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"init_queues"	"external"	
+ADJUST		0xf86	196	1
+ADJUST		0xf8a	196	1
+CALL		0xf8c	196	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"init_queue"	0
+ADJUST		0xf8e	196	-2
+ADJUST		0xf92	197	1
+ADJUST		0xf96	197	1
+CALL		0xf98	197	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"init_queue"	0
+ADJUST		0xf9a	197	-2
+ADJUST		0xf9e	198	1
+ADJUST		0xfa2	198	1
+CALL		0xfa4	198	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"init_queue"	0
+ADJUST		0xfa6	198	-2
+ADJUST		0xfaa	199	1
+ADJUST		0xfae	199	1
+CALL		0xfb0	199	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"init_queue"	0
+ADJUST		0xfb2	199	-2
+FN_END		0xfb4	200	
+FN_START	0xfb6	204	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"enter_sleep_mode"	"external"	
+FN_END		0xfba	216	
+FN_START	0xfbc	220	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"check_msg"	"external"	
+ADJUST		0xfbc	220	1
+ADJUST		0xffc	222	-1
+FN_END		0x1002	222	
+FN_START	0x1004	228	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"SleepIfOkay"	"external"	
+CALL		0x100c	233	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"in_low_int"	0
+CALL		0x1022	238	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"in_high_int"	0
+ADJUST		0x103a	245	1
+ADJUST		0x103e	245	1
+CALL		0x1040	245	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"check_msg"	0
+ADJUST		0x1042	245	-2
+ADJUST		0x104c	248	1
+ADJUST		0x1050	248	1
+CALL		0x1052	248	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"check_msg"	0
+ADJUST		0x1054	248	-2
+CALL		0x105c	251	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"enter_sleep_mode"	0
+FN_END		0x105e	252	
+FN_START	0x1060	257	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"block_on_To_msgqueues"	"external"	
+CALL		0x1060	257	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"in_main"	0
+ADJUST		0x1080	263	1
+ADJUST		0x1084	263	1
+CALL		0x1086	263	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"check_msg"	0
+ADJUST		0x1088	263	-2
+ADJUST		0x1098	268	1
+ADJUST		0x109c	268	1
+CALL		0x109e	268	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"check_msg"	0
+ADJUST		0x10a0	268	-2
+ADJUST		0x10b0	273	1
+CALL		0x10b2	273	"d1ktcyx.O"	"Delay1KTCYx"	0
+ADJUST		0x10b6	273	-1
+FN_END		0x10bc	276	
+FILE		0x0	0	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/main.c"
+FN_START	0x10be	81	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/main.c"	"main"	"external"	
+ADJUST		0x10be	81	1
+ADJUST		0x10c8	81	63
+ADJUST		0x10ca	81	28
+ADJUST		0x10d6	128	1
+ADJUST		0x10d8	128	1
+CALL		0x10dc	128	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_uart.c"	"init_uart_recv"	0
+ADJUST		0x10e0	128	-2
+ADJUST		0x10e6	131	1
+ADJUST		0x10e8	131	1
+CALL		0x10ec	131	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"init_i2c"	0
+ADJUST		0x10f0	131	-2
+ADJUST		0x10f6	134	1
+ADJUST		0x10f8	134	1
+CALL		0x10fc	134	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/timer1_thread.c"	"init_timer1_lthread"	0
+ADJUST		0x1100	134	-2
+CALL		0x1102	137	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"init_queues"	0
+ADJUST		0x110c	154	1
+CALL		0x110e	154	"C:\MCC18\v3_39\src\pmc_common\Timers\t1open.c"	"OpenTimer1"	0
+ADJUST		0x1112	154	-1
+CALL		0x1114	158	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"enable_interrupts"	0
+ADJUST		0x1122	183	1
+CALL		0x1124	183	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"i2c_configure_slave"	0
+ADJUST		0x1128	183	-1
+ADJUST		0x112c	185	1
+ADJUST		0x112e	185	1
+ADJUST		0x1134	185	1
+ADJUST		0x1136	185	1
+CALL		0x113a	185	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"createQueue"	0
+ADJUST		0x113e	185	-4
+ADJUST		0x1142	186	1
+ADJUST		0x1144	186	1
+ADJUST		0x114a	186	1
+ADJUST		0x114c	186	1
+CALL		0x1150	186	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"createQueue"	0
+ADJUST		0x1154	186	-4
+CALL		0x1156	188	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/encoders.c"	"initEncoders"	0
+ADJUST		0x115e	200	1
+ADJUST		0x1160	200	1
+ADJUST		0x1164	200	1
+CALL		0x1166	200	"C:\MCC18\v3_39\src\pmc_common\USART\uopen.c"	"OpenUSART"	0
+ADJUST		0x116a	200	-3
+CALL		0x116c	224	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"block_on_To_msgqueues"	0
+ADJUST		0x1174	231	1
+ADJUST		0x1176	231	1
+ADJUST		0x117e	231	1
+ADJUST		0x1180	231	1
+ADJUST		0x1186	231	1
+CALL		0x1188	231	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainHigh_recvmsg"	0
+ADJUST		0x118c	231	-5
+ADJUST		0x11b4	241	1
+ADJUST		0x11b6	241	1
+ADJUST		0x11c6	241	1
+ADJUST		0x11ca	241	1
+ADJUST		0x11d0	241	1
+ADJUST		0x11d2	241	1
+ADJUST		0x11d8	241	1
+ADJUST		0x11da	241	1
+CALL		0x11de	241	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/timer0_thread.c"	"timer0_lthread"	0
+ADJUST		0x11e2	241	-8
+ADJUST		0x1216	321	1
+ADJUST		0x1218	321	1
+CALL		0x121c	321	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"isQEmpty"	0
+ADJUST		0x1220	321	-2
+ADJUST		0x1236	322	1
+ADJUST		0x1238	322	1
+CALL		0x123c	322	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"readQueue"	0
+ADJUST		0x1240	322	-2
+CALL		0x125e	338	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/encoders.c"	"reportLChange"	0
+CALL		0x1284	347	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/encoders.c"	"reportRChange"	0
+ADJUST		0x12c2	369	1
+ADJUST		0x12c4	369	1
+ADJUST		0x12c8	369	1
+CALL		0x12cc	369	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"start_i2c_slave_reply"	0
+ADJUST		0x12d0	369	-3
+ADJUST		0x12d8	393	1
+ADJUST		0x12da	393	1
+ADJUST		0x12e2	393	1
+ADJUST		0x12e4	393	1
+ADJUST		0x12ea	393	1
+CALL		0x12ec	393	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainLow_recvmsg"	0
+ADJUST		0x12f0	393	-5
+ADJUST		0x1314	403	1
+ADJUST		0x1316	403	1
+ADJUST		0x1326	403	1
+ADJUST		0x132a	403	1
+ADJUST		0x1330	403	1
+ADJUST		0x1332	403	1
+ADJUST		0x1338	403	1
+ADJUST		0x133a	403	1
+CALL		0x133e	403	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/timer1_thread.c"	"timer1_lthread"	0
+ADJUST		0x1342	403	-8
+ADJUST		0x134a	410	1
+ADJUST		0x134c	410	1
+ADJUST		0x1354	410	1
+ADJUST		0x1356	410	1
+ADJUST		0x1366	410	1
+ADJUST		0x136a	410	1
+ADJUST		0x1370	410	1
+ADJUST		0x1372	410	1
+ADJUST		0x1378	410	1
+ADJUST		0x137a	410	1
+CALL		0x137e	410	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/uart_thread.c"	"uart_lthread"	0
+ADJUST		0x1382	410	-10
+ADJUST		0x138a	423	-63
+ADJUST		0x138c	423	-29
+FN_END		0x1392	423	
+FILE		0x0	0	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"
+FN_START	0x1394	2	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"appendQueue"	"external"	
+ADJUST		0x1394	2	1
+ADJUST		0x1484	16	-1
+FN_END		0x148a	16	
+FN_START	0x148c	18	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"readQueue"	"external"	
+ADJUST		0x148c	18	1
+ADJUST		0x1496	18	3
+ADJUST		0x152a	27	1
+ADJUST		0x154c	27	-1
+ADJUST		0x1572	32	-4
+FN_END		0x1578	32	
+FN_START	0x157a	34	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"createQueue"	"external"	
+ADJUST		0x157a	34	1
+ADJUST		0x160a	43	-1
+FN_END		0x1610	43	
+FN_START	0x1612	45	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"isQEmpty"	"external"	
+ADJUST		0x1612	45	1
+ADJUST		0x1624	48	-1
+FN_END		0x162a	48	
+FILE		0x0	0	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/encoders.c"
+FN_START	0x162c	10	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/encoders.c"	"initEncoders"	"external"	
+FN_END		0x166e	18	
+FN_START	0x1670	23	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/encoders.c"	"encoderIntHandler"	"external"	
+CALL		0x17d6	44	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/encoders.c"	"calculateLChange"	0
+BRANCH	0x17d8	45	0x1808
+FN_END		0x17da	45	
+FN_START	0x17dc	51	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/encoders.c"	"calculateLChange"	"external"	
+FN_END		0x1806	53	
+FN_START	0x1808	57	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/encoders.c"	"calculateRChange"	"external"	
+LABEL	0x1808	57	0x1808
+FN_END		0x1832	59	
+FN_START	0x1834	61	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/encoders.c"	"reportLChange"	"external"	
+ADJUST		0x1834	61	1
+ADJUST		0x183e	61	2
+ADJUST		0x1856	67	-3
+FN_END		0x185c	67	
+FN_START	0x185e	69	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/encoders.c"	"reportRChange"	"external"	
+ADJUST		0x185e	69	1
+ADJUST		0x1868	69	2
+ADJUST		0x1880	75	-3
+FN_END		0x1886	75	
+FILE		0x0	0	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"
+FN_START	0x1888	17	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"enable_interrupts"	"external"	
+FN_END		0x188e	20	
+FN_START	0x1890	23	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"in_high_int"	"external"	
+FN_END		0x18b0	24	
+FN_START	0x18b2	27	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"low_int_active"	"external"	
+FN_END		0x18d2	28	
+FN_START	0x18d4	31	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"in_low_int"	"external"	
+CALL		0x18e2	33	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"in_high_int"	0
+FN_END		0x1906	38	
+FN_START	0x1908	41	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"in_main"	"external"	
+CALL		0x1908	41	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"in_low_int"	0
+CALL		0x191a	41	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"in_high_int"	0
+FN_END		0x193e	46	
+FN_START	0x1940	83	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"InterruptHandlerHigh"	"external"	
+ADJUST		0x1990	83	18
+CALL		0x1998	92	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_i2c.c"	"i2c_int_handler"	0
+CALL		0x19a2	99	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/user_interrupts.c"	"timer0_int_handler"	0
+CALL		0x19a6	109	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"SleepIfOkay"	0
+ADJUST		0x19f4	110	-18
+FN_END		0x19f8	110	
+FN_START	0x19fa	122	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/interrupts.c"	"InterruptHandlerLow"	"external"	
+ADJUST		0x1a54	122	19
+CALL		0x1a5c	126	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/user_interrupts.c"	"timer1_int_handler"	0
+CALL		0x1a66	132	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_uart.c"	"uart_recv_int_handler"	0
+ADJUST		0x1abe	134	-19
+FN_END		0x1ac2	134	
+FILE		0x0	0	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/uart_thread.c"
+FN_START	0x1ac4	11	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/uart_thread.c"	"uart_lthread"	"external"	
+ADJUST		0x1ac4	11	1
+ADJUST		0x1af6	20	1
+ADJUST		0x1af8	20	1
+ADJUST		0x1afc	20	1
+ADJUST		0x1b00	20	1
+ADJUST		0x1b02	20	1
+ADJUST		0x1b06	20	1
+CALL		0x1b0a	20	"strncmp.O"	"strncmp"	0
+ADJUST		0x1b0e	20	-6
+ADJUST		0x1b16	22	1
+ADJUST		0x1b18	22	1
+ADJUST		0x1b1c	22	1
+CALL		0x1b20	22	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"appendQueue"	0
+ADJUST		0x1b24	22	-3
+ADJUST		0x1b2a	23	1
+ADJUST		0x1b2c	23	1
+ADJUST		0x1b30	23	1
+ADJUST		0x1b34	23	1
+ADJUST		0x1b36	23	1
+ADJUST		0x1b3a	23	1
+CALL		0x1b3e	23	"strncmp.O"	"strncmp"	0
+ADJUST		0x1b42	23	-6
+ADJUST		0x1b4a	25	1
+ADJUST		0x1b4c	25	1
+ADJUST		0x1b50	25	1
+CALL		0x1b54	25	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"appendQueue"	0
+ADJUST		0x1b58	25	-3
+ADJUST		0x1b5e	26	1
+ADJUST		0x1b60	26	1
+ADJUST		0x1b64	26	1
+ADJUST		0x1b68	26	1
+ADJUST		0x1b6a	26	1
+ADJUST		0x1b6e	26	1
+CALL		0x1b72	26	"strncmp.O"	"strncmp"	0
+ADJUST		0x1b76	26	-6
+ADJUST		0x1b7e	28	1
+ADJUST		0x1b80	28	1
+ADJUST		0x1b84	28	1
+CALL		0x1b88	28	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"appendQueue"	0
+ADJUST		0x1b8c	28	-3
+ADJUST		0x1b92	29	1
+ADJUST		0x1b94	29	1
+ADJUST		0x1b98	29	1
+ADJUST		0x1b9c	29	1
+ADJUST		0x1b9e	29	1
+ADJUST		0x1ba2	29	1
+CALL		0x1ba6	29	"strncmp.O"	"strncmp"	0
+ADJUST		0x1baa	29	-6
+ADJUST		0x1bb2	31	1
+ADJUST		0x1bb4	31	1
+ADJUST		0x1bb8	31	1
+CALL		0x1bbc	31	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"appendQueue"	0
+ADJUST		0x1bc0	31	-3
+ADJUST		0x1bc6	32	1
+ADJUST		0x1bc8	32	1
+ADJUST		0x1bcc	32	1
+ADJUST		0x1bd0	32	1
+ADJUST		0x1bd2	32	1
+ADJUST		0x1bd6	32	1
+CALL		0x1bda	32	"strncmp.O"	"strncmp"	0
+ADJUST		0x1bde	32	-6
+ADJUST		0x1be6	34	1
+ADJUST		0x1be8	34	1
+ADJUST		0x1bec	34	1
+CALL		0x1bf0	34	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"appendQueue"	0
+ADJUST		0x1bf4	34	-3
+ADJUST		0x1bfa	37	1
+ADJUST		0x1bfc	37	1
+ADJUST		0x1c00	37	1
+CALL		0x1c04	37	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/queue.c"	"appendQueue"	0
+ADJUST		0x1c08	37	-3
+ADJUST		0x1c0c	39	1
+ADJUST		0x1c0e	39	1
+ADJUST		0x1c12	39	1
+ADJUST		0x1c14	39	1
+CALL		0x1c16	39	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x1c1a	39	-4
+ADJUST		0x1c1c	42	-1
+FN_END		0x1c22	42	
+FILE		0x0	0	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_uart.c"
+FN_START	0x1c24	12	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_uart.c"	"uart_recv_int_handler"	"external"	
+CALL		0x1c28	13	"C:\MCC18\v3_39\src\pmc_common\USART\uread.c"	"ReadUSART"	0
+ADJUST		0x1c2c	13	1
+ADJUST		0x1c56	13	-1
+ADJUST		0x1c8e	17	1
+ADJUST		0x1c92	17	1
+ADJUST		0x1c98	17	1
+ADJUST		0x1ca6	17	1
+CALL		0x1ca8	17	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x1cac	17	-4
+ADJUST		0x1ccc	26	1
+ADJUST		0x1cce	26	1
+ADJUST		0x1cd2	26	1
+ADJUST		0x1cd4	26	1
+CALL		0x1cd6	26	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x1cda	26	-4
+FN_END		0x1cdc	28	
+FN_START	0x1cde	30	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/my_uart.c"	"init_uart_recv"	"external"	
+ADJUST		0x1cde	30	1
+ADJUST		0x1d02	33	-1
+FN_END		0x1d08	33	
+FILE		0x0	0	"memcpy.O"
+FN_START	0x1d0a	30	"memcpy.O"	"memcpy"	"visibility"	
+ADJUST		0x1d0a	30	1
+ADJUST		0x1d0e	30	1
+ADJUST		0x1d14	34	1
+ADJUST		0x1d1a	34	1
+ADJUST		0x1d20	38	1
+ADJUST		0x1d26	38	1
+ADJUST		0x1d34	49	1
+ADJUST		0x1d3a	49	1
+ADJUST		0x1d40	53	1
+ADJUST		0x1d46	53	1
+ADJUST		0x1d50	61	1
+ADJUST		0x1d54	61	-1
+ADJUST		0x1d58	61	1
+ADJUST		0x1d5c	61	-1
+FN_END		0x1d5e	63	
+FILE		0x0	0	"strncmp.O"
+FN_START	0x1d60	32	"strncmp.O"	"strncmp"	"visibility"	
+ADJUST		0x1d60	32	1
+ADJUST		0x1d64	32	1
+ADJUST		0x1d6a	36	1
+ADJUST		0x1d70	36	1
+ADJUST		0x1d76	40	1
+ADJUST		0x1d7c	40	1
+ADJUST		0x1d82	46	1
+ADJUST		0x1d88	46	1
+ADJUST		0x1d8e	50	1
+ADJUST		0x1d94	50	1
+ADJUST		0x1da4	67	1
+ADJUST		0x1da8	67	-1
+ADJUST		0x1dac	67	1
+ADJUST		0x1db0	67	-1
+FN_END		0x1db4	70	
+FILE		0x0	0	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/user_interrupts.c"
+FN_START	0x1db6	16	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/user_interrupts.c"	"timer0_int_handler"	"external"	
+ADJUST		0x1db6	16	1
+ADJUST		0x1dc0	16	6
+ADJUST		0x1dc6	23	1
+ADJUST		0x1dc8	23	1
+CALL		0x1dca	23	"C:\MCC18\v3_39\src\pmc_common\Timers\t0write.c"	"WriteTimer0"	0
+ADJUST		0x1dce	23	-2
+ADJUST		0x1dd4	25	1
+ADJUST		0x1dd6	25	1
+ADJUST		0x1dde	25	1
+ADJUST		0x1de0	25	1
+ADJUST		0x1de6	25	1
+CALL		0x1de8	25	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"FromMainHigh_recvmsg"	0
+ADJUST		0x1dec	25	-5
+ADJUST		0x1e04	27	1
+ADJUST		0x1e06	27	1
+ADJUST		0x1e0c	27	1
+ADJUST		0x1e10	27	1
+CALL		0x1e12	27	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0x1e16	27	-4
+ADJUST		0x1e18	29	-7
+FN_END		0x1e1e	29	
+FN_START	0x1e20	34	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/user_interrupts.c"	"timer1_int_handler"	"external"	
+ADJUST		0x1e20	34	1
+ADJUST		0x1e2a	34	2
+CALL		0x1e2e	39	"C:\MCC18\v3_39\src\pmc_common\Timers\t1read.c"	"ReadTimer1"	0
+ADJUST		0x1e3c	40	1
+ADJUST		0x1e3e	40	1
+ADJUST		0x1e42	40	1
+ADJUST		0x1e44	40	1
+CALL		0x1e46	40	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x1e4a	40	-4
+ADJUST		0x1e4e	43	1
+ADJUST		0x1e50	43	1
+CALL		0x1e52	43	"C:\MCC18\v3_39\src\pmc_common\Timers\t1write.c"	"WriteTimer1"	0
+ADJUST		0x1e56	43	-2
+ADJUST		0x1e58	44	-3
+FN_END		0x1e5e	44	
+FILE		0x0	0	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"
+FN_START	0x1e60	81	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"	"_do_cinit"	"external"	
+FN_END		0x1efc	184	
+FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\USART\uopen.c"
+FN_START	0x1efe	73	"C:\MCC18\v3_39\src\pmc_common\USART\uopen.c"	"OpenUSART"	"external"	
+FN_END		0x1f7e	143	
+FILE		0x0	0	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/timer1_thread.c"
+FN_START	0x1f80	7	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/timer1_thread.c"	"init_timer1_lthread"	"external"	
+ADJUST		0x1f80	7	1
+ADJUST		0x1fc6	11	-1
+FN_END		0x1fcc	11	
+FN_START	0x1fce	19	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/timer1_thread.c"	"timer1_lthread"	"external"	
+ADJUST		0x1fce	19	1
+ADJUST		0x1fd8	67	-1
+FN_END		0x1fde	67	
+FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\Timers\t1open.c"
+FN_START	0x1fe0	16	"C:\MCC18\v3_39\src\pmc_common\Timers\t1open.c"	"OpenTimer1"	"external"	
+FN_END		0x201e	36	
+FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\USART\uread.c"
+FN_START	0x2020	15	"C:\MCC18\v3_39\src\pmc_common\USART\uread.c"	"ReadUSART"	"external"	
+FN_END		0x205c	37	
+FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\Timers\t1write.c"
+FN_START	0x205e	14	"C:\MCC18\v3_39\src\pmc_common\Timers\t1write.c"	"WriteTimer1"	"external"	
+FN_END		0x208c	22	
+FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\Timers\t1read.c"
+FN_START	0x208e	15	"C:\MCC18\v3_39\src\pmc_common\Timers\t1read.c"	"ReadTimer1"	"external"	
+FN_END		0x20bc	23	
+FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\Timers\t0write.c"
+FN_START	0x20be	16	"C:\MCC18\v3_39\src\pmc_common\Timers\t0write.c"	"WriteTimer0"	"external"	
+FN_END		0x20ec	24	
+FILE		0x0	0	"d1ktcyx.O"
+FN_START	0x20ee	19	"d1ktcyx.O"	"Delay1KTCYx"	"visibility"	
+ADJUST		0x20f0	21	1
+FN_END		0x210c	41	
+FILE		0x0	0	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/timer0_thread.c"
+FN_START	0x212e	9	"/home/carbon/PICFrameworkOriginal/PICFrameworkWindows/src/timer0_thread.c"	"timer0_lthread"	"external"	
+ADJUST		0x212e	9	1
+ADJUST		0x2138	9	2
+ADJUST		0x2142	16	-3
+FN_END		0x2148	16	
+FILE		0x0	0	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"
+FN_START	0x214a	34	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"	"_startup"	"external"	
+FN_END		0x2162	51	
+FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"
+FN_START	0x2164	26	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	"external"	
+FN_END		0x2170	28	

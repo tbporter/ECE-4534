@@ -1,0 +1,5 @@
+Warning[2054] ../src/uart_thread.c 20 : suspicious pointer conversion
+Warning[2054] ../src/uart_thread.c 23 : suspicious pointer conversion
+Warning[2054] ../src/uart_thread.c 26 : suspicious pointer conversion
+Warning[2054] ../src/uart_thread.c 29 : suspicious pointer conversion
+Warning[2054] ../src/uart_thread.c 32 : suspicious pointer conversion
