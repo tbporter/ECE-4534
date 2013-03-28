@@ -45,11 +45,11 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/messages.o ${OBJECTDIR}/_ext/1360937237/my_i2c.o ${OBJECTDIR}/_ext/1360937237/my_uart.o ${OBJECTDIR}/_ext/1360937237/timer0_thread.o ${OBJECTDIR}/_ext/1360937237/timer1_thread.o ${OBJECTDIR}/_ext/1360937237/uart_thread.o ${OBJECTDIR}/_ext/1360937237/user_interrupts.o ${OBJECTDIR}/_ext/1360937237/queue.o ${OBJECTDIR}/_ext/1360937237/encoders.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/interrupts.o.d ${OBJECTDIR}/_ext/1360937237/main.o.d ${OBJECTDIR}/_ext/1360937237/messages.o.d ${OBJECTDIR}/_ext/1360937237/my_i2c.o.d ${OBJECTDIR}/_ext/1360937237/my_uart.o.d ${OBJECTDIR}/_ext/1360937237/timer0_thread.o.d ${OBJECTDIR}/_ext/1360937237/timer1_thread.o.d ${OBJECTDIR}/_ext/1360937237/uart_thread.o.d ${OBJECTDIR}/_ext/1360937237/user_interrupts.o.d ${OBJECTDIR}/_ext/1360937237/queue.o.d ${OBJECTDIR}/_ext/1360937237/encoders.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/messages.o ${OBJECTDIR}/_ext/1360937237/my_i2c.o ${OBJECTDIR}/_ext/1360937237/my_uart.o ${OBJECTDIR}/_ext/1360937237/timer0_thread.o ${OBJECTDIR}/_ext/1360937237/timer1_thread.o ${OBJECTDIR}/_ext/1360937237/uart_thread.o ${OBJECTDIR}/_ext/1360937237/user_interrupts.o ${OBJECTDIR}/_ext/1360937237/queue.o ${OBJECTDIR}/_ext/1360937237/encoders.o ${OBJECTDIR}/_ext/1360937237/zigBee.o ${OBJECTDIR}/_ext/1360937237/smcpic.o ${OBJECTDIR}/_ext/1360937237/my_adc.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1360937237/interrupts.o.d ${OBJECTDIR}/_ext/1360937237/main.o.d ${OBJECTDIR}/_ext/1360937237/messages.o.d ${OBJECTDIR}/_ext/1360937237/my_i2c.o.d ${OBJECTDIR}/_ext/1360937237/my_uart.o.d ${OBJECTDIR}/_ext/1360937237/timer0_thread.o.d ${OBJECTDIR}/_ext/1360937237/timer1_thread.o.d ${OBJECTDIR}/_ext/1360937237/uart_thread.o.d ${OBJECTDIR}/_ext/1360937237/user_interrupts.o.d ${OBJECTDIR}/_ext/1360937237/queue.o.d ${OBJECTDIR}/_ext/1360937237/encoders.o.d ${OBJECTDIR}/_ext/1360937237/zigBee.o.d ${OBJECTDIR}/_ext/1360937237/smcpic.o.d ${OBJECTDIR}/_ext/1360937237/my_adc.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/messages.o ${OBJECTDIR}/_ext/1360937237/my_i2c.o ${OBJECTDIR}/_ext/1360937237/my_uart.o ${OBJECTDIR}/_ext/1360937237/timer0_thread.o ${OBJECTDIR}/_ext/1360937237/timer1_thread.o ${OBJECTDIR}/_ext/1360937237/uart_thread.o ${OBJECTDIR}/_ext/1360937237/user_interrupts.o ${OBJECTDIR}/_ext/1360937237/queue.o ${OBJECTDIR}/_ext/1360937237/encoders.o
+OBJECTFILES=${OBJECTDIR}/_ext/1360937237/interrupts.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/messages.o ${OBJECTDIR}/_ext/1360937237/my_i2c.o ${OBJECTDIR}/_ext/1360937237/my_uart.o ${OBJECTDIR}/_ext/1360937237/timer0_thread.o ${OBJECTDIR}/_ext/1360937237/timer1_thread.o ${OBJECTDIR}/_ext/1360937237/uart_thread.o ${OBJECTDIR}/_ext/1360937237/user_interrupts.o ${OBJECTDIR}/_ext/1360937237/queue.o ${OBJECTDIR}/_ext/1360937237/encoders.o ${OBJECTDIR}/_ext/1360937237/zigBee.o ${OBJECTDIR}/_ext/1360937237/smcpic.o ${OBJECTDIR}/_ext/1360937237/my_adc.o
 
 
 CFLAGS=
@@ -157,6 +157,27 @@ ${OBJECTDIR}/_ext/1360937237/encoders.o: ../src/encoders.c  nbproject/Makefile-$
 	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/encoders.o 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/encoders.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
 	
+${OBJECTDIR}/_ext/1360937237/zigBee.o: ../src/zigBee.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/zigBee.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1 -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/_ext/1360937237/zigBee.o   ../src/zigBee.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/zigBee.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/zigBee.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/smcpic.o: ../src/smcpic.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/smcpic.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1 -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/_ext/1360937237/smcpic.o   ../src/smcpic.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/smcpic.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/smcpic.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/my_adc.o: ../src/my_adc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/my_adc.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -D__DEBUG -D__MPLAB_DEBUGGER_PICKIT2=1 -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/_ext/1360937237/my_adc.o   ../src/my_adc.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/my_adc.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/my_adc.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
 else
 ${OBJECTDIR}/_ext/1360937237/interrupts.o: ../src/interrupts.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
@@ -234,6 +255,27 @@ ${OBJECTDIR}/_ext/1360937237/encoders.o: ../src/encoders.c  nbproject/Makefile-$
 	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/_ext/1360937237/encoders.o   ../src/encoders.c 
 	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/encoders.o 
 	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/encoders.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/zigBee.o: ../src/zigBee.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/zigBee.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/_ext/1360937237/zigBee.o   ../src/zigBee.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/zigBee.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/zigBee.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/smcpic.o: ../src/smcpic.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/smcpic.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/_ext/1360937237/smcpic.o   ../src/smcpic.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/smcpic.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/smcpic.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
+	
+${OBJECTDIR}/_ext/1360937237/my_adc.o: ../src/my_adc.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} ${OBJECTDIR}/_ext/1360937237 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/my_adc.o.d 
+	${MP_CC} $(MP_EXTRA_CC_PRE) -p$(MP_PROCESSOR_OPTION) -ms -Ou- -Ot- -Ob- -Op- -Or- -Od- -Opa- --extended -sa -I ${MP_CC_DIR}/../h  -fo ${OBJECTDIR}/_ext/1360937237/my_adc.o   ../src/my_adc.c 
+	@${DEP_GEN} -d ${OBJECTDIR}/_ext/1360937237/my_adc.o 
+	@${FIXDEPS} "${OBJECTDIR}/_ext/1360937237/my_adc.o.d" $(SILENT) -rsi ${MP_CC_DIR}../ -c18 
 	
 endif
 

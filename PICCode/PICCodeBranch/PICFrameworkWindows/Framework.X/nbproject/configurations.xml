@@ -16,6 +16,9 @@
       <itemPath>../src/relpic.h</itemPath>
       <itemPath>../src/queue.h</itemPath>
       <itemPath>../src/encoders.h</itemPath>
+      <itemPath>../src/zigBee.h</itemPath>
+      <itemPath>../src/smcpic.h</itemPath>
+      <itemPath>../src/my_adc.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -35,6 +38,9 @@
       <itemPath>../src/user_interrupts.c</itemPath>
       <itemPath>../src/queue.c</itemPath>
       <itemPath>../src/encoders.c</itemPath>
+      <itemPath>../src/zigBee.c</itemPath>
+      <itemPath>../src/smcpic.c</itemPath>
+      <itemPath>../src/my_adc.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -171,8 +177,8 @@
         <makeCustomizationNormalizeHexFile>true</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
       <C18>
-        <property key="code-model" value="mS"/>
-        <property key="data-model" value="Oa-"/>
+        <property key="code-model" value="ms"/>
+        <property key="data-model" value="oa-"/>
         <property key="default-char-unsigned" value="false"/>
         <property key="enable-all-optimizations" value="true"/>
         <property key="enable-int-promotion" value="false"/>

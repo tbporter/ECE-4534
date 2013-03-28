@@ -12,7 +12,7 @@ unsigned char explen1, buflen1, cmd;
 // Configure for I2C Master mode -- the variable "slave_addr" should be stored in
 //   i2c_comm (as pointed to by ic_ptr) for later use.
 
-void i2c_configure_master(unsigned char slave_addr) {
+void i2c_configure_master(void) {
     // Your code goes here
 #ifdef __USE18F26J50
     PORTBbits.SCL1 = 1;
