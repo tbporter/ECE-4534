@@ -5,7 +5,6 @@
 #include "g9_webTask.h"
 
 
-
 static char webDebugOut[DEBUG_LINES][DEBUG_LENGTH];
 
 static int curspeed;
@@ -17,16 +16,14 @@ static char finished;
 static int lap;
 static int start =0;
 
-
-
 static portTASK_FUNCTION_PROTO( webUpdateTask, pvParameters );
 
-void startWebTask(webStruct *ptr, unsigned portBASE_TYPE uxPriority)
+void startWebTask(webStruct *ptr, unsigned portBASE_TYPE uxPriority, navStruct *navData)
 {
 	if (ptr == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
-
+	ptr->navData = navData;
 	// Create the queue that will be used to talk to this task
 	if ((ptr->inQ = xQueueCreate(10,sizeof(g9Msg))) == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
@@ -49,6 +46,7 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 	// Like all grrood tasks, this should never exit
 	for(;;)
 	{
+	/*
 		// Wait for a message from the nether
 		if (xQueueReceive(param->inQ,(void *) &msgBuffer,portMAX_DELAY) != pdTRUE) {
 			VT_HANDLE_FATAL_ERROR(0);
@@ -73,8 +71,18 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 				VT_HANDLE_FATAL_ERROR(INVALID_G9MSG_TYPE);
 				break;
 		}
+	   */
 
-
+		if(start == 1){
+		   g9Msg msg;
+			msg.id = 0;
+			msg.length = 0;
+			msg.msgType = navWebStartMsg;
+			printw("sending start=%d",start);
+			msg.msgType = navWebStartMsg;
+			SendNavigationMsg(param->navData,&msg,portMAX_DELAY);
+			start = 0;
+		}
 	}
 }
 void printw(const char* fmt, ...){
@@ -114,8 +122,18 @@ char (*getWebDebug())[DEBUG_LENGTH]{
 }
 
 void setWebStart(int s){
-	printw("start = %d",s);
 	start = s;
+	printw("start = %d",s);
+	/*
+	g9Msg msg;
+	msg.id = 0;
+	msg.length = 0;
+	msg.msgType = navWebStartMsg;
+	printw("sending start=%d",start);
+	if(start == 1){
+		msg.msgType = navWebStartMsg;
+		SendNavigationMsg(GLOBALnavData,&msg,portMAX_DELAY);
+	}*/
 }
 int getWebStart(){
 	return start;
