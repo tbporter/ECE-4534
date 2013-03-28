@@ -94,8 +94,20 @@ generate_info_out(void *arg)
 {
 	char buffer[500];
 	getWebStatusText(buffer);
-	strcat(uip_appdata,"<input type=\"submit\" value=\"START\">");
-	strcat(uip_appdata,"<input type=\"submit\" value=\"STOP\">");
+	int started = getWebStart();
+	char *check;
+	if(started == 0)
+	{
+		check = "";
+	}
+	else if(started == 1)
+	{
+		check = "checked";
+	}
+	sprintf(uip_appdata,"<input type=\"checkbox\" name=\"start\" value=\"1\"%s>START", check);
+	strcat(uip_appdata,"<input type=\"submit\" value=\"Update IO\">");
+	//strcat(uip_appdata,"<input type=\"submit\" value=\"START\">");
+	//strcat(uip_appdata,"<input type=\"submit\" value=\"STOP\">");
 	strcat(uip_appdata,buffer);
 
 	return strlen(uip_appdata);							 

@@ -15,7 +15,7 @@ static int amps;
 static char loop[10];
 static char finished;
 static int lap;
-
+static int start =0;
 
 
 
@@ -111,4 +111,12 @@ void getWebStatusText(char* buffer){
 
 char (*getWebDebug())[DEBUG_LENGTH]{
 	return webDebugOut;
+}
+
+void setWebStart(int s){
+	printw("start = %d",s);
+	start = s;
+}
+int getWebStart(){
+	return start;
 }
