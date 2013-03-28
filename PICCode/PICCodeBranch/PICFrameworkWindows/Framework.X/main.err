@@ -1,1 +1,8 @@
-Warning[2054] ../src/main.c 388 : suspicious pointer conversion
+Warning[2054] ../src/main.c 438 : suspicious pointer conversion
+Warning[2054] ../src/main.c 475 : suspicious pointer conversion
+Warning[2054] ../src/main.c 476 : suspicious pointer conversion
+Warning[2054] ../src/main.c 477 : suspicious pointer conversion
+Warning[2054] ../src/main.c 478 : suspicious pointer conversion
+Warning[2054] ../src/main.c 479 : suspicious pointer conversion
+Warning[2054] ../src/main.c 480 : suspicious pointer conversion
+Warning[2054] ../src/main.c 481 : suspicious pointer conversion

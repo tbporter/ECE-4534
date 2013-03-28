@@ -20,79 +20,79 @@ FN_START	0x52	63	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFramew
 ADJUST		0x52	63	1
 ADJUST		0x98	67	1
 ADJUST		0xca	67	-1
-ADJUST		0x12c	72	1
-ADJUST		0x13e	72	-1
-ADJUST		0x14e	76	-1
-FN_END		0x154	76	
-FN_START	0x156	91	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_recv"	"external"	
-ADJUST		0x156	91	1
-ADJUST		0x160	91	2
-CALL		0x1ce	104	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
-ADJUST		0x1d8	108	-3
-FN_END		0x1de	108	
-FN_START	0x1e0	110	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"start_i2c_slave_reply"	"external"	
-ADJUST		0x1e0	110	1
-ADJUST		0x226	113	1
-ADJUST		0x258	113	-1
-ADJUST		0x2aa	124	-1
-FN_END		0x2b0	124	
-FN_START	0x2b2	128	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"handle_start"	"external"	
-ADJUST		0x2b2	128	1
-ADJUST		0x36a	149	-1
-FN_END		0x370	149	
-FN_START	0x372	159	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_int_handler"	"external"	
-CALL		0x37a	161	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_slave_handler"	0
-CALL		0x37e	165	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_handler"	0
-FN_END		0x380	167	
-FN_START	0x382	169	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_handler"	"external"	
-ADJUST		0x382	169	1
-ADJUST		0x38c	169	6
-CALL		0x3dc	190	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
-ADJUST		0x586	256	1
-ADJUST		0x58a	256	1
-ADJUST		0x590	256	1
-ADJUST		0x592	256	1
-CALL		0x596	256	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
-ADJUST		0x59a	256	-4
-CALL		0x5b4	260	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
-ADJUST		0x5d6	275	-7
-FN_END		0x5dc	275	
-FN_START	0x5de	277	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_slave_handler"	"external"	
-ADJUST		0x5de	277	1
-ADJUST		0x5e8	277	9
-ADJUST		0x670	312	1
-CALL		0x674	312	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"handle_start"	0
-ADJUST		0x676	312	-1
-ADJUST		0x9d6	428	1
-ADJUST		0xa00	428	-1
-ADJUST		0xa16	429	1
-ADJUST		0xa1a	429	1
-ADJUST		0xa20	429	1
-ADJUST		0xa30	429	1
-CALL		0xa32	429	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
-ADJUST		0xa36	429	-4
-ADJUST		0xa90	435	1
-ADJUST		0xa92	435	1
-ADJUST		0xa98	435	1
-ADJUST		0xa9c	435	1
-CALL		0xa9e	435	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
-ADJUST		0xaa2	435	-4
-ADJUST		0xaca	440	1
-ADJUST		0xace	440	1
-ADJUST		0xad4	440	1
-ADJUST		0xad6	440	1
-CALL		0xad8	440	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
-ADJUST		0xadc	440	-4
-ADJUST		0xae0	443	-10
-FN_END		0xae6	443	
-FN_START	0xae8	448	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"init_i2c"	"external"	
-ADJUST		0xae8	448	1
-ADJUST		0xb4a	457	-1
-FN_END		0xb50	457	
-FN_START	0xb52	462	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_configure_slave"	"external"	
-ADJUST		0xb52	462	1
-ADJUST		0xb78	490	-1
-FN_END		0xb7e	490	
+ADJUST		0x12c	75	1
+ADJUST		0x13e	75	-1
+ADJUST		0x14e	80	-1
+FN_END		0x154	80	
+FN_START	0x156	95	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_recv"	"external"	
+ADJUST		0x156	95	1
+ADJUST		0x160	95	2
+CALL		0x1ce	110	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
+ADJUST		0x1d8	114	-3
+FN_END		0x1de	114	
+FN_START	0x1e0	116	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"start_i2c_slave_reply"	"external"	
+ADJUST		0x1e0	116	1
+ADJUST		0x226	119	1
+ADJUST		0x258	119	-1
+ADJUST		0x2aa	130	-1
+FN_END		0x2b0	130	
+FN_START	0x2b2	134	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"handle_start"	"external"	
+ADJUST		0x2b2	134	1
+ADJUST		0x36a	155	-1
+FN_END		0x370	155	
+FN_START	0x372	165	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_int_handler"	"external"	
+CALL		0x37a	167	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_slave_handler"	0
+CALL		0x37e	171	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_handler"	0
+FN_END		0x380	173	
+FN_START	0x382	175	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_handler"	"external"	
+ADJUST		0x382	175	1
+ADJUST		0x38c	175	6
+CALL		0x3dc	196	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
+ADJUST		0x586	262	1
+ADJUST		0x58a	262	1
+ADJUST		0x590	262	1
+ADJUST		0x592	262	1
+CALL		0x596	262	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0x59a	262	-4
+CALL		0x5b4	266	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
+ADJUST		0x5d6	281	-7
+FN_END		0x5dc	281	
+FN_START	0x5de	283	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_slave_handler"	"external"	
+ADJUST		0x5de	283	1
+ADJUST		0x5e8	283	9
+ADJUST		0x670	318	1
+CALL		0x674	318	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"handle_start"	0
+ADJUST		0x676	318	-1
+ADJUST		0x9d6	434	1
+ADJUST		0xa00	434	-1
+ADJUST		0xa16	435	1
+ADJUST		0xa1a	435	1
+ADJUST		0xa20	435	1
+ADJUST		0xa30	435	1
+CALL		0xa32	435	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0xa36	435	-4
+ADJUST		0xa90	441	1
+ADJUST		0xa92	441	1
+ADJUST		0xa98	441	1
+ADJUST		0xa9c	441	1
+CALL		0xa9e	441	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0xaa2	441	-4
+ADJUST		0xaca	446	1
+ADJUST		0xace	446	1
+ADJUST		0xad4	446	1
+ADJUST		0xad6	446	1
+CALL		0xad8	446	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0xadc	446	-4
+ADJUST		0xae0	449	-10
+FN_END		0xae6	449	
+FN_START	0xae8	454	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"init_i2c"	"external"	
+ADJUST		0xae8	454	1
+ADJUST		0xb4a	463	-1
+FN_END		0xb50	463	
+FN_START	0xb52	468	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_configure_slave"	"external"	
+ADJUST		0xb52	468	1
+ADJUST		0xb78	496	-1
+FN_END		0xb7e	496	
 FILE		0x0	0	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/zigBee.c"
 FN_START	0xb80	12	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/zigBee.c"	"getLen"	"external"	
 ADJUST		0xb80	12	1
@@ -569,424 +569,425 @@ FN_START	0x1bec	83	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFram
 ADJUST		0x1bec	83	1
 ADJUST		0x1bf6	83	63
 ADJUST		0x1bf8	83	19
-ADJUST		0x1c20	131	1
-ADJUST		0x1c22	131	1
-CALL		0x1c26	131	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_uart.c"	"init_uart_recv"	0
-ADJUST		0x1c2a	131	-2
-ADJUST		0x1c30	134	1
-ADJUST		0x1c32	134	1
-CALL		0x1c36	134	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"init_i2c"	0
-ADJUST		0x1c3a	134	-2
-CALL		0x1c3c	136	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"initADC"	0
-ADJUST		0x1c44	139	1
-ADJUST		0x1c46	139	1
-CALL		0x1c4a	139	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer1_thread.c"	"init_timer1_lthread"	0
-ADJUST		0x1c4e	139	-2
-CALL		0x1c50	142	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"init_queues"	0
-ADJUST		0x1c5a	159	1
-CALL		0x1c5c	159	"C:\MCC18\v3_39\src\pmc_common\Timers\t1open.c"	"OpenTimer1"	0
-ADJUST		0x1c60	159	-1
-CALL		0x1c62	163	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"enable_interrupts"	0
-CALL		0x1c6a	185	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_configure_master"	0
-ADJUST		0x1c72	187	1
-ADJUST		0x1c74	187	1
-ADJUST		0x1c7a	187	1
-ADJUST		0x1c7c	187	1
-CALL		0x1c80	187	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/queue.c"	"createQueue"	0
-ADJUST		0x1c84	187	-4
-ADJUST		0x1c8a	207	1
-ADJUST		0x1c8c	207	1
-ADJUST		0x1c90	207	1
-CALL		0x1c92	207	"C:\MCC18\v3_39\src\pmc_common\USART\uopen.c"	"OpenUSART"	0
-ADJUST		0x1c96	207	-3
-CALL		0x1c98	231	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"block_on_To_msgqueues"	0
-ADJUST		0x1ca0	238	1
-ADJUST		0x1ca2	238	1
-ADJUST		0x1caa	238	1
-ADJUST		0x1cac	238	1
-ADJUST		0x1cb2	238	1
-CALL		0x1cb4	238	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainHigh_recvmsg"	0
-ADJUST		0x1cb8	238	-5
-ADJUST		0x1ce4	248	1
-ADJUST		0x1ce6	248	1
-ADJUST		0x1cf6	248	1
-ADJUST		0x1cfa	248	1
-ADJUST		0x1d00	248	1
-ADJUST		0x1d02	248	1
-ADJUST		0x1d08	248	1
-ADJUST		0x1d0a	248	1
-CALL		0x1d0e	248	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer0_thread.c"	"timer0_lthread"	0
-ADJUST		0x1d12	248	-8
-ADJUST		0x1d9a	376	1
-ADJUST		0x1d9c	376	1
-ADJUST		0x1da0	376	1
-CALL		0x1da4	376	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"start_i2c_slave_reply"	0
-ADJUST		0x1da8	376	-3
-ADJUST		0x1dc0	388	1
-ADJUST		0x1dc2	388	1
-ADJUST		0x1dc8	388	1
-CALL		0x1dca	388	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_send"	0
-ADJUST		0x1dce	388	-3
-ADJUST		0x1dd8	404	1
-ADJUST		0x1dda	404	1
-ADJUST		0x1de2	404	1
-ADJUST		0x1de4	404	1
-ADJUST		0x1dea	404	1
-CALL		0x1dec	404	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainLow_recvmsg"	0
-ADJUST		0x1df0	404	-5
-ADJUST		0x1e14	414	1
-ADJUST		0x1e16	414	1
-ADJUST		0x1e26	414	1
-ADJUST		0x1e2a	414	1
-ADJUST		0x1e30	414	1
-ADJUST		0x1e32	414	1
-ADJUST		0x1e38	414	1
-ADJUST		0x1e3a	414	1
-CALL		0x1e3e	414	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer1_thread.c"	"timer1_lthread"	0
-ADJUST		0x1e42	414	-8
-ADJUST		0x1e4a	424	1
-ADJUST		0x1e4c	424	1
-ADJUST		0x1e54	424	1
-ADJUST		0x1e56	424	1
-ADJUST		0x1e66	424	1
-ADJUST		0x1e6a	424	1
-ADJUST		0x1e70	424	1
-ADJUST		0x1e72	424	1
-ADJUST		0x1e78	424	1
-ADJUST		0x1e7a	424	1
-CALL		0x1e7e	424	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/uart_thread.c"	"uart_lthread"	0
-ADJUST		0x1e82	424	-10
-ADJUST		0x1e88	438	-63
-ADJUST		0x1e8a	438	-20
-FN_END		0x1e90	438	
-FILE		0x0	0	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer1_thread.c"
-FN_START	0x1e92	7	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer1_thread.c"	"init_timer1_lthread"	"external"	
-ADJUST		0x1e92	7	1
-ADJUST		0x1ed8	11	-1
-FN_END		0x1ede	11	
-FN_START	0x1ee0	19	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer1_thread.c"	"timer1_lthread"	"external"	
-ADJUST		0x1ee0	19	1
-ADJUST		0x1f5c	32	1
-ADJUST		0x1f60	32	1
-ADJUST		0x1f66	32	1
-CALL		0x1f68	32	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_send"	0
-ADJUST		0x1f6c	32	-3
-ADJUST		0x1f70	33	1
-ADJUST		0x1f74	33	1
-CALL		0x1f76	33	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_recv"	0
-ADJUST		0x1f7a	33	-2
-ADJUST		0x1fc6	39	1
-ADJUST		0x1fca	39	1
-ADJUST		0x1fd0	39	1
-CALL		0x1fd2	39	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_send"	0
-ADJUST		0x1fd6	39	-3
-ADJUST		0x1fda	40	1
-ADJUST		0x1fde	40	1
-CALL		0x1fe0	40	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_recv"	0
-ADJUST		0x1fe4	40	-2
-ADJUST		0x2044	47	1
-ADJUST		0x2048	47	1
-ADJUST		0x204e	47	1
-CALL		0x2050	47	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_send"	0
-ADJUST		0x2054	47	-3
-ADJUST		0x2058	48	1
-ADJUST		0x205c	48	1
-CALL		0x205e	48	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_recv"	0
-ADJUST		0x2062	48	-2
-ADJUST		0x20c2	54	1
-ADJUST		0x20c6	54	1
-ADJUST		0x20cc	54	1
-CALL		0x20ce	54	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_send"	0
-ADJUST		0x20d2	54	-3
-ADJUST		0x20d6	55	1
-ADJUST		0x20da	55	1
-CALL		0x20dc	55	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_recv"	0
-ADJUST		0x20e0	55	-2
-ADJUST		0x20f2	67	-1
-FN_END		0x20f8	67	
+ADJUST		0x1c20	137	1
+ADJUST		0x1c22	137	1
+CALL		0x1c26	137	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_uart.c"	"init_uart_recv"	0
+ADJUST		0x1c2a	137	-2
+ADJUST		0x1c30	140	1
+ADJUST		0x1c32	140	1
+CALL		0x1c36	140	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"init_i2c"	0
+ADJUST		0x1c3a	140	-2
+CALL		0x1c3c	142	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"initADC"	0
+ADJUST		0x1c44	145	1
+ADJUST		0x1c46	145	1
+CALL		0x1c4a	145	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer1_thread.c"	"init_timer1_lthread"	0
+ADJUST		0x1c4e	145	-2
+CALL		0x1c50	148	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"init_queues"	0
+ADJUST		0x1c5a	165	1
+CALL		0x1c5c	165	"C:\MCC18\v3_39\src\pmc_common\Timers\t1open.c"	"OpenTimer1"	0
+ADJUST		0x1c60	165	-1
+CALL		0x1c62	169	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"enable_interrupts"	0
+CALL		0x1c6a	191	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_configure_master"	0
+ADJUST		0x1c72	193	1
+ADJUST		0x1c74	193	1
+ADJUST		0x1c7a	193	1
+ADJUST		0x1c7c	193	1
+CALL		0x1c80	193	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/queue.c"	"createQueue"	0
+ADJUST		0x1c84	193	-4
+ADJUST		0x1c8a	213	1
+ADJUST		0x1c8c	213	1
+ADJUST		0x1c90	213	1
+CALL		0x1c92	213	"C:\MCC18\v3_39\src\pmc_common\USART\uopen.c"	"OpenUSART"	0
+ADJUST		0x1c96	213	-3
+CALL		0x1c98	237	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"block_on_To_msgqueues"	0
+ADJUST		0x1ca0	244	1
+ADJUST		0x1ca2	244	1
+ADJUST		0x1caa	244	1
+ADJUST		0x1cac	244	1
+ADJUST		0x1cb2	244	1
+CALL		0x1cb4	244	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainHigh_recvmsg"	0
+ADJUST		0x1cb8	244	-5
+ADJUST		0x1ce0	254	1
+ADJUST		0x1ce2	254	1
+ADJUST		0x1cf2	254	1
+ADJUST		0x1cf6	254	1
+ADJUST		0x1cfc	254	1
+ADJUST		0x1cfe	254	1
+ADJUST		0x1d04	254	1
+ADJUST		0x1d06	254	1
+CALL		0x1d0a	254	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer0_thread.c"	"timer0_lthread"	0
+ADJUST		0x1d0e	254	-8
+ADJUST		0x1da4	438	1
+ADJUST		0x1da6	438	1
+ADJUST		0x1dac	438	1
+CALL		0x1dae	438	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_send"	0
+ADJUST		0x1db2	438	-3
+ADJUST		0x1db6	440	1
+ADJUST		0x1dba	440	1
+CALL		0x1dbc	440	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_master_recv"	0
+ADJUST		0x1dc0	440	-2
+ADJUST		0x1dc4	441	1
+CALL		0x1dc6	441	"C:\MCC18\v3_39\src\pmc_common\USART\uwrite.c"	"WriteUSART"	0
+ADJUST		0x1dca	441	-1
+ADJUST		0x1dd4	456	1
+ADJUST		0x1dd6	456	1
+ADJUST		0x1dde	456	1
+ADJUST		0x1de0	456	1
+ADJUST		0x1de6	456	1
+CALL		0x1de8	456	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainLow_recvmsg"	0
+ADJUST		0x1dec	456	-5
+ADJUST		0x1e14	466	1
+ADJUST		0x1e16	466	1
+ADJUST		0x1e26	466	1
+ADJUST		0x1e2a	466	1
+ADJUST		0x1e30	466	1
+ADJUST		0x1e32	466	1
+ADJUST		0x1e38	466	1
+ADJUST		0x1e3a	466	1
+CALL		0x1e3e	466	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer1_thread.c"	"timer1_lthread"	0
+ADJUST		0x1e42	466	-8
+ADJUST		0x1e4a	475	1
+ADJUST		0x1e50	475	1
+ADJUST		0x1e52	475	1
+CALL		0x1e56	475	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x1e5a	475	-3
+ADJUST		0x1e5e	476	1
+ADJUST		0x1e64	476	1
+ADJUST		0x1e66	476	1
+CALL		0x1e6a	476	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x1e6e	476	-3
+ADJUST		0x1e72	477	1
+ADJUST		0x1e78	477	1
+ADJUST		0x1e7a	477	1
+CALL		0x1e7e	477	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x1e82	477	-3
+ADJUST		0x1e86	478	1
+ADJUST		0x1e8c	478	1
+ADJUST		0x1e8e	478	1
+CALL		0x1e92	478	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x1e96	478	-3
+ADJUST		0x1e9a	479	1
+ADJUST		0x1e9e	479	1
+ADJUST		0x1ea0	479	1
+CALL		0x1ea2	479	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x1ea6	479	-3
+ADJUST		0x1eaa	480	1
+ADJUST		0x1eae	480	1
+ADJUST		0x1eb0	480	1
+CALL		0x1eb2	480	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x1eb6	480	-3
+ADJUST		0x1eba	481	1
+ADJUST		0x1ebc	481	1
+ADJUST		0x1ec0	481	1
+CALL		0x1ec4	481	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x1ec8	481	-3
+ADJUST		0x1ed0	490	1
+ADJUST		0x1ed2	490	1
+ADJUST		0x1eda	490	1
+ADJUST		0x1edc	490	1
+ADJUST		0x1eec	490	1
+ADJUST		0x1ef0	490	1
+ADJUST		0x1ef6	490	1
+ADJUST		0x1ef8	490	1
+ADJUST		0x1efe	490	1
+ADJUST		0x1f00	490	1
+CALL		0x1f04	490	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/uart_thread.c"	"uart_lthread"	0
+ADJUST		0x1f08	490	-10
+ADJUST		0x1f0e	504	-63
+ADJUST		0x1f10	504	-20
+FN_END		0x1f16	504	
 FILE		0x0	0	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"
-FN_START	0x20fa	10	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"initEncoders"	"external"	
-FN_END		0x213c	18	
-FN_START	0x213e	23	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"encoderIntHandler"	"external"	
-CALL		0x22a4	44	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"calculateLChange"	0
-BRANCH	0x22a6	45	0x22d6
-FN_END		0x22a8	45	
-FN_START	0x22aa	51	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"calculateLChange"	"external"	
-FN_END		0x22d4	53	
-FN_START	0x22d6	57	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"calculateRChange"	"external"	
-LABEL	0x22d6	57	0x22d6
-FN_END		0x2300	59	
-FN_START	0x2302	61	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"reportLChange"	"external"	
-ADJUST		0x2302	61	1
-ADJUST		0x230c	61	2
-ADJUST		0x2324	67	-3
-FN_END		0x232a	67	
-FN_START	0x232c	69	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"reportRChange"	"external"	
-ADJUST		0x232c	69	1
-ADJUST		0x2336	69	2
-ADJUST		0x234e	75	-3
-FN_END		0x2354	75	
+FN_START	0x1f18	10	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"initEncoders"	"external"	
+FN_END		0x1f5a	18	
+FN_START	0x1f5c	23	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"encoderIntHandler"	"external"	
+CALL		0x20c2	44	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"calculateLChange"	0
+BRANCH	0x20c4	45	0x20f4
+FN_END		0x20c6	45	
+FN_START	0x20c8	51	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"calculateLChange"	"external"	
+FN_END		0x20f2	53	
+FN_START	0x20f4	57	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"calculateRChange"	"external"	
+LABEL	0x20f4	57	0x20f4
+FN_END		0x211e	59	
+FN_START	0x2120	61	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"reportLChange"	"external"	
+ADJUST		0x2120	61	1
+ADJUST		0x212a	61	2
+ADJUST		0x2142	67	-3
+FN_END		0x2148	67	
+FN_START	0x214a	69	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/encoders.c"	"reportRChange"	"external"	
+ADJUST		0x214a	69	1
+ADJUST		0x2154	69	2
+ADJUST		0x216c	75	-3
+FN_END		0x2172	75	
 FILE		0x0	0	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"
-FN_START	0x2356	17	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"enable_interrupts"	"external"	
-FN_END		0x235c	20	
-FN_START	0x235e	23	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"in_high_int"	"external"	
-FN_END		0x237e	24	
-FN_START	0x2380	27	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"low_int_active"	"external"	
-FN_END		0x23a0	28	
-FN_START	0x23a2	31	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"in_low_int"	"external"	
-CALL		0x23b0	33	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"in_high_int"	0
-FN_END		0x23d4	38	
-FN_START	0x23d6	41	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"in_main"	"external"	
-CALL		0x23d6	41	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"in_low_int"	0
-CALL		0x23e8	41	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"in_high_int"	0
-FN_END		0x240c	46	
-FN_START	0x240e	83	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"InterruptHandlerHigh"	"external"	
-ADJUST		0x245e	83	18
-CALL		0x2466	92	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_int_handler"	0
-CALL		0x2470	99	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/user_interrupts.c"	"timer0_int_handler"	0
-CALL		0x2474	109	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"SleepIfOkay"	0
-ADJUST		0x24c2	110	-18
-FN_END		0x24c6	110	
-FN_START	0x24c8	122	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"InterruptHandlerLow"	"external"	
-ADJUST		0x2522	122	19
-CALL		0x252a	126	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/user_interrupts.c"	"timer1_int_handler"	0
-CALL		0x2534	132	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_uart.c"	"uart_recv_int_handler"	0
-ADJUST		0x258c	134	-19
-FN_END		0x2590	134	
+FN_START	0x2174	17	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"enable_interrupts"	"external"	
+FN_END		0x217a	20	
+FN_START	0x217c	23	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"in_high_int"	"external"	
+FN_END		0x219c	24	
+FN_START	0x219e	27	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"low_int_active"	"external"	
+FN_END		0x21be	28	
+FN_START	0x21c0	31	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"in_low_int"	"external"	
+CALL		0x21ce	33	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"in_high_int"	0
+FN_END		0x21f2	38	
+FN_START	0x21f4	41	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"in_main"	"external"	
+CALL		0x21f4	41	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"in_low_int"	0
+CALL		0x2206	41	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"in_high_int"	0
+FN_END		0x222a	46	
+FN_START	0x222c	83	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"InterruptHandlerHigh"	"external"	
+ADJUST		0x227c	83	18
+CALL		0x2284	92	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_i2c.c"	"i2c_int_handler"	0
+CALL		0x228e	99	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/user_interrupts.c"	"timer0_int_handler"	0
+CALL		0x2292	109	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"SleepIfOkay"	0
+ADJUST		0x22e0	110	-18
+FN_END		0x22e4	110	
+FN_START	0x22e6	122	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/interrupts.c"	"InterruptHandlerLow"	"external"	
+ADJUST		0x2340	122	19
+CALL		0x2348	126	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/user_interrupts.c"	"timer1_int_handler"	0
+CALL		0x2352	132	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_uart.c"	"uart_recv_int_handler"	0
+ADJUST		0x23aa	134	-19
+FN_END		0x23ae	134	
 FILE		0x0	0	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/smcpic.c"
-FN_START	0x2592	4	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/smcpic.c"	"sendMtrCmd"	"external"	
-ADJUST		0x2592	4	1
-ADJUST		0x259c	6	1
-CALL		0x25a0	6	"C:\MCC18\v3_39\src\pmc_common\USART\uwrite.c"	"WriteUSART"	0
-ADJUST		0x25a4	6	-1
-ADJUST		0x25a8	8	-1
-FN_END		0x25ae	8	
-FN_START	0x25b0	10	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/smcpic.c"	"readIRSensors"	"external"	
-ADJUST		0x25b0	10	1
-ADJUST		0x25bc	12	1
-ADJUST		0x25be	12	1
-ADJUST		0x25c2	12	1
-CALL		0x25c6	12	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
-ADJUST		0x25ca	12	-3
-ADJUST		0x25ce	13	1
-ADJUST		0x25dc	13	1
-ADJUST		0x25e0	13	1
-CALL		0x25e4	13	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
-ADJUST		0x25e8	13	-3
-ADJUST		0x25ec	14	1
-ADJUST		0x25fc	14	1
-ADJUST		0x2600	14	1
-CALL		0x2604	14	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
-ADJUST		0x2608	14	-3
-ADJUST		0x260c	15	1
-ADJUST		0x261c	15	1
-ADJUST		0x2620	15	1
-CALL		0x2624	15	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
-ADJUST		0x2628	15	-3
-ADJUST		0x262c	17	-1
-FN_END		0x2632	17	
-FN_START	0x2634	19	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/smcpic.c"	"readSonarSensors"	"external"	
-ADJUST		0x2634	19	1
-ADJUST		0x2640	21	1
-ADJUST		0x2642	21	1
-ADJUST		0x2646	21	1
-CALL		0x264a	21	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
-ADJUST		0x264e	21	-3
-ADJUST		0x2652	22	1
-ADJUST		0x2660	22	1
-ADJUST		0x2664	22	1
-CALL		0x2668	22	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
-ADJUST		0x266c	22	-3
-ADJUST		0x2670	24	-1
-FN_END		0x2676	24	
-FN_START	0x2678	26	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/smcpic.c"	"readCurrentSensor"	"external"	
-ADJUST		0x2678	26	1
-ADJUST		0x2684	28	1
-ADJUST		0x2686	28	1
-ADJUST		0x268a	28	1
-CALL		0x268e	28	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
-ADJUST		0x2692	28	-3
-ADJUST		0x2696	30	-1
-FN_END		0x269c	30	
+FN_START	0x23b0	4	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/smcpic.c"	"sendMtrCmd"	"external"	
+ADJUST		0x23b0	4	1
+ADJUST		0x23ba	6	1
+CALL		0x23be	6	"C:\MCC18\v3_39\src\pmc_common\USART\uwrite.c"	"WriteUSART"	0
+ADJUST		0x23c2	6	-1
+ADJUST		0x23c6	8	-1
+FN_END		0x23cc	8	
+FN_START	0x23ce	10	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/smcpic.c"	"readIRSensors"	"external"	
+ADJUST		0x23ce	10	1
+ADJUST		0x23da	12	1
+ADJUST		0x23dc	12	1
+ADJUST		0x23e0	12	1
+CALL		0x23e4	12	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x23e8	12	-3
+ADJUST		0x23ec	13	1
+ADJUST		0x23fa	13	1
+ADJUST		0x23fe	13	1
+CALL		0x2402	13	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x2406	13	-3
+ADJUST		0x240a	14	1
+ADJUST		0x241a	14	1
+ADJUST		0x241e	14	1
+CALL		0x2422	14	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x2426	14	-3
+ADJUST		0x242a	15	1
+ADJUST		0x243a	15	1
+ADJUST		0x243e	15	1
+CALL		0x2442	15	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x2446	15	-3
+ADJUST		0x244a	17	-1
+FN_END		0x2450	17	
+FN_START	0x2452	19	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/smcpic.c"	"readSonarSensors"	"external"	
+ADJUST		0x2452	19	1
+ADJUST		0x245e	21	1
+ADJUST		0x2460	21	1
+ADJUST		0x2464	21	1
+CALL		0x2468	21	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x246c	21	-3
+ADJUST		0x2470	22	1
+ADJUST		0x247e	22	1
+ADJUST		0x2482	22	1
+CALL		0x2486	22	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x248a	22	-3
+ADJUST		0x248e	24	-1
+FN_END		0x2494	24	
+FN_START	0x2496	26	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/smcpic.c"	"readCurrentSensor"	"external"	
+ADJUST		0x2496	26	1
+ADJUST		0x24a2	28	1
+ADJUST		0x24a4	28	1
+ADJUST		0x24a8	28	1
+CALL		0x24ac	28	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	0
+ADJUST		0x24b0	28	-3
+ADJUST		0x24b4	30	-1
+FN_END		0x24ba	30	
 FILE		0x0	0	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_uart.c"
-FN_START	0x269e	12	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_uart.c"	"uart_recv_int_handler"	"external"	
-CALL		0x26a2	13	"C:\MCC18\v3_39\src\pmc_common\USART\uread.c"	"ReadUSART"	0
-ADJUST		0x26a6	13	1
-ADJUST		0x26d0	13	-1
-ADJUST		0x2700	19	1
-ADJUST		0x2704	19	1
-ADJUST		0x270a	19	1
-ADJUST		0x2716	19	1
-CALL		0x271a	19	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	0
-ADJUST		0x271e	19	-4
-ADJUST		0x2738	28	1
-ADJUST		0x273a	28	1
-ADJUST		0x273e	28	1
-ADJUST		0x2740	28	1
-CALL		0x2742	28	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	0
-ADJUST		0x2746	28	-4
-FN_END		0x2748	30	
-FN_START	0x274a	32	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_uart.c"	"init_uart_recv"	"external"	
-ADJUST		0x274a	32	1
-ADJUST		0x2768	35	-1
-FN_END		0x276e	35	
+FN_START	0x24bc	12	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_uart.c"	"uart_recv_int_handler"	"external"	
+CALL		0x24c0	13	"C:\MCC18\v3_39\src\pmc_common\USART\uread.c"	"ReadUSART"	0
+ADJUST		0x24c4	13	1
+ADJUST		0x24ee	13	-1
+ADJUST		0x251e	19	1
+ADJUST		0x2522	19	1
+ADJUST		0x2528	19	1
+ADJUST		0x2534	19	1
+CALL		0x2538	19	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x253c	19	-4
+ADJUST		0x2556	28	1
+ADJUST		0x2558	28	1
+ADJUST		0x255c	28	1
+ADJUST		0x255e	28	1
+CALL		0x2560	28	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x2564	28	-4
+FN_END		0x2566	30	
+FN_START	0x2568	32	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_uart.c"	"init_uart_recv"	"external"	
+ADJUST		0x2568	32	1
+ADJUST		0x2586	35	-1
+FN_END		0x258c	35	
 FILE		0x0	0	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/user_interrupts.c"
-FN_START	0x2770	16	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/user_interrupts.c"	"timer0_int_handler"	"external"	
-ADJUST		0x2770	16	1
-ADJUST		0x277a	16	6
-ADJUST		0x2780	23	1
-ADJUST		0x2782	23	1
-CALL		0x2784	23	"C:\MCC18\v3_39\src\pmc_common\Timers\t0write.c"	"WriteTimer0"	0
-ADJUST		0x2788	23	-2
-ADJUST		0x278e	25	1
-ADJUST		0x2790	25	1
-ADJUST		0x2798	25	1
-ADJUST		0x279a	25	1
-ADJUST		0x27a0	25	1
-CALL		0x27a2	25	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"FromMainHigh_recvmsg"	0
-ADJUST		0x27a6	25	-5
-ADJUST		0x27be	27	1
-ADJUST		0x27c0	27	1
-ADJUST		0x27c6	27	1
-ADJUST		0x27ca	27	1
-CALL		0x27cc	27	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
-ADJUST		0x27d0	27	-4
-ADJUST		0x27d2	29	-7
-FN_END		0x27d8	29	
-FN_START	0x27da	34	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/user_interrupts.c"	"timer1_int_handler"	"external"	
-ADJUST		0x27da	34	1
-ADJUST		0x27e4	34	2
-CALL		0x27e8	39	"C:\MCC18\v3_39\src\pmc_common\Timers\t1read.c"	"ReadTimer1"	0
-ADJUST		0x27f6	40	1
-ADJUST		0x27f8	40	1
-ADJUST		0x27fc	40	1
-ADJUST		0x27fe	40	1
-CALL		0x2800	40	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	0
-ADJUST		0x2804	40	-4
-ADJUST		0x2808	43	1
-ADJUST		0x280a	43	1
-CALL		0x280c	43	"C:\MCC18\v3_39\src\pmc_common\Timers\t1write.c"	"WriteTimer1"	0
-ADJUST		0x2810	43	-2
-ADJUST		0x2812	44	-3
-FN_END		0x2818	44	
+FN_START	0x258e	16	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/user_interrupts.c"	"timer0_int_handler"	"external"	
+ADJUST		0x258e	16	1
+ADJUST		0x2598	16	6
+ADJUST		0x259e	23	1
+ADJUST		0x25a0	23	1
+CALL		0x25a2	23	"C:\MCC18\v3_39\src\pmc_common\Timers\t0write.c"	"WriteTimer0"	0
+ADJUST		0x25a6	23	-2
+ADJUST		0x25ac	25	1
+ADJUST		0x25ae	25	1
+ADJUST		0x25b6	25	1
+ADJUST		0x25b8	25	1
+ADJUST		0x25be	25	1
+CALL		0x25c0	25	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"FromMainHigh_recvmsg"	0
+ADJUST		0x25c4	25	-5
+ADJUST		0x25dc	27	1
+ADJUST		0x25de	27	1
+ADJUST		0x25e4	27	1
+ADJUST		0x25e8	27	1
+CALL		0x25ea	27	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0x25ee	27	-4
+ADJUST		0x25f0	29	-7
+FN_END		0x25f6	29	
+FN_START	0x25f8	34	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/user_interrupts.c"	"timer1_int_handler"	"external"	
+ADJUST		0x25f8	34	1
+ADJUST		0x2602	34	2
+CALL		0x2606	39	"C:\MCC18\v3_39\src\pmc_common\Timers\t1read.c"	"ReadTimer1"	0
+ADJUST		0x2614	40	1
+ADJUST		0x2616	40	1
+ADJUST		0x261a	40	1
+ADJUST		0x261c	40	1
+CALL		0x261e	40	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x2622	40	-4
+ADJUST		0x2626	43	1
+ADJUST		0x2628	43	1
+CALL		0x262a	43	"C:\MCC18\v3_39\src\pmc_common\Timers\t1write.c"	"WriteTimer1"	0
+ADJUST		0x262e	43	-2
+ADJUST		0x2630	44	-3
+FN_END		0x2636	44	
 FILE		0x0	0	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"
-FN_START	0x281a	81	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"	"_do_cinit"	"external"	
-FN_END		0x28b6	184	
+FN_START	0x2638	81	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"	"_do_cinit"	"external"	
+FN_END		0x26d4	184	
 FILE		0x0	0	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"
-FN_START	0x28b8	6	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"adc_int_handler"	"external"	
-ADJUST		0x28ba	6	1
-ADJUST		0x28bc	6	1
-ADJUST		0x28c0	6	1
-ADJUST		0x28c2	6	1
-CALL		0x28c4	6	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	0
-ADJUST		0x28c8	6	-4
-FN_END		0x28cc	8	
-FN_START	0x28ce	14	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"initADC"	"external"	
-ADJUST		0x28d0	14	1
-ADJUST		0x28d4	14	1
-ADJUST		0x28d8	11	1
-CALL		0x28da	14	"C:\MCC18\v3_39\src\pmc_common\ADC\adcopen.c"	"OpenADC"	0
-ADJUST		0x28de	14	-3
-FN_END		0x28e2	16	
-FN_START	0x28e4	18	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	"external"	
-ADJUST		0x28e4	18	1
-ADJUST		0x28ee	18	2
-ADJUST		0x28f4	20	1
-CALL		0x28f8	20	"C:\MCC18\v3_39\src\pmc_common\ADC\adcsetch.c"	"SetChanADC"	0
-ADJUST		0x28fc	20	-1
-CALL		0x28fe	21	"C:\MCC18\v3_39\src\pmc_common\ADC\adcconv.c"	"ConvertADC"	0
-CALL		0x2902	22	"C:\MCC18\v3_39\src\pmc_common\ADC\adcbusy.c"	"BusyADC"	0
-CALL		0x290c	23	"C:\MCC18\v3_39\src\pmc_common\ADC\adcread.c"	"ReadADC"	0
-ADJUST		0x2938	27	-3
-FN_END		0x293e	27	
-FN_START	0x2940	30	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"stopADC"	"external"	
-CALL		0x2940	30	"C:\MCC18\v3_39\src\pmc_common\ADC\adcclose.c"	"CloseADC"	0
-FN_END		0x2946	32	
+FN_START	0x26d6	6	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"adc_int_handler"	"external"	
+ADJUST		0x26d8	6	1
+ADJUST		0x26da	6	1
+ADJUST		0x26de	6	1
+ADJUST		0x26e0	6	1
+CALL		0x26e2	6	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x26e6	6	-4
+FN_END		0x26ea	8	
+FN_START	0x26ec	14	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"initADC"	"external"	
+ADJUST		0x26ee	14	1
+ADJUST		0x26f2	14	1
+ADJUST		0x26f6	11	1
+CALL		0x26f8	14	"C:\MCC18\v3_39\src\pmc_common\ADC\adcopen.c"	"OpenADC"	0
+ADJUST		0x26fc	14	-3
+FN_END		0x2700	16	
+FN_START	0x2702	18	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"readADC"	"external"	
+ADJUST		0x2702	18	1
+ADJUST		0x270c	18	2
+ADJUST		0x2712	20	1
+CALL		0x2716	20	"C:\MCC18\v3_39\src\pmc_common\ADC\adcsetch.c"	"SetChanADC"	0
+ADJUST		0x271a	20	-1
+CALL		0x271c	21	"C:\MCC18\v3_39\src\pmc_common\ADC\adcconv.c"	"ConvertADC"	0
+CALL		0x2720	22	"C:\MCC18\v3_39\src\pmc_common\ADC\adcbusy.c"	"BusyADC"	0
+CALL		0x272a	23	"C:\MCC18\v3_39\src\pmc_common\ADC\adcread.c"	"ReadADC"	0
+ADJUST		0x2756	27	-3
+FN_END		0x275c	27	
+FN_START	0x275e	30	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/my_adc.c"	"stopADC"	"external"	
+CALL		0x275e	30	"C:\MCC18\v3_39\src\pmc_common\ADC\adcclose.c"	"CloseADC"	0
+FN_END		0x2764	32	
 FILE		0x0	0	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/uart_thread.c"
-FN_START	0x2948	12	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/uart_thread.c"	"uart_lthread"	"external"	
-ADJUST		0x2948	12	1
-ADJUST		0x2952	12	3
-ADJUST		0x298c	49	1
-ADJUST		0x2990	49	1
-ADJUST		0x2994	49	1
-CALL		0x2998	49	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/queue.c"	"appendQueue"	0
-ADJUST		0x299c	49	-3
-ADJUST		0x29a6	52	1
-ADJUST		0x29aa	52	1
-ADJUST		0x29ae	52	1
-ADJUST		0x29b2	52	1
-ADJUST		0x29b6	52	1
-ADJUST		0x29ba	52	1
-CALL		0x29be	52	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/zigBee.c"	"doZigBee"	0
-ADJUST		0x29c2	52	-6
-ADJUST		0x29c4	54	-4
-FN_END		0x29ca	54	
+FN_START	0x2766	12	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/uart_thread.c"	"uart_lthread"	"external"	
+ADJUST		0x2766	12	1
+ADJUST		0x2770	12	3
+ADJUST		0x27aa	49	1
+ADJUST		0x27ae	49	1
+ADJUST		0x27b2	49	1
+CALL		0x27b6	49	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/queue.c"	"appendQueue"	0
+ADJUST		0x27ba	49	-3
+ADJUST		0x27c4	52	1
+ADJUST		0x27c8	52	1
+ADJUST		0x27cc	52	1
+ADJUST		0x27d0	52	1
+ADJUST		0x27d4	52	1
+ADJUST		0x27d8	52	1
+CALL		0x27dc	52	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/zigBee.c"	"doZigBee"	0
+ADJUST		0x27e0	52	-6
+ADJUST		0x27e2	55	-4
+FN_END		0x27e8	55	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\USART\uopen.c"
-FN_START	0x29cc	73	"C:\MCC18\v3_39\src\pmc_common\USART\uopen.c"	"OpenUSART"	"external"	
-FN_END		0x2a4c	143	
+FN_START	0x27ea	73	"C:\MCC18\v3_39\src\pmc_common\USART\uopen.c"	"OpenUSART"	"external"	
+FN_END		0x286a	143	
+FILE		0x0	0	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer1_thread.c"
+FN_START	0x286c	8	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer1_thread.c"	"init_timer1_lthread"	"external"	
+ADJUST		0x286c	8	1
+ADJUST		0x28b2	12	-1
+FN_END		0x28b8	12	
+FN_START	0x28ba	20	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer1_thread.c"	"timer1_lthread"	"external"	
+ADJUST		0x28ba	20	1
+ADJUST		0x28d8	76	-1
+FN_END		0x28de	76	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\ADC\adcopen.c"
-FN_START	0x2a4e	68	"C:\MCC18\v3_39\src\pmc_common\ADC\adcopen.c"	"OpenADC"	"external"	
-FN_END		0x2ab0	89	
+FN_START	0x28e0	68	"C:\MCC18\v3_39\src\pmc_common\ADC\adcopen.c"	"OpenADC"	"external"	
+FN_END		0x2942	89	
 FILE		0x0	0	"memcpy.O"
-FN_START	0x2ab2	30	"memcpy.O"	"memcpy"	"visibility"	
-ADJUST		0x2ab2	30	1
-ADJUST		0x2ab6	30	1
-ADJUST		0x2abc	34	1
-ADJUST		0x2ac2	34	1
-ADJUST		0x2ac8	38	1
-ADJUST		0x2ace	38	1
-ADJUST		0x2adc	49	1
-ADJUST		0x2ae2	49	1
-ADJUST		0x2ae8	53	1
-ADJUST		0x2aee	53	1
-ADJUST		0x2af8	61	1
-ADJUST		0x2afc	61	-1
-ADJUST		0x2b00	61	1
-ADJUST		0x2b04	61	-1
-FN_END		0x2b06	63	
+FN_START	0x2944	30	"memcpy.O"	"memcpy"	"visibility"	
+ADJUST		0x2944	30	1
+ADJUST		0x2948	30	1
+ADJUST		0x294e	34	1
+ADJUST		0x2954	34	1
+ADJUST		0x295a	38	1
+ADJUST		0x2960	38	1
+ADJUST		0x296e	49	1
+ADJUST		0x2974	49	1
+ADJUST		0x297a	53	1
+ADJUST		0x2980	53	1
+ADJUST		0x298a	61	1
+ADJUST		0x298e	61	-1
+ADJUST		0x2992	61	1
+ADJUST		0x2996	61	-1
+FN_END		0x2998	63	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\Timers\t1open.c"
-FN_START	0x2b08	16	"C:\MCC18\v3_39\src\pmc_common\Timers\t1open.c"	"OpenTimer1"	"external"	
-FN_END		0x2b46	36	
+FN_START	0x299a	16	"C:\MCC18\v3_39\src\pmc_common\Timers\t1open.c"	"OpenTimer1"	"external"	
+FN_END		0x29d8	36	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\USART\uread.c"
-FN_START	0x2b48	15	"C:\MCC18\v3_39\src\pmc_common\USART\uread.c"	"ReadUSART"	"external"	
-FN_END		0x2b84	37	
+FN_START	0x29da	15	"C:\MCC18\v3_39\src\pmc_common\USART\uread.c"	"ReadUSART"	"external"	
+FN_END		0x2a16	37	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\Timers\t1write.c"
-FN_START	0x2b86	14	"C:\MCC18\v3_39\src\pmc_common\Timers\t1write.c"	"WriteTimer1"	"external"	
-FN_END		0x2bb4	22	
+FN_START	0x2a18	14	"C:\MCC18\v3_39\src\pmc_common\Timers\t1write.c"	"WriteTimer1"	"external"	
+FN_END		0x2a46	22	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\Timers\t1read.c"
-FN_START	0x2bb6	15	"C:\MCC18\v3_39\src\pmc_common\Timers\t1read.c"	"ReadTimer1"	"external"	
-FN_END		0x2be4	23	
+FN_START	0x2a48	15	"C:\MCC18\v3_39\src\pmc_common\Timers\t1read.c"	"ReadTimer1"	"external"	
+FN_END		0x2a76	23	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\Timers\t0write.c"
-FN_START	0x2be6	16	"C:\MCC18\v3_39\src\pmc_common\Timers\t0write.c"	"WriteTimer0"	"external"	
-FN_END		0x2c14	24	
+FN_START	0x2a78	16	"C:\MCC18\v3_39\src\pmc_common\Timers\t0write.c"	"WriteTimer0"	"external"	
+FN_END		0x2aa6	24	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\ADC\adcsetch.c"
-FN_START	0x2c16	30	"C:\MCC18\v3_39\src\pmc_common\ADC\adcsetch.c"	"SetChanADC"	"external"	
-FN_END		0x2c44	36	
+FN_START	0x2aa8	30	"C:\MCC18\v3_39\src\pmc_common\ADC\adcsetch.c"	"SetChanADC"	"external"	
+FN_END		0x2ad6	36	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\USART\uwrite.c"
-FN_START	0x2c46	13	"C:\MCC18\v3_39\src\pmc_common\USART\uwrite.c"	"WriteUSART"	"external"	
-FN_END		0x2c72	23	
+FN_START	0x2ad8	13	"C:\MCC18\v3_39\src\pmc_common\USART\uwrite.c"	"WriteUSART"	"external"	
+FN_END		0x2b04	23	
 FILE		0x0	0	"d1ktcyx.O"
-FN_START	0x2c74	19	"d1ktcyx.O"	"Delay1KTCYx"	"visibility"	
-ADJUST		0x2c76	21	1
-FN_END		0x2c92	41	
+FN_START	0x2b06	19	"d1ktcyx.O"	"Delay1KTCYx"	"visibility"	
+ADJUST		0x2b08	21	1
+FN_END		0x2b24	41	
 FILE		0x0	0	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer0_thread.c"
-FN_START	0x2cb4	9	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer0_thread.c"	"timer0_lthread"	"external"	
-ADJUST		0x2cb4	9	1
-ADJUST		0x2cbe	9	2
-ADJUST		0x2cc8	16	-3
-FN_END		0x2cce	16	
+FN_START	0x2b46	9	"/home/carbon/Embedded/ECE-4534/PICCode/PICCodeBranch/PICFrameworkWindows/src/timer0_thread.c"	"timer0_lthread"	"external"	
+ADJUST		0x2b46	9	1
+ADJUST		0x2b50	9	2
+ADJUST		0x2b5a	16	-3
+FN_END		0x2b60	16	
 FILE		0x0	0	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"
-FN_START	0x2cd0	34	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"	"_startup"	"external"	
-FN_END		0x2ce8	51	
+FN_START	0x2b62	34	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"	"_startup"	"external"	
+FN_END		0x2b7a	51	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\ADC\adcread.c"
-FN_START	0x2cea	26	"C:\MCC18\v3_39\src\pmc_common\ADC\adcread.c"	"ReadADC"	"external"	
-FN_END		0x2d00	27	
+FN_START	0x2b7c	26	"C:\MCC18\v3_39\src\pmc_common\ADC\adcread.c"	"ReadADC"	"external"	
+FN_END		0x2b92	27	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"
-FN_START	0x2d02	26	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	"external"	
-FN_END		0x2d0e	28	
+FN_START	0x2b94	26	"C:\MCC18\v3_39\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	"external"	
+FN_END		0x2ba0	28	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\ADC\adcclose.c"
-FN_START	0x2d10	25	"C:\MCC18\v3_39\src\pmc_common\ADC\adcclose.c"	"CloseADC"	"external"	
-FN_END		0x2d14	27	
+FN_START	0x2ba2	25	"C:\MCC18\v3_39\src\pmc_common\ADC\adcclose.c"	"CloseADC"	"external"	
+FN_END		0x2ba6	27	
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\ADC\adcconv.c"
-FN_START	0x2d16	24	"C:\MCC18\v3_39\src\pmc_common\ADC\adcconv.c"	"ConvertADC"	"external"	
-FN_END		0x2d18	25	
+FN_START	0x2ba8	24	"C:\MCC18\v3_39\src\pmc_common\ADC\adcconv.c"	"ConvertADC"	"external"	
+FN_END		0x2baa	25	

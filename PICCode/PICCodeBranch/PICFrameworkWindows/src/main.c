@@ -115,7 +115,13 @@ void main(void) {
 #endif
 #ifdef ISSMCPIC
     Queue uartTXQ;
-    
+    unsigned char LSonar = 0;
+    unsigned char RSonar = 0;
+    unsigned char FLIR = 0;
+    unsigned char BLIR = 0;
+    unsigned char FRIR = 0;
+    unsigned char BRIR = 0;
+    unsigned char current = 0;
 #endif
 
 #ifdef __USE18F2680
@@ -251,8 +257,10 @@ void main(void) {
                 case MSGT_I2C_DATA:
                 {
                     last_reg_recvd = msgbuffer[0];
-#ifdef MASTERPIC
+
                     switch (last_reg_recvd) {
+
+#ifdef MASTERPIC
                         case SAMPLEDISTANCE:
                         {
                             LSonar = msgbuffer[1];
@@ -293,13 +301,14 @@ void main(void) {
                                 RFID = msgbuffer[1];
                             break;
                         };
+#endif
                         default:
                         {
                             //putsUSART((char*) "Oh no! I2C Unknown Message Recvd.");
                             break;
                         };
                     };
-#endif
+
                     break;
                 };
                 case MSGT_I2C_DBG:
@@ -309,8 +318,10 @@ void main(void) {
                     last_reg_recvd = msgbuffer[0];
                     break;
                 };
+#ifndef MASTERPIC
                 case MSGT_I2C_RQST:
                 {
+                    last_reg_recvd = msgbuffer[0];
                     // Generally, this is *NOT* how I recommend you handle an I2C slave request
                     // I recommend that you handle it completely inside the i2c interrupt handler
                     // by reading the data from a queue (i.e., you would not send a message, as is done
@@ -319,6 +330,43 @@ void main(void) {
                     // The last byte received is the "register" that is trying to be read
                     // The response is dependent on the register.
                     switch (last_reg_recvd) {
+#ifdef ISSMCPIC
+                        case SAMPLECURRENT:
+                        {
+                            PORTBbits.RB4 = 1;
+                            length = 2;
+                            msgbuffer[0] = SAMPLECURRENT;
+                            msgbuffer[1] = current;
+                            break;
+                        };
+
+                        case SAMPLEDISTANCE:
+                        {
+                            PORTBbits.RB5 = 1;
+                            length = 7;
+                            msgbuffer[0] = SAMPLEDISTANCE;
+                            msgbuffer[1] = FLIR;
+                            msgbuffer[2] = FRIR;
+                            msgbuffer[3] = BLIR;
+                            msgbuffer[4] = BRIR;
+                            msgbuffer[5] = LSonar;
+                            msgbuffer[6] = RSonar;
+                            break;
+                        };
+
+                        case SENDMTRCMD:
+                        {
+                            
+                            sendMtrCmd(msgbuffer[1]);
+                            sendMtrCmd(msgbuffer[2]);
+
+                            length = 2;
+                            msgbuffer[0] = SENDMTRCMD;
+                            msgbuffer[1] = 0x01;
+                            break;
+                        };
+                        
+#endif
 #ifdef ISRELPIC
                         // command to send rfid tag, if there is something in the queue, send it else send 0
                         case 0xf6:
@@ -364,29 +412,33 @@ void main(void) {
                             msgbuffer[1] = 0x30;
                             break;
                         }
+#endif
                         default:
                         {
                             length = 3;
                             msgbuffer[0] = 0xff;
                             msgbuffer[1] = 0xff;
                             msgbuffer[2] = 0xff;
+                            break;
                         }
-#endif
                     };
+                    
                     start_i2c_slave_reply(length, msgbuffer);
                     break;
                 };
-
+#endif
                 case MSGT_SEND_MTRCMD:
                 {
 #ifdef MASTERPIC
                     unsigned char buf[4];
-                    buf[0] = RELPICADDR;
+                    buf[0] = SMCPICADDR;
                     buf[1] = SENDMTRCMD;
                     buf[2] = msgbuffer[0];
                     buf[3] = msgbuffer[1];
                     i2c_master_send(4, &buf);
-                    //WriteUSART(0x99);
+
+                    i2c_master_recv(2, SMCPICADDR);
+                    WriteUSART(0x99);
                     PORTBbits.RB5 = 1;
 #endif
                     break;
@@ -415,6 +467,20 @@ void main(void) {
                     break;
                 };
                 case MSGT_OVERRUN:
+                {
+                    break;
+                };
+                case MSGT_ADC_DATA:
+                {
+                    readADC(&FLIR, ADC_CH0);
+                    readADC(&FRIR, ADC_CH1);
+                    readADC(&BLIR, ADC_CH2);
+                    readADC(&BRIR, ADC_CH3);
+                    readADC(LSonar, ADC_CH4);
+                    readADC(RSonar, ADC_CH5);
+                    readADC(current, ADC_CH6);
+                    break;
+                };
                 case MSGT_UART_DATA:
                 {
 #ifdef ISRELPIC

@@ -68,9 +68,13 @@ unsigned char i2c_master_send(unsigned char length, unsigned char *msg) {
     }
     ic_ptr->outbuflen = length;
     ic_ptr->outbufind = 1;
+
+    //while (ic_ptr->status != I2C_IDLE);
+
     ic_ptr->status = I2C_MASTER_SEND_ADDR;
     ic_ptr->slave_addr = ic_ptr->outbuffer[0];
 
+    //IdleI2C();
     StartI2C();
     return(0);
 }
@@ -98,6 +102,8 @@ unsigned char i2c_master_recv(unsigned char length, unsigned char addr) {
         ic_ptr->buffer[i] = 0;
     }
     ic_ptr->slave_addr = addr;
+
+    //while (ic_ptr->status != I2C_IDLE);
 
     ic_ptr->status = I2C_MASTER_RECV_ADDR;
 
