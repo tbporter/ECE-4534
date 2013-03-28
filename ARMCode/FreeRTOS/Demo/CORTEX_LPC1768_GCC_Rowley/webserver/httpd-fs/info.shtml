@@ -9,6 +9,7 @@
 <br><p>
 <hr>
 <br><p>
+<form name="aForm" action="/info.shtml" method="get">
 <h2>INFO</h2>
 Page will refresh every 2 seconds.<p>
 <font face="courier"><pre>****************************************<br>

@@ -42,4 +42,8 @@ void processWebDebugMsg(char* msg);
 
 char (*getWebDebug())[DEBUG_LENGTH];
 void getWebStatusText(char* buf);
+
+int getWebStart();
+void setWebStart(int s);
+
 #endif

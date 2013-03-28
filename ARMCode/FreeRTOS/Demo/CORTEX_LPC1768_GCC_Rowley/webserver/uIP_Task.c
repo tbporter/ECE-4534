@@ -256,6 +256,12 @@ extern void vParTestSetLEDState( long lState );
 	c = strstr( pcInputString, "?" );
     if( c )
     {
+		if(strstr(c,"start=1")!=NULL){
+			setWebStart(1);
+		}
+		else{
+			setWebStart(0);
+		}
 		/* Turn the FIO1 LED's on or off in accordance with the check box status. */
 		if( strstr( c, "LED0=1" ) != NULL )
 		{

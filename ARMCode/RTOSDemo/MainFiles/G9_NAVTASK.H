@@ -31,4 +31,13 @@ void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, 
 //	ticksToBlock -- how long the routine should wait if the queue is full
 //	Return: Result of the call to xQueueSend()
 portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBlock);
+
+
+//State machine,
+//Decides on commands to send the motor based off of IR
+
+void stateMachine();
+
+
+
 #endif

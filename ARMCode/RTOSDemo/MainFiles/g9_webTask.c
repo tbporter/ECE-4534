@@ -15,7 +15,7 @@ static int amps;
 static char loop[10];
 static char finished;
 static int lap;
-
+static int start =0;
 
 
 
@@ -86,11 +86,13 @@ void printw(const char* fmt, ...){
 }
 //TODO: keep track of position or linked list, moving the whole array is slow.
 void processWebDebugMsg(char* msg){
-	int i;
-	for(i=DEBUG_LINES-1; i>0; i--){
-		strncpy(webDebugOut[i+1], webDebugOut[i], DEBUG_LENGTH);
+	static i = 0;
+	strncpy(webDebugOut[i],msg,DEBUG_LENGTH);
+	i++;
+	if(i>=DEBUG_LINES){
+		i = 0;
 	}
-	strncpy(webDebugOut[0], msg, DEBUG_LENGTH);	
+	strcpy(webDebugOut[i],"-----------------");	
 }
 void getWebStatusText(char* buffer){
 	strcpy(state,"Stopped");
@@ -109,4 +111,12 @@ void getWebStatusText(char* buffer){
 
 char (*getWebDebug())[DEBUG_LENGTH]{
 	return webDebugOut;
+}
+
+void setWebStart(int s){
+	printw("start = %d",s);
+	start = s;
+}
+int getWebStart(){
+	return start;
 }
