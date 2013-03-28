@@ -1204,9 +1204,9 @@ TX_RETRY 1
 "46
 [v _getNumMessagesQueue `(i  1 e 2 0 ]
 "50
-[v _isQueueEmpty `T(uc  1 e 1 0 ]
+[v _isQEmpty `T(uc  1 e 1 0 ]
 "53
-[v _isQueueFull `T(uc  1 e 1 0 ]
+[v _isQFull `T(uc  1 e 1 0 ]
 "9 ../src/timer0_thread.c
 [v _timer0_lthread `(i  1 e 2 0 ]
 "7 ../src/timer1_thread.c
@@ -2308,15 +2308,15 @@ TX_RETRY 1
 "36
 } 0
 "53 ../src/queue.c
-[v _isQueueFull `T(uc  1 e 1 0 ]
+[v _isQFull `T(uc  1 e 1 0 ]
 {
-[v isQueueFull@Q `*.MS40  1 p 2 53 ]
+[v isQFull@Q `*.MS40  1 p 2 53 ]
 "55
 } 0
 "50
-[v _isQueueEmpty `T(uc  1 e 1 0 ]
+[v _isQEmpty `T(uc  1 e 1 0 ]
 {
-[v isQueueEmpty@Q `*.MS40  1 p 2 53 ]
+[v isQEmpty@Q `*.MS40  1 p 2 53 ]
 "52
 } 0
 "122 ../src/interrupts.c

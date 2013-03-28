@@ -14775,8 +14775,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;queue.h: 20: unsigned char readQueue(Queue *Q, unsigned char* msg);
 [; ;queue.h: 21: int createQueue(Queue *Q, int Qsize);
 [; ;queue.h: 22: int getNumMessagesQueue(Queue *Q);
-[; ;queue.h: 23: inline unsigned char isQueueEmpty(Queue *Q);
-[; ;queue.h: 24: inline unsigned char isQueueFull(Queue *Q);
+[; ;queue.h: 23: inline unsigned char isQEmpty(Queue *Q);
+[; ;queue.h: 24: inline unsigned char isQFull(Queue *Q);
 [; ;messages.h: 10: typedef struct __msg {
 [; ;messages.h: 11: unsigned char full;
 [; ;messages.h: 12: unsigned char length;

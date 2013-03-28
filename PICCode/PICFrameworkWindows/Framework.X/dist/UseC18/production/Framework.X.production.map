@@ -22,7 +22,7 @@ Linker command line:
   -pfarbss=FARRAM,fardata=FARRAM \
   -pintsave_regs=BIGRAM,bigbss=BIGRAM,bigdata=BIGRAM -pbss=RAM \
   -pidata=CODE,irdata=CODE,ibigdata=CODE,ifardata=CODE \
-  C:\Users\ECE4534\AppData\Local\Temp\s39k.obj \
+  C:\Users\ECE4534\AppData\Local\Temp\s2j4.obj \
   dist/UseC18/production\Framework.X.production.obj 
 
 Object code version is 3.10
@@ -35,7 +35,7 @@ Call graph: (short form)
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\ECE4534\AppData\Local\Temp\s39k.obj
+C:\Users\ECE4534\AppData\Local\Temp\s2j4.obj
                 end_init                             D2       D2        4        C       0
                 reset_vec                             0        0        4        0       0
                 idloc                            200000   200000        8   200000       0
@@ -343,8 +343,8 @@ UNUSED ADDRESS RANGES
 ?_init_queue                     cstackBANK0  000095
 ?_init_timer1_lthread            cstackBANK0  000095
 ?_init_uart_recv                 cstackBANK0  000095
-?_isQueueEmpty                   cstackBANK0  000095
-?_isQueueFull                    cstackBANK0  000095
+?_isQEmpty                       cstackBANK0  000095
+?_isQFull                        cstackBANK0  000095
 ?_memcpy                         cstackBANK1  00016C
 ?_readQueue                      cstackBANK1  00016C
 ?_recv_msg                       cstackBANK1  000176
@@ -802,8 +802,8 @@ __end_of_init_queue              text32       001F0C
 __end_of_init_queues             text6        002104
 __end_of_init_timer1_lthread     text5        00286E
 __end_of_init_uart_recv          text3        002806
-__end_of_isQueueEmpty            text43       002630
-__end_of_isQueueFull             text42       002492
+__end_of_isQEmpty                text43       002630
+__end_of_isQFull                 text42       002492
 __end_of_main                    text0        000708
 __end_of_memcpy                  text36       0022DA
 __end_of_readQueue               text29       0019C4
@@ -958,8 +958,8 @@ __size_of_init_queue             (abs)        000000
 __size_of_init_queues            (abs)        000000
 __size_of_init_timer1_lthread    (abs)        000000
 __size_of_init_uart_recv         (abs)        000000
-__size_of_isQueueEmpty           (abs)        000000
-__size_of_isQueueFull            (abs)        000000
+__size_of_isQEmpty               (abs)        000000
+__size_of_isQFull                (abs)        000000
 __size_of_main                   (abs)        000000
 __size_of_memcpy                 (abs)        000000
 __size_of_readQueue              (abs)        000000
@@ -1013,8 +1013,8 @@ _init_queue                      text32       001E86
 _init_queues                     text6        002092
 _init_timer1_lthread             text5        00285C
 _init_uart_recv                  text3        0027EC
-_isQueueEmpty                    text43       002602
-_isQueueFull                     text42       002458
+_isQEmpty                        text43       002602
+_isQFull                         text42       002458
 _main                            text0        0000D6
 _memcpy                          text36       002284
 _readQueue                       text29       0018E8
@@ -1121,8 +1121,8 @@ intlevel0                        text         000000
 intlevel1                        text         000000
 intlevel2                        text         000000
 intlevel3                        text         000000
-isQueueEmpty@Q                   cstackBANK0  000095
-isQueueFull@Q                    cstackBANK0  000095
+isQEmpty@Q                       cstackBANK0  000095
+isQFull@Q                        cstackBANK0  000095
 main@byte1                       cstackBANK2  000281
 main@byte2                       cstackBANK2  000282
 main@count                       cstackBANK2  000274
@@ -2176,7 +2176,7 @@ Total ram usage:       11 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   12
  This function calls:
-		_isQueueEmpty
+		_isQEmpty
  This function is called by:
 		_doZigBee
 		_main
@@ -2242,7 +2242,7 @@ Total ram usage:        3 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:   12
  This function calls:
-		_isQueueFull
+		_isQFull
  This function is called by:
 		_main
 		_uart_lthread
@@ -2594,7 +2594,7 @@ Total ram usage:        2 bytes
  This function uses a non-reentrant model
 
 
- *************** function _isQueueFull *****************
+ *************** function _isQFull *****************
  Defined at:
 		line 53 in file "../src/queue.c"
  Parameters:    Size  Location     Type
@@ -2624,7 +2624,7 @@ Total ram usage:        2 bytes
  This function uses a non-reentrant model
 
 
- *************** function _isQueueEmpty *****************
+ *************** function _isQEmpty *****************
  Defined at:
 		line 50 in file "../src/queue.c"
  Parameters:    Size  Location     Type
@@ -3600,10 +3600,10 @@ shared estimated size: 1242
 
 ../src/queue.c
 		_appendQueue   		CODE           	2722	0000	32
-		_isQueueFull   		CODE           	2458	0000	58
-		_isQueueEmpty  		CODE           	2602	0000	46
+		_isQEmpty      		CODE           	2602	0000	46
 		_getNumMessages		CODE           	2012	0000	128
 		_createQueue   		CODE           	28A4	0000	10
+		_isQFull       		CODE           	2458	0000	58
 		_readQueue     		CODE           	18E8	0000	220
 
 ../src/queue.c estimated size: 494

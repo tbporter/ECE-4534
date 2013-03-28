@@ -8,6 +8,7 @@ i2_ToMainHigh_sendmsg: CODE, 9864 0 44
 _getLen: CODE, 10246 0 26
 _timer0_int_handler: CODE, 6596 0 200
 _appendQueue: CODE, 10018 0 32
+_isQEmpty: CODE, 9730 0 46
 i2_in_high_int: CODE, 10312 0 20
 _init_timer1_lthread: CODE, 10332 0 18
 _IdleI2C: CODE, 10108 0 28
@@ -20,8 +21,6 @@ _check_msg: CODE, 9418 0 56
 _zigBee2G9Msg: CODE, 3750 0 388
 _in_low_int: CODE, 8560 0 94
 _doZigBee: CODE, 1800 0 980
-_isQueueFull: CODE, 9304 0 58
-_isQueueEmpty: CODE, 9730 0 46
 _timer1_int_handler: CODE, 9008 0 84
 _ReadTimer1: CODE, 10350 0 18
 _WriteTimer0: CODE, 10386 0 18
@@ -51,6 +50,7 @@ _getNumMessagesQueue: CODE, 8210 0 128
 _initADC: CODE, 9092 0 78
 _createQueue: CODE, 10404 0 10
 _generateChecksum: CODE, 6154 0 222
+_isQFull: CODE, 9304 0 58
 _send_msg: CODE, 5406 0 262
 _FromMainHigh_recvmsg: CODE, 9682 0 48
 _init_queue: CODE, 7814 0 134

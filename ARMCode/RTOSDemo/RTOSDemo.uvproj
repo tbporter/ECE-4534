@@ -261,7 +261,7 @@
             <uThumb>1</uThumb>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>ROM_MODE,CONFIGURE_USB,FULL_SPEED,PACK_STRUCT_END="__attribute((packed))",ALIGN_STRUCT_END="__attribute((align(4))"</Define>
+              <Define>IS_ARM,ROM_MODE,CONFIGURE_USB,FULL_SPEED,PACK_STRUCT_END="__attribute((packed))",ALIGN_STRUCT_END="__attribute((align(4))"</Define>
               <Undefine></Undefine>
               <IncludePath>.\..\SystemFiles;.\..\NXPDrivers\include;.\..\FreeRTOS\Source\portable\GCC\ARM_CM3;.\..\FreeRTOS\Source\include;.\..\vtCode;.\..\vtCode\vtLCD;.\..\vtCode\vtI2C;.\..\FreeRTOS\Demo\Common\ethernet\uIP\uip-1.0\uip;.\..\FreeRTOS\Demo\Common\include;.\MainFiles;.\..\FreeRTOS\Demo\CORTEX_LPC1768_GCC_Rowley\webserver;.\..\FreeRTOS\Demo\CORTEX_LPC1768_GCC_Rowley\LPCUSB;.\..\LPCUSB;.\..\FreeRTOS\Source\portable\MemMang;..\..\common;.</IncludePath>
             </VariousControls>

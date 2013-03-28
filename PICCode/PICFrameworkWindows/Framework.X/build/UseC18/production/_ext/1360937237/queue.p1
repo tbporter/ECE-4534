@@ -3,10 +3,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S1 Queue size first last messages ]
 "24 ../src/queue.h
 [v F23 `(uc ~T0 @X0 1 tf1`*S1 ]
-[v _isQueueFull `TF23 ~T0 @X0 0 e ]
+[v _isQFull `TF23 ~T0 @X0 0 e ]
 "23
 [v F20 `(uc ~T0 @X0 1 tf1`*S1 ]
-[v _isQueueEmpty `TF20 ~T0 @X0 0 e ]
+[v _isQEmpty `TF20 ~T0 @X0 0 e ]
 [; ;queue.h: 11: typedef struct Queue
 [; ;queue.h: 12: {
 [; ;queue.h: 13: int size;
@@ -18,8 +18,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;queue.h: 20: unsigned char readQueue(Queue *Q, unsigned char* msg);
 [; ;queue.h: 21: int createQueue(Queue *Q, int Qsize);
 [; ;queue.h: 22: int getNumMessagesQueue(Queue *Q);
-[; ;queue.h: 23: inline unsigned char isQueueEmpty(Queue *Q);
-[; ;queue.h: 24: inline unsigned char isQueueFull(Queue *Q);
+[; ;queue.h: 23: inline unsigned char isQEmpty(Queue *Q);
+[; ;queue.h: 24: inline unsigned char isQFull(Queue *Q);
 "3 ../src/queue.c
 [v _appendQueue `(i ~T0 @X0 1 ef2`*S1`uc ]
 {
@@ -28,9 +28,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Q `*S1 ~T0 @X0 1 r1 ]
 [v _msg `uc ~T0 @X0 1 r2 ]
 [f ]
-[; ;queue.c: 4: if (isQueueFull(Q)) {
+[; ;queue.c: 4: if (isQFull(Q)) {
 "4
-[e $ ! != -> ( _isQueueFull (1 _Q `i -> -> -> 0 `i `uc `i 3  ]
+[e $ ! != -> ( _isQFull (1 _Q `i -> -> -> 0 `i `uc `i 3  ]
 {
 [; ;queue.c: 5: return 0;
 "5
@@ -97,9 +97,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ) -> -> 0 `i `uc ]
 [e $UE 7  ]
 [e :U 8 ]
-[; ;queue.c: 22: if (isQueueEmpty(Q)) {
+[; ;queue.c: 22: if (isQEmpty(Q)) {
 "22
-[e $ ! != -> ( _isQueueEmpty (1 _Q `i -> -> -> 0 `i `uc `i 9  ]
+[e $ ! != -> ( _isQEmpty (1 _Q `i -> -> -> 0 `i `uc `i 9  ]
 {
 [; ;queue.c: 24: return 0;
 "24
@@ -207,10 +207,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 18 ]
 }
 "50
-[v _isQueueEmpty `TF20 ~T0 @X0 1 e ]
+[v _isQEmpty `TF20 ~T0 @X0 1 e ]
 {
-[; ;queue.c: 50: inline unsigned char isQueueEmpty(Queue *Q){
-[e :U _isQueueEmpty ]
+[; ;queue.c: 50: inline unsigned char isQEmpty(Queue *Q){
+[e :U _isQEmpty ]
 [v _Q `*S1 ~T0 @X0 1 r1 ]
 [f ]
 [; ;queue.c: 51: return (Q->last == -1);
@@ -222,10 +222,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 19 ]
 }
 "53
-[v _isQueueFull `TF23 ~T0 @X0 1 e ]
+[v _isQFull `TF23 ~T0 @X0 1 e ]
 {
-[; ;queue.c: 53: inline unsigned char isQueueFull(Queue *Q){
-[e :U _isQueueFull ]
+[; ;queue.c: 53: inline unsigned char isQFull(Queue *Q){
+[e :U _isQFull ]
 [v _Q `*S1 ~T0 @X0 1 r1 ]
 [f ]
 [; ;queue.c: 54: return (Q->last == Q->size);

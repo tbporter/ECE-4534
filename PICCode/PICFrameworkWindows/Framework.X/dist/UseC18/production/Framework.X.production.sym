@@ -91,6 +91,7 @@ __Hbigram 0 0 ABS 0
 WriteTimer0@timer0 60 0 BANK0 1
 __Lbigram 0 0 ABS 0
 ?_appendQueue 16C 0 BANK1 1
+?_isQFull 95 0 BANK0 1
 i1memcpy@n 5 0 COMRAM 1
 i2memcpy@n 64 0 BANK0 1
 i2_check_msg 253A 0 CODE 0
@@ -124,7 +125,7 @@ __size_of_enter_sleep_mode 0 0 ABS 0
 __size_of_getLen 0 0 ABS 0
 _ADCON0 FC2 0 ABS 0
 ?_ToMainHigh_sendmsg 181 0 BANK1 1
-_isQueueFull 2458 0 CODE 0
+__end_of_isQEmpty 2630 0 CODE 0
 ?i2_recv_msg 6A 0 BANK0 1
 _ADCON1 FC1 0 ABS 0
 _ADCON2 FC0 0 ABS 0
@@ -194,6 +195,7 @@ _i2c_master_recv 1A8C 0 CODE 0
 main@msgtype 290 0 BANK2 1
 __CFG_PBADEN$OFF 0 0 ABS 0
 __size_of_in_high_int 0 0 ABS 0
+_isQEmpty 2602 0 CODE 0
 getLen@msg 16C 0 BANK1 1
 _block_on_To_msgqueues 172A 0 CODE 0
 i1memcpy@s1 3 0 COMRAM 1
@@ -237,7 +239,6 @@ __end_of_main 708 0 CODE 0
 __Lrbss 0 0 COMRAM 1
 __pintcodelo 18 0 CODE 0
 _ic_ptr 98 0 BANK0 1
-isQueueFull@Q 95 0 BANK0 1
 FromMainHigh_recvmsg@maxlength 78 0 BANK0 1
 _uc_ptr 30 0 COMRAM 1
 __end_of_check_msg 2502 0 CODE 0
@@ -263,7 +264,6 @@ i2recv_msg@qptr 6A 0 BANK0 1
 ?_init_uart_recv 95 0 BANK0 1
 send_msg@qptr 176 0 BANK1 1
 recv_msg@qptr 176 0 BANK1 1
-?_isQueueFull 95 0 BANK0 1
 __end_of_in_low_int 21CE 0 CODE 0
 __end_of_doZigBee ADC 0 CODE 0
 ?i1_ToMainLow_sendmsg 17 0 COMRAM 1
@@ -273,7 +273,6 @@ __size_of_adc_int_handler 0 0 ABS 0
 _SSPCON2 FC5 0 ABS 0
 init_uart_recv@uc 95 0 BANK0 1
 _ToMainLow_sendmsg 265C 0 CODE 0
-__end_of_isQueueFull 2492 0 CODE 0
 i2c_master_handler@msg_ready 7F 0 BANK0 1
 __size_of_timer1_lthread 0 0 ABS 0
 _OpenTimer0 26B4 0 CODE 0
@@ -296,8 +295,6 @@ _OpenADC 1F0C 0 CODE 0
 _adc_int_handler 2742 0 CODE 0
 ?i2_in_high_int 60 0 BANK0 1
 _initADC 2384 0 CODE 0
-isQueueEmpty@Q 95 0 BANK0 1
-__end_of_isQueueEmpty 2630 0 CODE 0
 doZigBee@outMsg 1A7 0 BANK1 1
 __Hibigdata 0 0 CODE 0
 __Libigdata 0 0 CODE 0
@@ -411,6 +408,7 @@ __size_of_WriteTimer0 0 0 ABS 0
 __size_of_WriteTimer1 0 0 ABS 0
 ?_getNumMessagesQueue 95 0 BANK0 1
 ToMainHigh_sendmsg@msgtype 182 0 BANK1 1
+?_isQEmpty 95 0 BANK0 1
 FromMainHigh_recvmsg@data 7B 0 BANK0 1
 __end_of_i2c_master_send 1170 0 CODE 0
 __size_ofi2_in_low_int 0 0 ABS 0
@@ -464,6 +462,7 @@ i1_send_msg 1CAE 0 CODE 0
 i2_send_msg 1624 0 CODE 0
 __LcstackCOMRAM 0 0 ABS 0
 __size_of_InterruptHandlerHigh 0 0 ABS 0
+_isQFull 2458 0 CODE 0
 ?_check_msg 95 0 BANK0 1
 ToMainLow_recvmsg@msgtype 183 0 BANK1 1
 __pcstackCOMRAM 1 0 COMRAM 1
@@ -683,6 +682,7 @@ __ptext26 2806 0 CODE 0
 __ptext45 2330 0 CODE 0
 __ptext64 2848 0 CODE 0
 __end_of_generateChecksum 18E8 0 CODE 0
+__size_of_isQEmpty 0 0 ABS 0
 __Htext65 0 0 ABS 0
 __Htext46 0 0 ABS 0
 __Htext27 0 0 ABS 0
@@ -703,7 +703,6 @@ __Ltext18 0 0 ABS 0
 __ptext27 EA6 0 CODE 0
 __ptext46 2742 0 CODE 0
 __ptext65 12B0 0 CODE 0
-__size_of_isQueueFull 0 0 ABS 0
 __Htext66 0 0 ABS 0
 __Htext47 0 0 ABS 0
 __Htext28 0 0 ABS 0
@@ -735,6 +734,7 @@ __ptext19 102A 0 CODE 0
 __ptext38 2834 0 CODE 0
 __ptext57 1D60 0 CODE 0
 __CFG_BORV$3 0 0 ABS 0
+__end_of_isQFull 2492 0 CODE 0
 __Htext58 0 0 ABS 0
 __Htext39 0 0 ABS 0
 __Ltext58 0 0 ABS 0
@@ -790,10 +790,8 @@ __size_of_i2c_master_recv 0 0 ABS 0
 __size_of_enable_interrupts 0 0 ABS 0
 memcpy@s1 16E 0 BANK1 1
 ?_generateChecksum 95 0 BANK0 1
-__size_of_isQueueEmpty 0 0 ABS 0
 __accesstop 60 0 ABS 0
 __end_of_SetChanADC 27B4 0 CODE 0
-?_isQueueEmpty 95 0 BANK0 1
 __end_of_recv_msg 12B0 0 CODE 0
 __Hparam0 0 0 ABS 0
 __Lparam0 0 0 ABS 0
@@ -805,6 +803,7 @@ __pintcode_body 1DFA 0 CODE 0
 _enable_interrupts 28B8 0 CODE 0
 intlevel0 0 0 CODE 0
 __size_of_block_on_To_msgqueues 0 0 ABS 0
+isQEmpty@Q 95 0 BANK0 1
 intlevel1 0 0 CODE 0
 ?_i2c_master_send 95 0 BANK0 1
 ?_i2c_configure_master 95 0 BANK0 1
@@ -824,13 +823,14 @@ i1send_msg@slot 14 0 COMRAM 1
 i2send_msg@slot 73 0 BANK0 1
 ?_init_i2c 95 0 BANK0 1
 __size_of_init_timer1_lthread 0 0 ABS 0
+isQFull@Q 95 0 BANK0 1
 __end_of_SleepIfOkay 1DFA 0 CODE 0
 i2recv_msg@slot 73 0 BANK0 1
 _ToMainHigh_recvmsg 2572 0 CODE 0
+__size_of_isQFull 0 0 ABS 0
 start_initialization 2492 0 CODE 0
 __end_of_readQueue 19C4 0 CODE 0
 __end_of_init_i2c 2012 0 CODE 0
-_isQueueEmpty 2602 0 CODE 0
 __end_ofi1_memcpy 241A 0 CODE 0
 main@last_reg_recvd 273 0 BANK2 1
 __CFG_IESO$OFF 0 0 ABS 0
@@ -877,8 +877,8 @@ bssBANK1 100 1C8 BANK1 100 1
 bssBANK2 200 2AE BANK2 200 1
 %locals
 dist/UseC18/production\Framework.X.production.obj
-C:\Users\ECE4534\AppData\Local\Temp\s39k.
-C:\Users\ECE4534\AppData\Local\Temp\s39k.
+C:\Users\ECE4534\AppData\Local\Temp\s2j4.
+C:\Users\ECE4534\AppData\Local\Temp\s2j4.
 ../src/main.c
 134 D6 0 CODE 0
 148 E4 0 CODE 0
@@ -975,7 +975,7 @@ C:\Users\ECE4534\AppData\Local\Temp\s39k.
 440 700 0 CODE 0
 293 702 0 CODE 0
 443 704 0 CODE 0
-C:\Users\ECE4534\AppData\Local\Temp\s39k.
+C:\Users\ECE4534\AppData\Local\Temp\s2j4.
 9217 2492 0 CODE 0
 9218 2496 0 CODE 0
 9220 2498 0 CODE 0
