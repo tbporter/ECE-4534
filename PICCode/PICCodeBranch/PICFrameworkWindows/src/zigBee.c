@@ -6,6 +6,7 @@
 #define USE_FAKE_TX_MSG 1
 
 typedef enum{TX_CONTINUE,TX_RETRY} ETX_STATE;
+static ETX_STATE txState = TX_CONTINUE;
 
 void processMsg(zigBeeMsg* msg);
 
@@ -135,16 +136,10 @@ void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ){
             //How'd this happen?!
             break;
         }
-    }
-
-    //TX
-    //PORTBbits.RB5 = 0;
-    
+    }  
 }
 
 void processMsg(zigBeeMsg* msg){
-
-    static ETX_STATE txState = TX_CONTINUE;
     //Evaluate the message
     //Validate Checksum
     //PORTBbits.RB5 = 1;
@@ -225,4 +220,41 @@ void processMsg(zigBeeMsg* msg){
         //Shouldn't get here.
         break;
     }
+}
+
+
+void sendZigBeeMsg(g9Msg* inMsg){
+    zigBeeMsg msg;
+    int i = 0;
+    //Get Len
+    const uint16_t len = 5 /*API Format*/ + 3 /*g9Msg*/ + inMsg->length;
+    uint8_t txBuf[MAX_DATA_LEN+4];
+    setLen(&msg,len);
+
+    msg.zigBeeU.start = ZigBeeStart;
+    //Fill in API Message Info
+    msg.data[0] = 0x01; //TX 16bit
+    msg.data[1] = 0x01;	//Response Frame
+    msg.data[2] = 0x00;	//Dest. Addr.
+    msg.data[3] = 0x01;
+    msg.data[4] = 0x00; //Options
+
+    msg.data[5] = inMsg->msgType;
+    msg.data[6] = inMsg->length;
+    msg.data[7] = inMsg->id;
+
+    for(i=8; i<len; i++){
+        msg.data[i] = inMsg->buf[i-8];
+    }
+
+    //Generate checksum
+    msg.checksum = generateChecksum(&msg);
+
+    //Send to USART
+    serializeZigBeeMsg(&msg,txBuf);
+    for( i=0; i<len; i++){
+        while(BusyUSART());
+        WriteUSART(txBuf[i]);
+    }
+    txState = RETRY; //Stop From retransmitting until success
 }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 FILE		0x0	0	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"
 FN_START	0x0	25	"C:\MCC18\v3_39\src\extended\startup\c018i_e.c"	"_entry"	"external"	
 FN_END		0x4	27	
@@ -991,3 +992,1035 @@ FN_END		0x2ba6	27
 FILE		0x0	0	"C:\MCC18\v3_39\src\pmc_common\ADC\adcconv.c"
 FN_START	0x2ba8	24	"C:\MCC18\v3_39\src\pmc_common\ADC\adcconv.c"	"ConvertADC"	"external"	
 FN_END		0x2baa	25	
+=======
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"
+FN_START	0x0	25	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"	"_entry"	"external"	
+FN_END		0x4	27	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\extended\stdclib\__init.c"
+FN_START	0x6	9	"E:\3.45\pic18-lt\cxx-framework\src\extended\stdclib\__init.c"	"__init"	"external"	
+FN_END		0x6	9	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"
+FN_START	0x8	69	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"InterruptVectorHigh"	"external"	
+FN_END		0xc	71	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcbusy.c"
+FN_START	0xe	28	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcbusy.c"	"BusyADC"	"external"	
+FN_END		0x16	29	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"
+FN_START	0x18	60	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"InterruptVectorLow"	"external"	
+FN_END		0x1c	62	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"
+FN_START	0x38	21	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_configure_master"	"external"	
+FN_END		0x50	49	
+FN_START	0x52	63	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_send"	"external"	
+ADJUST		0x52	63	1
+ADJUST		0x98	67	1
+ADJUST		0xca	67	-1
+ADJUST		0x12c	72	1
+ADJUST		0x13e	72	-1
+ADJUST		0x14e	76	-1
+FN_END		0x154	76	
+FN_START	0x156	91	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_recv"	"external"	
+ADJUST		0x156	91	1
+ADJUST		0x160	91	2
+CALL		0x1ce	104	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
+ADJUST		0x1d8	108	-3
+FN_END		0x1de	108	
+FN_START	0x1e0	110	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"start_i2c_slave_reply"	"external"	
+ADJUST		0x1e0	110	1
+ADJUST		0x226	113	1
+ADJUST		0x258	113	-1
+ADJUST		0x2aa	124	-1
+FN_END		0x2b0	124	
+FN_START	0x2b2	128	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"handle_start"	"external"	
+ADJUST		0x2b2	128	1
+ADJUST		0x36a	149	-1
+FN_END		0x370	149	
+FN_START	0x372	159	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_int_handler"	"external"	
+CALL		0x37a	161	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_slave_handler"	0
+CALL		0x37e	165	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_handler"	0
+FN_END		0x380	167	
+FN_START	0x382	169	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_handler"	"external"	
+ADJUST		0x382	169	1
+ADJUST		0x38c	169	6
+CALL		0x3dc	190	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
+ADJUST		0x586	256	1
+ADJUST		0x58a	256	1
+ADJUST		0x590	256	1
+ADJUST		0x592	256	1
+CALL		0x596	256	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0x59a	256	-4
+CALL		0x5b4	260	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	0
+ADJUST		0x5d6	275	-7
+FN_END		0x5dc	275	
+FN_START	0x5de	277	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_slave_handler"	"external"	
+ADJUST		0x5de	277	1
+ADJUST		0x5e8	277	9
+ADJUST		0x670	312	1
+CALL		0x674	312	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"handle_start"	0
+ADJUST		0x676	312	-1
+ADJUST		0x9d6	428	1
+ADJUST		0xa00	428	-1
+ADJUST		0xa16	429	1
+ADJUST		0xa1a	429	1
+ADJUST		0xa20	429	1
+ADJUST		0xa30	429	1
+CALL		0xa32	429	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0xa36	429	-4
+ADJUST		0xa90	435	1
+ADJUST		0xa92	435	1
+ADJUST		0xa98	435	1
+ADJUST		0xa9c	435	1
+CALL		0xa9e	435	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0xaa2	435	-4
+ADJUST		0xaca	440	1
+ADJUST		0xace	440	1
+ADJUST		0xad4	440	1
+ADJUST		0xad6	440	1
+CALL		0xad8	440	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0xadc	440	-4
+ADJUST		0xae0	443	-10
+FN_END		0xae6	443	
+FN_START	0xae8	448	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"init_i2c"	"external"	
+ADJUST		0xae8	448	1
+ADJUST		0xb4a	457	-1
+FN_END		0xb50	457	
+FN_START	0xb52	462	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_configure_slave"	"external"	
+ADJUST		0xb52	462	1
+ADJUST		0xb78	490	-1
+FN_END		0xb7e	490	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"
+FN_START	0xb80	13	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"getLen"	"external"	
+ADJUST		0xb80	13	1
+ADJUST		0xbaa	17	-1
+FN_END		0xbb0	17	
+FN_START	0xbb2	19	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"setLen"	"external"	
+ADJUST		0xbb2	19	1
+ADJUST		0xbc6	20	1
+ADJUST		0xbd2	20	-1
+ADJUST		0xbdc	21	1
+ADJUST		0xbea	21	-1
+ADJUST		0xbf2	25	-1
+FN_END		0xbf8	25	
+FN_START	0xbfa	27	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"generateChecksum"	"external"	
+ADJUST		0xbfa	27	1
+ADJUST		0xc04	27	5
+ADJUST		0xc10	29	1
+ADJUST		0xc14	29	1
+ADJUST		0xc18	29	1
+ADJUST		0xc1c	29	1
+ADJUST		0xc20	29	1
+ADJUST		0xc24	29	1
+ADJUST		0xc28	29	1
+ADJUST		0xc2c	29	1
+ADJUST		0xc30	29	1
+ADJUST		0xc34	29	1
+ADJUST		0xc38	29	1
+ADJUST		0xc3c	29	1
+ADJUST		0xc40	29	1
+ADJUST		0xc44	29	1
+ADJUST		0xc48	29	1
+ADJUST		0xc4c	29	1
+ADJUST		0xc50	29	1
+ADJUST		0xc54	29	1
+ADJUST		0xc58	29	1
+ADJUST		0xc5c	29	1
+ADJUST		0xc60	29	1
+ADJUST		0xc64	29	1
+ADJUST		0xc68	29	1
+ADJUST		0xc6c	29	1
+ADJUST		0xc70	29	1
+ADJUST		0xc74	29	1
+ADJUST		0xc78	29	1
+ADJUST		0xc7c	29	1
+ADJUST		0xc80	29	1
+ADJUST		0xc84	29	1
+ADJUST		0xc88	29	1
+ADJUST		0xc8c	29	1
+ADJUST		0xc90	29	1
+ADJUST		0xc94	29	1
+ADJUST		0xc98	29	1
+ADJUST		0xc9c	29	1
+ADJUST		0xca0	29	1
+ADJUST		0xca4	29	1
+ADJUST		0xca8	29	1
+ADJUST		0xcac	29	1
+CALL		0xcb0	29	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"getLen"	0
+ADJUST		0xcb2	29	-40
+ADJUST		0xd0a	39	-6
+FN_END		0xd10	39	
+FN_START	0xd12	41	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"serializeZigBeeMsg"	"external"	
+ADJUST		0xd12	41	1
+ADJUST		0xd1c	41	4
+ADJUST		0xd2c	44	1
+ADJUST		0xd36	44	-1
+ADJUST		0xd48	45	1
+ADJUST		0xd54	45	-1
+ADJUST		0xd68	46	1
+ADJUST		0xd76	46	-1
+ADJUST		0xd84	49	1
+ADJUST		0xd88	49	1
+ADJUST		0xd8c	49	1
+ADJUST		0xd90	49	1
+ADJUST		0xd94	49	1
+ADJUST		0xd98	49	1
+ADJUST		0xd9c	49	1
+ADJUST		0xda0	49	1
+ADJUST		0xda4	49	1
+ADJUST		0xda8	49	1
+ADJUST		0xdac	49	1
+ADJUST		0xdb0	49	1
+ADJUST		0xdb4	49	1
+ADJUST		0xdb8	49	1
+ADJUST		0xdbc	49	1
+ADJUST		0xdc0	49	1
+ADJUST		0xdc4	49	1
+ADJUST		0xdc8	49	1
+ADJUST		0xdcc	49	1
+ADJUST		0xdd0	49	1
+ADJUST		0xdd4	49	1
+ADJUST		0xdd8	49	1
+ADJUST		0xddc	49	1
+ADJUST		0xde0	49	1
+ADJUST		0xde4	49	1
+ADJUST		0xde8	49	1
+ADJUST		0xdec	49	1
+ADJUST		0xdf0	49	1
+ADJUST		0xdf4	49	1
+ADJUST		0xdf8	49	1
+ADJUST		0xdfc	49	1
+ADJUST		0xe00	49	1
+ADJUST		0xe04	49	1
+ADJUST		0xe08	49	1
+ADJUST		0xe0c	49	1
+ADJUST		0xe10	49	1
+ADJUST		0xe14	49	1
+ADJUST		0xe18	49	1
+ADJUST		0xe1c	49	1
+ADJUST		0xe20	49	1
+CALL		0xe24	49	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"getLen"	0
+ADJUST		0xe26	49	-40
+ADJUST		0xe66	51	1
+ADJUST		0xe80	51	-1
+ADJUST		0xea0	53	1
+ADJUST		0xebc	53	-1
+ADJUST		0xec4	55	-5
+FN_END		0xeca	55	
+FN_START	0xecc	57	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"zigBee2G9Msg"	"external"	
+ADJUST		0xecc	57	1
+ADJUST		0xed6	57	2
+ADJUST		0xf20	62	1
+ADJUST		0xf2a	62	-1
+ADJUST		0xf4a	63	1
+ADJUST		0xf56	63	-1
+ADJUST		0xf76	64	1
+ADJUST		0xf88	64	-1
+ADJUST		0xfe0	68	1
+ADJUST		0x1006	68	-1
+ADJUST		0x1018	72	-3
+FN_END		0x101e	72	
+FN_START	0x1020	74	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"doZigBee"	"external"	
+ADJUST		0x1020	74	1
+ADJUST		0x102a	74	6
+ADJUST		0x1040	86	1
+ADJUST		0x1044	86	1
+CALL		0x1048	86	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"getNumMessagesQueue"	0
+ADJUST		0x104c	86	-2
+ADJUST		0x108c	89	1
+ADJUST		0x1090	89	1
+ADJUST		0x1094	89	1
+ADJUST		0x1098	89	1
+CALL		0x109c	89	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"readQueue"	0
+ADJUST		0x10a0	89	-4
+ADJUST		0x10b4	97	1
+ADJUST		0x10b8	97	1
+ADJUST		0x10bc	97	1
+ADJUST		0x10c0	97	1
+ADJUST		0x10c4	97	1
+ADJUST		0x10c8	97	1
+ADJUST		0x10cc	97	1
+ADJUST		0x10d0	97	1
+ADJUST		0x10d4	97	1
+ADJUST		0x10d8	97	1
+ADJUST		0x10dc	97	1
+ADJUST		0x10e0	97	1
+ADJUST		0x10e4	97	1
+ADJUST		0x10e8	97	1
+ADJUST		0x10ec	97	1
+ADJUST		0x10f0	97	1
+ADJUST		0x10f4	97	1
+ADJUST		0x10f8	97	1
+ADJUST		0x10fc	97	1
+ADJUST		0x1100	97	1
+ADJUST		0x1104	97	1
+ADJUST		0x1108	97	1
+ADJUST		0x110c	97	1
+ADJUST		0x1110	97	1
+ADJUST		0x1114	97	1
+ADJUST		0x1118	97	1
+ADJUST		0x111c	97	1
+ADJUST		0x1120	97	1
+ADJUST		0x1124	97	1
+ADJUST		0x1128	97	1
+ADJUST		0x112c	97	1
+ADJUST		0x1130	97	1
+ADJUST		0x1134	97	1
+ADJUST		0x1138	97	1
+ADJUST		0x113c	97	1
+ADJUST		0x1140	97	1
+ADJUST		0x1144	97	1
+ADJUST		0x1148	97	1
+ADJUST		0x114c	97	1
+ADJUST		0x1150	97	1
+CALL		0x1154	97	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"getLen"	0
+ADJUST		0x1156	97	-40
+ADJUST		0x116c	107	1
+ADJUST		0x1170	107	1
+CALL		0x1174	107	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"getNumMessagesQueue"	0
+ADJUST		0x1178	107	-2
+ADJUST		0x11b6	111	1
+ADJUST		0x11ba	111	1
+ADJUST		0x11be	111	1
+ADJUST		0x11c2	111	1
+CALL		0x11c6	111	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"readQueue"	0
+ADJUST		0x11ca	111	-4
+ADJUST		0x11dc	122	1
+ADJUST		0x11e0	122	1
+CALL		0x11e4	122	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"getNumMessagesQueue"	0
+ADJUST		0x11e8	122	-2
+ADJUST		0x1202	126	1
+ADJUST		0x1206	126	1
+ADJUST		0x1208	126	1
+ADJUST		0x120c	126	1
+CALL		0x1210	126	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"readQueue"	0
+ADJUST		0x1214	126	-4
+ADJUST		0x1218	128	1
+ADJUST		0x121c	128	1
+CALL		0x121e	128	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"processMsg"	0
+ADJUST		0x1220	128	-2
+ADJUST		0x1228	140	-7
+FN_END		0x122e	140	
+FN_START	0x1230	142	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"processMsg"	"external"	
+ADJUST		0x1230	142	1
+ADJUST		0x123a	142	15
+ADJUST		0x1250	146	1
+ADJUST		0x1254	146	1
+ADJUST		0x1258	146	1
+CALL		0x125c	146	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"generateChecksum"	0
+ADJUST		0x125e	146	-2
+ADJUST		0x1260	146	-1
+ADJUST		0x126e	151	1
+ADJUST		0x1272	151	1
+CALL		0x1276	151	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"generateChecksum"	0
+ADJUST		0x1278	151	-2
+ADJUST		0x127a	151	1
+CALL		0x127c	151	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uwrite.c"	"WriteUSART"	0
+ADJUST		0x1280	151	-1
+ADJUST		0x1292	154	1
+CALL		0x1296	154	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uwrite.c"	"WriteUSART"	0
+ADJUST		0x129a	154	-1
+ADJUST		0x1330	206	1
+ADJUST		0x1332	206	1
+ADJUST		0x1336	206	1
+ADJUST		0x133a	206	1
+CALL		0x133e	206	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"zigBee2G9Msg"	0
+ADJUST		0x1340	206	-4
+ADJUST		0x134c	210	1
+ADJUST		0x134e	210	1
+ADJUST		0x1354	210	1
+ADJUST		0x1356	210	1
+CALL		0x135a	210	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0x135e	210	-4
+ADJUST		0x1364	223	-16
+FN_END		0x136a	223	
+FN_START	0x136c	226	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"sendZigBeeMsg"	"external"	
+ADJUST		0x136c	226	1
+ADJUST		0x1376	226	63
+ADJUST		0x1378	226	21
+ADJUST		0x1390	232	1
+ADJUST		0x1394	232	1
+ADJUST		0x139c	232	1
+ADJUST		0x139e	232	1
+CALL		0x13a2	232	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"setLen"	0
+ADJUST		0x13a6	232	-4
+ADJUST		0x142a	247	1
+ADJUST		0x1430	247	1
+ADJUST		0x1432	247	1
+ADJUST		0x1438	247	1
+ADJUST		0x143e	247	-1
+ADJUST		0x1440	247	-1
+ADJUST		0x1446	247	-1
+ADJUST		0x1458	251	1
+ADJUST		0x145a	251	1
+CALL		0x145e	251	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"generateChecksum"	0
+ADJUST		0x1462	251	-2
+ADJUST		0x146a	254	1
+ADJUST		0x146c	254	1
+ADJUST		0x1474	254	1
+ADJUST		0x1476	254	1
+CALL		0x147a	254	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"serializeZigBeeMsg"	0
+ADJUST		0x147c	254	-4
+ADJUST		0x1494	257	1
+ADJUST		0x1496	257	1
+ADJUST		0x149c	257	1
+ADJUST		0x14a2	257	-1
+ADJUST		0x14a4	257	-1
+ADJUST		0x14aa	257	1
+CALL		0x14ae	257	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uwrite.c"	"WriteUSART"	0
+ADJUST		0x14b2	257	-1
+ADJUST		0x14bc	259	-63
+ADJUST		0x14be	259	-22
+FN_END		0x14c4	259	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"
+FN_START	0x14c6	14	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"init_queue"	"external"	
+ADJUST		0x14c6	14	1
+ADJUST		0x14d0	14	1
+ADJUST		0x1526	22	-2
+FN_END		0x152c	22	
+FN_START	0x152e	24	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"send_msg"	"external"	
+ADJUST		0x152e	24	1
+ADJUST		0x1538	24	5
+ADJUST		0x15a8	55	1
+ADJUST		0x15ac	55	1
+ADJUST		0x15b0	55	1
+ADJUST		0x15b4	55	1
+ADJUST		0x15d0	55	1
+ADJUST		0x15d4	55	1
+CALL		0x15d8	55	"memcpy.O"	"memcpy"	0
+ADJUST		0x15dc	55	-6
+ADJUST		0x15f2	56	1
+ADJUST		0x1604	56	-1
+ADJUST		0x1618	61	-6
+FN_END		0x161e	61	
+FN_START	0x1620	63	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"recv_msg"	"external"	
+ADJUST		0x1620	63	1
+ADJUST		0x162a	63	5
+ADJUST		0x1692	81	1
+ADJUST		0x1696	81	1
+ADJUST		0x16b2	81	1
+ADJUST		0x16b6	81	1
+ADJUST		0x16ba	81	1
+ADJUST		0x16be	81	1
+CALL		0x16c2	81	"memcpy.O"	"memcpy"	0
+ADJUST		0x16c6	81	-6
+ADJUST		0x16dc	87	1
+ADJUST		0x16ee	87	-1
+ADJUST		0x1706	89	1
+ADJUST		0x1710	89	-1
+ADJUST		0x172a	96	-6
+FN_END		0x1730	96	
+FN_START	0x1732	103	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	"external"	
+ADJUST		0x1732	103	1
+ADJUST		0x173c	109	1
+ADJUST		0x1740	109	1
+ADJUST		0x1744	109	1
+ADJUST		0x1748	109	1
+ADJUST		0x174e	109	1
+ADJUST		0x1752	109	1
+CALL		0x1754	109	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"send_msg"	0
+ADJUST		0x1756	109	-6
+ADJUST		0x175a	110	-1
+FN_END		0x1760	110	
+FN_START	0x1762	112	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainLow_recvmsg"	"external"	
+ADJUST		0x1762	112	1
+ADJUST		0x176c	118	1
+ADJUST		0x1770	118	1
+ADJUST		0x1774	118	1
+ADJUST		0x1778	118	1
+ADJUST		0x177c	118	1
+ADJUST		0x1782	118	1
+ADJUST		0x1786	118	1
+CALL		0x1788	118	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"recv_msg"	0
+ADJUST		0x178a	118	-7
+ADJUST		0x178e	119	-1
+FN_END		0x1794	119	
+FN_START	0x1796	126	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	"external"	
+ADJUST		0x1796	126	1
+ADJUST		0x17a0	132	1
+ADJUST		0x17a4	132	1
+ADJUST		0x17a8	132	1
+ADJUST		0x17ac	132	1
+ADJUST		0x17b2	132	1
+ADJUST		0x17b6	132	1
+CALL		0x17b8	132	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"send_msg"	0
+ADJUST		0x17ba	132	-6
+ADJUST		0x17be	133	-1
+FN_END		0x17c4	133	
+FN_START	0x17c6	135	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainHigh_recvmsg"	"external"	
+ADJUST		0x17c6	135	1
+ADJUST		0x17d0	141	1
+ADJUST		0x17d4	141	1
+ADJUST		0x17d8	141	1
+ADJUST		0x17dc	141	1
+ADJUST		0x17e0	141	1
+ADJUST		0x17e6	141	1
+ADJUST		0x17ea	141	1
+CALL		0x17ec	141	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"recv_msg"	0
+ADJUST		0x17ee	141	-7
+ADJUST		0x17f2	142	-1
+FN_END		0x17f8	142	
+FN_START	0x17fa	150	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"FromMainLow_sendmsg"	"external"	
+ADJUST		0x17fa	150	1
+ADJUST		0x1804	156	1
+ADJUST		0x1808	156	1
+ADJUST		0x180c	156	1
+ADJUST		0x1810	156	1
+ADJUST		0x1816	156	1
+ADJUST		0x181a	156	1
+CALL		0x181c	156	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"send_msg"	0
+ADJUST		0x181e	156	-6
+ADJUST		0x1822	157	-1
+FN_END		0x1828	157	
+FN_START	0x182a	159	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"FromMainLow_recvmsg"	"external"	
+ADJUST		0x182a	159	1
+ADJUST		0x1834	165	1
+ADJUST		0x1838	165	1
+ADJUST		0x183c	165	1
+ADJUST		0x1840	165	1
+ADJUST		0x1844	165	1
+ADJUST		0x184a	165	1
+ADJUST		0x184e	165	1
+CALL		0x1850	165	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"recv_msg"	0
+ADJUST		0x1852	165	-7
+ADJUST		0x1856	166	-1
+FN_END		0x185c	166	
+FN_START	0x185e	174	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"FromMainHigh_sendmsg"	"external"	
+ADJUST		0x185e	174	1
+ADJUST		0x1868	180	1
+ADJUST		0x186c	180	1
+ADJUST		0x1870	180	1
+ADJUST		0x1874	180	1
+ADJUST		0x187a	180	1
+ADJUST		0x187e	180	1
+CALL		0x1880	180	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"send_msg"	0
+ADJUST		0x1882	180	-6
+ADJUST		0x1886	181	-1
+FN_END		0x188c	181	
+FN_START	0x188e	183	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"FromMainHigh_recvmsg"	"external"	
+ADJUST		0x188e	183	1
+ADJUST		0x1898	189	1
+ADJUST		0x189c	189	1
+ADJUST		0x18a0	189	1
+ADJUST		0x18a4	189	1
+ADJUST		0x18a8	189	1
+ADJUST		0x18ae	189	1
+ADJUST		0x18b2	189	1
+CALL		0x18b4	189	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"recv_msg"	0
+ADJUST		0x18b6	189	-7
+ADJUST		0x18ba	190	-1
+FN_END		0x18c0	190	
+FN_START	0x18c2	195	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"init_queues"	"external"	
+ADJUST		0x18c8	196	1
+ADJUST		0x18cc	196	1
+CALL		0x18ce	196	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"init_queue"	0
+ADJUST		0x18d0	196	-2
+ADJUST		0x18d4	197	1
+ADJUST		0x18d8	197	1
+CALL		0x18da	197	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"init_queue"	0
+ADJUST		0x18dc	197	-2
+ADJUST		0x18e0	198	1
+ADJUST		0x18e4	198	1
+CALL		0x18e6	198	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"init_queue"	0
+ADJUST		0x18e8	198	-2
+ADJUST		0x18ec	199	1
+ADJUST		0x18f0	199	1
+CALL		0x18f2	199	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"init_queue"	0
+ADJUST		0x18f4	199	-2
+FN_END		0x18f6	200	
+FN_START	0x18f8	204	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"enter_sleep_mode"	"external"	
+FN_END		0x18fc	216	
+FN_START	0x18fe	220	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"check_msg"	"external"	
+ADJUST		0x18fe	220	1
+ADJUST		0x193e	222	-1
+FN_END		0x1944	222	
+FN_START	0x1946	228	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"SleepIfOkay"	"external"	
+CALL		0x194e	233	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"in_low_int"	0
+CALL		0x1964	238	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"in_high_int"	0
+ADJUST		0x197c	245	1
+ADJUST		0x1980	245	1
+CALL		0x1982	245	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"check_msg"	0
+ADJUST		0x1984	245	-2
+ADJUST		0x198e	248	1
+ADJUST		0x1992	248	1
+CALL		0x1994	248	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"check_msg"	0
+ADJUST		0x1996	248	-2
+CALL		0x199e	251	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"enter_sleep_mode"	0
+FN_END		0x19a0	252	
+FN_START	0x19a2	257	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"block_on_To_msgqueues"	"external"	
+CALL		0x19a2	257	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"in_main"	0
+ADJUST		0x19c2	263	1
+ADJUST		0x19c6	263	1
+CALL		0x19c8	263	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"check_msg"	0
+ADJUST		0x19ca	263	-2
+ADJUST		0x19da	268	1
+ADJUST		0x19de	268	1
+CALL		0x19e0	268	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"check_msg"	0
+ADJUST		0x19e2	268	-2
+ADJUST		0x19f2	273	1
+CALL		0x19f4	273	"d1ktcyx.O"	"Delay1KTCYx"	0
+ADJUST		0x19f8	273	-1
+FN_END		0x19fe	276	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"
+FN_START	0x1a00	3	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"appendQueue"	"external"	
+ADJUST		0x1a00	3	1
+ADJUST		0x1a0a	4	1
+ADJUST		0x1a0e	4	1
+CALL		0x1a12	4	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"isQFull"	0
+ADJUST		0x1a14	4	-2
+ADJUST		0x1acc	17	-1
+FN_END		0x1ad2	17	
+FN_START	0x1ad4	19	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"readQueue"	"external"	
+ADJUST		0x1ad4	19	1
+ADJUST		0x1ade	19	2
+ADJUST		0x1aea	22	1
+ADJUST		0x1aee	22	1
+CALL		0x1af2	22	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"isQEmpty"	0
+ADJUST		0x1af4	22	-2
+ADJUST		0x1b1a	27	1
+ADJUST		0x1b24	27	-1
+ADJUST		0x1b7e	30	1
+ADJUST		0x1ba0	30	-1
+ADJUST		0x1bc6	35	-3
+FN_END		0x1bcc	35	
+FN_START	0x1bce	37	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"createQueue"	"external"	
+ADJUST		0x1bce	37	1
+ADJUST		0x1c5e	46	-1
+FN_END		0x1c64	46	
+FN_START	0x1c66	48	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"getNumMessagesQueue"	"external"	
+ADJUST		0x1c66	48	1
+ADJUST		0x1cb4	51	-1
+FN_END		0x1cba	51	
+FN_START	0x1cbc	53	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"isQEmpty"	"external"	
+ADJUST		0x1cbc	53	1
+ADJUST		0x1cea	56	-1
+FN_END		0x1cf0	56	
+FN_START	0x1cf2	58	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"isQFull"	"external"	
+ADJUST		0x1cf2	58	1
+ADJUST		0x1d3e	61	-1
+FN_END		0x1d44	61	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\main.c"
+FN_START	0x1d46	83	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\main.c"	"main"	"external"	
+ADJUST		0x1d46	83	1
+ADJUST		0x1d50	83	63
+ADJUST		0x1d52	83	19
+ADJUST		0x1d7a	131	1
+ADJUST		0x1d7c	131	1
+CALL		0x1d80	131	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_uart.c"	"init_uart_recv"	0
+ADJUST		0x1d84	131	-2
+ADJUST		0x1d8a	134	1
+ADJUST		0x1d8c	134	1
+CALL		0x1d90	134	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"init_i2c"	0
+ADJUST		0x1d94	134	-2
+CALL		0x1d96	136	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"	"initADC"	0
+ADJUST		0x1d9e	139	1
+ADJUST		0x1da0	139	1
+CALL		0x1da4	139	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\timer1_thread.c"	"init_timer1_lthread"	0
+ADJUST		0x1da8	139	-2
+CALL		0x1daa	142	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"init_queues"	0
+ADJUST		0x1db4	159	1
+CALL		0x1db6	159	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1open.c"	"OpenTimer1"	0
+ADJUST		0x1dba	159	-1
+CALL		0x1dbc	163	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"enable_interrupts"	0
+CALL		0x1dc4	185	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_configure_master"	0
+ADJUST		0x1dcc	187	1
+ADJUST		0x1dce	187	1
+ADJUST		0x1dd4	187	1
+ADJUST		0x1dd6	187	1
+CALL		0x1dda	187	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"createQueue"	0
+ADJUST		0x1dde	187	-4
+ADJUST		0x1de4	207	1
+ADJUST		0x1de6	207	1
+ADJUST		0x1dea	207	1
+CALL		0x1dec	207	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uopen.c"	"OpenUSART"	0
+ADJUST		0x1df0	207	-3
+CALL		0x1df2	231	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"block_on_To_msgqueues"	0
+ADJUST		0x1dfa	238	1
+ADJUST		0x1dfc	238	1
+ADJUST		0x1e04	238	1
+ADJUST		0x1e06	238	1
+ADJUST		0x1e0c	238	1
+CALL		0x1e0e	238	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainHigh_recvmsg"	0
+ADJUST		0x1e12	238	-5
+ADJUST		0x1e3e	248	1
+ADJUST		0x1e40	248	1
+ADJUST		0x1e50	248	1
+ADJUST		0x1e54	248	1
+ADJUST		0x1e5a	248	1
+ADJUST		0x1e5c	248	1
+ADJUST		0x1e62	248	1
+ADJUST		0x1e64	248	1
+CALL		0x1e68	248	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\timer0_thread.c"	"timer0_lthread"	0
+ADJUST		0x1e6c	248	-8
+ADJUST		0x1ef4	376	1
+ADJUST		0x1ef6	376	1
+ADJUST		0x1efa	376	1
+CALL		0x1efe	376	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"start_i2c_slave_reply"	0
+ADJUST		0x1f02	376	-3
+ADJUST		0x1f1a	388	1
+ADJUST		0x1f1c	388	1
+ADJUST		0x1f22	388	1
+CALL		0x1f24	388	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_send"	0
+ADJUST		0x1f28	388	-3
+ADJUST		0x1f32	404	1
+ADJUST		0x1f34	404	1
+ADJUST		0x1f3c	404	1
+ADJUST		0x1f3e	404	1
+ADJUST		0x1f44	404	1
+CALL		0x1f46	404	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainLow_recvmsg"	0
+ADJUST		0x1f4a	404	-5
+ADJUST		0x1f6e	414	1
+ADJUST		0x1f70	414	1
+ADJUST		0x1f80	414	1
+ADJUST		0x1f84	414	1
+ADJUST		0x1f8a	414	1
+ADJUST		0x1f8c	414	1
+ADJUST		0x1f92	414	1
+ADJUST		0x1f94	414	1
+CALL		0x1f98	414	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\timer1_thread.c"	"timer1_lthread"	0
+ADJUST		0x1f9c	414	-8
+ADJUST		0x1fa4	424	1
+ADJUST		0x1fa6	424	1
+ADJUST		0x1fae	424	1
+ADJUST		0x1fb0	424	1
+ADJUST		0x1fc0	424	1
+ADJUST		0x1fc4	424	1
+ADJUST		0x1fca	424	1
+ADJUST		0x1fcc	424	1
+ADJUST		0x1fd2	424	1
+ADJUST		0x1fd4	424	1
+CALL		0x1fd8	424	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\uart_thread.c"	"uart_lthread"	0
+ADJUST		0x1fdc	424	-10
+ADJUST		0x1fe2	438	-63
+ADJUST		0x1fe4	438	-20
+FN_END		0x1fea	438	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\timer1_thread.c"
+FN_START	0x1fec	7	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\timer1_thread.c"	"init_timer1_lthread"	"external"	
+ADJUST		0x1fec	7	1
+ADJUST		0x2032	11	-1
+FN_END		0x2038	11	
+FN_START	0x203a	19	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\timer1_thread.c"	"timer1_lthread"	"external"	
+ADJUST		0x203a	19	1
+ADJUST		0x20b6	32	1
+ADJUST		0x20ba	32	1
+ADJUST		0x20c0	32	1
+CALL		0x20c2	32	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_send"	0
+ADJUST		0x20c6	32	-3
+ADJUST		0x20ca	33	1
+ADJUST		0x20ce	33	1
+CALL		0x20d0	33	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_recv"	0
+ADJUST		0x20d4	33	-2
+ADJUST		0x2120	39	1
+ADJUST		0x2124	39	1
+ADJUST		0x212a	39	1
+CALL		0x212c	39	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_send"	0
+ADJUST		0x2130	39	-3
+ADJUST		0x2134	40	1
+ADJUST		0x2138	40	1
+CALL		0x213a	40	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_recv"	0
+ADJUST		0x213e	40	-2
+ADJUST		0x219e	47	1
+ADJUST		0x21a2	47	1
+ADJUST		0x21a8	47	1
+CALL		0x21aa	47	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_send"	0
+ADJUST		0x21ae	47	-3
+ADJUST		0x21b2	48	1
+ADJUST		0x21b6	48	1
+CALL		0x21b8	48	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_recv"	0
+ADJUST		0x21bc	48	-2
+ADJUST		0x221c	54	1
+ADJUST		0x2220	54	1
+ADJUST		0x2226	54	1
+CALL		0x2228	54	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_send"	0
+ADJUST		0x222c	54	-3
+ADJUST		0x2230	55	1
+ADJUST		0x2234	55	1
+CALL		0x2236	55	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_master_recv"	0
+ADJUST		0x223a	55	-2
+ADJUST		0x224c	67	-1
+FN_END		0x2252	67	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\encoders.c"
+FN_START	0x2254	10	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\encoders.c"	"initEncoders"	"external"	
+FN_END		0x2296	18	
+FN_START	0x2298	23	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\encoders.c"	"encoderIntHandler"	"external"	
+CALL		0x23fe	44	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\encoders.c"	"calculateLChange"	0
+BRANCH	0x2400	45	0x2430
+FN_END		0x2402	45	
+FN_START	0x2404	51	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\encoders.c"	"calculateLChange"	"external"	
+FN_END		0x242e	53	
+FN_START	0x2430	57	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\encoders.c"	"calculateRChange"	"external"	
+LABEL	0x2430	57	0x2430
+FN_END		0x245a	59	
+FN_START	0x245c	61	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\encoders.c"	"reportLChange"	"external"	
+ADJUST		0x245c	61	1
+ADJUST		0x2466	61	2
+ADJUST		0x247e	67	-3
+FN_END		0x2484	67	
+FN_START	0x2486	69	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\encoders.c"	"reportRChange"	"external"	
+ADJUST		0x2486	69	1
+ADJUST		0x2490	69	2
+ADJUST		0x24a8	75	-3
+FN_END		0x24ae	75	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"
+FN_START	0x24b0	17	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"enable_interrupts"	"external"	
+FN_END		0x24b6	20	
+FN_START	0x24b8	23	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"in_high_int"	"external"	
+FN_END		0x24d8	24	
+FN_START	0x24da	27	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"low_int_active"	"external"	
+FN_END		0x24fa	28	
+FN_START	0x24fc	31	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"in_low_int"	"external"	
+CALL		0x250a	33	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"in_high_int"	0
+FN_END		0x252e	38	
+FN_START	0x2530	41	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"in_main"	"external"	
+CALL		0x2530	41	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"in_low_int"	0
+CALL		0x2542	41	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"in_high_int"	0
+FN_END		0x2566	46	
+FN_START	0x2568	83	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"InterruptHandlerHigh"	"external"	
+ADJUST		0x25b8	83	18
+CALL		0x25c0	92	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_i2c.c"	"i2c_int_handler"	0
+CALL		0x25ca	99	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\user_interrupts.c"	"timer0_int_handler"	0
+CALL		0x25ce	109	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"SleepIfOkay"	0
+ADJUST		0x261c	110	-18
+FN_END		0x2620	110	
+FN_START	0x2622	122	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\interrupts.c"	"InterruptHandlerLow"	"external"	
+ADJUST		0x267c	122	19
+CALL		0x2684	126	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\user_interrupts.c"	"timer1_int_handler"	0
+CALL		0x268e	132	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_uart.c"	"uart_recv_int_handler"	0
+ADJUST		0x26e6	134	-19
+FN_END		0x26ea	134	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\smcpic.c"
+FN_START	0x26ec	4	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\smcpic.c"	"sendMtrCmd"	"external"	
+ADJUST		0x26ec	4	1
+ADJUST		0x26f6	6	1
+CALL		0x26fa	6	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uwrite.c"	"WriteUSART"	0
+ADJUST		0x26fe	6	-1
+ADJUST		0x2702	8	-1
+FN_END		0x2708	8	
+FN_START	0x270a	10	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\smcpic.c"	"readIRSensors"	"external"	
+ADJUST		0x270a	10	1
+ADJUST		0x2716	12	1
+ADJUST		0x2718	12	1
+ADJUST		0x271c	12	1
+CALL		0x2720	12	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"	"readADC"	0
+ADJUST		0x2724	12	-3
+ADJUST		0x2728	13	1
+ADJUST		0x2736	13	1
+ADJUST		0x273a	13	1
+CALL		0x273e	13	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"	"readADC"	0
+ADJUST		0x2742	13	-3
+ADJUST		0x2746	14	1
+ADJUST		0x2756	14	1
+ADJUST		0x275a	14	1
+CALL		0x275e	14	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"	"readADC"	0
+ADJUST		0x2762	14	-3
+ADJUST		0x2766	15	1
+ADJUST		0x2776	15	1
+ADJUST		0x277a	15	1
+CALL		0x277e	15	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"	"readADC"	0
+ADJUST		0x2782	15	-3
+ADJUST		0x2786	17	-1
+FN_END		0x278c	17	
+FN_START	0x278e	19	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\smcpic.c"	"readSonarSensors"	"external"	
+ADJUST		0x278e	19	1
+ADJUST		0x279a	21	1
+ADJUST		0x279c	21	1
+ADJUST		0x27a0	21	1
+CALL		0x27a4	21	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"	"readADC"	0
+ADJUST		0x27a8	21	-3
+ADJUST		0x27ac	22	1
+ADJUST		0x27ba	22	1
+ADJUST		0x27be	22	1
+CALL		0x27c2	22	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"	"readADC"	0
+ADJUST		0x27c6	22	-3
+ADJUST		0x27ca	24	-1
+FN_END		0x27d0	24	
+FN_START	0x27d2	26	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\smcpic.c"	"readCurrentSensor"	"external"	
+ADJUST		0x27d2	26	1
+ADJUST		0x27de	28	1
+ADJUST		0x27e0	28	1
+ADJUST		0x27e4	28	1
+CALL		0x27e8	28	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"	"readADC"	0
+ADJUST		0x27ec	28	-3
+ADJUST		0x27f0	30	-1
+FN_END		0x27f6	30	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_uart.c"
+FN_START	0x27f8	12	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_uart.c"	"uart_recv_int_handler"	"external"	
+CALL		0x27fc	13	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uread.c"	"ReadUSART"	0
+ADJUST		0x2800	13	1
+ADJUST		0x282a	13	-1
+ADJUST		0x285a	19	1
+ADJUST		0x285e	19	1
+ADJUST		0x2864	19	1
+ADJUST		0x2870	19	1
+CALL		0x2874	19	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x2878	19	-4
+ADJUST		0x2892	28	1
+ADJUST		0x2894	28	1
+ADJUST		0x2898	28	1
+ADJUST		0x289a	28	1
+CALL		0x289c	28	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x28a0	28	-4
+FN_END		0x28a2	30	
+FN_START	0x28a4	32	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_uart.c"	"init_uart_recv"	"external"	
+ADJUST		0x28a4	32	1
+ADJUST		0x28c2	35	-1
+FN_END		0x28c8	35	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\user_interrupts.c"
+FN_START	0x28ca	16	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\user_interrupts.c"	"timer0_int_handler"	"external"	
+ADJUST		0x28ca	16	1
+ADJUST		0x28d4	16	6
+ADJUST		0x28da	23	1
+ADJUST		0x28dc	23	1
+CALL		0x28de	23	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0write.c"	"WriteTimer0"	0
+ADJUST		0x28e2	23	-2
+ADJUST		0x28e8	25	1
+ADJUST		0x28ea	25	1
+ADJUST		0x28f2	25	1
+ADJUST		0x28f4	25	1
+ADJUST		0x28fa	25	1
+CALL		0x28fc	25	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"FromMainHigh_recvmsg"	0
+ADJUST		0x2900	25	-5
+ADJUST		0x2918	27	1
+ADJUST		0x291a	27	1
+ADJUST		0x2920	27	1
+ADJUST		0x2924	27	1
+CALL		0x2926	27	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainHigh_sendmsg"	0
+ADJUST		0x292a	27	-4
+ADJUST		0x292c	29	-7
+FN_END		0x2932	29	
+FN_START	0x2934	34	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\user_interrupts.c"	"timer1_int_handler"	"external"	
+ADJUST		0x2934	34	1
+ADJUST		0x293e	34	2
+CALL		0x2942	39	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1read.c"	"ReadTimer1"	0
+ADJUST		0x2950	40	1
+ADJUST		0x2952	40	1
+ADJUST		0x2956	40	1
+ADJUST		0x2958	40	1
+CALL		0x295a	40	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x295e	40	-4
+ADJUST		0x2962	43	1
+ADJUST		0x2964	43	1
+CALL		0x2966	43	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1write.c"	"WriteTimer1"	0
+ADJUST		0x296a	43	-2
+ADJUST		0x296c	44	-3
+FN_END		0x2972	44	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"
+FN_START	0x2974	81	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"	"_do_cinit"	"external"	
+FN_END		0x2a10	184	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"
+FN_START	0x2a12	6	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"	"adc_int_handler"	"external"	
+ADJUST		0x2a14	6	1
+ADJUST		0x2a16	6	1
+ADJUST		0x2a1a	6	1
+ADJUST		0x2a1c	6	1
+CALL		0x2a1e	6	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\messages.c"	"ToMainLow_sendmsg"	0
+ADJUST		0x2a22	6	-4
+FN_END		0x2a26	8	
+FN_START	0x2a28	14	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"	"initADC"	"external"	
+ADJUST		0x2a2a	14	1
+ADJUST		0x2a2e	14	1
+ADJUST		0x2a32	11	1
+CALL		0x2a34	14	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcopen.c"	"OpenADC"	0
+ADJUST		0x2a38	14	-3
+FN_END		0x2a3c	16	
+FN_START	0x2a3e	18	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"	"readADC"	"external"	
+ADJUST		0x2a3e	18	1
+ADJUST		0x2a48	18	2
+ADJUST		0x2a4e	20	1
+CALL		0x2a52	20	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcsetch.c"	"SetChanADC"	0
+ADJUST		0x2a56	20	-1
+CALL		0x2a58	21	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcconv.c"	"ConvertADC"	0
+CALL		0x2a5c	22	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcbusy.c"	"BusyADC"	0
+CALL		0x2a66	23	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcread.c"	"ReadADC"	0
+ADJUST		0x2a92	27	-3
+FN_END		0x2a98	27	
+FN_START	0x2a9a	30	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\my_adc.c"	"stopADC"	"external"	
+CALL		0x2a9a	30	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcclose.c"	"CloseADC"	0
+FN_END		0x2aa0	32	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\uart_thread.c"
+FN_START	0x2aa2	12	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\uart_thread.c"	"uart_lthread"	"external"	
+ADJUST		0x2aa2	12	1
+ADJUST		0x2aac	12	3
+ADJUST		0x2ae6	49	1
+ADJUST		0x2aea	49	1
+ADJUST		0x2aee	49	1
+CALL		0x2af2	49	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\queue.c"	"appendQueue"	0
+ADJUST		0x2af6	49	-3
+ADJUST		0x2b00	52	1
+ADJUST		0x2b04	52	1
+ADJUST		0x2b08	52	1
+ADJUST		0x2b0c	52	1
+ADJUST		0x2b10	52	1
+ADJUST		0x2b14	52	1
+CALL		0x2b18	52	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\zigBee.c"	"doZigBee"	0
+ADJUST		0x2b1c	52	-6
+ADJUST		0x2b1e	54	-4
+FN_END		0x2b24	54	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uopen.c"
+FN_START	0x2b26	73	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uopen.c"	"OpenUSART"	"external"	
+FN_END		0x2ba6	143	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcopen.c"
+FN_START	0x2ba8	68	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcopen.c"	"OpenADC"	"external"	
+FN_END		0x2c0a	89	
+FILE		0x0	0	"memcpy.O"
+FN_START	0x2c0c	30	"memcpy.O"	"memcpy"	"visibility"	
+ADJUST		0x2c0c	30	1
+ADJUST		0x2c10	30	1
+ADJUST		0x2c16	34	1
+ADJUST		0x2c1c	34	1
+ADJUST		0x2c22	38	1
+ADJUST		0x2c28	38	1
+ADJUST		0x2c36	49	1
+ADJUST		0x2c3c	49	1
+ADJUST		0x2c42	53	1
+ADJUST		0x2c48	53	1
+ADJUST		0x2c52	61	1
+ADJUST		0x2c56	61	-1
+ADJUST		0x2c5a	61	1
+ADJUST		0x2c5e	61	-1
+FN_END		0x2c60	63	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1open.c"
+FN_START	0x2c62	16	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1open.c"	"OpenTimer1"	"external"	
+FN_END		0x2ca0	36	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uread.c"
+FN_START	0x2ca2	15	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uread.c"	"ReadUSART"	"external"	
+FN_END		0x2cde	37	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1write.c"
+FN_START	0x2ce0	14	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1write.c"	"WriteTimer1"	"external"	
+FN_END		0x2d0e	22	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1read.c"
+FN_START	0x2d10	15	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t1read.c"	"ReadTimer1"	"external"	
+FN_END		0x2d3e	23	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0write.c"
+FN_START	0x2d40	16	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\Timers\t0write.c"	"WriteTimer0"	"external"	
+FN_END		0x2d6e	24	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcsetch.c"
+FN_START	0x2d70	30	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcsetch.c"	"SetChanADC"	"external"	
+FN_END		0x2d9e	36	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uwrite.c"
+FN_START	0x2da0	13	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\USART\uwrite.c"	"WriteUSART"	"external"	
+FN_END		0x2dcc	23	
+FILE		0x0	0	"d1ktcyx.O"
+FN_START	0x2dce	19	"d1ktcyx.O"	"Delay1KTCYx"	"visibility"	
+ADJUST		0x2dd0	21	1
+FN_END		0x2dec	41	
+FILE		0x0	0	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\timer0_thread.c"
+FN_START	0x2e0e	9	"Z:\PICCode\PICCodeBranch\PICFrameworkWindows\src\timer0_thread.c"	"timer0_lthread"	"external"	
+ADJUST		0x2e0e	9	1
+ADJUST		0x2e18	9	2
+ADJUST		0x2e22	16	-3
+FN_END		0x2e28	16	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"
+FN_START	0x2e2a	34	"E:\3.45\pic18-lt\cxx-framework\src\extended\startup\c018i_e.c"	"_startup"	"external"	
+FN_END		0x2e42	51	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcread.c"
+FN_START	0x2e44	26	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcread.c"	"ReadADC"	"external"	
+FN_END		0x2e5a	27	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_idle.c"
+FN_START	0x2e5c	26	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\i2c\i2c_idle.c"	"IdleI2C"	"external"	
+FN_END		0x2e68	28	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcclose.c"
+FN_START	0x2e6a	25	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcclose.c"	"CloseADC"	"external"	
+FN_END		0x2e6e	27	
+FILE		0x0	0	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcconv.c"
+FN_START	0x2e70	24	"E:\3.45\pic18-lt\cxx-framework\src\pmc_common\ADC\adcconv.c"	"ConvertADC"	"external"	
+FN_END		0x2e72	25	
+>>>>>>> d396b92722550bc441185eea35de34cdc3c2ec10
