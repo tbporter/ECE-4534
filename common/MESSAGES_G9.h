@@ -1,8 +1,13 @@
 #ifndef __MESSAGES_H__
 #define __MESSAGES_H__
 
+#ifndef IS_ARM
+#include <GenericTypeDefs.h>
+#define uint8_t UINT8
+#define uint16_t UINT16
+#else
 #include <stdint.h>// If this doesn't work with pic just define uint8_t as unsigned char
-
+#endif
 
 typedef enum {
 	//vtI2C
