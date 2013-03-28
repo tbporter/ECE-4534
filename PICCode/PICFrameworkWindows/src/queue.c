@@ -1,7 +1,7 @@
 #include "queue.h"
 
 int appendQueue(Queue *Q, unsigned char msg) {
-    if (isQueueFull(Q)) {
+    if (isQFull(Q)) {
         return 0;
     } else {
         if (Q->last == -1) {
@@ -19,7 +19,7 @@ int appendQueue(Queue *Q, unsigned char msg) {
 unsigned char readQueue(Queue *Q, unsigned char* msg){
     int i;
     if ( msg == 0 ) return 0;
-    if (isQueueEmpty(Q)) {
+    if (isQEmpty(Q)) {
         // indicates error
         return 0;
     } else {
@@ -47,9 +47,9 @@ int getNumMessagesQueue(Queue *Q){
     return (Q->last-Q->first);
 }
 
-inline unsigned char isQueueEmpty(Queue *Q){
+inline unsigned char isQEmpty(Queue *Q){
     return (Q->last == -1);
 }
-inline unsigned char isQueueFull(Queue *Q){
+inline unsigned char isQFull(Queue *Q){
     return (Q->last == Q->size);
 }

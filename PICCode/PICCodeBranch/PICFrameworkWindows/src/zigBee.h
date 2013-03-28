@@ -7,12 +7,12 @@
 #ifndef ZIGBEE_H
 #define	ZIGBEE_H
 
-#include <stdint.h>
+#include <GenericTypeDefs.h>
 #include <stdlib.h>
 #include "maindefs.h"
 #include "messages.h"
 #include "queue.h"
-#include "../../../common/MESSAGES_G9.h"
+#include "../../../../common/MESSAGES_G9.h"
 
 
 typedef enum{HEADER,GATHER,PROCESS,CLEANUP,RETRY} ESTATE;
@@ -27,6 +27,8 @@ typedef enum{HEADER,GATHER,PROCESS,CLEANUP,RETRY} ESTATE;
 
 #define TX_STATUS_MSGID	0x89
 
+#define max(a,b)    (((a) > (b)) ? (a) : (b))
+
 typedef struct __zigBeeTxStat{
 	uint8_t cmdId;
 	uint8_t frameId;
@@ -35,19 +37,22 @@ typedef struct __zigBeeTxStat{
 
 #define MAX_DATA_LEN max(sizeof(g9Msg)+5 /*API Formatting*/,36 /*Max ZigBee API MSG size*/)
 
-typedef struct __zigBeeMsg{
-	union {
-	 struct {
-	 	uint8_t start;
-		struct {
-			uint8_t HI;
-			uint8_t LO;
-		} len;
-	 };
-	 uint8_t header[3];
-	};
-	uint8_t data[MAX_DATA_LEN]; //big cuz... fuck you malloc
-	uint8_t checksum;
+typedef struct __zigBeeMsg {
+
+    union {
+
+        struct {
+            uint8_t start;
+
+            struct {
+                uint8_t HI;
+                uint8_t LO;
+            } len;
+        };
+        uint8_t header[3];
+    } zigBeeU;
+    uint8_t data[MAX_DATA_LEN]; //big cuz... fuck you malloc
+    uint8_t checksum;
 
 } zigBeeMsg;
 

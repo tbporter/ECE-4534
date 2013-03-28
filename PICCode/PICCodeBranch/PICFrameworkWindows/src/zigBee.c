@@ -1,4 +1,5 @@
 #include <string.h>
+#include "maindefs.h"
 #include "zigBee.h"
 
 #define DEMO_MSG_RECV 0
@@ -6,14 +7,18 @@
 
 typedef enum{TX_CONTINUE,TX_RETRY} ETX_STATE;
 
-uint16_t getLen(zigBeeMsg msg){
-	return (((uint16_t)msg.len.HI << 8) | (msg.len.LO));
+uint16_t getLen(zigBeeMsg msg)
+{
+    //return (((uint16_t)msg.len.HI << 8) | (msg.len.LO));
+    return (((uint16_t)msg.zigBeeU.len.HI << 8) | msg.zigBeeU.len.LO);
 }
 
 void setLen(zigBeeMsg* msg, uint16_t len){
-	msg->len.HI = (len >> 8)& 0x00FF;
-	msg->len.LO = len & 0x00FF;
-	return;
+    msg->zigBeeU.len.HI = (len >> 8) & 0x00FF;
+    msg->zigBeeU.len.LO = len & 0x0FF;
+//    msg->len.HI = (len >> 8)& 0x00FF;
+//    msg->len.LO = len & 0x00FF;
+    return;
 }
 
 uint8_t generateChecksum(zigBeeMsg* msg){
@@ -28,43 +33,45 @@ uint8_t generateChecksum(zigBeeMsg* msg){
 }
 
 void serializeZigBeeMsg(zigBeeMsg* msg, uint8_t* const buf){
-	buf[0] = msg->start;
-	buf[1] = msg->len.HI;
-	buf[2] = msg->len.LO;
+    int i = 0;
+    uint16_t len;
+    buf[0] = msg->zigBeeU.start;
+    buf[1] = msg->zigBeeU.len.HI;
+    buf[2] = msg->zigBeeU.len.LO;
 
-	int i = 0;
-	uint16_t len = getLen(*msg);
-	for(i=0; i<len; i++){
-		buf[i+3] = msg->data[i];
-	}
-	buf[len+3] = msg->checksum;
-	return;
+
+    len = getLen(*msg);
+    for(i=0; i<len; i++){
+            buf[i+3] = msg->data[i];
+    }
+    buf[len+3] = msg->checksum;
+    return;
 }
 
-unsigned char zigBee2G9Msg(zigBeeMsg* in, g9Msg* out){
-	if( in == NULL || out == NULL ) return 0;
-	if( in->data[0] != 0x81 ) return 0;
+unsigned char zigBee2G9Msg(zigBeeMsg* in, g9Msg* out) {
+    int i = 0;
+    if (in == NULL || out == NULL) return 0;
+    if (in->data[0] != 0x81) return 0;
 
-	out->msgType = in->data[5];
-	out->length = in->data[6];
-	out->id = in->data[7];
+    out->msgType = in->data[5];
+    out->length = in->data[6];
+    out->id = in->data[7];
 
-	int i=0;
-	for(i=0; i<out->length; i++){
-		out->buf[i] = in->data[i+8];
-	}
 
-	return 1;
+    for (i = 0; i < out->length; i++) {
+        out->buf[i] = in->data[i + 8];
+    }
+
+    return 1;
 }
 
 void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ){
+    int i = 0;
     static ESTATE state = HEADER;
     static uint16_t len = 0;
     static zigBeeMsg msg;
     static ETX_STATE txState = TX_CONTINUE;
     static int curI=0;
-
-    int i = 0;
 
     //RX
     switch( state ){
@@ -74,10 +81,10 @@ void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ){
             if( getNumMessagesQueue(rcvQ) >= 3 ){
                 //Copy Header from msgbuffer
                 for( i=0; i<3; i++){
-                        readQueue(rcvQ,&(msg.header[i]));
+                        readQueue(rcvQ,&(msg.zigBeeU.header[i]));
                 }
                 //Verify correct header information
-                if( msg.start != ZigBeeStart ){
+                if( msg.zigBeeU.start != ZigBeeStart ){
                     //NOTE: More robust by checking every byte for start
                     break; //Leave state machine
                 }
@@ -169,7 +176,8 @@ void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ){
                 //Send to slaves
                 g9Msg outMsg;
                 zigBee2G9Msg(&msg,&outMsg);
-                ToMainHigh_sendmsg(3+outMsg.length, MSGT_I2C_SEND, (void*) &outMsg);
+                if(outMsg.msgType == navMotorCmdMsg)
+                    ToMainHigh_sendmsg(outMsg.length, MSGT_I2C_DATA, &outMsg.buf);
                 break;
             }
             case 0x00: //TX Request - 64bit

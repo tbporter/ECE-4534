@@ -32,5 +32,7 @@
 #define g9IP_ADDR2		87
 #define g9IP_ADDR3		4
 
+#define MALLOC_ERROR 0x245
+
 
 #endif

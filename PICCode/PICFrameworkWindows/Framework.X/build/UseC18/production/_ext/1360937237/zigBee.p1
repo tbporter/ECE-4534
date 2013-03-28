@@ -1,24 +1,30 @@
 Version 3.2 HI-TECH Software Intermediate Code
-[s S2092 `uc 1 `uc 1 ]
-[n S2092 . HI LO ]
-[s S2091 `uc 1 `S2092 1 ]
-[n S2091 . start len ]
-[u S2090 `S2091 1 `uc -> 3 `i ]
-[n S2090 . . header ]
-[s S2089 `S2090 1 `uc -> 32 `i `uc 1 ]
-[n S2089 __zigBeeMsg . data checksum ]
-"25 ../src/zigBee.c
-[v F16408 `*uc ~T0 @X0 1 t ]
-[s S2087 `i 1 `i 1 `i 1 `*uc 1 ]
-[n S2087 Queue size first last messages ]
-[c E16364 0 1 2 3 4 .. ]
-[n E16364 . HEADER GATHER PROCESS CLEANUP RETRY  ]
-"22 C:\Program Files\Microchip\xc8\v1.12\include\string.h
-[v _memcpy `(*v ~T0 @X0 0 ef3`*v`*Cv`ui ]
-"20 ../src/queue.h
-[v _readQueue `(uc ~T0 @X0 0 ef2`*S2087`*uc ]
-"22
-[v _getNumMessagesQueue `(i ~T0 @X0 0 ef1`*S2087 ]
+[s S2099 `uc 1 `uc 1 ]
+[n S2099 . HI LO ]
+[s S2098 `uc 1 `S2099 1 ]
+[n S2098 . start len ]
+[u S2097 `S2098 1 `uc -> 3 `i ]
+[n S2097 . . header ]
+[s S2094 `uc 1 `uc 1 `uc 1 `uc -> 10 `i ]
+[n S2094 __g9Msg msgType length id buf ]
+[s S2096 `S2097 1 `uc ? > + -> # `S2094 `ui -> -> 5 `i `ui -> -> 36 `i `ui : + -> # `S2094 `ui -> -> 5 `i `ui -> -> 36 `i `ui `uc 1 ]
+[n S2096 __zigBeeMsg . data checksum ]
+"30 ../src/zigBee.c
+[v F16616 `*uc ~T0 @X0 1 t ]
+[s S2093 `i 1 `i 1 `i 1 `*uc 1 ]
+[n S2093 Queue size first last messages ]
+[c E16566 0 1 2 3 4 .. ]
+[n E16566 . HEADER GATHER PROCESS CLEANUP RETRY  ]
+[c E16598 0 1 .. ]
+[n E16598 . TX_CONTINUE TX_RETRY  ]
+"22 ../src/queue.h
+[v _getNumMessagesQueue `(i ~T0 @X0 0 ef1`*S2093 ]
+"20
+[v _readQueue `(uc ~T0 @X0 0 ef2`*S2093`*uc ]
+[s S2095 `uc 1 `uc 1 `uc 1 ]
+[n S2095 __zigBeeTxStat cmdId frameId status ]
+"64 ../src/messages.h
+[v _ToMainHigh_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
 [; ;string.h: 4: typedef int ptrdiff_t;
 [; ;string.h: 5: typedef unsigned size_t;
 [; ;string.h: 6: typedef unsigned short wchar_t;
@@ -77,6 +83,57 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 205: typedef uint32_t uintmax_t;
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
+[; ;stdlib.h: 27: typedef struct {
+[; ;stdlib.h: 28: int rem;
+[; ;stdlib.h: 29: int quot;
+[; ;stdlib.h: 30: } div_t;
+[; ;stdlib.h: 31: typedef struct {
+[; ;stdlib.h: 32: unsigned rem;
+[; ;stdlib.h: 33: unsigned quot;
+[; ;stdlib.h: 34: } udiv_t;
+[; ;stdlib.h: 35: typedef struct {
+[; ;stdlib.h: 36: long quot;
+[; ;stdlib.h: 37: long rem;
+[; ;stdlib.h: 38: } ldiv_t;
+[; ;stdlib.h: 39: typedef struct {
+[; ;stdlib.h: 40: unsigned long quot;
+[; ;stdlib.h: 41: unsigned long rem;
+[; ;stdlib.h: 42: } uldiv_t;
+[; ;stdlib.h: 65: extern double atof(const char *);
+[; ;stdlib.h: 66: extern double strtod(const char *, const char **);
+[; ;stdlib.h: 67: extern int atoi(const char *);
+[; ;stdlib.h: 68: extern unsigned xtoi(const char *);
+[; ;stdlib.h: 69: extern long atol(const char *);
+[; ;stdlib.h: 70: extern long strtol(const char *, char **, int);
+[; ;stdlib.h: 72: extern int rand(void);
+[; ;stdlib.h: 73: extern void srand(unsigned int);
+[; ;stdlib.h: 74: extern void * calloc(size_t, size_t);
+[; ;stdlib.h: 75: extern div_t div(int numer, int denom);
+[; ;stdlib.h: 76: extern udiv_t udiv(unsigned numer, unsigned denom);
+[; ;stdlib.h: 77: extern ldiv_t ldiv(long numer, long denom);
+[; ;stdlib.h: 78: extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+[; ;stdlib.h: 79: extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 80: extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 81: extern unsigned int _rotl(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 82: extern unsigned int _rotr(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 87: extern void * malloc(size_t);
+[; ;stdlib.h: 88: extern void free(void *);
+[; ;stdlib.h: 89: extern void * realloc(void *, size_t);
+[; ;stdlib.h: 91: extern void abort(void);
+[; ;stdlib.h: 92: extern void exit(int);
+[; ;stdlib.h: 93: extern int atexit(void (*)(void));
+[; ;stdlib.h: 94: extern char * getenv(const char *);
+[; ;stdlib.h: 95: extern char ** environ;
+[; ;stdlib.h: 96: extern int system(char *);
+[; ;stdlib.h: 97: extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+[; ;stdlib.h: 98: extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+[; ;stdlib.h: 99: extern int abs(int);
+[; ;stdlib.h: 100: extern long labs(long);
+[; ;stdlib.h: 103: extern char * itoa(char * buf, int val, int base);
+[; ;stdlib.h: 104: extern char * utoa(char * buf, unsigned val, int base);
+[; ;stdlib.h: 109: extern char * ltoa(char * buf, long val, int base);
+[; ;stdlib.h: 110: extern char * ultoa(char * buf, unsigned long val, int base);
+[; ;stdlib.h: 112: extern char * ftoa(float f, int * status);
 [; ;pic18f2680.h: 44: extern volatile unsigned char RXF6SIDH @ 0xD60;
 "46 C:\Program Files\Microchip\xc8\v1.12\include\pic18f2680.h
 [; ;pic18f2680.h: 46: asm("RXF6SIDH equ 0D60h");
@@ -14799,6 +14856,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 144: extern void _delay(unsigned long);
 [; ;pic18.h: 146: extern void _delaywdt(unsigned long);
 [; ;pic18.h: 148: extern void _delay3(unsigned char);
+[; ;messages.h: 10: typedef struct __msg {
+[; ;messages.h: 11: unsigned char full;
+[; ;messages.h: 12: unsigned char length;
+[; ;messages.h: 13: unsigned char msgtype;
+[; ;messages.h: 14: unsigned char data[10];
+[; ;messages.h: 15: } msg;
+[; ;messages.h: 17: typedef struct __msg_queue {
+[; ;messages.h: 18: msg queue[4];
+[; ;messages.h: 19: unsigned char cur_write_ind;
+[; ;messages.h: 20: unsigned char cur_read_ind;
+[; ;messages.h: 21: } msg_queue;
+[; ;messages.h: 43: void init_queues(void);
+[; ;messages.h: 47: void SleepIfOkay(void);
+[; ;messages.h: 51: void block_on_To_msgqueues(void);
+[; ;messages.h: 57: signed char ToMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 58: signed char ToMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 64: signed char ToMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 65: signed char ToMainHigh_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 71: signed char FromMainLow_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 72: signed char FromMainLow_recvmsg(unsigned char,unsigned char *,void *);
+[; ;messages.h: 78: signed char FromMainHigh_sendmsg(unsigned char,unsigned char,void *);
+[; ;messages.h: 79: signed char FromMainHigh_recvmsg(unsigned char,unsigned char *,void *);
 [; ;queue.h: 11: typedef struct Queue
 [; ;queue.h: 12: {
 [; ;queue.h: 13: int size;
@@ -14810,371 +14889,629 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;queue.h: 20: unsigned char readQueue(Queue *Q, unsigned char* msg);
 [; ;queue.h: 21: int createQueue(Queue *Q, int Qsize);
 [; ;queue.h: 22: int getNumMessagesQueue(Queue *Q);
-[; ;queue.h: 23: inline unsigned char isQueueEmpty(Queue *Q);
-[; ;queue.h: 24: inline unsigned char isQueueFull(Queue *Q);
-[; ;zigBee.h: 15: typedef enum{HEADER,GATHER,PROCESS,CLEANUP,RETRY} ESTATE;
-[; ;zigBee.h: 27: typedef struct __zigBeeTxStat{
-[; ;zigBee.h: 28: uint8_t cmdId;
-[; ;zigBee.h: 29: uint8_t frameId;
-[; ;zigBee.h: 30: uint8_t status;
-[; ;zigBee.h: 31: } zigBeeTxStat;
-[; ;zigBee.h: 33: typedef struct __zigBeeMsg{
-[; ;zigBee.h: 34: union {
-[; ;zigBee.h: 35: struct {
-[; ;zigBee.h: 36: uint8_t start;
-[; ;zigBee.h: 37: struct {
-[; ;zigBee.h: 38: uint8_t HI;
-[; ;zigBee.h: 39: uint8_t LO;
-[; ;zigBee.h: 40: } len;
-[; ;zigBee.h: 41: };
-[; ;zigBee.h: 42: uint8_t header[3];
-[; ;zigBee.h: 43: };
-[; ;zigBee.h: 44: uint8_t data[32];
-[; ;zigBee.h: 45: uint8_t checksum;
-[; ;zigBee.h: 47: } zigBeeMsg;
-[; ;zigBee.h: 49: void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ);
-"4 ../src/zigBee.c
-[v _getLen `(ui ~T0 @X0 1 ef1`S2089 ]
+[; ;queue.h: 23: inline unsigned char isQEmpty(Queue *Q);
+[; ;queue.h: 24: inline unsigned char isQFull(Queue *Q);
+[; ;MESSAGES_G9.h: 7: typedef enum {
+[; ;MESSAGES_G9.h: 9: vtI2CMsgTypeTempInit,
+[; ;MESSAGES_G9.h: 10: vtI2CMsgTypeTempRead1,
+[; ;MESSAGES_G9.h: 11: vtI2CMsgTypeTempRead2,
+[; ;MESSAGES_G9.h: 12: vtI2CMsgTypeTempRead3,
+[; ;MESSAGES_G9.h: 13: TempMsgTypeTimer,
+[; ;MESSAGES_G9.h: 16: oScopeRead1Msg,
+[; ;MESSAGES_G9.h: 17: oScopeRead2Msg,
+[; ;MESSAGES_G9.h: 18: oScopeTimerMsg,
+[; ;MESSAGES_G9.h: 21: LCDMsgTypeTimer,
+[; ;MESSAGES_G9.h: 22: LCDMsgTypePrint,
+[; ;MESSAGES_G9.h: 25: lcdOScopeData,
+[; ;MESSAGES_G9.h: 26: lcdOScopeTimer,
+[; ;MESSAGES_G9.h: 29: navMotorCmdMsg,
+[; ;MESSAGES_G9.h: 32: navLineFoundMsg,
+[; ;MESSAGES_G9.h: 33: navIRDataMsg,
+[; ;MESSAGES_G9.h: 36: navWebLapMsg,
+[; ;MESSAGES_G9.h: 37: navWebStartMsg,
+[; ;MESSAGES_G9.h: 40: navRFIDFoundMsg,
+[; ;MESSAGES_G9.h: 43: webDebugMsg,
+[; ;MESSAGES_G9.h: 44: webPowerMsg,
+[; ;MESSAGES_G9.h: 45: webNavMsg,
+[; ;MESSAGES_G9.h: 48: conRequestMsg,
+[; ;MESSAGES_G9.h: 50: voidMsg
+[; ;MESSAGES_G9.h: 51: } g9MsgType;
+[; ;MESSAGES_G9.h: 58: typedef struct __g9Msg {
+[; ;MESSAGES_G9.h: 60: uint8_t msgType;
+[; ;MESSAGES_G9.h: 61: uint8_t length;
+[; ;MESSAGES_G9.h: 62: uint8_t id;
+[; ;MESSAGES_G9.h: 63: uint8_t buf[10];
+[; ;MESSAGES_G9.h: 64: } g9Msg;
+[; ;zigBee.h: 18: typedef enum{HEADER,GATHER,PROCESS,CLEANUP,RETRY} ESTATE;
+[; ;zigBee.h: 30: typedef struct __zigBeeTxStat{
+[; ;zigBee.h: 31: uint8_t cmdId;
+[; ;zigBee.h: 32: uint8_t frameId;
+[; ;zigBee.h: 33: uint8_t status;
+[; ;zigBee.h: 34: } zigBeeTxStat;
+[; ;zigBee.h: 38: typedef struct __zigBeeMsg{
+[; ;zigBee.h: 39: union {
+[; ;zigBee.h: 40: struct {
+[; ;zigBee.h: 41: uint8_t start;
+[; ;zigBee.h: 42: struct {
+[; ;zigBee.h: 43: uint8_t HI;
+[; ;zigBee.h: 44: uint8_t LO;
+[; ;zigBee.h: 45: } len;
+[; ;zigBee.h: 46: };
+[; ;zigBee.h: 47: uint8_t header[3];
+[; ;zigBee.h: 48: };
+[; ;zigBee.h: 49: uint8_t data[(((sizeof(g9Msg)+5) > (36)) ? (sizeof(g9Msg)+5) : (36))];
+[; ;zigBee.h: 50: uint8_t checksum;
+[; ;zigBee.h: 52: } zigBeeMsg;
+[; ;zigBee.h: 54: void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ);
+[; ;zigBee.c: 7: typedef enum{TX_CONTINUE,TX_RETRY} ETX_STATE;
+"9 ../src/zigBee.c
+[v _getLen `(ui ~T0 @X0 1 ef1`S2096 ]
 {
-[; ;zigBee.c: 4: uint16_t getLen(zigBeeMsg msg){
+[; ;zigBee.c: 9: uint16_t getLen(zigBeeMsg msg){
 [e :U _getLen ]
-[v _msg `S2089 ~T0 @X0 1 r1 ]
+[v _msg `S2096 ~T0 @X0 1 r1 ]
 [f ]
-[; ;zigBee.c: 5: return (((uint16_t)msg.len.HI << 8) | (msg.len.LO));
-"5
-[e ) | << -> . . . . _msg 0 0 1 0 `ui -> 8 `i -> . . . . _msg 0 0 1 1 `ui ]
-[e $UE 2093  ]
-[; ;zigBee.c: 6: }
-"6
-[e :UE 2093 ]
-}
-"8
-[v _setLen `(v ~T0 @X0 1 ef2`*S2089`ui ]
-{
-[; ;zigBee.c: 8: void setLen(zigBeeMsg* msg, uint16_t len){
-[e :U _setLen ]
-[v _msg `*S2089 ~T0 @X0 1 r1 ]
-[v _len `ui ~T0 @X0 1 r2 ]
-[f ]
-[; ;zigBee.c: 9: msg->len.HI = (len >> 8)& 0x00FF;
-"9
-[e = . . . . *U _msg 0 0 1 0 -> & >> _len -> 8 `i -> -> 255 `i `ui `uc ]
-[; ;zigBee.c: 10: msg->len.LO = len & 0x00FF;
+[; ;zigBee.c: 10: return (((uint16_t)msg.len.HI << 8) | (msg.len.LO));
 "10
-[e = . . . . *U _msg 0 0 1 1 -> & _len -> -> 255 `i `ui `uc ]
-[; ;zigBee.c: 11: return;
-"11
-[e $UE 2094  ]
-[; ;zigBee.c: 12: }
-"12
-[e :UE 2094 ]
-}
-"14
-[v _generateChecksum `(uc ~T0 @X0 1 ef1`*S2089 ]
-{
-[; ;zigBee.c: 14: uint8_t generateChecksum(zigBeeMsg* msg){
-[e :U _generateChecksum ]
-[v _msg `*S2089 ~T0 @X0 1 r1 ]
-[f ]
-"15
-[v _check `uc ~T0 @X0 1 a ]
-[; ;zigBee.c: 15: uint8_t check = 0;
-[e = _check -> -> 0 `i `uc ]
-"16
-[v _len `ui ~T0 @X0 1 a ]
-[; ;zigBee.c: 16: uint16_t len = getLen(*msg);
-[e = _len ( _getLen (1 *U _msg ]
-"17
-[v _i `i ~T0 @X0 1 a ]
-[; ;zigBee.c: 17: int i = 0;
-[e = _i -> 0 `i ]
-[; ;zigBee.c: 18: for(i=0; i<len; i++){
-"18
-{
-[e = _i -> 0 `i ]
-[e $U 2099  ]
-[e :U 2096 ]
-{
-[; ;zigBee.c: 19: check += msg->data[i];
-"19
-[e =+ _check *U + &U . *U _msg 1 * -> -> _i `ui `ux -> -> # *U &U . *U _msg 1 `ui `ux ]
-"20
-}
-"18
-[e ++ _i -> 1 `i ]
-[e :U 2099 ]
-[e $ < -> _i `ui _len 2096  ]
-[e :U 2097 ]
-"20
-}
-[; ;zigBee.c: 20: }
-[; ;zigBee.c: 21: check = 0xFF - (check & 0xFF);
-"21
-[e = _check -> - -> 255 `i & -> _check `i -> 255 `i `uc ]
-[; ;zigBee.c: 22: return (check & 0xFF);
-"22
-[e ) -> & -> _check `i -> 255 `i `uc ]
-[e $UE 2095  ]
-[; ;zigBee.c: 23: }
-"23
-[e :UE 2095 ]
-}
-"25
-[v _serializeZigBeeMsg `(v ~T0 @X0 1 ef2`*S2089`C*uc ]
-{
-[; ;zigBee.c: 25: void serializeZigBeeMsg(zigBeeMsg* msg, uint8_t* const buf){
-[e :U _serializeZigBeeMsg ]
-[v _msg `*S2089 ~T0 @X0 1 r1 ]
-[v _buf `C*uc ~T0 @X0 1 r2 ]
-[f ]
-[; ;zigBee.c: 26: buf[0] = msg->start;
-"26
-[e = *U + _buf * -> -> 0 `i `x -> -> # *U _buf `i `x . . . *U _msg 0 0 0 ]
-[; ;zigBee.c: 27: buf[1] = msg->len.HI;
-"27
-[e = *U + _buf * -> -> 1 `i `x -> -> # *U _buf `i `x . . . . *U _msg 0 0 1 0 ]
-[; ;zigBee.c: 28: buf[2] = msg->len.LO;
-"28
-[e = *U + _buf * -> -> 2 `i `x -> -> # *U _buf `i `x . . . . *U _msg 0 0 1 1 ]
-"30
-[v _i `i ~T0 @X0 1 a ]
-[; ;zigBee.c: 30: int i = 0;
-[e = _i -> 0 `i ]
-"31
-[v _len `ui ~T0 @X0 1 a ]
-[; ;zigBee.c: 31: uint16_t len = getLen(*msg);
-[e = _len ( _getLen (1 *U _msg ]
-[; ;zigBee.c: 32: for(i=0; i<len; i++){
-"32
-{
-[e = _i -> 0 `i ]
-[e $U 2104  ]
-[e :U 2101 ]
-{
-[; ;zigBee.c: 33: buf[i+3] = msg->data[i];
-"33
-[e = *U + _buf * -> + _i -> 3 `i `x -> -> # *U _buf `i `x *U + &U . *U _msg 1 * -> -> _i `ui `ux -> -> # *U &U . *U _msg 1 `ui `ux ]
-"34
-}
-"32
-[e ++ _i -> 1 `i ]
-[e :U 2104 ]
-[e $ < -> _i `ui _len 2101  ]
-[e :U 2102 ]
-"34
-}
-[; ;zigBee.c: 34: }
-[; ;zigBee.c: 35: buf[len+3] = msg->checksum;
-"35
-[e = *U + _buf * -> + _len -> -> 3 `i `ui `ux -> -> # *U _buf `ui `ux . *U _msg 2 ]
-[; ;zigBee.c: 36: return;
-"36
+[e ) | << -> . . . . _msg 0 0 1 0 `ui -> 8 `i -> . . . . _msg 0 0 1 1 `ui ]
 [e $UE 2100  ]
-[; ;zigBee.c: 37: }
-"37
+[; ;zigBee.c: 11: }
+"11
 [e :UE 2100 ]
 }
-"39
-[v _doZigBee `(v ~T0 @X0 1 ef3`i`*uc`*S2087 ]
+"13
+[v _setLen `(v ~T0 @X0 1 ef2`*S2096`ui ]
 {
-[; ;zigBee.c: 39: void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ){
-[e :U _doZigBee ]
-[v _length `i ~T0 @X0 1 r1 ]
-[v _msgbuffer `*uc ~T0 @X0 1 r2 ]
-[v _rcvQ `*S2087 ~T0 @X0 1 r3 ]
+[; ;zigBee.c: 13: void setLen(zigBeeMsg* msg, uint16_t len){
+[e :U _setLen ]
+[v _msg `*S2096 ~T0 @X0 1 r1 ]
+[v _len `ui ~T0 @X0 1 r2 ]
 [f ]
-"40
-[v F16414 `E16364 ~T0 @X0 1 s state ]
-[i F16414
--> . `E16364 0 `E16364
-]
-"41
-[v F16415 `ui ~T0 @X0 1 s len ]
-[i F16415
--> -> 0 `i `ui
-]
-"42
-[v F16416 `S2089 ~T0 @X0 1 s msg ]
-"43
-[v F16417 `i ~T0 @X0 1 s curI ]
-[i F16417
--> 0 `i
-]
-"45
+[; ;zigBee.c: 14: msg->len.HI = (len >> 8)& 0x00FF;
+"14
+[e = . . . . *U _msg 0 0 1 0 -> & >> _len -> 8 `i -> -> 255 `i `ui `uc ]
+[; ;zigBee.c: 15: msg->len.LO = len & 0x00FF;
+"15
+[e = . . . . *U _msg 0 0 1 1 -> & _len -> -> 255 `i `ui `uc ]
+[; ;zigBee.c: 16: return;
+"16
+[e $UE 2101  ]
+[; ;zigBee.c: 17: }
+"17
+[e :UE 2101 ]
+}
+"19
+[v _generateChecksum `(uc ~T0 @X0 1 ef1`*S2096 ]
+{
+[; ;zigBee.c: 19: uint8_t generateChecksum(zigBeeMsg* msg){
+[e :U _generateChecksum ]
+[v _msg `*S2096 ~T0 @X0 1 r1 ]
+[f ]
+"20
+[v _check `uc ~T0 @X0 1 a ]
+[; ;zigBee.c: 20: uint8_t check = 0;
+[e = _check -> -> 0 `i `uc ]
+"21
+[v _len `ui ~T0 @X0 1 a ]
+[; ;zigBee.c: 21: uint16_t len = getLen(*msg);
+[e = _len ( _getLen (1 *U _msg ]
+"22
 [v _i `i ~T0 @X0 1 a ]
-[; ;zigBee.c: 40: static ESTATE state = HEADER;
-[; ;zigBee.c: 41: static uint16_t len = 0;
-[; ;zigBee.c: 42: static zigBeeMsg msg;
-[; ;zigBee.c: 43: static int curI=0;
-[; ;zigBee.c: 45: int i = 0;
+[; ;zigBee.c: 22: int i = 0;
 [e = _i -> 0 `i ]
-[; ;zigBee.c: 47: switch( state ){
-"47
-[e $U 2107  ]
-{
-[; ;zigBee.c: 48: case HEADER:
-"48
-[e :U 2108 ]
-[; ;zigBee.c: 49: {
-"49
-{
-[; ;zigBee.c: 51: memcpy(msg.header,msgbuffer,sizeof(unsigned char)*3);
-"51
-[e ( _memcpy (3 , , -> &U . . F16416 0 1 `*v -> _msgbuffer `*Cv * -> # `uc `ui -> -> 3 `i `ui ]
-[; ;zigBee.c: 53: if( msg.start != 0x7E ){
-"53
-[e $ ! != -> . . . F16416 0 0 0 `i -> 126 `i 2109  ]
-{
-[; ;zigBee.c: 56: for( i=0; i<length; i++){
-"56
+[; ;zigBee.c: 23: for(i=0; i<len; i++){
+"23
 {
 [e = _i -> 0 `i ]
-[e $U 2113  ]
-[e :U 2110 ]
+[e $U 2106  ]
+[e :U 2103 ]
 {
-[; ;zigBee.c: 57: readQueue(rcvQ,0);
-"57
-[e ( _readQueue (2 , _rcvQ -> -> 0 `i `*uc ]
-"58
+[; ;zigBee.c: 24: check += msg->data[i];
+"24
+[e =+ _check *U + &U . *U _msg 1 * -> -> _i `ui `ux -> -> # *U &U . *U _msg 1 `ui `ux ]
+"25
 }
-"56
+"23
 [e ++ _i -> 1 `i ]
-[e :U 2113 ]
-[e $ < _i _length 2110  ]
-[e :U 2111 ]
-"58
+[e :U 2106 ]
+[e $ < -> _i `ui _len 2103  ]
+[e :U 2104 ]
+"25
 }
-[; ;zigBee.c: 58: }
-[; ;zigBee.c: 59: break;
-"59
-[e $U 2106  ]
-"60
+[; ;zigBee.c: 25: }
+[; ;zigBee.c: 26: check = 0xFF - (check & 0xFF);
+"26
+[e = _check -> - -> 255 `i & -> _check `i -> 255 `i `uc ]
+[; ;zigBee.c: 27: return (check & 0xFF);
+"27
+[e ) -> & -> _check `i -> 255 `i `uc ]
+[e $UE 2102  ]
+[; ;zigBee.c: 28: }
+"28
+[e :UE 2102 ]
 }
-[e :U 2109 ]
-[; ;zigBee.c: 60: }
-[; ;zigBee.c: 62: len = getLen(msg);
-"62
-[e = F16415 ( _getLen (1 F16416 ]
-[; ;zigBee.c: 64: state = GATHER;
-"64
-[e = F16414 -> . `E16364 1 `E16364 ]
-[; ;zigBee.c: 65: break;
-"65
-[e $U 2106  ]
-"66
-}
-[; ;zigBee.c: 66: }
-[; ;zigBee.c: 67: case GATHER:
-"67
-[e :U 2114 ]
-[; ;zigBee.c: 68: {
-"68
+"30
+[v _serializeZigBeeMsg `(v ~T0 @X0 1 ef2`*S2096`C*uc ]
 {
-"70
-[v _numMsgs `i ~T0 @X0 1 a ]
-[; ;zigBee.c: 70: int numMsgs = getNumMessagesQueue(rcvQ);
-[e = _numMsgs ( _getNumMessagesQueue (1 _rcvQ ]
-[; ;zigBee.c: 71: for( i=0; i<numMsgs || curI<len ; i++, curI++){
-"71
+[; ;zigBee.c: 30: void serializeZigBeeMsg(zigBeeMsg* msg, uint8_t* const buf){
+[e :U _serializeZigBeeMsg ]
+[v _msg `*S2096 ~T0 @X0 1 r1 ]
+[v _buf `C*uc ~T0 @X0 1 r2 ]
+[f ]
+[; ;zigBee.c: 31: buf[0] = msg->start;
+"31
+[e = *U + _buf * -> -> 0 `i `x -> -> # *U _buf `i `x . . . *U _msg 0 0 0 ]
+[; ;zigBee.c: 32: buf[1] = msg->len.HI;
+"32
+[e = *U + _buf * -> -> 1 `i `x -> -> # *U _buf `i `x . . . . *U _msg 0 0 1 0 ]
+[; ;zigBee.c: 33: buf[2] = msg->len.LO;
+"33
+[e = *U + _buf * -> -> 2 `i `x -> -> # *U _buf `i `x . . . . *U _msg 0 0 1 1 ]
+"35
+[v _i `i ~T0 @X0 1 a ]
+[; ;zigBee.c: 35: int i = 0;
+[e = _i -> 0 `i ]
+"36
+[v _len `ui ~T0 @X0 1 a ]
+[; ;zigBee.c: 36: uint16_t len = getLen(*msg);
+[e = _len ( _getLen (1 *U _msg ]
+[; ;zigBee.c: 37: for(i=0; i<len; i++){
+"37
+{
+[e = _i -> 0 `i ]
+[e $U 2111  ]
+[e :U 2108 ]
+{
+[; ;zigBee.c: 38: buf[i+3] = msg->data[i];
+"38
+[e = *U + _buf * -> + _i -> 3 `i `x -> -> # *U _buf `i `x *U + &U . *U _msg 1 * -> -> _i `ui `ux -> -> # *U &U . *U _msg 1 `ui `ux ]
+"39
+}
+"37
+[e ++ _i -> 1 `i ]
+[e :U 2111 ]
+[e $ < -> _i `ui _len 2108  ]
+[e :U 2109 ]
+"39
+}
+[; ;zigBee.c: 39: }
+[; ;zigBee.c: 40: buf[len+3] = msg->checksum;
+"40
+[e = *U + _buf * -> + _len -> -> 3 `i `ui `ux -> -> # *U _buf `ui `ux . *U _msg 2 ]
+[; ;zigBee.c: 41: return;
+"41
+[e $UE 2107  ]
+[; ;zigBee.c: 42: }
+"42
+[e :UE 2107 ]
+}
+"44
+[v _zigBee2G9Msg `(uc ~T0 @X0 1 ef2`*S2096`*S2094 ]
+{
+[; ;zigBee.c: 44: unsigned char zigBee2G9Msg(zigBeeMsg* in, g9Msg* out){
+[e :U _zigBee2G9Msg ]
+[v _in `*S2096 ~T0 @X0 1 r1 ]
+[v _out `*S2094 ~T0 @X0 1 r2 ]
+[f ]
+[; ;zigBee.c: 45: if( in == (0) || out == (0) ) return 0;
+"45
+[e $ ! || == _in -> -> 0 `i `*S2096 == _out -> -> 0 `i `*S2094 2113  ]
+[e ) -> -> 0 `i `uc ]
+[e $UE 2112  ]
+[e :U 2113 ]
+[; ;zigBee.c: 46: if( in->data[0] != 0x81 ) return 0;
+"46
+[e $ ! != -> *U + &U . *U _in 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . *U _in 1 `ui `ux `i -> 129 `i 2114  ]
+[e ) -> -> 0 `i `uc ]
+[e $UE 2112  ]
+[e :U 2114 ]
+[; ;zigBee.c: 48: out->msgType = in->data[5];
+"48
+[e = . *U _out 0 *U + &U . *U _in 1 * -> -> -> 5 `i `ui `ux -> -> # *U &U . *U _in 1 `ui `ux ]
+[; ;zigBee.c: 49: out->length = in->data[6];
+"49
+[e = . *U _out 1 *U + &U . *U _in 1 * -> -> -> 6 `i `ui `ux -> -> # *U &U . *U _in 1 `ui `ux ]
+[; ;zigBee.c: 50: out->id = in->data[7];
+"50
+[e = . *U _out 2 *U + &U . *U _in 1 * -> -> -> 7 `i `ui `ux -> -> # *U &U . *U _in 1 `ui `ux ]
+"52
+[v _i `i ~T0 @X0 1 a ]
+[; ;zigBee.c: 52: int i=0;
+[e = _i -> 0 `i ]
+[; ;zigBee.c: 53: for(i=0; i<out->length; i++){
+"53
 {
 [e = _i -> 0 `i ]
 [e $U 2118  ]
 [e :U 2115 ]
 {
-[; ;zigBee.c: 72: readQueue(rcvQ,&(msg.data[curI]));
-"72
-[e ( _readQueue (2 , _rcvQ &U *U + &U . F16416 1 * -> -> F16417 `ui `ux -> -> # *U &U . F16416 1 `ui `ux ]
-"73
+[; ;zigBee.c: 54: out->buf[i] = in->data[i+8];
+"54
+[e = *U + &U . *U _out 3 * -> -> _i `ui `ux -> -> # *U &U . *U _out 3 `ui `ux *U + &U . *U _in 1 * -> -> + _i -> 8 `i `ui `ux -> -> # *U &U . *U _in 1 `ui `ux ]
+"55
 }
-"71
-[e ; ++ _i -> 1 `i ++ F16417 -> 1 `i ]
+"53
+[e ++ _i -> 1 `i ]
 [e :U 2118 ]
-[e $ || < _i _numMsgs < -> F16417 `ui F16415 2115  ]
+[e $ < _i -> . *U _out 1 `i 2115  ]
 [e :U 2116 ]
-"73
+"55
 }
-[; ;zigBee.c: 73: }
-[; ;zigBee.c: 76: if( curI == len){
+[; ;zigBee.c: 55: }
+[; ;zigBee.c: 57: return 1;
+"57
+[e ) -> -> 1 `i `uc ]
+[e $UE 2112  ]
+[; ;zigBee.c: 58: }
+"58
+[e :UE 2112 ]
+}
+"60
+[v _doZigBee `(v ~T0 @X0 1 ef3`i`*uc`*S2093 ]
+{
+[; ;zigBee.c: 60: void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ){
+[e :U _doZigBee ]
+[v _length `i ~T0 @X0 1 r1 ]
+[v _msgbuffer `*uc ~T0 @X0 1 r2 ]
+[v _rcvQ `*S2093 ~T0 @X0 1 r3 ]
+[f ]
+"61
+[v F16626 `E16566 ~T0 @X0 1 s state ]
+[i F16626
+-> . `E16566 0 `E16566
+]
+"62
+[v F16627 `ui ~T0 @X0 1 s len ]
+[i F16627
+-> -> 0 `i `ui
+]
+"63
+[v F16628 `S2096 ~T0 @X0 1 s msg ]
+"64
+[v F16629 `E16598 ~T0 @X0 1 s txState ]
+[i F16629
+-> . `E16598 0 `E16598
+]
+"65
+[v F16630 `i ~T0 @X0 1 s curI ]
+[i F16630
+-> 0 `i
+]
+"67
+[v _i `i ~T0 @X0 1 a ]
+[; ;zigBee.c: 61: static ESTATE state = HEADER;
+[; ;zigBee.c: 62: static uint16_t len = 0;
+[; ;zigBee.c: 63: static zigBeeMsg msg;
+[; ;zigBee.c: 64: static ETX_STATE txState = TX_CONTINUE;
+[; ;zigBee.c: 65: static int curI=0;
+[; ;zigBee.c: 67: int i = 0;
+[e = _i -> 0 `i ]
+[; ;zigBee.c: 70: switch( state ){
+"70
+[e $U 2121  ]
+{
+[; ;zigBee.c: 71: case HEADER:
+"71
+[e :U 2122 ]
+[; ;zigBee.c: 72: {
+"72
+{
+[; ;zigBee.c: 74: if( getNumMessagesQueue(rcvQ) >= 3 ){
+"74
+[e $ ! >= ( _getNumMessagesQueue (1 _rcvQ -> 3 `i 2123  ]
+{
+[; ;zigBee.c: 76: for( i=0; i<3; i++){
 "76
-[e $ ! == -> F16417 `ui F16415 2119  ]
 {
-[; ;zigBee.c: 77: numMsgs = getNumMessagesQueue(rcvQ);
+[e = _i -> 0 `i ]
+[e $ < _i -> 3 `i 2124  ]
+[e $U 2125  ]
+[e :U 2124 ]
+{
+[; ;zigBee.c: 77: readQueue(rcvQ,&(msg.header[i]));
 "77
-[e = _numMsgs ( _getNumMessagesQueue (1 _rcvQ ]
-[; ;zigBee.c: 78: if( numMsgs > 0){
+[e ( _readQueue (2 , _rcvQ &U *U + &U . . F16628 0 1 * -> -> _i `ui `ux -> -> # *U &U . . F16628 0 1 `ui `ux ]
 "78
-[e $ ! > _numMsgs -> 0 `i 2120  ]
-{
-[; ;zigBee.c: 80: readQueue(rcvQ, &(msg.checksum));
+}
+"76
+[e ++ _i -> 1 `i ]
+[e $ < _i -> 3 `i 2124  ]
+[e :U 2125 ]
+"78
+}
+[; ;zigBee.c: 78: }
+[; ;zigBee.c: 80: if( msg.start != 0x7E ){
 "80
-[e ( _readQueue (2 , _rcvQ &U . F16416 2 ]
-[; ;zigBee.c: 82: state = PROCESS;
+[e $ ! != -> . . . F16628 0 0 0 `i -> 126 `i 2127  ]
+{
+[; ;zigBee.c: 82: break;
 "82
-[e = F16414 -> . `E16364 2 `E16364 ]
+[e $U 2120  ]
 "83
 }
-[e :U 2120 ]
-"84
-}
-[e :U 2119 ]
+[e :U 2127 ]
 [; ;zigBee.c: 83: }
-[; ;zigBee.c: 84: }
-[; ;zigBee.c: 85: break;
+[; ;zigBee.c: 85: len = getLen(msg);
 "85
-[e $U 2106  ]
-"86
-}
-[; ;zigBee.c: 86: }
-[; ;zigBee.c: 87: case PROCESS:
+[e = F16627 ( _getLen (1 F16628 ]
+[; ;zigBee.c: 87: state = GATHER;
 "87
-[e :U 2121 ]
-[; ;zigBee.c: 88: {
+[e = F16626 -> . `E16566 1 `E16566 ]
 "88
-{
-[; ;zigBee.c: 91: break;
-"91
-[e $U 2106  ]
-"92
 }
-[; ;zigBee.c: 92: }
-[; ;zigBee.c: 93: case CLEANUP:
-"93
-[e :U 2122 ]
-[; ;zigBee.c: 94: {
-"94
+[e :U 2123 ]
+[; ;zigBee.c: 88: }
+[; ;zigBee.c: 89: break;
+"89
+[e $U 2120  ]
+"90
+}
+[; ;zigBee.c: 90: }
+[; ;zigBee.c: 91: case GATHER:
+"91
+[e :U 2128 ]
+[; ;zigBee.c: 92: {
+"92
 {
-[; ;zigBee.c: 96: curI = 0;
+"94
+[v _numMsgs `i ~T0 @X0 1 a ]
+[; ;zigBee.c: 94: int numMsgs = getNumMessagesQueue(rcvQ);
+[e = _numMsgs ( _getNumMessagesQueue (1 _rcvQ ]
+[; ;zigBee.c: 95: for( i=0; i<numMsgs || curI<len ; i++, curI++){
+"95
+{
+[e = _i -> 0 `i ]
+[e $U 2132  ]
+[e :U 2129 ]
+{
+[; ;zigBee.c: 96: readQueue(rcvQ,&(msg.data[curI]));
 "96
-[e = F16417 -> 0 `i ]
+[e ( _readQueue (2 , _rcvQ &U *U + &U . F16628 1 * -> -> F16630 `ui `ux -> -> # *U &U . F16628 1 `ui `ux ]
+"97
+}
+"95
+[e ; ++ _i -> 1 `i ++ F16630 -> 1 `i ]
+[e :U 2132 ]
+[e $ || < _i _numMsgs < -> F16630 `ui F16627 2129  ]
+[e :U 2130 ]
 "97
 }
 [; ;zigBee.c: 97: }
-[; ;zigBee.c: 98: default:
-"98
-[e :U 2123 ]
-[; ;zigBee.c: 99: {
-"99
+[; ;zigBee.c: 100: if( curI == len){
+"100
+[e $ ! == -> F16630 `ui F16627 2133  ]
 {
-[; ;zigBee.c: 101: break;
+[; ;zigBee.c: 101: numMsgs = getNumMessagesQueue(rcvQ);
 "101
-[e $U 2106  ]
+[e = _numMsgs ( _getNumMessagesQueue (1 _rcvQ ]
+[; ;zigBee.c: 102: if( numMsgs > 0){
 "102
-}
-"103
-}
-[; ;zigBee.c: 102: }
-[; ;zigBee.c: 103: }
-[e $U 2106  ]
-"47
-[e :U 2107 ]
-[e [\ F16414 , $ -> . `E16364 0 `E16364 2108
- , $ -> . `E16364 1 `E16364 2114
- , $ -> . `E16364 2 `E16364 2121
- , $ -> . `E16364 3 `E16364 2122
- 2123 ]
-"103
-[e :U 2106 ]
-[; ;zigBee.c: 104: }
+[e $ ! > _numMsgs -> 0 `i 2134  ]
+{
+[; ;zigBee.c: 104: readQueue(rcvQ, &(msg.checksum));
 "104
-[e :UE 2105 ]
+[e ( _readQueue (2 , _rcvQ &U . F16628 2 ]
+[; ;zigBee.c: 106: state = PROCESS;
+"106
+[e = F16626 -> . `E16566 2 `E16566 ]
+"107
+}
+[e :U 2134 ]
+"108
+}
+[e :U 2133 ]
+[; ;zigBee.c: 107: }
+[; ;zigBee.c: 108: }
+[; ;zigBee.c: 109: break;
+"109
+[e $U 2120  ]
+"110
+}
+[; ;zigBee.c: 110: }
+[; ;zigBee.c: 111: case PROCESS:
+"111
+[e :U 2135 ]
+[; ;zigBee.c: 112: {
+"112
+{
+[; ;zigBee.c: 115: if( msg.checksum != generateChecksum(&msg) ){
+"115
+[e $ ! != -> . F16628 2 `i -> ( _generateChecksum (1 &U F16628 `i 2136  ]
+{
+[; ;zigBee.c: 117: break;
+"117
+[e $U 2120  ]
+"118
+}
+[e :U 2136 ]
+[; ;zigBee.c: 118: }
+[; ;zigBee.c: 120: switch(msg.data[0] ){
+"120
+[e $U 2138  ]
+{
+[; ;zigBee.c: 121: case 0x8A:
+"121
+[e :U 2139 ]
+[; ;zigBee.c: 124: break;
+"124
+[e $U 2137  ]
+[; ;zigBee.c: 125: case 0x08:
+"125
+[e :U 2140 ]
+[; ;zigBee.c: 128: break;
+"128
+[e $U 2137  ]
+[; ;zigBee.c: 129: case 0x09:
+"129
+[e :U 2141 ]
+[; ;zigBee.c: 132: break;
+"132
+[e $U 2137  ]
+[; ;zigBee.c: 133: case 0x88:
+"133
+[e :U 2142 ]
+[; ;zigBee.c: 136: break;
+"136
+[e $U 2137  ]
+[; ;zigBee.c: 137: case 0x17:
+"137
+[e :U 2143 ]
+[; ;zigBee.c: 140: break;
+"140
+[e $U 2137  ]
+[; ;zigBee.c: 141: case 0x97:
+"141
+[e :U 2144 ]
+[; ;zigBee.c: 144: break;
+"144
+[e $U 2137  ]
+[; ;zigBee.c: 145: case 0x89:
+"145
+[e :U 2145 ]
+[; ;zigBee.c: 146: {
+"146
+{
+"150
+[v _pStatus `*S2095 ~T0 @X0 1 a ]
+[; ;zigBee.c: 150: zigBeeTxStat* pStatus = (zigBeeTxStat*)msg.data;
+[e = _pStatus -> &U . F16628 1 `*S2095 ]
+[; ;zigBee.c: 151: if(pStatus->status != 0){
+"151
+[e $ ! != -> . *U _pStatus 2 `i -> 0 `i 2146  ]
+{
+[; ;zigBee.c: 152: txState = TX_RETRY;
+"152
+[e = F16629 -> . `E16598 1 `E16598 ]
+"153
+}
+[; ;zigBee.c: 153: }
+[e $U 2147  ]
+"154
+[e :U 2146 ]
+[; ;zigBee.c: 154: else{
+{
+[; ;zigBee.c: 155: txState = TX_CONTINUE;
+"155
+[e = F16629 -> . `E16598 0 `E16598 ]
+"157
+}
+[e :U 2147 ]
+[; ;zigBee.c: 157: }
+[; ;zigBee.c: 158: break;
+"158
+[e $U 2137  ]
+"159
+}
+[; ;zigBee.c: 159: }
+[; ;zigBee.c: 160: case 0x80:
+"160
+[e :U 2148 ]
+[; ;zigBee.c: 163: break;
+"163
+[e $U 2137  ]
+[; ;zigBee.c: 164: case 0x81:
+"164
+[e :U 2149 ]
+[; ;zigBee.c: 165: {
+"165
+{
+"170
+[v _outMsg `S2094 ~T0 @X0 1 a ]
+[; ;zigBee.c: 170: g9Msg outMsg;
+[; ;zigBee.c: 171: zigBee2G9Msg(&msg,&outMsg);
+"171
+[e ( _zigBee2G9Msg (2 , &U F16628 &U _outMsg ]
+[; ;zigBee.c: 172: ToMainHigh_sendmsg(3+outMsg.length, 47, (void*) &outMsg);
+"172
+[e ( _ToMainHigh_sendmsg (3 , , -> + -> 3 `i -> . _outMsg 1 `i `uc -> -> 47 `i `uc -> &U _outMsg `*v ]
+[; ;zigBee.c: 173: break;
+"173
+[e $U 2137  ]
+"174
+}
+[; ;zigBee.c: 174: }
+[; ;zigBee.c: 175: case 0x00:
+"175
+[e :U 2150 ]
+"176
+[e :U 2151 ]
+[; ;zigBee.c: 176: case 0x01:
+[; ;zigBee.c: 179: default:
+"179
+[e :U 2152 ]
+[; ;zigBee.c: 183: break;
+"183
+[e $U 2137  ]
+"184
+}
+[; ;zigBee.c: 184: }
+[e $U 2137  ]
+"120
+[e :U 2138 ]
+[e [\ *U + &U . F16628 1 * -> -> -> 0 `i `ui `ux -> -> # *U &U . F16628 1 `ui `ux , $ -> -> 138 `i `uc 2139
+ , $ -> -> 8 `i `uc 2140
+ , $ -> -> 9 `i `uc 2141
+ , $ -> -> 136 `i `uc 2142
+ , $ -> -> 23 `i `uc 2143
+ , $ -> -> 151 `i `uc 2144
+ , $ -> -> 137 `i `uc 2145
+ , $ -> -> 128 `i `uc 2148
+ , $ -> -> 129 `i `uc 2149
+ , $ -> -> 0 `i `uc 2150
+ , $ -> -> 1 `i `uc 2151
+ 2152 ]
+"184
+[e :U 2137 ]
+[; ;zigBee.c: 186: state = CLEANUP;
+"186
+[e = F16626 -> . `E16566 3 `E16566 ]
+[; ;zigBee.c: 187: break;
+"187
+[e $U 2120  ]
+"188
+}
+[; ;zigBee.c: 188: }
+[; ;zigBee.c: 189: case CLEANUP:
+"189
+[e :U 2153 ]
+[; ;zigBee.c: 190: {
+"190
+{
+[; ;zigBee.c: 192: curI = 0;
+"192
+[e = F16630 -> 0 `i ]
+[; ;zigBee.c: 193: state = HEADER;
+"193
+[e = F16626 -> . `E16566 0 `E16566 ]
+"194
+}
+[; ;zigBee.c: 194: }
+[; ;zigBee.c: 195: default:
+"195
+[e :U 2154 ]
+[; ;zigBee.c: 196: {
+"196
+{
+[; ;zigBee.c: 198: break;
+"198
+[e $U 2120  ]
+"199
+}
+"200
+}
+[; ;zigBee.c: 199: }
+[; ;zigBee.c: 200: }
+[e $U 2120  ]
+"70
+[e :U 2121 ]
+[e [\ F16626 , $ -> . `E16566 0 `E16566 2122
+ , $ -> . `E16566 1 `E16566 2128
+ , $ -> . `E16566 2 `E16566 2135
+ , $ -> . `E16566 3 `E16566 2153
+ 2154 ]
+"200
+[e :U 2120 ]
+[; ;zigBee.c: 204: }
+"204
+[e :UE 2119 ]
 }

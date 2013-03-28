@@ -17,6 +17,7 @@
       <itemPath>../src/queue.h</itemPath>
       <itemPath>../src/zigBee.c</itemPath>
       <itemPath>../src/zigBee.h</itemPath>
+      <itemPath>../../../common/MESSAGES_G9.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

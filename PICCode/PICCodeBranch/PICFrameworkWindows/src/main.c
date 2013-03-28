@@ -18,6 +18,8 @@
 #include "timer0_thread.h"
 #include "queue.h"
 #include "encoders.h"
+#include "smcpic.h"
+#include "my_adc.h"
 
 #ifdef __USE18F45J10
 // CONFIG1L
@@ -91,6 +93,7 @@ void main(void) {
     uart_thread_struct uthread_data; // info for uart_lthread
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
+    unsigned char msg;
 
 #ifdef MASTERPIC
     unsigned char cmd;
@@ -177,7 +180,7 @@ void main(void) {
 //   enabled.  They are just there to make the lights blink and can be
 //   disabled.
 #ifdef MASTERPIC
-    i2c_configure_master(0x9E);
+    i2c_configure_master();
 #elif ISRELPIC
     // configure slave accordingly
     i2c_configure_slave(RELPICADDR);
@@ -319,7 +322,7 @@ void main(void) {
                             length = 2;
                             msgbuffer[0] = 0xf6;
                             if (!isQEmpty(&rfidRXQ))
-                                msgbuffer[1] = readQueue(&rfidRXQ);
+                                msgbuffer[1] = readQueue(&rfidRXQ, &msg);
                             else
                                 msgbuffer[1] = 0x30;
                             break;
@@ -370,14 +373,10 @@ void main(void) {
                     break;
                 };
 #ifdef MASTERPIC
-                case MSGT_POLL_PICS:
+                case MSGT_SEND_MTRCMD:
                 {
-                    length = 2;
-                    msgbuffer[0] = 0x9E;
-                    msgbuffer[1] = 0xA8;
-
-                    i2c_master_send(length, msgbuffer);
-                    i2c_master_recv(length, 0x9E);
+                    for (i = 0; i < length; i++)
+                        sendMtrCmd(msgbuffer[i]);
                     break;
                 };
 #endif

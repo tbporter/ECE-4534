@@ -13,6 +13,7 @@
 
 #define DEMO_MSG_RECV 0
 #define USE_FAKE_TX_MSG 1
+#define RETRY_MAX 3
 
 // Length of the message queues to/from this task
 #define g9ZigBeeQLen 20 /*g9Msgs*/
@@ -147,6 +148,7 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 	g9Msg inMsg, outMsg;
 	ETX_STATE txState = CONTINUE;
 	uint8_t* txBuf = 0;
+	uint8_t retries = 0;
 
 	for(;;){
 	//Handle RX
@@ -175,6 +177,9 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 				//Get data
 				uint16_t len = getLen(msg);
 				msg.data = (uint8_t*)malloc(sizeof(uint8_t)*len);
+				if(msg.data == NULL){
+					VT_HANDLE_FATAL_ERROR(MALLOC_ERROR);
+				}
 				int i =0;
 				for(i=0; i<len; i++){
 					success &= xQueueReceive(zigBeePtr->uartDev->outQ,(void*)&(msg.data[i]),10);	
@@ -232,9 +237,14 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 						if(pStatus->status != TX_STAT_SUCCESS){
 							printw("ZigBee - Error: TX Failed");
 							txState = RETRY;
+							if(++retries == RETRY_MAX){
+								txState = CONTINUE; //Give up;
+								retries = 0;
+							}
 						}
 						else{
 							txState = CONTINUE;
+							retries = 0;
 							free(txBuf); // Free previous message
 						}
 						break;
@@ -292,6 +302,9 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 			setLen(&msg,len);
 	
 			msg.data = (uint8_t*)malloc(sizeof(uint8_t)*len);
+			if(msg.data == NULL){
+				VT_HANDLE_FATAL_ERROR(MALLOC_ERROR);
+			}
 	
 			//Wrap in ZigBee headers
 			msg.start = ZigBeeStart;
@@ -315,10 +328,14 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 	
 			//Send to UART
 			txBuf = (uint8_t*)malloc(sizeof(uint8_t)*(len+4));
+			if(txBuf == NULL){
+				VT_HANDLE_FATAL_ERROR(MALLOC_ERROR);
+			}
 			serializeZigBeeMsg(&msg,txBuf);
 			if( SendUartMsg(zigBeePtr->uartDev,len+4, txBuf) != pdTRUE ){
 				VT_HANDLE_FATAL_ERROR(0xD34D7);
 			}
+			txState = RETRY; //Stops from sending new data before TX_SUCCESS status rcv
 			free(msg.data); //Free allocated array
 		}//TX - Continue
 		else{

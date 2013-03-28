@@ -5,7 +5,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S2091 __uart_thread_struct uartRXQ data ]
 "19 ../src/queue.h
 [v _appendQueue `(i ~T0 @X0 0 ef2`*S2088`uc ]
-"49 ../src/zigBee.h
+"54 ../src/zigBee.h
 [v _doZigBee `(v ~T0 @X0 0 ef3`i`*uc`*S2088 ]
 "64 ../src/messages.h
 [v _ToMainHigh_sendmsg `(c ~T0 @X0 0 ef3`uc`uc`*v ]
@@ -14775,8 +14775,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;queue.h: 20: unsigned char readQueue(Queue *Q, unsigned char* msg);
 [; ;queue.h: 21: int createQueue(Queue *Q, int Qsize);
 [; ;queue.h: 22: int getNumMessagesQueue(Queue *Q);
-[; ;queue.h: 23: inline unsigned char isQueueEmpty(Queue *Q);
-[; ;queue.h: 24: inline unsigned char isQueueFull(Queue *Q);
+[; ;queue.h: 23: inline unsigned char isQEmpty(Queue *Q);
+[; ;queue.h: 24: inline unsigned char isQFull(Queue *Q);
 [; ;messages.h: 10: typedef struct __msg {
 [; ;messages.h: 11: unsigned char full;
 [; ;messages.h: 12: unsigned char length;
@@ -14832,27 +14832,109 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdint.h: 205: typedef uint32_t uintmax_t;
 [; ;stdint.h: 210: typedef int16_t intptr_t;
 [; ;stdint.h: 215: typedef uint16_t uintptr_t;
-[; ;zigBee.h: 15: typedef enum{HEADER,GATHER,PROCESS,CLEANUP,RETRY} ESTATE;
-[; ;zigBee.h: 27: typedef struct __zigBeeTxStat{
-[; ;zigBee.h: 28: uint8_t cmdId;
-[; ;zigBee.h: 29: uint8_t frameId;
-[; ;zigBee.h: 30: uint8_t status;
-[; ;zigBee.h: 31: } zigBeeTxStat;
-[; ;zigBee.h: 33: typedef struct __zigBeeMsg{
-[; ;zigBee.h: 34: union {
-[; ;zigBee.h: 35: struct {
-[; ;zigBee.h: 36: uint8_t start;
-[; ;zigBee.h: 37: struct {
-[; ;zigBee.h: 38: uint8_t HI;
-[; ;zigBee.h: 39: uint8_t LO;
-[; ;zigBee.h: 40: } len;
-[; ;zigBee.h: 41: };
-[; ;zigBee.h: 42: uint8_t header[3];
-[; ;zigBee.h: 43: };
-[; ;zigBee.h: 44: uint8_t data[32];
-[; ;zigBee.h: 45: uint8_t checksum;
-[; ;zigBee.h: 47: } zigBeeMsg;
-[; ;zigBee.h: 49: void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ);
+[; ;stdlib.h: 27: typedef struct {
+[; ;stdlib.h: 28: int rem;
+[; ;stdlib.h: 29: int quot;
+[; ;stdlib.h: 30: } div_t;
+[; ;stdlib.h: 31: typedef struct {
+[; ;stdlib.h: 32: unsigned rem;
+[; ;stdlib.h: 33: unsigned quot;
+[; ;stdlib.h: 34: } udiv_t;
+[; ;stdlib.h: 35: typedef struct {
+[; ;stdlib.h: 36: long quot;
+[; ;stdlib.h: 37: long rem;
+[; ;stdlib.h: 38: } ldiv_t;
+[; ;stdlib.h: 39: typedef struct {
+[; ;stdlib.h: 40: unsigned long quot;
+[; ;stdlib.h: 41: unsigned long rem;
+[; ;stdlib.h: 42: } uldiv_t;
+[; ;stdlib.h: 65: extern double atof(const char *);
+[; ;stdlib.h: 66: extern double strtod(const char *, const char **);
+[; ;stdlib.h: 67: extern int atoi(const char *);
+[; ;stdlib.h: 68: extern unsigned xtoi(const char *);
+[; ;stdlib.h: 69: extern long atol(const char *);
+[; ;stdlib.h: 70: extern long strtol(const char *, char **, int);
+[; ;stdlib.h: 72: extern int rand(void);
+[; ;stdlib.h: 73: extern void srand(unsigned int);
+[; ;stdlib.h: 74: extern void * calloc(size_t, size_t);
+[; ;stdlib.h: 75: extern div_t div(int numer, int denom);
+[; ;stdlib.h: 76: extern udiv_t udiv(unsigned numer, unsigned denom);
+[; ;stdlib.h: 77: extern ldiv_t ldiv(long numer, long denom);
+[; ;stdlib.h: 78: extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+[; ;stdlib.h: 79: extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 80: extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 81: extern unsigned int _rotl(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 82: extern unsigned int _rotr(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 87: extern void * malloc(size_t);
+[; ;stdlib.h: 88: extern void free(void *);
+[; ;stdlib.h: 89: extern void * realloc(void *, size_t);
+[; ;stdlib.h: 91: extern void abort(void);
+[; ;stdlib.h: 92: extern void exit(int);
+[; ;stdlib.h: 93: extern int atexit(void (*)(void));
+[; ;stdlib.h: 94: extern char * getenv(const char *);
+[; ;stdlib.h: 95: extern char ** environ;
+[; ;stdlib.h: 96: extern int system(char *);
+[; ;stdlib.h: 97: extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+[; ;stdlib.h: 98: extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+[; ;stdlib.h: 99: extern int abs(int);
+[; ;stdlib.h: 100: extern long labs(long);
+[; ;stdlib.h: 103: extern char * itoa(char * buf, int val, int base);
+[; ;stdlib.h: 104: extern char * utoa(char * buf, unsigned val, int base);
+[; ;stdlib.h: 109: extern char * ltoa(char * buf, long val, int base);
+[; ;stdlib.h: 110: extern char * ultoa(char * buf, unsigned long val, int base);
+[; ;stdlib.h: 112: extern char * ftoa(float f, int * status);
+[; ;MESSAGES_G9.h: 7: typedef enum {
+[; ;MESSAGES_G9.h: 9: vtI2CMsgTypeTempInit,
+[; ;MESSAGES_G9.h: 10: vtI2CMsgTypeTempRead1,
+[; ;MESSAGES_G9.h: 11: vtI2CMsgTypeTempRead2,
+[; ;MESSAGES_G9.h: 12: vtI2CMsgTypeTempRead3,
+[; ;MESSAGES_G9.h: 13: TempMsgTypeTimer,
+[; ;MESSAGES_G9.h: 16: oScopeRead1Msg,
+[; ;MESSAGES_G9.h: 17: oScopeRead2Msg,
+[; ;MESSAGES_G9.h: 18: oScopeTimerMsg,
+[; ;MESSAGES_G9.h: 21: LCDMsgTypeTimer,
+[; ;MESSAGES_G9.h: 22: LCDMsgTypePrint,
+[; ;MESSAGES_G9.h: 25: lcdOScopeData,
+[; ;MESSAGES_G9.h: 26: lcdOScopeTimer,
+[; ;MESSAGES_G9.h: 29: navMotorCmdMsg,
+[; ;MESSAGES_G9.h: 32: navLineFoundMsg,
+[; ;MESSAGES_G9.h: 33: navIRDataMsg,
+[; ;MESSAGES_G9.h: 36: navWebLapMsg,
+[; ;MESSAGES_G9.h: 37: navWebStartMsg,
+[; ;MESSAGES_G9.h: 40: navRFIDFoundMsg,
+[; ;MESSAGES_G9.h: 43: webDebugMsg,
+[; ;MESSAGES_G9.h: 44: webPowerMsg,
+[; ;MESSAGES_G9.h: 45: webNavMsg,
+[; ;MESSAGES_G9.h: 48: conRequestMsg,
+[; ;MESSAGES_G9.h: 50: voidMsg
+[; ;MESSAGES_G9.h: 51: } g9MsgType;
+[; ;MESSAGES_G9.h: 58: typedef struct __g9Msg {
+[; ;MESSAGES_G9.h: 60: uint8_t msgType;
+[; ;MESSAGES_G9.h: 61: uint8_t length;
+[; ;MESSAGES_G9.h: 62: uint8_t id;
+[; ;MESSAGES_G9.h: 63: uint8_t buf[10];
+[; ;MESSAGES_G9.h: 64: } g9Msg;
+[; ;zigBee.h: 18: typedef enum{HEADER,GATHER,PROCESS,CLEANUP,RETRY} ESTATE;
+[; ;zigBee.h: 30: typedef struct __zigBeeTxStat{
+[; ;zigBee.h: 31: uint8_t cmdId;
+[; ;zigBee.h: 32: uint8_t frameId;
+[; ;zigBee.h: 33: uint8_t status;
+[; ;zigBee.h: 34: } zigBeeTxStat;
+[; ;zigBee.h: 38: typedef struct __zigBeeMsg{
+[; ;zigBee.h: 39: union {
+[; ;zigBee.h: 40: struct {
+[; ;zigBee.h: 41: uint8_t start;
+[; ;zigBee.h: 42: struct {
+[; ;zigBee.h: 43: uint8_t HI;
+[; ;zigBee.h: 44: uint8_t LO;
+[; ;zigBee.h: 45: } len;
+[; ;zigBee.h: 46: };
+[; ;zigBee.h: 47: uint8_t header[3];
+[; ;zigBee.h: 48: };
+[; ;zigBee.h: 49: uint8_t data[(((sizeof(g9Msg)+5) > (36)) ? (sizeof(g9Msg)+5) : (36))];
+[; ;zigBee.h: 50: uint8_t checksum;
+[; ;zigBee.h: 52: } zigBeeMsg;
+[; ;zigBee.h: 54: void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ);
 "9 ../src/uart_thread.c
 [v _uart_lthread `(i ~T0 @X0 1 ef5`*S2091`i`i`*uc`*S2088 ]
 {
@@ -14869,14 +14951,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;uart_thread.c: 10: int i;
 [; ;uart_thread.c: 11: if (msgtype == 30) {
 "11
-[e $ ! == _msgtype -> 30 `i 2098  ]
+[e $ ! == _msgtype -> 30 `i 2103  ]
 {
 "12
 }
 [; ;uart_thread.c: 12: } else if (msgtype == 31) {
-[e $U 2099  ]
-[e :U 2098 ]
-[e $ ! == _msgtype -> 31 `i 2100  ]
+[e $U 2104  ]
+[e :U 2103 ]
+[e $ ! == _msgtype -> 31 `i 2105  ]
 {
 [; ;uart_thread.c: 15: msgbuffer[length] = '\0';
 "15
@@ -14884,11 +14966,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 "21
 }
 [; ;uart_thread.c: 21: }
-[e $U 2101  ]
+[e $U 2106  ]
 "22
-[e :U 2100 ]
+[e :U 2105 ]
 [; ;uart_thread.c: 22: else if (msgtype == 32)
-[e $ ! == _msgtype -> 32 `i 2102  ]
+[e $ ! == _msgtype -> 32 `i 2107  ]
 [; ;uart_thread.c: 23: {
 "23
 {
@@ -14896,9 +14978,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "24
 {
 [e = _i -> 0 `i ]
-[e $U 2106  ]
+[e $U 2111  ]
 "25
-[e :U 2103 ]
+[e :U 2108 ]
 [; ;uart_thread.c: 25: {
 {
 [; ;uart_thread.c: 26: appendQueue(rcvQ, msgbuffer[i]);
@@ -14908,9 +14990,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 "24
 [e ++ _i -> 1 `i ]
-[e :U 2106 ]
-[e $ < _i _length 2103  ]
-[e :U 2104 ]
+[e :U 2111 ]
+[e $ < _i _length 2108  ]
+[e :U 2109 ]
 "31
 }
 [; ;uart_thread.c: 31: }
@@ -14922,11 +15004,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _ToMainHigh_sendmsg (3 , , -> -> 0 `i `uc -> -> 47 `i `uc -> -> 0 `i `*v ]
 "34
 }
-[e :U 2102 ]
+[e :U 2107 ]
 "35
-[e :U 2101 ]
-[e :U 2099 ]
+[e :U 2106 ]
+[e :U 2104 ]
 [; ;uart_thread.c: 34: }
 [; ;uart_thread.c: 35: }
-[e :UE 2097 ]
+[e :UE 2102 ]
 }

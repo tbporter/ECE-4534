@@ -5,4 +5,5 @@
 ../src/messages.h  \
 ../src/uart_thread.h  \
 ../src/zigBee.h  \
+../src/../../../common/MESSAGES_G9.h  \
 ../src/queue.h 

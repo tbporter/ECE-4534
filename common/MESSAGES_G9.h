@@ -1,8 +1,13 @@
 #ifndef __MESSAGES_H__
 #define __MESSAGES_H__
 
+#ifndef IS_ARM
+#include <GenericTypeDefs.h>
+#define uint8_t UINT8
+#define uint16_t UINT16
+#else
 #include <stdint.h>// If this doesn't work with pic just define uint8_t as unsigned char
-
+#endif
 
 typedef enum {
 	//vtI2C
@@ -52,7 +57,11 @@ typedef enum {
 
 #define MAX_MSG_LEN 10
 
+#ifdef IS_ARM
 typedef struct __attribute__((__packed__)) __g9Msg {
+#else
+typedef struct __g9Msg {
+#endif
 	uint8_t msgType;// Use Enum defined above to set. Declared as uint8_t to force casting, thus reducing size.
 	uint8_t length;
 	uint8_t id;			// Used to check for dropped messages **Won't be used until wireless**

@@ -18728,8 +18728,8 @@ int appendQueue(Queue *Q, unsigned char msg);
 unsigned char readQueue(Queue *Q, unsigned char* msg);
 int createQueue(Queue *Q, int Qsize);
 int getNumMessagesQueue(Queue *Q);
-inline unsigned char isQueueEmpty(Queue *Q);
-inline unsigned char isQueueFull(Queue *Q);
+inline unsigned char isQEmpty(Queue *Q);
+inline unsigned char isQFull(Queue *Q);
 
 # 10 "../src/messages.h"
 typedef struct __msg {
@@ -18871,15 +18871,141 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 15 "../src/zigBee.h"
+# 27 "C:\Program Files\Microchip\xc8\v1.12\include\stdlib.h"
+typedef struct {
+int rem;
+int quot;
+} div_t;
+typedef struct {
+unsigned rem;
+unsigned quot;
+} udiv_t;
+typedef struct {
+long quot;
+long rem;
+} ldiv_t;
+typedef struct {
+unsigned long quot;
+unsigned long rem;
+} uldiv_t;
+
+# 65
+extern double atof(const char *);
+extern double strtod(const char *, const char **);
+extern int atoi(const char *);
+extern unsigned xtoi(const char *);
+extern long atol(const char *);
+extern long strtol(const char *, char **, int);
+
+extern int rand(void);
+extern void srand(unsigned int);
+extern void * calloc(size_t, size_t);
+extern div_t div(int numer, int denom);
+extern udiv_t udiv(unsigned numer, unsigned denom);
+extern ldiv_t ldiv(long numer, long denom);
+extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+extern unsigned int _rotl(unsigned int value, unsigned int shift);
+extern unsigned int _rotr(unsigned int value, unsigned int shift);
+
+
+
+
+extern void * malloc(size_t);
+extern void free(void *);
+extern void * realloc(void *, size_t);
+
+extern void abort(void);
+extern void exit(int);
+extern int atexit(void (*)(void));
+extern char * getenv(const char *);
+extern char ** environ;
+extern int system(char *);
+extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+extern int abs(int);
+extern long labs(long);
+
+
+extern char * itoa(char * buf, int val, int base);
+extern char * utoa(char * buf, unsigned val, int base);
+
+
+
+
+extern char * ltoa(char * buf, long val, int base);
+extern char * ultoa(char * buf, unsigned long val, int base);
+
+extern char * ftoa(float f, int * status);
+
+# 7 "../src/../../../common/MESSAGES_G9.h"
+typedef enum {
+
+vtI2CMsgTypeTempInit,
+vtI2CMsgTypeTempRead1,
+vtI2CMsgTypeTempRead2,
+vtI2CMsgTypeTempRead3,
+TempMsgTypeTimer,
+
+
+oScopeRead1Msg,
+oScopeRead2Msg,
+oScopeTimerMsg,
+
+
+LCDMsgTypeTimer,
+LCDMsgTypePrint,
+
+
+lcdOScopeData,
+lcdOScopeTimer,
+
+
+navMotorCmdMsg,
+
+
+navLineFoundMsg,
+navIRDataMsg,
+
+
+navWebLapMsg,
+navWebStartMsg,
+
+
+navRFIDFoundMsg,
+
+
+webDebugMsg,
+webPowerMsg,
+webNavMsg,
+
+
+conRequestMsg,
+
+voidMsg
+} g9MsgType;
+
+# 58
+typedef struct __g9Msg {
+
+uint8_t msgType;
+uint8_t length;
+uint8_t id;
+uint8_t buf[10];
+} g9Msg;
+
+# 18 "../src/zigBee.h"
 typedef enum{HEADER,GATHER,PROCESS,CLEANUP,RETRY} ESTATE;
 
-# 27
+# 30
 typedef struct __zigBeeTxStat{
 uint8_t cmdId;
 uint8_t frameId;
 uint8_t status;
 } zigBeeTxStat;
+
+
 
 typedef struct __zigBeeMsg{
 union {
@@ -18892,7 +19018,7 @@ uint8_t LO;
 };
 uint8_t header[3];
 };
-uint8_t data[32];
+uint8_t data[(((sizeof(g9Msg)+5) > (36)) ? (sizeof(g9Msg)+5) : (36))];
 uint8_t checksum;
 
 } zigBeeMsg;

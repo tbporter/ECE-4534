@@ -10,9 +10,11 @@ typedef struct Queue
 }Queue;
 
 int appendQueue(Queue *Q, unsigned char msg);
-unsigned char readQueue(Queue *Q);
+unsigned char readQueue(Queue *Q, unsigned char* msg);
 int createQueue(Queue *Q, int Qsize);
-int isQEmpty(Queue* Q);
+int getNumMessagesQueue(Queue* Q);
+unsigned char isQEmpty(Queue *Q);
+unsigned char isQFull(Queue *Q);
 
 #endif	/* QUEUE_H */
 
