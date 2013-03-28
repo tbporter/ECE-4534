@@ -6,11 +6,14 @@
 #define USE_FAKE_TX_MSG 1
 
 typedef enum{TX_CONTINUE,TX_RETRY} ETX_STATE;
+static ETX_STATE txState = TX_CONTINUE;
+
+void processMsg(zigBeeMsg* msg);
 
 uint16_t getLen(zigBeeMsg msg)
 {
     //return (((uint16_t)msg.len.HI << 8) | (msg.len.LO));
-    return (((uint16_t)msg.zigBeeU.len.HI << 8) | msg.zigBeeU.len.LO);
+    return ((((uint16_t)msg.zigBeeU.len.HI) << 8) | msg.zigBeeU.len.LO);
 }
 
 void setLen(zigBeeMsg* msg, uint16_t len){
@@ -26,7 +29,10 @@ uint8_t generateChecksum(zigBeeMsg* msg){
 	uint16_t len = getLen(*msg);
 	int i = 0;
 	for(i=0; i<len; i++){
-		check += msg->data[i];
+            
+//            while(BusyUSART());
+//            WriteUSART(msg->data[i]);
+            check += msg->data[i];
 	}
 	check = 0xFF - (check & 0xFF);
 	return (check & 0xFF);
@@ -66,13 +72,12 @@ unsigned char zigBee2G9Msg(zigBeeMsg* in, g9Msg* out) {
 }
 
 void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ){
-    int i = 0;
+    int i, j = 0;
     static ESTATE state = HEADER;
     static uint16_t len = 0;
     static zigBeeMsg msg;
-    static ETX_STATE txState = TX_CONTINUE;
     static int curI=0;
-
+    
     //RX
     switch( state ){
         case HEADER:
@@ -92,6 +97,7 @@ void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ){
                 len = getLen(msg);
                 //Go to the gather state
                 state = GATHER;
+                curI=0;
             }
             break;
         }
@@ -99,114 +105,156 @@ void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ){
         {
             //Copy data to zigBeeMsg until reached length
             int numMsgs = getNumMessagesQueue(rcvQ);
-            for( i=0; i<numMsgs || curI<len ; i++, curI++){
-                readQueue(rcvQ,&(msg.data[curI]));
+            //PORTBbits.RB5 = 1;
+            if(curI<len){
+                for( i=0; i<numMsgs; i++, curI++){
+                    readQueue(rcvQ,&(msg.data[curI]));
+    //                for( j = 0; j < len+3; j++)
+    //                {
+    //                    while(BusyUSART());
+    //                    WriteUSART(*chr++);
+    //                }
+                }
             }
 
             //If we have the message
-            if( curI == len){
+            else{
                 numMsgs = getNumMessagesQueue(rcvQ);
+                //PORTBbits.RB5 = 1;
                 if( numMsgs > 0){
                     //Copy checksum
                     readQueue(rcvQ, &(msg.checksum));
                     //Go to process state
-                    state = PROCESS;
+                    processMsg(&msg);
+                    state = HEADER;
                 }
             }
             break;
-        }
-        case PROCESS:
-        {
-            //Evaluate the message
-            //Validate Checksum
-            if( msg.checksum != generateChecksum(&msg) ){
-                //TODO: Handle bad checksum
-                break;
-            }
-            //Look at msg type
-            switch(msg.data[0] /*CmdID*/){
-            case 0x8A: //Modem Status
-                #if DEMO_MSG_RECV == 1
-                #endif
-                break;
-            case 0x08: //AT Command
-                #if DEMO_MSG_RECV == 1
-                #endif
-                break;
-            case 0x09: //AT Command - Queue Param Value
-                #if DEMO_MSG_RECV == 1
-                #endif
-                break;
-            case 0x88: //AT Command Response
-                #if DEMO_MSG_RECV == 1
-                #endif
-                break;
-            case 0x17: //Remote AT Command Request
-                #if DEMO_MSG_RECV == 1
-                #endif
-                break;
-            case 0x97: //Remote Command Response
-                #if DEMO_MSG_RECV == 1
-                #endif
-                break;
-            case TX_STATUS_MSGID: //TX Status
-            {
-                #if DEMO_MSG_RECV == 1
-                #endif
-                //Check for failed message Tx
-                zigBeeTxStat* pStatus = (zigBeeTxStat*)msg.data;
-                if(pStatus->status != TX_STAT_SUCCESS){
-                        txState = TX_RETRY;
-                }
-                else{
-                        txState = TX_CONTINUE;
-                        // Free previous message
-                }
-                break;
-            }
-            case 0x80: //RX - 64bit
-                #if DEMO_MSG_RECV == 1
-                #endif
-                break;
-            case 0x81: //RX - 16bit
-            {
-                #if DEMO_MSG_RECV == 1
-                #endif
-                //TODO: Validate ID
-                //Send to slaves
-                g9Msg outMsg;
-                zigBee2G9Msg(&msg,&outMsg);
-                if(outMsg.msgType == navMotorCmdMsg)
-                    ToMainHigh_sendmsg(outMsg.length, MSGT_I2C_DATA, &outMsg.buf);
-                break;
-            }
-            case 0x00: //TX Request - 64bit
-            case 0x01: //TX Request - 16bit
-                #if DEMO_MSG_RECV == 1
-                #endif
-            default:
-                #if DEMO_MSG_RECV == 1
-                #endif
-                //Shouldn't get here.
-                break;
-            }
-            //Go to cleanup state
-            state = CLEANUP;
-            break;
-        }
-        case CLEANUP:
-        {
-            //Reset variable
-            curI = 0;
-            state = HEADER;
         }
         default:
         {
             //How'd this happen?!
             break;
         }
+    }  
+}
+
+void processMsg(zigBeeMsg* msg){
+    //Evaluate the message
+    //Validate Checksum
+    //PORTBbits.RB5 = 1;
+    if( msg->checksum != generateChecksum(msg) ){
+        //TODO: Handle bad checksum
+
+        return;
+    }
+    WriteUSART(generateChecksum(msg));
+    //PORTBbits.RB4 = 1;
+    //Look at msg type
+    WriteUSART(msg->data[0]);
+    switch(msg->data[0] /*CmdID*/){
+    case 0x8A: //Modem Status
+        #if DEMO_MSG_RECV == 1
+        #endif
+        break;
+    case 0x08: //AT Command
+        #if DEMO_MSG_RECV == 1
+        #endif
+        break;
+    case 0x09: //AT Command - Queue Param Value
+        #if DEMO_MSG_RECV == 1
+        #endif
+        break;
+    case 0x88: //AT Command Response
+        #if DEMO_MSG_RECV == 1
+        #endif
+        break;
+    case 0x17: //Remote AT Command Request
+        #if DEMO_MSG_RECV == 1
+        #endif
+        break;
+    case 0x97: //Remote Command Response
+        #if DEMO_MSG_RECV == 1
+        #endif
+        break;
+    case TX_STATUS_MSGID: //TX Status
+    {
+        #if DEMO_MSG_RECV == 1
+        #endif
+        //Check for failed message Tx
+        zigBeeTxStat* pStatus = (zigBeeTxStat*)msg->data;
+        if(pStatus->status != TX_STAT_SUCCESS){
+                txState = TX_RETRY;
+        }
+        else{
+                txState = TX_CONTINUE;
+                // Free previous message
+        }
+        break;
+    }
+    case 0x80: //RX - 64bit
+        #if DEMO_MSG_RECV == 1
+        #endif
+        break;
+    case 0x81: //RX - 16bit
+    {
+        #if DEMO_MSG_RECV == 1
+        #endif
+        //TODO: Validate ID
+        //Send to slaves
+        g9Msg outMsg;
+        zigBee2G9Msg(msg, &outMsg);
+        //PORTBbits.RB5 = 1;
+        
+        if(outMsg.msgType == navMotorCmdMsg)
+            ToMainHigh_sendmsg(outMsg.length, MSGT_SEND_MTRCMD, outMsg.buf);
+        break;
+    }
+    case 0x00: //TX Request - 64bit
+    case 0x01: //TX Request - 16bit
+        #if DEMO_MSG_RECV == 1
+        #endif
+    default:
+        #if DEMO_MSG_RECV == 1
+        #endif
+        //Shouldn't get here.
+        break;
+    }
+}
+
+
+void sendZigBeeMsg(g9Msg* inMsg){
+    zigBeeMsg msg;
+    int i = 0;
+    //Get Len
+    const uint16_t len = 5 /*API Format*/ + 3 /*g9Msg*/ + inMsg->length;
+    uint8_t txBuf[MAX_DATA_LEN+4];
+    setLen(&msg,len);
+
+    msg.zigBeeU.start = ZigBeeStart;
+    //Fill in API Message Info
+    msg.data[0] = 0x01; //TX 16bit
+    msg.data[1] = 0x01;	//Response Frame
+    msg.data[2] = 0x00;	//Dest. Addr.
+    msg.data[3] = 0x01;
+    msg.data[4] = 0x00; //Options
+
+    msg.data[5] = inMsg->msgType;
+    msg.data[6] = inMsg->length;
+    msg.data[7] = inMsg->id;
+
+    for(i=8; i<len; i++){
+        msg.data[i] = inMsg->buf[i-8];
     }
 
-    //TX
-    
+    //Generate checksum
+    msg.checksum = generateChecksum(&msg);
+
+    //Send to USART
+    serializeZigBeeMsg(&msg,txBuf);
+    for( i=0; i<len; i++){
+        while(BusyUSART());
+        WriteUSART(txBuf[i]);
+    }
+    txState = RETRY; //Stop From retransmitting until success
 }

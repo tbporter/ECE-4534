@@ -13,6 +13,7 @@
 #include "messages.h"
 #include "queue.h"
 #include "../../../../common/MESSAGES_G9.h"
+#include <usart.h>
 
 
 typedef enum{HEADER,GATHER,PROCESS,CLEANUP,RETRY} ESTATE;
@@ -57,6 +58,8 @@ typedef struct __zigBeeMsg {
 } zigBeeMsg;
 
 void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ);
+
+void sendZigBeeMsg(g9Msg* msg);
 
 #endif	/* ZIGBEE_H */
 
