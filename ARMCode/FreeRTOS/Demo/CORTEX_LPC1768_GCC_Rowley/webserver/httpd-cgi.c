@@ -126,6 +126,7 @@ generate_debug_out(void *arg)
 	debug = getWebDebug();
 	int i;
 	for(i=0;i<DEBUG_LINES;i++){
+		printf(debug[i]);
 		strcat( uip_appdata,debug[i]);
 		strcat( uip_appdata,"\n");				
 	}

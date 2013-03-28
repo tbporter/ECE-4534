@@ -14,7 +14,10 @@ typedef union {
 		uint8_t right;
 	};
 } motorData_t;
-
+motorData_t motorData;
+int curState;
+int leftIR;
+int rightIR;
 void setMotorData(uint16_t* data, uint8_t left, uint8_t right){
 	left &= 0x7F;
 	right &= 0x7F;
@@ -83,14 +86,13 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 // This is the actual task that is run
 static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 {
-	static motorData_t motorData;
+
 	// Get the parameters
 	navStruct *navData = (navStruct *) pvParameters;
 	// Buffer for receiving messages
 	g9Msg msgBuffer;
 
-	// Assumes that the I2C device (and thread) have already been initialized
-
+	curState = 0;
 	// Like all good tasks, this should never exit
 	for(;;)
 	{
@@ -127,9 +129,33 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			break;
 		}
 
+		stateMachine();
+
 		msg.buf[0] = motorData.left;
 		msg.buf[1] = motorData.right;		
 		SendZigBeeMsg(navData->zigBeePtr,&msg,portMAX_DELAY);
 	}
+}
+
+
+
+void stateMachine(){
+
+	switch(curState){
+		//Simple state, lets just lean to the left or right based off the IR
+		case 0:
+			if(leftIR>rightIR){
+				setMotorData(&(motorData.data),0,1);
+			}
+			else if(rightIR>leftIR){
+				setMotorData(&(motorData.data),0,1);
+			}
+			else {
+				setMotorData(&(motorData.data),0,1);
+			}
+				
+
+	}
+
 }
 
