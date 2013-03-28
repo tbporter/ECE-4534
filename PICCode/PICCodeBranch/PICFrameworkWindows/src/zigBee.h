@@ -13,6 +13,7 @@
 #include "messages.h"
 #include "queue.h"
 #include "../../../../common/MESSAGES_G9.h"
+#include <usart.h>
 
 
 typedef enum{HEADER,GATHER,PROCESS,CLEANUP,RETRY} ESTATE;

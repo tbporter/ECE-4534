@@ -47,7 +47,7 @@ int createQueue(Queue *Q, int Qsize) {
 
 int getNumMessagesQueue(Queue *Q)
 {
-    return (Q->last-Q->first);
+    return ((Q->last+1)-Q->first);
 }
 
 unsigned char isQEmpty(Queue* Q)
@@ -57,5 +57,5 @@ unsigned char isQEmpty(Queue* Q)
 
 unsigned char isQFull(Queue *Q)
 {
-    return (Q->last == Q->size);
+    return (Q->last == Q->size-1);
 }

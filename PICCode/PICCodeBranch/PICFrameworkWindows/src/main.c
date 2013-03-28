@@ -89,14 +89,13 @@ void main(void) {
     i2c_comm ic;
     unsigned char msgbuffer[MSGLEN + 1];
     unsigned char i;
-    int lchange, rchange;
+    //int lchange, rchange;
     uart_thread_struct uthread_data; // info for uart_lthread
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
-    unsigned char msg;
+    //unsigned char msg;
 
 #ifdef MASTERPIC
-    unsigned char cmd;
     unsigned char LSonar = 0;
     unsigned char RSonar = 0;
     unsigned char FLIR = 0;
@@ -108,6 +107,7 @@ void main(void) {
     unsigned int encoder2 = 0;
     unsigned int current = 0;
     unsigned char RFID = 0;
+    Queue uartRXQ;
 #endif
 #ifdef ISRELPIC
     Queue rfidRXQ;
@@ -132,6 +132,8 @@ void main(void) {
 
     // initialize the i2c code
     init_i2c(&ic);
+
+    initADC();
 
     // init the timer1 lthread
     init_timer1_lthread(&t1thread_data);
@@ -181,6 +183,8 @@ void main(void) {
 //   disabled.
 #ifdef MASTERPIC
     i2c_configure_master();
+    IPR1bits.RCIP = 0;
+    createQueue(&uartRXQ, 10);
 #elif ISRELPIC
     // configure slave accordingly
     i2c_configure_slave(RELPICADDR);
@@ -291,7 +295,7 @@ void main(void) {
                         };
                         default:
                         {
-                            putsUSART((char*) "Oh no! I2C Unknown Message Recvd.");
+                            //putsUSART((char*) "Oh no! I2C Unknown Message Recvd.");
                             break;
                         };
                     };
@@ -372,14 +376,22 @@ void main(void) {
                     start_i2c_slave_reply(length, msgbuffer);
                     break;
                 };
-#ifdef MASTERPIC
+
                 case MSGT_SEND_MTRCMD:
                 {
-                    for (i = 0; i < length; i++)
-                        sendMtrCmd(msgbuffer[i]);
+#ifdef MASTERPIC
+                    unsigned char buf[4];
+                    buf[0] = RELPICADDR;
+                    buf[1] = SENDMTRCMD;
+                    buf[2] = msgbuffer[0];
+                    buf[3] = msgbuffer[1];
+                    i2c_master_send(4, &buf);
+                    //WriteUSART(0x99);
+                    PORTBbits.RB5 = 1;
+#endif
                     break;
                 };
-#endif
+
                 default:
                 {
                     // Your code should handle this error
@@ -408,6 +420,10 @@ void main(void) {
 #ifdef ISRELPIC
                     uart_lthread(&uthread_data, msgtype, length, msgbuffer, &rfidRXQ);
 #endif
+#ifdef MASTERPIC
+                    uart_lthread(&uthread_data, msgtype, length, msgbuffer, &uartRXQ);
+#endif
+
                     break;
                 };
                 default:

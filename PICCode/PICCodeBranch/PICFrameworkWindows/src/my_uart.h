@@ -3,7 +3,7 @@
 
 #include "messages.h"
 
-#define MAXUARTBUF 16
+#define MAXUARTBUF 1
 
 typedef struct __uart_comm {
 	unsigned char buffer[MAXUARTBUF];
