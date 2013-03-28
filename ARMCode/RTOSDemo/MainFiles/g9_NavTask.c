@@ -74,6 +74,9 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 		
 		case navRFIDFoundMsg:
 			printw("navRFIDFoundMsg");
+			break;
+		case navWebStartMsg:
+			printw("navWebStartMsg");
 			break;	
 
 	default:

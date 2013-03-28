@@ -5,6 +5,7 @@
 #include "g9_NavTask.h"
 #include "g9_oScopeTask.h"
 #include "g9_ZigBee.h"
+
 // Structure used to pass parameters to the task
 // Do not touch...
 typedef struct __ConductorStruct {

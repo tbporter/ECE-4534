@@ -11,6 +11,7 @@
 
 #include "vtUtilities.h"
 #include "vtI2C.h"
+#include "g9_NavTask.h"
 #include "messages_g9.h"
 
 
@@ -20,6 +21,7 @@
 typedef struct __webStruct {
 	vtI2CStruct *i2c; //Needed for sending messages out
 	xQueueHandle inQ; //Queue for incoming messages
+	navStruct* navData;
 } webStruct;
 
 // Public API
@@ -29,7 +31,7 @@ typedef struct __webStruct {
 //   webData: Data structure used by the task
 //   uxPriority -- the priority you want this task to be run at
 //   i2c: pointer to the data structure for an i2c task
-void startWebTask(webStruct* webData,unsigned portBASE_TYPE uxPriority);
+void startWebTask(webStruct* webData,unsigned portBASE_TYPE uxPriority, navStruct* navData);
 
 //Sends a message to the web task
 //	msg -- a pointer to a variable of type g9Msg
