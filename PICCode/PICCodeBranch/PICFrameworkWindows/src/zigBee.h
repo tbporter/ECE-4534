@@ -59,5 +59,7 @@ typedef struct __zigBeeMsg {
 
 void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ);
 
+void sendZigBeeMsg(g9Msg* msg);
+
 #endif	/* ZIGBEE_H */
 
