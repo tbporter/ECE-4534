@@ -15,8 +15,11 @@ int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned
     tptr->msgcount++;
     // Every tenth message we get from timer1 we
     // send something to the High Priority Interrupt
-    if ((tptr->msgcount % 2) == 0) {
-        ToMainHigh_sendmsg(0, MSGT_POLL_PICS, (void*) 0);
+    if ((tptr->msgcount % 10) == 0) {
+#ifdef MASTERPIC
+        ToMainLow_sendmsg(0, MSGT_ADC_DATA, (void*) 0);
+#endif
         PORTBbits.RB4 = !PORTBbits.RB4;
+        tptr->msgcount = 0;
     }
 }

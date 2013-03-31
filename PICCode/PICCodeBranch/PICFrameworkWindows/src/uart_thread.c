@@ -50,5 +50,6 @@ int uart_lthread(uart_thread_struct *uptr, int msgtype, int length, unsigned cha
         }
 
         doZigBee(length, msgbuffer, rcvQ);
+#endif
     }
 }

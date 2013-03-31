@@ -16,6 +16,10 @@
 #include "uart_thread.h"
 #include "timer1_thread.h"
 #include "timer0_thread.h"
+#include "queue.h"
+#include "zigBee.h"
+#include "my_adc.h"
+#include "../../../../common/MESSAGES_G9.h"
 
 #ifdef __USE18F45J10
 // CONFIG1L
@@ -89,6 +93,13 @@ void main(void) {
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
 
+    unsigned char FLIR = 0;
+    unsigned char FRIR = 0;
+    Queue uartRXQ;
+    g9Msg txMsg;
+    createQueue(&uartRXQ, 10);
+    
+
 #ifdef __USE18F2680
     OSCCON = 0xFC; // see datasheet
     // We have enough room below the Max Freq to enable the PLL for this chip
@@ -109,6 +120,9 @@ void main(void) {
 
     // initialize message queues before enabling any interrupts
     init_queues();
+
+    // init ADC
+    initADC();
 
     // set direction for PORTB to output
     TRISB = 0x0;
@@ -168,7 +182,7 @@ void main(void) {
 
     // configure the hardware USART device
     OpenUSART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
-            USART_CONT_RX & USART_BRGH_LOW, 0x19);
+            USART_CONT_RX & USART_BRGH_LOW, 0x33);
 
     /* Junk to force an I2C interrupt in the simulator (if you wanted to)
     PIR1bits.SSPIF = 1;
@@ -213,6 +227,11 @@ void main(void) {
                     break;
                 };
                 case MSGT_I2C_DATA:
+                {
+                    WriteUSART(msgbuffer[1]);
+                    WriteUSART(msgbuffer[2]);
+                    break;
+                };
                 case MSGT_I2C_DBG:
                 {
                     // Here is where you could handle debugging, if you wanted
@@ -230,6 +249,7 @@ void main(void) {
                     // The last byte received is the "register" that is trying to be read
                     // The response is dependent on the register.
                     switch (last_reg_recvd) {
+                        PORTBbits.RB5 = 1;
                         case 0xaa:
                         {
                             length = 2;
@@ -250,6 +270,13 @@ void main(void) {
                             msgbuffer[0] = 0xA3;
                             break;
                         }
+                        case SENDMTRCMD:
+                        {
+                            length = 2;
+                            msgbuffer[1] = 0x01;
+                            msgbuffer[0] = SENDMTRCMD;
+                            break;
+                        }
                     };
                     start_i2c_slave_reply(length, msgbuffer);
                     break;
@@ -264,6 +291,16 @@ void main(void) {
                     i2c_master_recv(length, 0x9E);
                     break;
                 };
+                case MSGT_SEND_MTRCMD:
+                {
+                    unsigned char buf[4];
+                    buf[0] = RELPICADDR;
+                    buf[1] = SENDMTRCMD;
+                    buf[2] = msgbuffer[0];
+                    buf[3] = msgbuffer[1];
+                    i2c_master_send(4, &buf);
+                    //i2c_master_recv(2, RELPICADDR);
+                }
                 default:
                 {
                     // Your code should handle this error
@@ -289,9 +326,22 @@ void main(void) {
                 case MSGT_OVERRUN:
                 case MSGT_UART_DATA:
                 {
-                    uart_lthread(&uthread_data, msgtype, length, msgbuffer);
+                    uart_lthread(&uthread_data, msgtype, length, msgbuffer, &uartRXQ);
                     break;
                 };
+                case MSGT_ADC_DATA:
+                {
+                    readADC(&FLIR, ADC_CH0);
+                    readADC(&FRIR, ADC_CH1);
+                    txMsg.msgType = navIRDataMsg;
+                    txMsg.length = 2;
+                    txMsg.buf[0] = FLIR;
+                    txMsg.buf[1] = FRIR;
+                    sendZigBeeMsg(&txMsg);
+                    //WriteUSART(FLIR);
+                    //WriteUSART(FRIR);
+                    break;
+                }
                 default:
                 {
                     // Your code should handle this error
