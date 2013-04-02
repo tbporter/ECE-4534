@@ -69,7 +69,7 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 			break;
 		
 		case navIRDataMsg:
-			printw("navIRDataMsg");
+			//printw("navIRDataMsg %d %d",msg->buf[0],msg->buf[1]);
 			break;
 		
 		case navRFIDFoundMsg:
@@ -113,17 +113,19 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		switch (msgBuffer.msgType){
 		case navLineFoundMsg:
 			//stop we have found the finish line!!!
-			setMotorData(&(motorData.data),127,127);
+			//setMotorData(&(motorData.data),127,127);
 			break;
 		
 		case navIRDataMsg:
-			//Save the data and make a decision
-			setMotorData(&(motorData.data),1,0); //Turn left
+			//Save the data
+			leftIR = msgBuffer.buf[0];
+			rightIR = msgBuffer.buf[1];
+			//setMotorData(&(motorData.data),1,0); //Turn left
 			break;
 		
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
-			setMotorData(&(motorData.data),0,1); //Forward
+			//setMotorData(&(motorData.data),0,1); //Forward
 			break;
 		
 		default:
@@ -143,20 +145,31 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 
 void stateMachine(){
-
+	setMotorData(&(motorData.data),0,0);
 	switch(curState){
+		#define min_dist 100
 		//Simple state, lets just lean to the left or right based off the IR
 		case 0:
-			if(leftIR>rightIR){
-				setMotorData(&(motorData.data),0,1);
+			if(getWebStart()==1){
+				if(rightIR>120){
+									setMotorData(&(motorData.data),70,90);
+				}
+				else if(leftIR>120){
+									setMotorData(&(motorData.data),90,70);
+				}
+				else if(rightIR>100){
+					setMotorData(&(motorData.data),95,110);
+				}
+				else if(leftIR>100){
+					setMotorData(&(motorData.data),110,95);
+				}
+				else {
+					setMotorData(&(motorData.data),110,110);
+				}
 			}
-			else if(rightIR>leftIR){
-				setMotorData(&(motorData.data),0,1);
-			}
-			else {
-				setMotorData(&(motorData.data),0,1);
-			}
-				
+			else{
+				setMotorData(&(motorData.data),0,0);
+			}	
 
 	}
 

@@ -46,7 +46,7 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 	// Like all grrood tasks, this should never exit
 	for(;;)
 	{
-	/*
+	
 		// Wait for a message from the nether
 		if (xQueueReceive(param->inQ,(void *) &msgBuffer,portMAX_DELAY) != pdTRUE) {
 			VT_HANDLE_FATAL_ERROR(0);
@@ -71,8 +71,8 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 				VT_HANDLE_FATAL_ERROR(INVALID_G9MSG_TYPE);
 				break;
 		}
-	   */
-
+	   
+		/*
 		if(start == 1){
 		   g9Msg msg;
 			msg.id = 0;
@@ -82,7 +82,7 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 			msg.msgType = navWebStartMsg;
 			SendNavigationMsg(param->navData,&msg,portMAX_DELAY);
 			start = 0;
-		}
+		}*/
 	}
 }
 void printw(const char* fmt, ...){
@@ -90,6 +90,7 @@ void printw(const char* fmt, ...){
 	va_list args;
 	va_start( args, fmt );
 	vsnprintf( msg, DEBUG_LENGTH, fmt, args );
+	va_end(args);
 	processWebDebugMsg(msg);
 }
 //TODO: keep track of position or linked list, moving the whole array is slow.

@@ -12,7 +12,7 @@
 #endif
 
 #define DEMO_MSG_RECV 0
-#define USE_FAKE_TX_MSG 1
+#define USE_FAKE_TX_MSG 0
 #define RETRY_MAX 3
 
 // Length of the message queues to/from this task
@@ -235,9 +235,9 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 						//Check for failed message Tx
 						zigBeeTxStat* pStatus = (zigBeeTxStat*)msg.data;
 						if(pStatus->status != TX_STAT_SUCCESS){
-							printw("ZigBee - Error: TX Failed");
-							txState = RETRY;
+							//txState = RETRY;
 							if(++retries == RETRY_MAX){
+								printw("ZigBee - Error: TX Failed");
 								txState = CONTINUE; //Give up;
 								retries = 0;
 							}
@@ -285,58 +285,58 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 
 	//Handle TX
 		//Get Message from queue
-
-		#if USE_FAKE_TX_MSG == 1
 		if( txState == CONTINUE){
+		#if USE_FAKE_TX_MSG == 1
 			inMsg.msgType = navMotorCmdMsg;
 			inMsg.length = navMotorCmdLen;
 			inMsg.id = 0x69;
-			inMsg.buf[0] = 0x27;
-			inMsg.buf[1] = 0x72;
+			inMsg.buf[0] = 0x60;
+			inMsg.buf[1] = 0xE0;
 		#else
-		if( txState == CONTINUE && xQueueReceive(zigBeePtr->inQ,(void*)&inMsg,10) == pdTRUE ){	
+			if(xQueueReceive(zigBeePtr->inQ,(void*)&inMsg,10) == pdTRUE ){	
 		#endif
 	
-			//Get Len
-			uint16_t len = 5 /*API Format*/ + 3 /*g9Msg*/ + inMsg.length;
-			setLen(&msg,len);
-	
-			msg.data = (uint8_t*)malloc(sizeof(uint8_t)*len);
-			if(msg.data == NULL){
-				VT_HANDLE_FATAL_ERROR(MALLOC_ERROR);
-			}
-	
-			//Wrap in ZigBee headers
-			msg.start = ZigBeeStart;
-				//Fill in API Message Info
-			msg.data[0] = 0x01; //TX 16bit
-			msg.data[1] = 0x01;	//Response Frame
-			msg.data[2] = 0x00;	//Dest. Addr.
-			msg.data[3] = 0x02;
-			msg.data[4] = 0x00; //Options
-	
-			msg.data[5] = inMsg.msgType;
-			msg.data[6] = inMsg.length;
-			msg.data[7] = inMsg.id;
-	
-			int i = 0;
-			for(i=8; i<len; i++){
-				msg.data[i] = inMsg.buf[i-8];
-			}
-				//Generate checksum
-			msg.checksum = generateChecksum(&msg);
-	
-			//Send to UART
-			txBuf = (uint8_t*)malloc(sizeof(uint8_t)*(len+4));
-			if(txBuf == NULL){
-				VT_HANDLE_FATAL_ERROR(MALLOC_ERROR);
-			}
-			serializeZigBeeMsg(&msg,txBuf);
-			if( SendUartMsg(zigBeePtr->uartDev,len+4, txBuf) != pdTRUE ){
-				VT_HANDLE_FATAL_ERROR(0xD34D7);
-			}
-			txState = RETRY; //Stops from sending new data before TX_SUCCESS status rcv
-			free(msg.data); //Free allocated array
+				//Get Len
+				uint16_t len = 5 /*API Format*/ + 3 /*g9Msg*/ + inMsg.length;
+				setLen(&msg,len);
+		
+				msg.data = (uint8_t*)malloc(sizeof(uint8_t)*len);
+				if(msg.data == NULL){
+					VT_HANDLE_FATAL_ERROR(MALLOC_ERROR);
+				}
+		
+				//Wrap in ZigBee headers
+				msg.start = ZigBeeStart;
+					//Fill in API Message Info
+				msg.data[0] = 0x01; //TX 16bit
+				msg.data[1] = 0x01;	//Response Frame
+				msg.data[2] = 0x00;	//Dest. Addr.
+				msg.data[3] = 0x02;
+				msg.data[4] = 0x00; //Options
+		
+				msg.data[5] = inMsg.msgType;
+				msg.data[6] = inMsg.length;
+				msg.data[7] = inMsg.id;
+		
+				int i = 0;
+				for(i=8; i<len; i++){
+					msg.data[i] = inMsg.buf[i-8];
+				}
+					//Generate checksum
+				msg.checksum = generateChecksum(&msg);
+		
+				//Send to UART
+				txBuf = (uint8_t*)malloc(sizeof(uint8_t)*(len+4));
+				if(txBuf == NULL){
+					VT_HANDLE_FATAL_ERROR(MALLOC_ERROR);
+				}
+				serializeZigBeeMsg(&msg,txBuf);
+				if( SendUartMsg(zigBeePtr->uartDev,len+4, txBuf) != pdTRUE ){
+					VT_HANDLE_FATAL_ERROR(0xD34D7);
+				}
+				//txState = RETRY; //Stops from sending new data before TX_SUCCESS status rcv
+				free(msg.data); //Free allocated array
+			}// Rcvd Msg
 		}//TX - Continue
 		else{
 			uint16_t len = getLen(*(zigBeeMsg*)txBuf) + 4; //Type cast to zigBeeMsg isn't exact as data* is actual data after being serialized
