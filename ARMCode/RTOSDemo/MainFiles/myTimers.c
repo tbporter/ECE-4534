@@ -7,6 +7,8 @@
 /* include files. */
 #include "vtUtilities.h"
 #include "g9_LCDOScopeTask.h"
+#include "conductor.h"
+#include "g9_NavTask.h"
 #include "lcdTask.h"
 #include "myTimers.h"
 #include "messages_g9.h"
@@ -225,12 +227,20 @@ void ConductorTimerCallback(xTimerHandle pxTimer)
 	if (pxTimer == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	} else {
-		//if (vtI2CEnQ(devPtr,voidMsg,0x4F,2,0xAA,0) != pdTRUE) {
-		//	VT_HANDLE_FATAL_ERROR(0);
-		//}
+		vtConductorStruct* vtconData = (vtConductorStruct*)pvTimerGetTimerID(pxTimer);
+		g9Msg* msg = (g9Msg*)malloc(sizeof(g9Msg));
+		if( msg != 0 ){
+			msg->msgType = navRFIDFoundMsg;
+			msg->id = 0;
+			msg->length = 1;
+			msg->buf[0] = 0x4;
+			SendNavigationMsg(vtconData->navData,msg,10);
+		
+			free(msg);
+		}
 	}
 }
-#define conductorWRITE_RATE_BASE	( ( portTickType ) 100 / portTICK_RATE_MS)
+#define conductorWRITE_RATE_BASE	( ( portTickType ) 1000 / portTICK_RATE_MS)
 
 void startTimerForConductor(vtConductorStruct *vtConData) {
 	if (sizeof(long) != sizeof(vtConductorStruct *)) {

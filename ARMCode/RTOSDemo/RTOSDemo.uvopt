@@ -121,7 +121,7 @@
         <tRfunc>0</tRfunc>
         <tRbox>1</tRbox>
         <sRunDeb>0</sRunDeb>
-        <sLrtime>1</sLrtime>
+        <sLrtime>0</sLrtime>
         <nTsel>1</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
@@ -162,23 +162,6 @@
           <Name>-UM0347MBE -O974 -S0 -C0 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO3 -TC100000000 -TP21 -TDS804F -TDT0 -TDC10 -TIE1 -TIP0 -FO23 -FD10000000 -FC800 -FN1 -FF0LPC_IAP_512 -FS00 -FL080000</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>380</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>16556</Address>
-          <ByteObject>0</ByteObject>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename></Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\RTOSDemo\../LPCUSB/USB_CDC.c\380</Expression>
-        </Bp>
-      </Breakpoint>
       <MemoryWindow2>
         <Mm>
           <WinNumber>2</WinNumber>
@@ -258,8 +241,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../FreeRTOS/Source/queue.c</PathWithFileName>
       <FilenameWithoutPath>queue.c</FilenameWithoutPath>
@@ -298,10 +281,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>49</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../FreeRTOS/Source/timers.c</PathWithFileName>
       <FilenameWithoutPath>timers.c</FilenameWithoutPath>
@@ -321,8 +304,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>209</TopLine>
-      <CurrentLine>213</CurrentLine>
+      <TopLine>473</TopLine>
+      <CurrentLine>477</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -377,8 +360,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>233</TopLine>
+      <CurrentLine>237</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/myTimers.c</PathWithFileName>
       <FilenameWithoutPath>myTimers.c</FilenameWithoutPath>
@@ -389,10 +372,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>19</ColumnNumber>
+      <ColumnNumber>17</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>15</TopLine>
-      <CurrentLine>24</CurrentLine>
+      <TopLine>50</TopLine>
+      <CurrentLine>50</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/conductor.c</PathWithFileName>
       <FilenameWithoutPath>conductor.c</FilenameWithoutPath>
@@ -445,10 +428,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>23</ColumnNumber>
+      <ColumnNumber>27</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>148</TopLine>
-      <CurrentLine>160</CurrentLine>
+      <TopLine>59</TopLine>
+      <CurrentLine>76</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_NavTask.c</PathWithFileName>
       <FilenameWithoutPath>g9_NavTask.c</FilenameWithoutPath>
@@ -517,8 +500,8 @@
       <Focus>0</Focus>
       <ColumnNumber>40</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>49</TopLine>
-      <CurrentLine>49</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../LPCUSB/USB_CDC.c</PathWithFileName>
       <FilenameWithoutPath>USB_CDC.c</FilenameWithoutPath>
@@ -716,7 +699,7 @@
 
   <Group>
     <GroupName>webserver</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -797,8 +780,8 @@
       <Focus>0</Focus>
       <ColumnNumber>12</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>115</TopLine>
-      <CurrentLine>115</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../FreeRTOS/Demo/CORTEX_LPC1768_GCC_Rowley/webserver/uIP_Task.c</PathWithFileName>
       <FilenameWithoutPath>uIP_Task.c</FilenameWithoutPath>
@@ -823,10 +806,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>48</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>104</TopLine>
+      <CurrentLine>104</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>../FreeRTOS/Demo/Common/ethernet/uIP/uip-1.0/uip/timer.c</PathWithFileName>
       <FilenameWithoutPath>timer.c</FilenameWithoutPath>
@@ -1049,8 +1032,8 @@
       <Focus>0</Focus>
       <ColumnNumber>33</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>151</TopLine>
-      <CurrentLine>151</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_UART.c</PathWithFileName>
       <FilenameWithoutPath>g9_UART.c</FilenameWithoutPath>
@@ -1059,7 +1042,7 @@
 
   <Group>
     <GroupName>ZigBee</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -1070,8 +1053,8 @@
       <Focus>0</Focus>
       <ColumnNumber>3</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>229</TopLine>
-      <CurrentLine>236</CurrentLine>
+      <TopLine>130</TopLine>
+      <CurrentLine>142</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_ZigBee.c</PathWithFileName>
       <FilenameWithoutPath>g9_ZigBee.c</FilenameWithoutPath>
@@ -1089,10 +1072,10 @@
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>55</ColumnNumber>
+      <ColumnNumber>29</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>45</TopLine>
-      <CurrentLine>55</CurrentLine>
+      <TopLine>28</TopLine>
+      <CurrentLine>28</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\..\common\MESSAGES_G9.h</PathWithFileName>
       <FilenameWithoutPath>MESSAGES_G9.h</FilenameWithoutPath>
@@ -1103,10 +1086,10 @@
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>26</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>19</TopLine>
-      <CurrentLine>23</CurrentLine>
+      <TopLine>23</TopLine>
+      <CurrentLine>35</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles\g9_SysFlags.h</PathWithFileName>
       <FilenameWithoutPath>g9_SysFlags.h</FilenameWithoutPath>
@@ -1114,9 +1097,35 @@
   </Group>
 
   <AlienFiles>
-    <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_ZIGBEE.H</PathWithFilename>
+    <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\CONDUCTOR.H</PathWithFilename>
     <TopLine>1</TopLine>
     <CurrentLine>1</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
+    <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_NAVTASK.H</PathWithFilename>
+    <TopLine>35</TopLine>
+    <CurrentLine>42</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1144,58 +1153,64 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>6</ActiveTab>
+      <ActiveTab>1</ActiveTab>
       <Documents>
         <Doc>
-          <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_ZIGBEE.H</Name>
+          <Name>../FreeRTOS/Source/timers.c</Name>
           <ColumnNumber>0</ColumnNumber>
           <TopLine>1</TopLine>
           <CurrentLine>1</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\MainFiles/g9_ZigBee.c</Name>
-          <ColumnNumber>3</ColumnNumber>
-          <TopLine>229</TopLine>
-          <CurrentLine>236</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\MainFiles/main.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>209</TopLine>
-          <CurrentLine>213</CurrentLine>
+          <TopLine>473</TopLine>
+          <CurrentLine>477</CurrentLine>
         </Doc>
         <Doc>
           <Name>\\vmware-host\Shared Folders\ECE-4534\COMMON\MESSAGES_G9.H</Name>
-          <ColumnNumber>29</ColumnNumber>
-          <TopLine>28</TopLine>
-          <CurrentLine>28</CurrentLine>
+          <ColumnNumber>14</ColumnNumber>
+          <TopLine>104</TopLine>
+          <CurrentLine>104</CurrentLine>
         </Doc>
         <Doc>
-          <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_SYSFLAGS.H</Name>
-          <ColumnNumber>26</ColumnNumber>
-          <TopLine>23</TopLine>
-          <CurrentLine>35</CurrentLine>
+          <Name>.\MainFiles/g9_NavTask.c</Name>
+          <ColumnNumber>27</ColumnNumber>
+          <TopLine>59</TopLine>
+          <CurrentLine>76</CurrentLine>
         </Doc>
         <Doc>
-          <Name>../vtCode/vtUtilities.c</Name>
+          <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_NAVTASK.H</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>35</TopLine>
+          <CurrentLine>42</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>.\MainFiles/g9_ZigBee.c</Name>
+          <ColumnNumber>3</ColumnNumber>
+          <TopLine>130</TopLine>
+          <CurrentLine>142</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>.\MainFiles/myTimers.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>233</TopLine>
+          <CurrentLine>237</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>.\MainFiles/conductor.c</Name>
+          <ColumnNumber>17</ColumnNumber>
+          <TopLine>50</TopLine>
+          <CurrentLine>50</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\CONDUCTOR.H</Name>
           <ColumnNumber>0</ColumnNumber>
           <TopLine>1</TopLine>
           <CurrentLine>1</CurrentLine>
         </Doc>
         <Doc>
-          <Name>.\MainFiles/g9_NavTask.c</Name>
-          <ColumnNumber>23</ColumnNumber>
-          <TopLine>148</TopLine>
-          <CurrentLine>160</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\MainFiles/g9_webTask.c</Name>
-          <ColumnNumber>12</ColumnNumber>
-          <TopLine>87</TopLine>
-          <CurrentLine>93</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\MainFiles/g9_oScopeTask.c</Name>
+          <Name>../vtCode/vtUtilities.c</Name>
           <ColumnNumber>0</ColumnNumber>
           <TopLine>1</TopLine>
           <CurrentLine>1</CurrentLine>

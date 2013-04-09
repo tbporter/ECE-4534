@@ -139,7 +139,7 @@ inline portBASE_TYPE SendZigBeeMsg(g9ZigBeeStruct* zigBeePtr,g9Msg* msg,portTick
 	//Do any need processing here
 		//NONE
 	//Add the msg to the queue.
-	printf("sendMsg: %X\n",msg->msgType);
+	//printf("sendMsg: %X\n",msg->msgType);
 	return xQueueSend(zigBeePtr->inQ,(void*)(msg), ticksToBlock);
 }
 

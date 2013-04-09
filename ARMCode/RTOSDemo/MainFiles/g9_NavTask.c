@@ -73,7 +73,7 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 			break;
 		
 		case navRFIDFoundMsg:
-			printw("navRFIDFoundMsg");
+			printf("navRFIDFoundMsg ");
 			break;
 		case navWebStartMsg:
 			printw("navWebStartMsg");
@@ -94,6 +94,8 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	navStruct *navData = (navStruct *) pvParameters;
 	// Buffer for receiving messages
 	g9Msg msgBuffer;
+	// Holds any rfid tags that have been found
+	int tagValue = 0;
 
 	curState = 0;
 	// Like all good tasks, this should never exit
@@ -126,6 +128,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
 			//setMotorData(&(motorData.data),0,1); //Forward
+			tagValue |= msgBuffer.buf[0];
 			break;
 		
 		default:
@@ -135,6 +138,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		}
 
 		stateMachine();
+		handleSpecialEvents(tagValue);
 
 		msg.buf[0] = motorData.left;
 		msg.buf[1] = motorData.right;		
@@ -173,5 +177,20 @@ void stateMachine(){
 
 	}
 
+}
+									  
+void handleSpecialEvents(int tagValue){
+	//Depending on tag values adjust motor speed
+	if( tagValue != 0x0 ) printf(" Handling RFID Tag: %X\n",tagValue);
+	if( tagValue & 0x01 ){
+	}
+	if( tagValue & 0x02 ){
+	}
+	if( tagValue & 0x04 ){
+	}
+	if( tagValue & 0x08 ){
+	}
+	if( tagValue & 0x10 ){
+	}
 }
 
