@@ -95,9 +95,18 @@ void main(void) {
 
     unsigned char FLIR = 0;
     unsigned char FRIR = 0;
+    unsigned char BLIR = 0;
+    unsigned char BRIR = 0;
+    unsigned char SONL = 0;
+    unsigned char SONR = 0;
+    unsigned char CURS = 0;
+
+    unsigned char RTAG = 0;
     Queue uartRXQ;
+    Queue uartTXQ;
     g9Msg txMsg;
     createQueue(&uartRXQ, 10);
+    createQueue(&uartTXQ, 10);
     
 
 #ifdef __USE18F2680
@@ -270,6 +279,13 @@ void main(void) {
                             msgbuffer[0] = 0xA3;
                             break;
                         }
+                        case POLLRFID:
+                        {
+                            length = 2;
+                            msgbuffer[0] = RTAG;
+                            msgbuffer[1] = POLLRFID;
+                            break;
+                        }
                         case SENDMTRCMD:
                         {
                             length = 2;
@@ -284,11 +300,11 @@ void main(void) {
                 case MSGT_POLL_PICS:
                 {
                     length = 2;
-                    msgbuffer[0] = 0x9E;
-                    msgbuffer[1] = 0xA8;
+                    msgbuffer[0] = RELPICADDR;
+                    msgbuffer[1] = POLLRFID;
 
                     i2c_master_send(length, msgbuffer);
-                    i2c_master_recv(length, 0x9E);
+                    i2c_master_recv(length, RELPICADDR);
                     break;
                 };
                 case MSGT_SEND_MTRCMD:
@@ -299,7 +315,6 @@ void main(void) {
                     buf[2] = msgbuffer[0];
                     buf[3] = msgbuffer[1];
                     i2c_master_send(4, &buf);
-                    //i2c_master_recv(2, RELPICADDR);
                 }
                 default:
                 {
@@ -333,10 +348,20 @@ void main(void) {
                 {
                     readADC(&FLIR, ADC_CH0);
                     readADC(&FRIR, ADC_CH1);
+                    readADC(&BLIR, ADC_CH2);
+                    readADC(&BRIR, ADC_CH3);
+                    readADC(&SONL, ADC_CH4);
+                    readADC(&SONR, ADC_CH5);
+                    readADC(&CURS, ADC_CH6);
                     txMsg.msgType = navIRDataMsg;
-                    txMsg.length = 2;
+                    txMsg.length = 7;
                     txMsg.buf[0] = FLIR;
                     txMsg.buf[1] = FRIR;
+                    txMsg.buf[2] = BLIR;
+                    txMsg.buf[3] = BRIR;
+                    txMsg.buf[4] = SONL;
+                    txMsg.buf[5] = SONR;
+                    txMsg.buf[6] = CURS;
                     sendZigBeeMsg(&txMsg);
                     //WriteUSART(FLIR);
                     //WriteUSART(FRIR);

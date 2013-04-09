@@ -42,6 +42,7 @@
 #define RELPICADDR 0x9E
 //#define SLAVEPIC 1
 
+#define POLLRFID   0xF4
 #define SENDMTRCMD 0xF7
 
 #endif
