@@ -101,7 +101,7 @@ void processWebDebugMsg(char* msg){
 	if(i>=DEBUG_LINES){
 		i = 0;
 	}
-	strcpy(webDebugOut[i],"-----------------");	
+	strcpy(webDebugOut[i],"----------------\n");				 
 }
 void getWebStatusText(char* buffer){
 	strcpy(state,"Stopped");

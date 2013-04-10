@@ -323,7 +323,7 @@ int main( void )
 	
 	startTimerForConductor(&conductorData);
 
-	printw("%s %d 0x%Xh", "ARM Started. Testing:", 123, 123);
+	printw("%s %d 0x%Xh\n", "ARM Started. Testing:", 123, 123);
 //	g9Msg hax;
 //	hax.msgType = navIRDataMsg;
 //	hax.length = 0;

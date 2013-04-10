@@ -192,52 +192,53 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 				//Validate Checksum
 				if( msg.checksum != generateChecksum(&msg) ){
 					//TODO: Handle bad checksum
-					printw("ZigBee - Corrupt Msg Received!");
+					printw("ZigBee - Corrupt Msg Received!\n");
 				}
 					
 				//Look at msg type
 				switch(msg.data[0] /*CmdID*/){
 				case 0x8A: //Modem Status
 					#if DEMO_MSG_RECV == 1
-						printw("ZigBee - Received Status Message");
+						printw("ZigBee - Received Status Message\n");
 					#endif
 					break;
 				case 0x08: //AT Command
 					#if DEMO_MSG_RECV == 1
-						printw("ZigBee - Received AT Message");
+						printw("ZigBee - Received AT Message\n");
 					#endif
 					break;
 				case 0x09: //AT Command - Queue	Param Value
 					#if DEMO_MSG_RECV == 1
-						printw("ZigBee - Received AT Queue Message");
+						printw("ZigBee - Received AT Queue Message\n");
 					#endif
 					break;
 				case 0x88: //AT Command Response
 					#if DEMO_MSG_RECV == 1
-						printw("ZigBee - Received AT Response Message");
+						printw("ZigBee - Received AT Response Message\n");
 					#endif
 					break;
 				case 0x17: //Remote AT Command Request
 					#if DEMO_MSG_RECV == 1
-						printw("ZigBee - Received AT Remote Message");
+						printw("ZigBee - Received AT Remote Message\n");
 					#endif
 					break;
 				case 0x97: //Remote Command Response
 					#if DEMO_MSG_RECV == 1
-						printw("ZigBee - Received AT Remote Response Message");
+						printw("ZigBee - Received AT Remote Response Message\n");
 					#endif
 					break;
 				case TX_STATUS_MSGID: //TX Status
 					{
 						#if DEMO_MSG_RECV == 1
-							printw("ZigBee - Received Tx Status Message");
+							printw("ZigBee - Received Tx Status Message\n");
 						#endif
 						//Check for failed message Tx
 						zigBeeTxStat* pStatus = (zigBeeTxStat*)msg.data;
 						if(pStatus->status != TX_STAT_SUCCESS){
 							//txState = RETRY;
 							if(++retries == RETRY_MAX){
-								printw("ZigBee - Error: TX Failed");
+								printw("<b style=\"color:red\">");	 //Split to accomodate line buffer size
+								printw("ZigBee - Error: TX Failed\n</b>");
 								txState = CONTINUE; //Give up;
 								retries = 0;
 							}
@@ -251,12 +252,12 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 					}
 				case 0x80: //RX - 64bit
 					#if DEMO_MSG_RECV == 1
-						printw("ZigBee - Received RX 64 Message");
+						printw("ZigBee - Received RX 64 Message\n");
 					#endif
 					break;
 				case 0x81: //RX - 16bit
 					#if DEMO_MSG_RECV == 1
-						printw("ZigBee - Received RX 16 Message");
+						printw("ZigBee - Received RX 16 Message\n");
 					#endif
 					//TODO: Validate ID
 					//Send to conductor
@@ -268,11 +269,11 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 				case 0x00: //TX Request - 64bit
 				case 0x01: //TX Request - 16bit
 					#if DEMO_MSG_RECV == 1
-						printw("ZigBee - Received Tx Message?");
+						printw("ZigBee - Received Tx Message?\n");
 					#endif
 				default:
 					#if DEMO_MSG_RECV == 1
-						printw("ZigBee - Received Unknown Message");
+						printw("ZigBee - Received Unknown Message\n");
 					#endif
 					//Shouldn't get here.
 					VT_HANDLE_FATAL_ERROR(0xD34D5);
