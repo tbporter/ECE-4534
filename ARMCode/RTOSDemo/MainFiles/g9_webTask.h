@@ -16,7 +16,7 @@
 
 
 #define DEBUG_LINES 20
-#define DEBUG_LENGTH 50
+#define DEBUG_LENGTH 75
 
 typedef struct __webStruct {
 	vtI2CStruct *i2c; //Needed for sending messages out

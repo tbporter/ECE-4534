@@ -95,7 +95,7 @@ void printw(const char* fmt, ...){
 }
 //TODO: keep track of position or linked list, moving the whole array is slow.
 void processWebDebugMsg(char* msg){
-	static i = 0;
+	static int i = 0;
 	strncpy(webDebugOut[i],msg,DEBUG_LENGTH);
 	i++;
 	if(i>=DEBUG_LINES){
