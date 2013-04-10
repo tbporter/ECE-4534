@@ -224,20 +224,17 @@ void startTimerForFakeI2CMsg(vtI2CStruct* i2c){
 
 void ConductorTimerCallback(xTimerHandle pxTimer)
 {
+	g9Msg fakeMsg;
 	if (pxTimer == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	} else {
 		vtConductorStruct* vtconData = (vtConductorStruct*)pvTimerGetTimerID(pxTimer);
-		g9Msg* msg = (g9Msg*)malloc(sizeof(g9Msg));
-		if( msg != 0 ){
-			msg->msgType = navRFIDFoundMsg;
-			msg->id = 0;
-			msg->length = 1;
-			msg->buf[0] = 0x4;
-			SendNavigationMsg(vtconData->navData,msg,10);
-		
-			free(msg);
-		}
+
+		fakeMsg.msgType = navRFIDFoundMsg;
+		fakeMsg.id = 0;
+		fakeMsg.length = 1;
+		fakeMsg.buf[0] = 0x4;
+		SendNavigationMsg(vtconData->navData,&fakeMsg,500);
 	}
 }
 #define conductorWRITE_RATE_BASE	( ( portTickType ) 1000 / portTICK_RATE_MS)
