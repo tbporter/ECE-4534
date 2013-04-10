@@ -192,7 +192,7 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 				//Validate Checksum
 				if( msg.checksum != generateChecksum(&msg) ){
 					//TODO: Handle bad checksum
-					printw("ZigBee - Corrupt Msg Received!\n");
+					printw("<b style=\"color:red\">ZigBee Error: Corrupt Msg Received!\n<\b>");
 				}
 					
 				//Look at msg type
@@ -237,8 +237,7 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 						if(pStatus->status != TX_STAT_SUCCESS){
 							//txState = RETRY;
 							if(++retries == RETRY_MAX){
-								printw("<b style=\"color:red\">");	 //Split to accomodate line buffer size
-								printw("ZigBee - Error: TX Failed\n</b>");
+								printw("<b style=\"color:red\">ZigBee Error: TX Failed\n</b>");
 								txState = CONTINUE; //Give up;
 								retries = 0;
 							}

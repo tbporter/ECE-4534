@@ -167,36 +167,30 @@ void fakeI2CTimerCallback(xTimerHandle pxTimer)
 	    msgBuf->slvAddr = 0;
 		msgBuf->txLen = 0;
 		g9Msg msg;
-		uint8_t* buf = (uint8_t*)malloc(sizeof(uint8_t)*MAX_MSG_LEN);
 
 		switch (count%3) {
 		  case 0:
-		  	msg.id = 1;
-		  	msgBuf->msgType = navLineFoundMsg;
-			msg.msgType = msgBuf->msgType;
-			msgBuf->rxLen = navLineFoundLen + sizeof(g9Msg);
+		  	msg.msgType = navLineFoundMsg;
+			msg.length = 0;
 			break;
-		  case 1:
-		  	msg.id = 2;
-		  	msgBuf->msgType = navIRDataMsg;
-			msg.msgType = msgBuf->msgType;
-			msgBuf->rxLen = navIRDataLen + sizeof(g9Msg);
-			buf[0] = 1;
-			buf[1] = 2;
-			buf[2] = 3;
-			strncpy(msg.buf,buf,MAX_MSG_LEN);
+		  case 1:;
+		  	msg.msgType = navIRDataMsg;
+			msg.length = 2;
+			msg.buf[0] = 1;
+			msg.buf[1] = 2;
 			break;
 		  case 2:
-		  	msg.id = 3;
-		  	msgBuf->msgType = navRFIDFoundMsg;
-		  	msg.msgType = msgBuf->msgType;
-			msgBuf->rxLen = navRFIDFoundLen + sizeof(g9Msg);
-			buf[0] = 0x69;								 
-			strncpy(msg.buf,buf,MAX_MSG_LEN);
+		  	msg.msgType = navRFIDFoundMsg;
+			msg.length = 1;
+			msg.buf[0] = 0x69;
 			break;
-		}		
+		}
 
-		strncpy(msgBuf->buf,&msg,navMAX_LEN);
+		msg.id = count%3+1;
+		msgBuf->msgType = msg.msgType;
+		msgBuf->rxLen = msg.length + G9_LEN_NO_BUFF;		
+
+		strncpy((char*)msgBuf->buf,(char*)&msg,sizeof(g9Msg));
 
 		if (xQueueSend(ptr->outQ,(void *) (msgBuf),portMAX_DELAY) == errQUEUE_FULL) {
 			// Here is where you would do something if you wanted to handle the queue being full
@@ -204,7 +198,6 @@ void fakeI2CTimerCallback(xTimerHandle pxTimer)
 		}
 		count++;
 		free(msgBuf);
-		free(buf);
 	}
 }
 
