@@ -56,17 +56,32 @@ typedef enum {
 	voidMsg
 } g9MsgType;
 
+
+typedef enum {
+    None	= 0x0,
+    SpeedUp	= 0x1,
+    SlowDown= 0x2,
+    GoLeft	= 0x4,
+    GoRight	= 0x8,
+    Finish	= 0x10,
+	Error	= 0x20
+}RFID;
+
+
+
 #define MAX_MSG_LEN 10
 
 #ifdef IS_ARM
+
 typedef struct __attribute__((__packed__)) __g9Msg {
 #else
+
 typedef struct __g9Msg {
 #endif
-	uint8_t msgType;// Use Enum defined above to set. Declared as uint8_t to force casting, thus reducing size.
-	uint8_t length;
-	uint8_t id;			// Used to check for dropped messages **Won't be used until wireless**
-	uint8_t buf[MAX_MSG_LEN];		// On the way in, message to be sent, on the way out, message received (if any)
+    uint8_t msgType; // Use Enum defined above to set. Declared as uint8_t to force casting, thus reducing size.
+    uint8_t length;
+    uint8_t id; // Used to check for dropped messages **Won't be used until wireless**
+    uint8_t buf[MAX_MSG_LEN]; // On the way in, message to be sent, on the way out, message received (if any)
 } g9Msg;
 
 
@@ -114,5 +129,6 @@ typedef struct __g9Msg {
 
 //Message ERROR CODES
 #define INVALID_G9MSG_TYPE 0xDEADC0DE
+
 
 #endif

@@ -399,7 +399,7 @@
       <Focus>0</Focus>
       <ColumnNumber>1</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>199</TopLine>
+      <TopLine>204</TopLine>
       <CurrentLine>227</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/myTimers.c</PathWithFileName>
@@ -469,8 +469,8 @@
       <Focus>0</Focus>
       <ColumnNumber>33</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>160</TopLine>
-      <CurrentLine>186</CurrentLine>
+      <TopLine>217</TopLine>
+      <CurrentLine>217</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_NavTask.c</PathWithFileName>
       <FilenameWithoutPath>g9_NavTask.c</FilenameWithoutPath>
@@ -887,10 +887,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>12</ColumnNumber>
+      <ColumnNumber>23</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>8</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_webTask.c</PathWithFileName>
       <FilenameWithoutPath>g9_webTask.c</FilenameWithoutPath>
@@ -1166,8 +1166,14 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>6</ActiveTab>
+      <ActiveTab>2</ActiveTab>
       <Documents>
+        <Doc>
+          <Name>.\MainFiles/g9_webTask.c</Name>
+          <ColumnNumber>23</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>8</CurrentLine>
+        </Doc>
         <Doc>
           <Name>.\MainFiles/main.c</Name>
           <ColumnNumber>0</ColumnNumber>
@@ -1176,15 +1182,15 @@
         </Doc>
         <Doc>
           <Name>\\vmware-host\Shared Folders\ECE-4534\COMMON\MESSAGES_G9.H</Name>
-          <ColumnNumber>14</ColumnNumber>
-          <TopLine>104</TopLine>
-          <CurrentLine>104</CurrentLine>
+          <ColumnNumber>70</ColumnNumber>
+          <TopLine>66</TopLine>
+          <CurrentLine>91</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\MainFiles/g9_NavTask.c</Name>
           <ColumnNumber>33</ColumnNumber>
-          <TopLine>160</TopLine>
-          <CurrentLine>186</CurrentLine>
+          <TopLine>217</TopLine>
+          <CurrentLine>217</CurrentLine>
         </Doc>
         <Doc>
           <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_NAVTASK.H</Name>
@@ -1201,14 +1207,8 @@
         <Doc>
           <Name>.\MainFiles/myTimers.c</Name>
           <ColumnNumber>1</ColumnNumber>
-          <TopLine>199</TopLine>
+          <TopLine>204</TopLine>
           <CurrentLine>227</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\MainFiles/g9_webTask.c</Name>
-          <ColumnNumber>23</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>8</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>
