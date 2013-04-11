@@ -71,6 +71,8 @@
 #include "EthDev.h"
 #include "ParTest.h"
 
+#include "g9_webTask.h"
+
 /*-----------------------------------------------------------*/
 
 /* How long to wait before attempting to connect the MAC again. */

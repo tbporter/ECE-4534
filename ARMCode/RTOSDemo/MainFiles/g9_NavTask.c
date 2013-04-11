@@ -5,6 +5,7 @@
 #include "g9_NavTask.h"
 
 #define NavQLen 20 //Lots of messages
+#define PRINT_MSG_RCV 1 //Notify of incoming msgs
 
 //helper functions for setting motor speeds
 typedef union {
@@ -60,27 +61,38 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 	}
 
 	switch (msg->msgType){
+	
 		case navMotorCmdMsg:
-			printw("navMotorCmdMsg");
+			#if PRINT_MSG_RCV == 1
+				printw("navMotorCmdMsg\n");
+			#endif
 			break;
 		
 		case navLineFoundMsg:
-			printw("navLineFoundMsg");
+			#if PRINT_MSG_RCV == 1
+				printw("navLineFoundMsg\n");
+			#endif
 			break;
 		
 		case navIRDataMsg:
-			//printw("navIRDataMsg %d %d",msg->buf[0],msg->buf[1]);
+			#if PRINT_MSG_RCV == 1
+				printw("<b>navIRDataMsg<\b> %d %d\n",msg->buf[0],msg->buf[1]);
+			#endif
 			break;
 		
 		case navRFIDFoundMsg:
-			printw("navRFIDFoundMsg");
+			#if PRINT_MSG_RCV == 1
+				printw("<b>navRFIDFoundMsg</b> ");
+			#endif
 			break;
 		case navWebStartMsg:
-			printw("navWebStartMsg");
+			#if PRINT_MSG_RCV == 1
+				printw("navWebStartMsg\n");
+			#endif
 			break;	
 
 	default:
-		printw("Incorrect Navigation Msg");
+		printw("Incorrect Navigation Msg\n");
 		VT_HANDLE_FATAL_ERROR(0xDEAD);
 	}
 	return(xQueueSend(nav->inQ,(void*)(msg),ticksToBlock));
@@ -94,14 +106,17 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	navStruct *navData = (navStruct *) pvParameters;
 	// Buffer for receiving messages
 	g9Msg msgBuffer;
+	// Holds any rfid tags that have been found
+	int tagValue = 0;
 
 	curState = 0;
 	// Like all good tasks, this should never exit
 	for(;;)
 	{
 		// Wait for a message from the "otherside"
-		if (xQueueReceive(navData->inQ,(void *) &msgBuffer,portMAX_DELAY) != pdTRUE) {
-			VT_HANDLE_FATAL_ERROR(0);
+		portBASE_TYPE ret;
+		if ((ret = xQueueReceive(navData->inQ,(void *) &msgBuffer,portMAX_DELAY) ) != pdTRUE) {
+			VT_HANDLE_FATAL_ERROR(ret);
 		}
 
 		g9Msg msg;
@@ -126,6 +141,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
 			//setMotorData(&(motorData.data),0,1); //Forward
+			tagValue |= msgBuffer.buf[0];
 			break;
 		
 		default:
@@ -135,6 +151,8 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		}
 
 		stateMachine();
+		handleSpecialEvents(tagValue);
+		tagValue = 0;
 
 		msg.buf[0] = motorData.left;
 		msg.buf[1] = motorData.right;		
@@ -173,5 +191,23 @@ void stateMachine(){
 
 	}
 
+}
+									  
+void handleSpecialEvents(int tagValue){
+	//Depending on tag values adjust motor speed
+	if( tagValue != 0x0 ){
+		printw("Handling RFID Tag: %X\n",tagValue);
+	}
+
+	if( tagValue & 0x01 ){
+	}
+	if( tagValue & 0x02 ){
+	}
+	if( tagValue & 0x04 ){
+	}
+	if( tagValue & 0x08 ){
+	}
+	if( tagValue & 0x10 ){
+	}
 }
 

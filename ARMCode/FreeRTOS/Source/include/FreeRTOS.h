@@ -195,7 +195,7 @@ typedef portBASE_TYPE (*pdTASK_HOOK_CODE)( void * );
 	// mtj sets these values 
 	#define configTIMER_TASK_PRIORITY  tskIDLE_PRIORITY
 	#define configTIMER_QUEUE_LENGTH	20
-	#define configTIMER_TASK_STACK_DEPTH	   (2*configMINIMAL_STACK_SIZE)
+	#define configTIMER_TASK_STACK_DEPTH	   (4*configMINIMAL_STACK_SIZE)
 	// end of mtj settings
 	#ifndef configTIMER_TASK_PRIORITY
 		#error If configUSE_TIMERS is set to 1 then configTIMER_TASK_PRIORITY must also be defined.

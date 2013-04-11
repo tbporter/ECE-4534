@@ -86,6 +86,7 @@ typedef struct __g9Msg {
 // Define max expected message lengths hur.
 // NOTE: For varible length message, first byte in buf should be length
 
+<<<<<<< HEAD
 #define VAR_MSG_LEN -1
 //vtI2C
 #define vtI2CMsgTypeTempInitLen		2
@@ -119,6 +120,43 @@ typedef struct __g9Msg {
 //Max lengths per Task, used for sizing the Queues
 #define baseMAX_LEN	sizeof(g9Msg)
 #define navMAX_LEN	( baseMAX_LEN + (navIRDataLen - 1)*sizeof(uint8_t))
+=======
+//	#define VAR_MSG_LEN -1
+//	//vtI2C
+//	#define vtI2CMsgTypeTempInitLen		2
+//	#define vtI2CMsgTypeTempRead1Len 	1
+//	#define vtI2CMsgTypeTempRead2Len 	1
+//	#define vtI2CMsgTypeTempRead3Len 	1
+//	#define TempMsgTypeTimerLen				0
+//
+//	//OScope
+//	#define oScopeRead1Len					1
+//	#define oScopeRead2Len					1
+//	#define oScopeTimerLen					0
+//	
+//	// LCD_Task
+//	#define LCDMsgTypeTimerLen				1
+//	#define LCDMsgTypePrintLen				VAR_LEN
+//
+//	//LCD OScope Task
+//	#define lcdOScopeDataLen				2
+//	#define lcdOScopeTimerLen				0
+//	
+//	//Navigation Task
+//	#define navMotorCmdLen					2
+//	#define navLineFoundLen					0
+//	#define navIRDataLen					3							
+//	#define navRFIDFoundLen					1
+//	
+//	//Webpage
+//	#define webDebugLen						VAR_LEN
+//	
+//	//Max lengths per Task, used for sizing the Queues
+//	#define baseMAX_LEN	sizeof(g9Msg)
+//	#define navMAX_LEN	( baseMAX_LEN + (navIRDataLen - 1)*sizeof(uint8_t))
+
+#define G9_LEN_NO_BUFF 3;
+>>>>>>> 97a6abc697ba77aa178e7c16a7ab508914bd5b7a
 
 
 //Message ERROR CODES

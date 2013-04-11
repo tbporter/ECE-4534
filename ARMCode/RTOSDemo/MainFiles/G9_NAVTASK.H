@@ -38,6 +38,9 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 
 void stateMachine();
 
+//Adjust motor speed to account for RFID tag events
+void handleSpecialEvents(int tagValue);
+
 
 
 #endif

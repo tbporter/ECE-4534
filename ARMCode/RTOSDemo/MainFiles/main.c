@@ -321,7 +321,9 @@ int main( void )
 	
 	vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,vtI2C0,tempSensorData,oScopeData,navData,zigBeeData);
 	
-	printw("%s %d 0x%Xh", "ARM Started. Testing:", 123, 123);
+	startTimerForConductor(&conductorData);
+
+	printw("%s %d 0x%Xh\n", "ARM Started. Testing:", 123, 123);
 //	g9Msg hax;
 //	hax.msgType = navIRDataMsg;
 //	hax.length = 0;
