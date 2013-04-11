@@ -4,8 +4,18 @@
 #include "g9_webTask.h"
 #include "g9_NavTask.h"
 
+#define min(a,b) (((a)<(b))?(a):(b))
+#define max(a,b) (((a)>(b))?(a):(b))
+
 #define NavQLen 20 //Lots of messages
 #define PRINT_MSG_RCV 1 //Notify of incoming msgs
+
+#define SPD_UP_TARGET	10
+#define SPD_DWN_TARGET	3
+#define SPD_UP_DELTA	+16 //+25%
+#define SPD_DWN_DELTA	-16 //-25%
+#define SPD_L_DELTA		
+#define SPD_R_DELTA
 
 //helper functions for setting motor speeds
 typedef union {
@@ -15,14 +25,23 @@ typedef union {
 		uint8_t right;
 	};
 } motorData_t;
+
 motorData_t motorData;
 int curState;
 int leftIR;
 int rightIR;
-void setMotorData(uint16_t* data, uint8_t left, uint8_t right){
+// Holds any rfid tags that have been found
+uint8_t tagValue = 0;
+
+void setMotorData(motorData_t* motorData, uint8_t left, uint8_t right){
 	left &= 0x7F;
 	right &= 0x7F;
-	*data = 0x0080 | (right<<8) | left;
+	motorData->data = 0x0080 | (right<<8) | left;
+}
+
+void getMotorData(motorData_t* motorData, uint8_t* left, uint8_t* right){
+	*left = motorData->left & 0x7F;
+	*right = motorData->right & 0x7F;
 }
 
 #define IRBUF_SIZE 20;
@@ -60,41 +79,37 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 		return pdFALSE;
 	}
 
-	switch (msg->msgType){
+	#if PRINT_MSG_RCV == 1
+		switch (msg->msgType){
+		
+			case navMotorCmdMsg:
+					printw("<b style=color:red>navMotorCmdMsg - How'd THIS Happen?\n");
+				break;
 	
-		case navMotorCmdMsg:
-			#if PRINT_MSG_RCV == 1
-				printw("navMotorCmdMsg\n");
-			#endif
-			break;
-		
-		case navLineFoundMsg:
-			#if PRINT_MSG_RCV == 1
-				printw("navLineFoundMsg\n");
-			#endif
-			break;
-		
-		case navIRDataMsg:
-			#if PRINT_MSG_RCV == 1
-				printw("<b>navIRDataMsg<\b> %d %d\n",msg->buf[0],msg->buf[1]);
-			#endif
-			break;
-		
-		case navRFIDFoundMsg:
-			#if PRINT_MSG_RCV == 1
-				printw("<b>navRFIDFoundMsg</b> ");
-			#endif
-			break;
-		case navWebStartMsg:
-			#if PRINT_MSG_RCV == 1
-				printw("navWebStartMsg\n");
-			#endif
-			break;	
+			case navEncoderMsg:
+					printw("<b>navEncoderMsg</b> %d\n",msg->buf[0]);
+				break;
+			
+			case navLineFoundMsg:
+					printw("navLineFoundMsg\n");
+				break;
+			
+			case navIRDataMsg:
+					printw("<b>navIRDataMsg<\b> %d %d\n",msg->buf[0],msg->buf[1]);
+				break;
+			
+			case navRFIDFoundMsg:
+					printw("<b>navRFIDFoundMsg</b> ");
+				break;
+			case navWebStartMsg:
+					printw("navWebStartMsg\n");
+				break;	
+	
+			default:
+				printw("Incorrect Navigation Msg\n");
+		}
+	#endif
 
-	default:
-		printw("Incorrect Navigation Msg\n");
-		VT_HANDLE_FATAL_ERROR(0xDEAD);
-	}
 	return(xQueueSend(nav->inQ,(void*)(msg),ticksToBlock));
 }
 
@@ -106,8 +121,6 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	navStruct *navData = (navStruct *) pvParameters;
 	// Buffer for receiving messages
 	g9Msg msgBuffer;
-	// Holds any rfid tags that have been found
-	int tagValue = 0;
 
 	curState = 0;
 	// Like all good tasks, this should never exit
@@ -128,19 +141,19 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		switch (msgBuffer.msgType){
 		case navLineFoundMsg:
 			//stop we have found the finish line!!!
-			//setMotorData(&(motorData.data),127,127);
+			//setMotorData(&motorData,127,127);
 			break;
 		
 		case navIRDataMsg:
 			//Save the data
 			leftIR = msgBuffer.buf[0];
 			rightIR = msgBuffer.buf[1];
-			//setMotorData(&(motorData.data),1,0); //Turn left
+			//setMotorData(&motorData,1,0); //Turn left
 			break;
 		
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
-			//setMotorData(&(motorData.data),0,1); //Forward
+			//setMotorData(&motorData,0,1); //Forward
 			tagValue |= msgBuffer.buf[0];
 			break;
 		
@@ -151,7 +164,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		}
 
 		stateMachine();
-		handleSpecialEvents(tagValue);
+		handleSpecialEvents(5.3);
 		tagValue = 0;
 
 		msg.buf[0] = motorData.left;
@@ -163,51 +176,122 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 
 void stateMachine(){
-	setMotorData(&(motorData.data),0,0);
+	setMotorData(&motorData,0,0);
 	switch(curState){
 		#define min_dist 100
 		//Simple state, lets just lean to the left or right based off the IR
 		case 0:
 			if(getWebStart()==1){
 				if(rightIR>120){
-									setMotorData(&(motorData.data),70,90);
+									setMotorData(&motorData,70,90);
 				}
 				else if(leftIR>120){
-									setMotorData(&(motorData.data),90,70);
+									setMotorData(&motorData,90,70);
 				}
 				else if(rightIR>100){
-					setMotorData(&(motorData.data),95,110);
+					setMotorData(&motorData,95,110);
 				}
 				else if(leftIR>100){
-					setMotorData(&(motorData.data),110,95);
+					setMotorData(&motorData,110,95);
 				}
 				else {
-					setMotorData(&(motorData.data),110,110);
+					setMotorData(&motorData,110,110);
 				}
 			}
 			else{
-				setMotorData(&(motorData.data),0,0);
+				setMotorData(&motorData,0,0);
 			}	
 
 	}
 
 }
 									  
-void handleSpecialEvents(int tagValue){
+void handleSpecialEvents(float speed){
+	static uint8_t oldTagValue = 0x0;
 	//Depending on tag values adjust motor speed
-	if( tagValue != 0x0 ){
+	if( tagValue != oldTagValue ){
 		printw("Handling RFID Tag: %X\n",tagValue);
+		//Do first occurence actions
+		switch( ~(tagValue & oldTagValue) ){
+			case 0x01:
+				//Disable SPD DOWN
+				disableTag(0x02);
+				break;
+			case 0x02:
+				//Disable SPD UP
+				disableTag(0x01);
+				break;
+			case 0x04:
+				//Disable RIGHT
+				disableTag(0x08);
+				break;
+			case 0x08:
+				//Disable LEFT
+				disableTag(0x04);
+				break;
+		}
 	}
 
-	if( tagValue & 0x01 ){
+	if( tagValue & 0x01 ){ //SPD UP
+		 
 	}
-	if( tagValue & 0x02 ){
+	if( tagValue & 0x02 ){ //SPD DOWN
+		
 	}
-	if( tagValue & 0x04 ){
+	if( tagValue & 0x04 ){ //LEFT
+		
 	}
-	if( tagValue & 0x08 ){
+	if( tagValue & 0x08 ){ //RIGHT
+		
+		
 	}
-	if( tagValue & 0x10 ){
+
+	if( tagValue & 0x10 ){ //FIN -- AT END TO ENSURE STOPPING IN EVENT OF ERROR
+		//Stop
+		setMotorData(&motorData,0,0);
 	}
+
+	oldTagValue = tagValue;
+}
+
+void disableTag(uint8_t tag){
+	 tagValue &= (~tag & 0xFF);
+}
+
+uint8_t adjuctSpeed(char delta){
+	if( abs(delta) > 64 ) return 0; //Delta too large, will change heading
+	//Determine max/min delta until clipping occurs
+	uint8_t left;
+	uint8_t right;
+	getMotorData(&motorData,&left,&right);
+
+	float scaleLeft, scaleRight;
+	
+	//Scale and shift left and right to be from -1 to 1
+	if( left == 0 ){
+		scaleLeft = 0;
+	}
+	else{
+		scaleLeft = (left - 64)/127;
+	}
+
+	if( right == 0 ){
+		scaleRight = 0;
+	}
+	else{
+		scaleRight = (right - 64)/127;
+	}
+
+	char maxDelta = 0;
+
+	if(delta >=0){ //find max
+		maxDelta = max(1-scaleLeft,1-scaleRight);
+	}else{ //find min
+		maxDelta = max(scaleLeft+1,scaleRight+1);
+	}
+
+
+	
+	return delta;		
 }
 

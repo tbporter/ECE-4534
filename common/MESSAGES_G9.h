@@ -32,6 +32,7 @@ typedef enum {
 
 	//Navigation Task
 	navMotorCmdMsg,
+	navEncoderMsg,
 	
 	//IR/Line
 	navLineFoundMsg,
