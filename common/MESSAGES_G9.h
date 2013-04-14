@@ -10,60 +10,64 @@
 #endif
 
 typedef enum {
-    None,
-    SlowDown,
-    SpeedUp,
-    GoRight,
-    GoLeft,
-    Finish,
-    Error
-}RFID;
+	//vtI2C
+	vtI2CMsgTypeTempInit, 
+	vtI2CMsgTypeTempRead1, 
+	vtI2CMsgTypeTempRead2, 
+	vtI2CMsgTypeTempRead3, 
+	TempMsgTypeTimer,
+
+	//OScope
+	oScopeRead1Msg,
+	oScopeRead2Msg,
+	oScopeTimerMsg,
+	
+	// LCD_Task
+	LCDMsgTypeTimer,
+	LCDMsgTypePrint,
+
+	//LCD OScope Task
+	lcdOScopeData,
+	lcdOScopeTimer,
+
+	//Navigation Task
+	navMotorCmdMsg,
+	navEncoderMsg,
+	
+	//IR/Line
+	navLineFoundMsg,
+	navIRDataMsg,
+
+	//lap message from web
+	navWebLapMsg,
+	navWebStartMsg,
+		
+	//RFID
+	navRFIDFoundMsg,
+	
+	//Webpage
+	webDebugMsg,
+	webPowerMsg,
+	webNavMsg,
+	
+	//conductor request message
+	conRequestMsg,
+	//void, just cause
+	voidMsg
+} g9MsgType;
+
 
 typedef enum {
-    //vtI2C
-    vtI2CMsgTypeTempInit,
-    vtI2CMsgTypeTempRead1,
-    vtI2CMsgTypeTempRead2,
-    vtI2CMsgTypeTempRead3,
-    TempMsgTypeTimer,
+    None	= 0x0,
+    SpeedUp	= 0x1,
+    SlowDown= 0x2,
+    GoLeft	= 0x4,
+    GoRight	= 0x8,
+    Finish	= 0x10,
+	Error	= 0x20
+}RFID;
 
-    //OScope
-    oScopeRead1Msg,
-    oScopeRead2Msg,
-    oScopeTimerMsg,
 
-    // LCD_Task
-    LCDMsgTypeTimer,
-    LCDMsgTypePrint,
-
-    //LCD OScope Task
-    lcdOScopeData,
-    lcdOScopeTimer,
-
-    //Navigation Task
-    navMotorCmdMsg,
-
-    //IR/Line
-    navLineFoundMsg,
-    navIRDataMsg,
-
-    //lap message from web
-    navWebLapMsg,
-    navWebStartMsg,
-
-    //RFID
-    navRFIDFoundMsg,
-
-    //Webpage
-    webDebugMsg,
-    webPowerMsg,
-    webNavMsg,
-
-    //conductor request message
-    conRequestMsg,
-    //void, just cause
-    voidMsg
-} g9MsgType;
 
 #define MAX_MSG_LEN 10
 
@@ -85,6 +89,7 @@ typedef struct __g9Msg {
 // Message Lengths shall be determined by message type.
 // Define max expected message lengths hur.
 // NOTE: For varible length message, first byte in buf should be length
+<<<<<<< HEAD
 #define VAR_MSG_LEN -1
 //vtI2C
 #define vtI2CMsgTypeTempInitLen		2
@@ -119,6 +124,9 @@ typedef struct __g9Msg {
 #define baseMAX_LEN	sizeof(g9Msg)
 #define navMAX_LEN	( baseMAX_LEN + (navIRDataLen - 1)*sizeof(uint8_t))
 =======
+=======
+
+>>>>>>> 4abaed625a687dbd2d2edfdf17f4e6821e9d08de
 //	#define VAR_MSG_LEN -1
 //	//vtI2C
 //	#define vtI2CMsgTypeTempInitLen		2
@@ -154,7 +162,6 @@ typedef struct __g9Msg {
 //	#define navMAX_LEN	( baseMAX_LEN + (navIRDataLen - 1)*sizeof(uint8_t))
 
 #define G9_LEN_NO_BUFF 3;
->>>>>>> 97a6abc697ba77aa178e7c16a7ab508914bd5b7a
 
 
 //Message ERROR CODES
