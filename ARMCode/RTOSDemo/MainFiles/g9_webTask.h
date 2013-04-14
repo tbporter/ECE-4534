@@ -40,6 +40,7 @@ void startWebTask(webStruct* webData,unsigned portBASE_TYPE uxPriority, navStruc
 portBASE_TYPE SendWebMsg(webStruct* web,g9Msg* msg,portTickType ticksToBlock);
 
 void printw(const char* fmt, ...);
+void printw_err(char* fmt, ...);
 void processWebDebugMsg(char* msg);
 
 char (*getWebDebug())[DEBUG_LENGTH];

@@ -9,6 +9,8 @@
 #include <stdint.h>// If this doesn't work with pic just define uint8_t as unsigned char
 #endif
 
+#define ENC_POLL_RATE	100 //ms
+
 typedef enum {
 	//vtI2C
 	vtI2CMsgTypeTempInit, 

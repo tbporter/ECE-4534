@@ -93,6 +93,27 @@ void printw(const char* fmt, ...){
 	va_end(args);
 	processWebDebugMsg(msg);
 }
+
+void printw_err(char* fmt, ...){
+	#define DEBUG_ERR_LENGTH DEBUG_LENGTH-23
+	char msg[DEBUG_LENGTH] = "<b style=color:red>";
+
+	//Truncate fmt if necessary
+	if( strlen(fmt) > DEBUG_ERR_LENGTH ) fmt[DEBUG_ERR_LENGTH-1] = '\0';
+
+	//Append fmt
+	strcat(msg,fmt);
+	//Append end of stlye tags
+	strcat(msg,"</b>");
+
+
+	va_list args;
+	va_start( args, fmt );
+	vsnprintf( msg, DEBUG_LENGTH, msg, args );
+	va_end(args);
+	processWebDebugMsg(msg);
+}
+
 //TODO: keep track of position or linked list, moving the whole array is slow.
 void processWebDebugMsg(char* msg){
 	static int i = 0;

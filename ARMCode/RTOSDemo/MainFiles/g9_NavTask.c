@@ -10,12 +10,9 @@
 #define NavQLen 20 //Lots of messages
 #define PRINT_MSG_RCV 1 //Notify of incoming msgs
 
-#define SPD_UP_TARGET	10
-#define SPD_DWN_TARGET	3
-#define SPD_UP_DELTA	+16 //+25%
-#define SPD_DWN_DELTA	-16 //-25%
-#define SPD_L_DELTA		
-#define SPD_R_DELTA
+#define MAX_SPEED	10 // m/s
+#define MIN_SPEED	3  // m/s
+#define TURN_ANGLE	90 //Degrees
 
 //helper functions for setting motor speeds
 typedef union {
@@ -30,8 +27,8 @@ motorData_t motorData;
 int curState;
 int leftIR;
 int rightIR;
-// Holds any rfid tags that have been found
-uint8_t tagValue = 0;
+uint8_t tagValue = None; // Holds any rfid tags that have been found
+Bool lineFound = FALSE;
 
 void setMotorData(motorData_t* motorData, uint8_t left, uint8_t right){
 	left &= 0x7F;
@@ -60,6 +57,31 @@ void getMotorData(motorData_t* motorData, uint8_t* left, uint8_t* right){
 /* The navigation task. */
 static portTASK_FUNCTION_PROTO( navigationUpdateTask, pvParameters );
 
+//Converts an encoder value to a distance (cm) traveled
+inline float enc2Dist(int enc){
+	#define ROLL_OUT 38.1 //cm -- guess
+	#define TICKS_PER_REV 12000	// guess
+	return (ROLL_OUT*enc)/TICKS_PER_REV;
+}
+
+
+//Converts an encoder value into an angle (degrees)
+//NOTE: 0 if forward, 180 is backwards, + is left, - is right
+inline float enc2Ang(int leftEnc, int rightEnc){
+	#define ROVER_WIDTH 30.48 //cm -- guess
+	float dS = enc2Dist(rightEnc) - enc2Dist(leftEnc); //differential
+	//float R = (enc2Dist(leftEnc)/dS+1)*ROVER_WIDTH;
+	return 	dS/ROVER_WIDTH*(180/3.1415927);
+}
+
+//Get speed (m/s) from enc value
+inline float enc2Speed(int leftEnc, int rightEnc){
+	//Get "middle" encoder value
+	int medEnc = (leftEnc + rightEnc)/2;
+	//Calculate velocity
+	return ( 10.0*enc2Dist(medEnc) )/ENC_POLL_RATE; //  1000/100 ms*m/s*cm * 1 cm/ms = 10 cm/ms = 1 m/s
+}
+
 
 void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, g9ZigBeeStruct* zigBeePtr){
 	// Create the queue that will be used to talk to this task
@@ -83,7 +105,7 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 		switch (msg->msgType){
 		
 			case navMotorCmdMsg:
-					printw("<b style=color:red>navMotorCmdMsg - How'd THIS Happen?\n");
+					printw_err("navMotorCmdMsg - How'd THIS Happen?\n");
 				break;
 	
 			case navEncoderMsg:
@@ -99,7 +121,7 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 				break;
 			
 			case navRFIDFoundMsg:
-					printw("<b>navRFIDFoundMsg</b> ");
+					printw("<b>navRFIDFoundMsg</b>\n");
 				break;
 			case navWebStartMsg:
 					printw("navWebStartMsg\n");
@@ -123,6 +145,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	g9Msg msgBuffer;
 
 	curState = 0;
+	int enc = 0; //Encoder value
 	// Like all good tasks, this should never exit
 	for(;;)
 	{
@@ -141,19 +164,21 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		switch (msgBuffer.msgType){
 		case navLineFoundMsg:
 			//stop we have found the finish line!!!
-			//setMotorData(&motorData,127,127);
+			lineFound = TRUE;
 			break;
 		
 		case navIRDataMsg:
 			//Save the data
 			leftIR = msgBuffer.buf[0];
 			rightIR = msgBuffer.buf[1];
-			//setMotorData(&motorData,1,0); //Turn left
+			break;
+
+		case navEncoderMsg:
+			enc = msgBuffer.buf[0];
 			break;
 		
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
-			//setMotorData(&motorData,0,1); //Forward
 			tagValue |= msgBuffer.buf[0];
 			break;
 		
@@ -165,7 +190,6 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 		stateMachine();
 		handleSpecialEvents(5.3);
-		tagValue = 0;
 
 		msg.buf[0] = motorData.left;
 		msg.buf[1] = motorData.right;		
@@ -205,93 +229,73 @@ void stateMachine(){
 	}
 
 }
+
+void adjustSpeed(int enc, float targetSpeed){
+	//Get speed
+	//Adjust to target
+}
 									  
 void handleSpecialEvents(float speed){
-	static uint8_t oldTagValue = 0x0;
+	static uint8_t oldTagValue = None;
+	//Check for Error
+	if( tagValue & Error ){
+		//Report Error, Clear Flag, and Do Nothing
+		printw_err("Invalid RFID Tag!\n");
+		disableTag(Error);
+		return;
+	}
+
+	printw("\tHandling RFID Tag: %X\n",tagValue);
 	//Depending on tag values adjust motor speed
 	if( tagValue != oldTagValue ){
-		printw("Handling RFID Tag: %X\n",tagValue);
 		//Do first occurence actions
 		switch( ~(tagValue & oldTagValue) ){
-			case 0x01:
+			case SpeedUp:
 				//Disable SPD DOWN
-				disableTag(0x02);
+				disableTag(SlowDown);
 				break;
-			case 0x02:
+			case SlowDown:
 				//Disable SPD UP
-				disableTag(0x01);
+				disableTag(SpeedUp);
 				break;
-			case 0x04:
+			case GoLeft:
 				//Disable RIGHT
-				disableTag(0x08);
+				disableTag(GoRight);
 				break;
-			case 0x08:
+			case GoRight:
 				//Disable LEFT
-				disableTag(0x04);
+				disableTag(GoLeft);
 				break;
 		}
 	}
 
-	if( tagValue & 0x01 ){ //SPD UP
-		 
+	if( tagValue & SpeedUp ){ //SPD UP
+		//check speed
+			//adjust to target	 
 	}
-	if( tagValue & 0x02 ){ //SPD DOWN
+	if( tagValue & SlowDown ){ //SPD DOWN
 		
 	}
-	if( tagValue & 0x04 ){ //LEFT
+	if( tagValue & GoLeft ){ //LEFT
 		
 	}
-	if( tagValue & 0x08 ){ //RIGHT
+	if( tagValue & GoRight ){ //RIGHT
 		
 		
 	}
 
-	if( tagValue & 0x10 ){ //FIN -- AT END TO ENSURE STOPPING IN EVENT OF ERROR
-		//Stop
-		setMotorData(&motorData,0,0);
+	if( tagValue & Finish ){ //FIN -- AT END TO ENSURE STOPPING IN EVENT OF OTHER TAGS
+		//Stop if found line
+		if(lineFound == TRUE) setMotorData(&motorData,0,0);
+		//else slow down?
 	}
 
 	oldTagValue = tagValue;
+
+	return;
 }
 
 void disableTag(uint8_t tag){
 	 tagValue &= (~tag & 0xFF);
-}
-
-uint8_t adjuctSpeed(char delta){
-	if( abs(delta) > 64 ) return 0; //Delta too large, will change heading
-	//Determine max/min delta until clipping occurs
-	uint8_t left;
-	uint8_t right;
-	getMotorData(&motorData,&left,&right);
-
-	float scaleLeft, scaleRight;
-	
-	//Scale and shift left and right to be from -1 to 1
-	if( left == 0 ){
-		scaleLeft = 0;
-	}
-	else{
-		scaleLeft = (left - 64)/127;
-	}
-
-	if( right == 0 ){
-		scaleRight = 0;
-	}
-	else{
-		scaleRight = (right - 64)/127;
-	}
-
-	char maxDelta = 0;
-
-	if(delta >=0){ //find max
-		maxDelta = max(1-scaleLeft,1-scaleRight);
-	}else{ //find min
-		maxDelta = max(scaleLeft+1,scaleRight+1);
-	}
-
-
-	
-	return delta;		
 }
 
