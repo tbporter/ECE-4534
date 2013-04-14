@@ -279,13 +279,27 @@ void main(void) {
                             sendZigBeeMsg(&txMsg);
                         }
                     }
-                    else if (msgbuffer[0] == LENCODER)
+                    else if (msgbuffer[0] == POLLENCD)
                     {
-                        //lencoder = (msgbuffer[1] << 8) + msgbuffer[2];
                         txMsg.buf[0] = msgbuffer[1];
                         txMsg.buf[1] = msgbuffer[2];
-                        txMsg.length = 2;
+                        txMsg.buf[2] = msgbuffer[3];
+                        txMsg.buf[3] = msgbuffer[4];
                         txMsg.msgType = navEncoderMsg;
+                        sendZigBeeMsg(&txMsg);
+                    }
+                    else if (msgbuffer[0] == LENCODER)
+                    {
+                        lencoder = (msgbuffer[1] << 8) + msgbuffer[2];
+                    }
+                    else if (msgbuffer[0] == RENCODER)
+                    {
+                        txMsg.buf[0] = lencoder >> 8;
+                        txMsg.buf[1] = lencoder & 0xFF;
+                        txMsg.buf[2] = msgbuffer[1];
+                        txMsg.buf[3] = msgbuffer[2];
+                        txMsg.msgType = navEncoderMsg;
+                        sendZigBeeMsg(&txMsg);
                     }
 #endif
 
@@ -344,20 +358,36 @@ void main(void) {
                             msgbuffer[1] = 0x01;
                             break;
                         }
+                        case POLLENCD:
+                        {
+                            lencoder = reportLChange();
+                            rencoder = reportRChange();
+                            length = 5;
+                            msgbuffer[0] = POLLENCD;
+                            msgbuffer[1] = lencoder >> 8;
+                            msgbuffer[2] = lencoder & 0xFF;
+                            msgbuffer[3] = rencoder >> 8;
+                            msgbuffer[4] = rencoder & 0xFF;
+                            break;
+
+                        }
                         case LENCODER:
                         {
+                            lencoder = reportLChange();
                             length = 3;
                             msgbuffer[0] = LENCODER;
-                            msgbuffer[1] = 0xF0;
-                            msgbuffer[2] = 0xF1;
+                            msgbuffer[1] = lencoder >> 8;
+                            msgbuffer[2] = lencoder & 0xFF;
                             break;
                         }
                         case RENCODER:
                         {
+                            rencoder = reportRChange();
                             length = 3;
                             msgbuffer[0] = RENCODER;
-                            msgbuffer[1] = 0xF2;
-                            msgbuffer[2] = 0xF3;
+                            msgbuffer[1] = rencoder >> 8;
+                            msgbuffer[2] = rencoder & 0xFF;
+                            break;
                         }
                         default:
                         {

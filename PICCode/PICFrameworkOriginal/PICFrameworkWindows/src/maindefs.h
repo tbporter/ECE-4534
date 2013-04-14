@@ -48,6 +48,7 @@
 #define RELPICADDR 0x9E
 #define SLAVEPIC 1
 
+#define POLLENCD   0xF3
 #define POLLRFID   0xF4
 #define LENCODER   0xF5
 #define RENCODER   0xF6
