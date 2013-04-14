@@ -85,8 +85,6 @@ typedef struct __g9Msg {
 // Message Lengths shall be determined by message type.
 // Define max expected message lengths hur.
 // NOTE: For varible length message, first byte in buf should be length
-
-<<<<<<< HEAD
 #define VAR_MSG_LEN -1
 //vtI2C
 #define vtI2CMsgTypeTempInitLen		2
