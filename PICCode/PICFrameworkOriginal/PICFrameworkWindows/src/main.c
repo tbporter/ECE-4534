@@ -19,7 +19,10 @@
 #include "queue.h"
 #include "zigBee.h"
 #include "my_adc.h"
+#include "relpic.h"
 #include "../../../../common/MESSAGES_G9.h"
+#include <string.h>
+#include "encoders.h"
 
 #ifdef __USE18F45J10
 // CONFIG1L
@@ -80,19 +83,38 @@
 #endif
 #endif
 
+
+/*******************************************************************************/
+// 670071014A5D
+//char tag_finish[] = {'\x02', '6', '7', '0', '0', '7', '1', '0', '1', '4', 'A', '5', 'D', '\xd', '\xa', '\x03', '\0'};
+char tag_finish[] = {'\x02', '6', '7', '0', '0', '7', '1', '0', '1'};
+// 670072BEE04B
+//char tag_slwdwn[] = {'\x02', '6', '7', '0', '0', '7', '2', 'B', 'E', 'E', '0', '4', 'B', '\xd', '\xa', '\x03', '\0'};
+char tag_slwdwn[] = {'\x02', '6', '7', '0', '0', '7', '2', 'B', 'E'};
+// 670072818B1F
+//char tag_spdupp[] = {'\x02', '6', '7', '0', '0', '7', '2', '8', '1', '8', 'B', '1', 'F', '\xd', '\xa', '\x03', '\0'};
+char tag_spdupp[] = {'\x02', '6', '7', '0', '0', '7', '2', '8', '1'};
+// 670072C05184
+//char tag_dirrgt[] = {'\x02', '6', '7', '0', '0', '7', '2', 'C', '0', '5', '1', '8', '4', '\xd', '\xa', '\x03', '\0'};
+char tag_dirrgt[] = {'\x02', '6', '7', '0', '0', '7', '2', 'C', '0'};
+// 670072AF48F2
+//char tag_dirlft[] = {'\x02', '6', '7', '0', '0', '7', '2', 'A', 'F', '4', '8', 'F', '2', '\xd', '\xa', '\x03', '\0'};
+char tag_dirlft[] = {'\x02', '6', '7', '0', '0', '7', '2', 'A', 'F'};
+/*******************************************************************************/
+
 void main(void) {
-    char c;
+    unsigned char i;
     signed char length;
     unsigned char msgtype;
     unsigned char last_reg_recvd;
-    uart_comm uc;
-    i2c_comm ic;
+    uart_comm *uc;
+    i2c_comm *ic;
     unsigned char msgbuffer[MSGLEN + 1];
-    unsigned char i;
     uart_thread_struct uthread_data; // info for uart_lthread
     timer1_thread_struct t1thread_data; // info for timer1_lthread
     timer0_thread_struct t0thread_data; // info for timer0_lthread
 
+#ifdef MASTERPIC
     unsigned char FLIR = 0;
     unsigned char FRIR = 0;
     unsigned char BLIR = 0;
@@ -101,12 +123,18 @@ void main(void) {
     unsigned char SONR = 0;
     unsigned char CURS = 0;
 
-    unsigned char RTAG = 0;
-    Queue uartRXQ;
-    Queue uartTXQ;
+#endif
+
+    unsigned char RTAG = Error;
+    int lencoder = 0;
+    int rencoder = 0;
+    Queue* uartRXQ;
+    Queue* uartTXQ;
+    Queue* rfidRXQ;
     g9Msg txMsg;
-    createQueue(&uartRXQ, 10);
-    createQueue(&uartTXQ, 10);
+    createQueue(uartRXQ, 10);
+    createQueue(uartTXQ, 10);
+    createQueue(rfidRXQ, 5);
     
 
 #ifdef __USE18F2680
@@ -119,10 +147,10 @@ void main(void) {
 #endif
 
     // initialize my uart recv handling code
-    init_uart_recv(&uc);
+    init_uart_recv(uc);
 
     // initialize the i2c code
-    init_i2c(&ic);
+    init_i2c(ic);
 
     // init the timer1 lthread
     init_timer1_lthread(&t1thread_data);
@@ -134,6 +162,8 @@ void main(void) {
     initADC();
 
     // set direction for PORTB to output
+    TRISC = 0x0;
+    LATC = 0x0;
     TRISB = 0x0;
     LATB = 0x0;
 
@@ -237,8 +267,28 @@ void main(void) {
                 };
                 case MSGT_I2C_DATA:
                 {
-                    WriteUSART(msgbuffer[1]);
-                    WriteUSART(msgbuffer[2]);
+#ifdef MASTERPIC
+                    if (msgbuffer[0] == POLLRFID)
+                    {
+                        RTAG = msgbuffer[1];
+                        if (RTAG != None)
+                        {
+                            txMsg.buf[0] = RTAG;
+                            txMsg.length = 1;
+                            txMsg.msgType = navRFIDFoundMsg;
+                            sendZigBeeMsg(&txMsg);
+                        }
+                    }
+                    else if (msgbuffer[0] == LENCODER)
+                    {
+                        //lencoder = (msgbuffer[1] << 8) + msgbuffer[2];
+                        txMsg.buf[0] = msgbuffer[1];
+                        txMsg.buf[1] = msgbuffer[2];
+                        txMsg.length = 2;
+                        txMsg.msgType = navEncoderMsg;
+                    }
+#endif
+
                     break;
                 };
                 case MSGT_I2C_DBG:
@@ -258,7 +308,7 @@ void main(void) {
                     // The last byte received is the "register" that is trying to be read
                     // The response is dependent on the register.
                     switch (last_reg_recvd) {
-                        PORTBbits.RB5 = 1;
+                        //PORTBbits.RB5 = 1;
                         case 0xaa:
                         {
                             length = 2;
@@ -282,15 +332,38 @@ void main(void) {
                         case POLLRFID:
                         {
                             length = 2;
-                            msgbuffer[0] = RTAG;
-                            msgbuffer[1] = POLLRFID;
+                            msgbuffer[0] = POLLRFID;
+                            msgbuffer[1] = RTAG;
+                            RTAG = None;
                             break;
                         }
                         case SENDMTRCMD:
                         {
                             length = 2;
-                            msgbuffer[1] = 0x01;
                             msgbuffer[0] = SENDMTRCMD;
+                            msgbuffer[1] = 0x01;
+                            break;
+                        }
+                        case LENCODER:
+                        {
+                            length = 3;
+                            msgbuffer[0] = LENCODER;
+                            msgbuffer[1] = 0xF0;
+                            msgbuffer[2] = 0xF1;
+                            break;
+                        }
+                        case RENCODER:
+                        {
+                            length = 3;
+                            msgbuffer[0] = RENCODER;
+                            msgbuffer[1] = 0xF2;
+                            msgbuffer[2] = 0xF3;
+                        }
+                        default:
+                        {
+                            length = 2;
+                            msgbuffer[0] = CASEERROR;
+                            msgbuffer[1] = CASEERROR;
                             break;
                         }
                     };
@@ -307,6 +380,26 @@ void main(void) {
                     i2c_master_recv(length, RELPICADDR);
                     break;
                 };
+                case MSGT_POLL_LENCDR:
+                {
+                    length = 2;
+                    msgbuffer[0] = RELPICADDR;
+                    msgbuffer[1] = LENCODER;
+
+                    i2c_master_send(length, msgbuffer);
+                    i2c_master_recv(length+1, RELPICADDR);
+                    break;
+                }
+                case MSGT_POLL_RENCDR:
+                {
+                    length = 2;
+                    msgbuffer[0] = RELPICADDR;
+                    msgbuffer[1] = RENCODER;
+
+                    i2c_master_send(length, msgbuffer);
+                    i2c_master_recv(length+1, RELPICADDR);
+                    break;
+                }
                 case MSGT_SEND_MTRCMD:
                 {
                     unsigned char buf[4];
@@ -314,7 +407,8 @@ void main(void) {
                     buf[1] = SENDMTRCMD;
                     buf[2] = msgbuffer[0];
                     buf[3] = msgbuffer[1];
-                    i2c_master_send(4, &buf);
+                    //i2c_master_send(4, &buf);
+                    break;
                 }
                 default:
                 {
@@ -341,11 +435,44 @@ void main(void) {
                 case MSGT_OVERRUN:
                 case MSGT_UART_DATA:
                 {
-                    uart_lthread(&uthread_data, msgtype, length, msgbuffer, &uartRXQ);
+                    uart_lthread(&uthread_data, msgtype, length, msgbuffer, uartRXQ);
+                    break;
+                };
+                case MSGT_UART_RFID:
+                {
+                    PORTCbits.RC0 = 1;
+                    if (strncmp(msgbuffer, tag_spdupp, 9) == 0)
+                    {
+                        PORTCbits.RC1 = 1;
+                        RTAG = SpeedUp;
+                    }
+                    else if (strncmp(msgbuffer, tag_slwdwn, 9) == 0)
+                    {
+                        PORTCbits.RC2 = 1;
+                        RTAG = SlowDown;
+                    }
+                    else if (strncmp(msgbuffer, tag_finish, 9) == 0)
+                    {
+                        RTAG = Finish;
+                    }
+                    else if (strncmp(msgbuffer, tag_dirrgt, 9) == 0)
+                    {
+                        RTAG = GoRight;
+                    }
+                    else if (strncmp(msgbuffer, tag_dirlft, 9) == 0)
+                    {
+                        RTAG = GoLeft;
+                    }
+                    else
+                    {
+                        RTAG = Error;
+                    }
+                    //uart_lthread(&uthread_data, msgtype, length, msgbuffer, rfidRXQ);
                     break;
                 };
                 case MSGT_ADC_DATA:
                 {
+#ifdef MASTERPIC
                     readADC(&FLIR, ADC_CH0);
                     readADC(&FRIR, ADC_CH1);
                     readADC(&BLIR, ADC_CH2);
@@ -362,9 +489,16 @@ void main(void) {
                     txMsg.buf[4] = SONL;
                     txMsg.buf[5] = SONR;
                     txMsg.buf[6] = CURS;
-                    sendZigBeeMsg(&txMsg);
+                    //sendZigBeeMsg(&txMsg);
                     //WriteUSART(FLIR);
                     //WriteUSART(FRIR);
+#endif
+                    break;
+                }
+                case MSGT_RFID_READ:
+                {
+                    if (!isQEmpty(rfidRXQ))
+                        readQueue(rfidRXQ, &RTAG);
                     break;
                 }
                 default:

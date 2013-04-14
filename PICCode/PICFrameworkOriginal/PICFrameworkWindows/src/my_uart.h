@@ -3,10 +3,13 @@
 
 #include "messages.h"
 
+#ifdef MASTERPIC
 #define MAXUARTBUF 1
-#if (MAXUARTBUF > MSGLEN)
-#define MAXUARTBUF MSGLEN
+#else
+#define MAXUARTBUF 16
 #endif
+
+
 typedef struct __uart_comm {
 	unsigned char buffer[MAXUARTBUF];
 	unsigned char	buflen;
