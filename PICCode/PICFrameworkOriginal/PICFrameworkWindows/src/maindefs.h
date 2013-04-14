@@ -42,12 +42,14 @@
 #define MSGT_RFID_READ 70
 #define MSGT_POLL_LENCDR 80
 #define MSGT_POLL_RENCDR 81
+#define MSGT_POLL_FLINE 90
 
 
 //#define MASTERPIC 1
 #define RELPICADDR 0x9E
 #define SLAVEPIC 1
 
+#define POLLFLINE  0xF2
 #define POLLENCD   0xF3
 #define POLLRFID   0xF4
 #define LENCODER   0xF5
