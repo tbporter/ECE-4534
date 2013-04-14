@@ -27,6 +27,7 @@
 #define MSGT_MAIN1 20
 #define	MSGT_OVERRUN 30
 #define MSGT_UART_DATA 31
+#define MSGT_UART_RFID 32
 #define MSGT_I2C_DBG 41
 #define	MSGT_I2C_DATA 40
 #define MSGT_I2C_RQST 42
@@ -35,15 +36,24 @@
 #define MSGT_I2C_MASTER_RECV_COMPLETE 45
 #define MSGT_I2C_MASTER_RECV_FAILED 46
 #define MSGT_POLL_PICS 13
+
 #define MSGT_SEND_MTRCMD 50
 #define MSGT_ADC_DATA 60
+#define MSGT_RFID_READ 70
+#define MSGT_POLL_LENCDR 80
+#define MSGT_POLL_RENCDR 81
 
-#define MASTERPIC 1
+
+//#define MASTERPIC 1
 #define RELPICADDR 0x9E
-//#define SLAVEPIC 1
+#define SLAVEPIC 1
 
+#define POLLENCD   0xF3
 #define POLLRFID   0xF4
+#define LENCODER   0xF5
+#define RENCODER   0xF6
 #define SENDMTRCMD 0xF7
+#define CASEERROR  0xFF
 
 #endif
 

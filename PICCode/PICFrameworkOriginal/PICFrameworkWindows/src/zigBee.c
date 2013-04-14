@@ -105,7 +105,7 @@ void doZigBee(int length, unsigned char *msgbuffer, Queue *rcvQ){
         {
             //Copy data to zigBeeMsg until reached length
             int numMsgs = getNumMessagesQueue(rcvQ);
-            PORTBbits.RB5 = 1;
+            //PORTBbits.RB5 = 1;
             if(curI<len){
                 for( i=0; i<numMsgs; i++, curI++){
                     readQueue(rcvQ,&(msg.data[curI]));
@@ -205,7 +205,7 @@ void processMsg(zigBeeMsg* msg){
         //Send to slaves
         g9Msg outMsg;
         zigBee2G9Msg(msg, &outMsg);
-        PORTBbits.RB5 = 1;
+        //PORTBbits.RB5 = 1;
         
         if(outMsg.msgType == navMotorCmdMsg)
             ToMainHigh_sendmsg(outMsg.length, MSGT_SEND_MTRCMD, outMsg.buf);
