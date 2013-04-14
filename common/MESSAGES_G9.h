@@ -6,7 +6,7 @@
 #define uint8_t UINT8
 #define uint16_t UINT16
 #else
-#include <stdint.h>// If this doesn't work with pic just define uint8_t as unsigned char
+#include <stdint.h>
 #endif
 
 #define ENC_POLL_RATE	100 //ms
@@ -85,83 +85,6 @@ typedef struct __g9Msg {
     uint8_t id; // Used to check for dropped messages **Won't be used until wireless**
     uint8_t buf[MAX_MSG_LEN]; // On the way in, message to be sent, on the way out, message received (if any)
 } g9Msg;
-
-
-
-// Message Lengths shall be determined by message type.
-// Define max expected message lengths hur.
-// NOTE: For varible length message, first byte in buf should be length
-<<<<<<< HEAD
-#define VAR_MSG_LEN -1
-//vtI2C
-#define vtI2CMsgTypeTempInitLen		2
-#define vtI2CMsgTypeTempRead1Len 	1
-#define vtI2CMsgTypeTempRead2Len 	1
-#define vtI2CMsgTypeTempRead3Len 	1
-#define TempMsgTypeTimerLen				0
-
-//OScope
-#define oScopeRead1Len					1
-#define oScopeRead2Len					1
-#define oScopeTimerLen					0
-
-// LCD_Task
-#define LCDMsgTypeTimerLen				1
-#define LCDMsgTypePrintLen				VAR_LEN
-
-//LCD OScope Task
-#define lcdOScopeDataLen				2
-#define lcdOScopeTimerLen				0
-
-//Navigation Task
-#define navMotorCmdLen					2
-#define navLineFoundLen					0
-#define navIRDataLen					3							
-#define navRFIDFoundLen					1
-
-//Webpage
-#define webDebugLen						VAR_LEN
-
-//Max lengths per Task, used for sizing the Queues
-#define baseMAX_LEN	sizeof(g9Msg)
-#define navMAX_LEN	( baseMAX_LEN + (navIRDataLen - 1)*sizeof(uint8_t))
-=======
-=======
-
->>>>>>> 4abaed625a687dbd2d2edfdf17f4e6821e9d08de
-//	#define VAR_MSG_LEN -1
-//	//vtI2C
-//	#define vtI2CMsgTypeTempInitLen		2
-//	#define vtI2CMsgTypeTempRead1Len 	1
-//	#define vtI2CMsgTypeTempRead2Len 	1
-//	#define vtI2CMsgTypeTempRead3Len 	1
-//	#define TempMsgTypeTimerLen				0
-//
-//	//OScope
-//	#define oScopeRead1Len					1
-//	#define oScopeRead2Len					1
-//	#define oScopeTimerLen					0
-//	
-//	// LCD_Task
-//	#define LCDMsgTypeTimerLen				1
-//	#define LCDMsgTypePrintLen				VAR_LEN
-//
-//	//LCD OScope Task
-//	#define lcdOScopeDataLen				2
-//	#define lcdOScopeTimerLen				0
-//	
-//	//Navigation Task
-//	#define navMotorCmdLen					2
-//	#define navLineFoundLen					0
-//	#define navIRDataLen					3							
-//	#define navRFIDFoundLen					1
-//	
-//	//Webpage
-//	#define webDebugLen						VAR_LEN
-//	
-//	//Max lengths per Task, used for sizing the Queues
-//	#define baseMAX_LEN	sizeof(g9Msg)
-//	#define navMAX_LEN	( baseMAX_LEN + (navIRDataLen - 1)*sizeof(uint8_t))
 
 #define G9_LEN_NO_BUFF 3;
 
