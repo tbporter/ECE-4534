@@ -104,7 +104,7 @@ char tag_dirlft[] = {'\x02', '6', '7', '0', '0', '7', '2', 'A', 'F'};
 
 void main(void) {
     unsigned char i;
-    signed char length;
+    signed char length, slength, rlength;
     unsigned char msgtype;
     unsigned char last_reg_recvd;
     uart_comm *uc;
@@ -433,24 +433,37 @@ void main(void) {
                     i2c_master_recv(length, RELPICADDR);
                     break;
                 };
+                case MSGT_POLL_ENCDRS:
+                {
+                    slength = 2;
+                    rlength = 5;
+                    msgbuffer[0] = RELPICADDR;
+                    msgbuffer[1] = POLLENCD;
+
+                    i2c_master_send(slength, msgbuffer);
+                    i2c_master_recv(rlength, RELPICADDR);
+                    break;
+                }
                 case MSGT_POLL_LENCDR:
                 {
-                    length = 2;
+                    slength = 2;
+                    rlength = 3;
                     msgbuffer[0] = RELPICADDR;
                     msgbuffer[1] = LENCODER;
 
-                    i2c_master_send(length, msgbuffer);
-                    i2c_master_recv(length+1, RELPICADDR);
+                    i2c_master_send(slength, msgbuffer);
+                    i2c_master_recv(rlength, RELPICADDR);
                     break;
                 }
                 case MSGT_POLL_RENCDR:
                 {
-                    length = 2;
+                    slength = 2;
+                    rlength = 3;
                     msgbuffer[0] = RELPICADDR;
                     msgbuffer[1] = RENCODER;
 
-                    i2c_master_send(length, msgbuffer);
-                    i2c_master_recv(length+1, RELPICADDR);
+                    i2c_master_send(slength, msgbuffer);
+                    i2c_master_recv(rlength, RELPICADDR);
                     break;
                 }
                 case MSGT_SEND_MTRCMD:
@@ -465,12 +478,13 @@ void main(void) {
                 }
                 case MSGT_POLL_FLINE:
                 {
-                    length = 2;
+                    slength = 2;
+                    rlength = 3;
                     msgbuffer[0] = RELPICADDR;
                     msgbuffer[1] = POLLFLINE;
 
-                    i2c_master_send(length, msgbuffer);
-                    i2c_master_recv(length+1, RELPICADDR);
+                    i2c_master_send(slength, msgbuffer);
+                    i2c_master_recv(rlength, RELPICADDR);
                 }
                 default:
                 {
