@@ -1,6 +1,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include "g9_webTask.h"
 #include "g9_NavTask.h"
 
@@ -12,7 +13,10 @@
 
 #define MAX_SPEED	10 // m/s
 #define MIN_SPEED	3  // m/s
-#define TURN_ANGLE	90 //Degrees
+#define MAX_SPD_DELTA 10
+
+#define MAX_TURN_ANGLE	90 //Degrees
+#define MIN_TURN_ANGLE	60 //Degrees
 
 //helper functions for setting motor speeds
 typedef union {
@@ -24,11 +28,14 @@ typedef union {
 } motorData_t;
 
 motorData_t motorData;
+
+
 int curState;
 int leftIR;
 int rightIR;
 uint8_t tagValue = None; // Holds any rfid tags that have been found
 Bool lineFound = FALSE;
+
 
 void setMotorData(motorData_t* motorData, uint8_t left, uint8_t right){
 	left &= 0x7F;
@@ -58,7 +65,7 @@ void getMotorData(motorData_t* motorData, uint8_t* left, uint8_t* right){
 static portTASK_FUNCTION_PROTO( navigationUpdateTask, pvParameters );
 
 //Converts an encoder value to a distance (cm) traveled
-inline float enc2Dist(int enc){
+inline float enc2Dist(short enc){
 	#define ROLL_OUT 38.1 //cm -- guess
 	#define TICKS_PER_REV 12000	// guess
 	return (ROLL_OUT*enc)/TICKS_PER_REV;
@@ -67,7 +74,7 @@ inline float enc2Dist(int enc){
 
 //Converts an encoder value into an angle (degrees)
 //NOTE: 0 if forward, 180 is backwards, + is left, - is right
-inline float enc2Ang(int leftEnc, int rightEnc){
+inline float enc2Ang(short leftEnc, short rightEnc){
 	#define ROVER_WIDTH 30.48 //cm -- guess
 	float dS = enc2Dist(rightEnc) - enc2Dist(leftEnc); //differential
 	//float R = (enc2Dist(leftEnc)/dS+1)*ROVER_WIDTH;
@@ -75,9 +82,9 @@ inline float enc2Ang(int leftEnc, int rightEnc){
 }
 
 //Get speed (m/s) from enc value
-inline float enc2Speed(int leftEnc, int rightEnc){
+inline float enc2Speed(short leftEnc, short rightEnc){
 	//Get "middle" encoder value
-	int medEnc = (leftEnc + rightEnc)/2;
+	short medEnc = (leftEnc + rightEnc)/2;
 	//Calculate velocity
 	return ( 10.0*enc2Dist(medEnc) )/ENC_POLL_RATE; //  1000/100 ms*m/s*cm * 1 cm/ms = 10 cm/ms = 1 m/s
 }
@@ -109,7 +116,7 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 				break;
 	
 			case navEncoderMsg:
-					printw("<b>navEncoderMsg</b> %d\n",msg->buf[0]);
+					printw("<b>navEncoderMsg</b> %d %d\n",((short*)msg->buf)[0], ((short*)msg->buf)[1]);
 				break;
 			
 			case navLineFoundMsg:
@@ -145,10 +152,12 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	g9Msg msgBuffer;
 
 	curState = 0;
-	int enc = 0; //Encoder value
+
 	// Like all good tasks, this should never exit
 	for(;;)
 	{
+		int16_t enc[2] = {0,0}; //Encoder value
+
 		// Wait for a message from the "otherside"
 		portBASE_TYPE ret;
 		if ((ret = xQueueReceive(navData->inQ,(void *) &msgBuffer,portMAX_DELAY) ) != pdTRUE) {
@@ -164,7 +173,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		switch (msgBuffer.msgType){
 		case navLineFoundMsg:
 			//stop we have found the finish line!!!
-			lineFound = TRUE;
+			if( ((int*)msgBuffer.buf)[0] >= LINE_FOUND_THRE) lineFound = TRUE;
 			break;
 		
 		case navIRDataMsg:
@@ -174,9 +183,11 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			break;
 
 		case navEncoderMsg:
-			enc = msgBuffer.buf[0];
+				//Get encoder values
+				enc[0] = ((short*)msgBuffer.buf)[0];
+				enc[1] = ((short*)msgBuffer.buf)[1];
 			break;
-		
+
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
 			tagValue |= msgBuffer.buf[0];
@@ -189,7 +200,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		}
 
 		stateMachine();
-		handleSpecialEvents(5.3);
+		handleSpecialEvents(enc);
 
 		msg.buf[0] = motorData.left;
 		msg.buf[1] = motorData.right;		
@@ -200,17 +211,17 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 
 void stateMachine(){
-	setMotorData(&motorData,0,0);
+	setMotorData(&motorData,64,64);
 	switch(curState){
 		#define min_dist 100
 		//Simple state, lets just lean to the left or right based off the IR
 		case 0:
 			if(getWebStart()==1){
 				if(rightIR>120){
-									setMotorData(&motorData,70,90);
+					setMotorData(&motorData,70,90);
 				}
 				else if(leftIR>120){
-									setMotorData(&motorData,90,70);
+					setMotorData(&motorData,90,70);
 				}
 				else if(rightIR>100){
 					setMotorData(&motorData,95,110);
@@ -223,20 +234,81 @@ void stateMachine(){
 				}
 			}
 			else{
-				setMotorData(&motorData,0,0);
+				setMotorData(&motorData,64,64);
 			}	
 
 	}
 
 }
 
-void adjustSpeed(int enc, float targetSpeed){
+void adjustSpeed(short leftEnc, short rightEnc, float targetSpeed){
+	#define getSpeed(old,del) (((old)>64)?(old + delta):( ((old)==64)?(64):(old-delta) ))  //Increase magnitude of old if not 64
 	//Get speed
-	//Adjust to target
+	float curSpeed = enc2Speed(leftEnc,rightEnc);
+	float diff = curSpeed - targetSpeed;
+	char delta = 0;
+	uint8_t left, right;
+	int newLeft, newRight;
+	//Calculate delta
+	if( diff > 0.0 || diff < -0.1 ){ //If outside of tolerance of -0.1 to 0
+		//Speed Up
+		delta = pow( diff/MAX_SPEED , 2) * MAX_SPD_DELTA;
+		//Slow Down
+		if( delta > 0 ) delta = -delta;
+
+	}
+	//else do nothing;
+
+	//Get motor values
+	getMotorData(&motorData, &left, &right);
+
+	newLeft  = getSpeed(left,delta);
+	newRight = getSpeed(right,delta);
+
+	//Contrain values
+	if( newLeft > 127 || newLeft < 1 || \
+		newRight > 127 || newLeft < 1){
+		//Delta is too large, adjust it
+		if( delta > 0 ){
+			uint8_t maxMotor = max( newLeft, newRight);
+			delta -= maxMotor-127;
+		}
+		else{
+			uint8_t minMotor = min( newLeft, newRight );
+			delta += 1-minMotor;
+		}
+		//Set new motor values
+		newLeft  = getSpeed(left,delta);
+		newRight = getSpeed(right,delta);
+	}
+
+	//apply motor values
+	setMotorData(&motorData, newLeft, newRight);
+
+}
+
+char doTurn(int curAngle, int minAngle, int maxAngle){
+	if( curAngle < MAX_TURN_ANGLE ){
+		if( curAngle >= MIN_TURN_ANGLE ){
+			//TODO: Check IR to see if can proceed yet, if not, continue turning
+			if(0){
+			 	return 1; //Done, Clear to Proceed
+			}
+		}
+	}
+	else{
+		//TODO: Check IR to see if safe to proceed, if not, return 2
+		if(0){
+			return 2;//Done, Path Is Blocked
+		}
+		return 1; //Done, Clear To Proceed
+	}
+	return 0; //Continue turning
 }
 									  
-void handleSpecialEvents(float speed){
+void handleSpecialEvents(short* enc){
 	static uint8_t oldTagValue = None;
+	static short elapsedEnc[2] = {0,0};
 	//Check for Error
 	if( tagValue & Error ){
 		//Report Error, Clear Flag, and Do Nothing
@@ -261,32 +333,72 @@ void handleSpecialEvents(float speed){
 			case GoLeft:
 				//Disable RIGHT
 				disableTag(GoRight);
+				elapsedEnc[0] = 0;
+				elapsedEnc[1] = 0;
 				break;
 			case GoRight:
 				//Disable LEFT
 				disableTag(GoLeft);
+				elapsedEnc[0] = 0;
+				elapsedEnc[1] = 0;
 				break;
 		}
 	}
 
 	if( tagValue & SpeedUp ){ //SPD UP
-		//check speed
-			//adjust to target	 
+		//adjust to target
+		adjustSpeed(enc[0], enc[1], MAX_SPEED);	 
 	}
 	if( tagValue & SlowDown ){ //SPD DOWN
-		
+		//adjust to target
+		adjustSpeed(enc[0], enc[1], MIN_SPEED);		
 	}
 	if( tagValue & GoLeft ){ //LEFT
-		
+		//Update Encoder counts
+		elapsedEnc[0] += enc[0];
+		elapsedEnc[1] += enc[1];
+		//Check angle
+		float angle = enc2Ang(elapsedEnc[0], elapsedEnc[1]);
+		switch( doTurn(angle,MIN_TURN_ANGLE,MAX_TURN_ANGLE) ){
+			case 0: //Continue
+				setMotorData(&motorData,32,96); //Half Speed 0-Radius Left Turn
+				break;
+			case 1: //Done, Proceed
+				disableTag(GoLeft);
+				break;
+			case 2:	//Done, Blocked
+				disableTag(GoLeft);
+				enableTag(GoRight);
+				//TODO: Handle stuck at corner situation
+				break;
+		} 
+			
 	}
 	if( tagValue & GoRight ){ //RIGHT
-		
+		//Update Encoder counts
+		elapsedEnc[0] += enc[0];
+		elapsedEnc[1] += enc[1];
+		//Check angle
+		float angle = -enc2Ang(elapsedEnc[0], elapsedEnc[1]);
+		switch( doTurn(angle,MIN_TURN_ANGLE,MAX_TURN_ANGLE) ){
+			case 0: //Continue
+				setMotorData(&motorData,96,32); //Half Speed 0-Radius Right Turn
+				break;
+			case 1: //Done, Proceed
+				disableTag(GoRight);
+				break;
+			case 2:	//Done, Blocked
+				disableTag(GoRight);
+				enableTag(GoLeft);
+				//TODO: Handle stuck at corner situation
+				break;
+		} 
 		
 	}
 
 	if( tagValue & Finish ){ //FIN -- AT END TO ENSURE STOPPING IN EVENT OF OTHER TAGS
 		//Stop if found line
-		if(lineFound == TRUE) setMotorData(&motorData,0,0);
+		if(lineFound == TRUE) setMotorData(&motorData,64,64);
 		//else slow down?
 	}
 
@@ -295,7 +407,11 @@ void handleSpecialEvents(float speed){
 	return;
 }
 
-void disableTag(uint8_t tag){
+inline void disableTag(uint8_t tag){
 	 tagValue &= (~tag & 0xFF);
+}
+
+inline void enableTag(uint8_t tag){
+	 tagValue |= tag;
 }
 

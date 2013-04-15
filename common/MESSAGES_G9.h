@@ -10,6 +10,7 @@
 #endif
 
 #define ENC_POLL_RATE	100 //ms
+#define LINE_FOUND_THRE 6000
 
 typedef enum {
 	//vtI2C
