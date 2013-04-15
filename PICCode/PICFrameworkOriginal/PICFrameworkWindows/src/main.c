@@ -104,7 +104,7 @@ char tag_dirlft[] = {'\x02', '6', '7', '0', '0', '7', '2', 'A', 'F'};
 
 void main(void) {
     unsigned char i;
-    signed char length;
+    signed char length, slength, rlength;
     unsigned char msgtype;
     unsigned char last_reg_recvd;
     uart_comm *uc;
@@ -123,6 +123,11 @@ void main(void) {
     unsigned char SONR = 0;
     unsigned char CURS = 0;
 
+#endif
+
+#ifdef SLAVEPIC
+    int sen0 = 0, sen1 = 0, sen2 = 0, sen3 = 0, sen4 = 0, sen5 = 0, sen6 = 0, sen7 = 0;
+    int sencount = 0;
 #endif
 
     unsigned char RTAG = Error;
@@ -285,6 +290,7 @@ void main(void) {
                         txMsg.buf[1] = msgbuffer[2];
                         txMsg.buf[2] = msgbuffer[3];
                         txMsg.buf[3] = msgbuffer[4];
+                        txMsg.length = 4;
                         txMsg.msgType = navEncoderMsg;
                         sendZigBeeMsg(&txMsg);
                     }
@@ -298,7 +304,16 @@ void main(void) {
                         txMsg.buf[1] = lencoder & 0xFF;
                         txMsg.buf[2] = msgbuffer[1];
                         txMsg.buf[3] = msgbuffer[2];
+                        txMsg.length = 4;
                         txMsg.msgType = navEncoderMsg;
+                        sendZigBeeMsg(&txMsg);
+                    }
+                    else if (msgbuffer[0] == POLLFLINE)
+                    {
+                        txMsg.buf[0] = msgbuffer[1];
+                        txMsg.buf[1] = msgbuffer[2];
+                        txMsg.length = 2;
+                        txMsg.msgType = navLineFoundMsg;
                         sendZigBeeMsg(&txMsg);
                     }
 #endif
@@ -389,6 +404,14 @@ void main(void) {
                             msgbuffer[2] = rencoder & 0xFF;
                             break;
                         }
+                        case POLLFLINE:
+                        {
+                            length = 3;
+                            msgbuffer[0] = POLLFLINE;
+                            msgbuffer[1] = sencount >> 8;
+                            msgbuffer[2] = sencount & 0xFF;
+                            break;
+                        }
                         default:
                         {
                             length = 2;
@@ -410,24 +433,37 @@ void main(void) {
                     i2c_master_recv(length, RELPICADDR);
                     break;
                 };
+                case MSGT_POLL_ENCDRS:
+                {
+                    slength = 2;
+                    rlength = 5;
+                    msgbuffer[0] = RELPICADDR;
+                    msgbuffer[1] = POLLENCD;
+
+                    i2c_master_send(slength, msgbuffer);
+                    i2c_master_recv(rlength, RELPICADDR);
+                    break;
+                }
                 case MSGT_POLL_LENCDR:
                 {
-                    length = 2;
+                    slength = 2;
+                    rlength = 3;
                     msgbuffer[0] = RELPICADDR;
                     msgbuffer[1] = LENCODER;
 
-                    i2c_master_send(length, msgbuffer);
-                    i2c_master_recv(length+1, RELPICADDR);
+                    i2c_master_send(slength, msgbuffer);
+                    i2c_master_recv(rlength, RELPICADDR);
                     break;
                 }
                 case MSGT_POLL_RENCDR:
                 {
-                    length = 2;
+                    slength = 2;
+                    rlength = 3;
                     msgbuffer[0] = RELPICADDR;
                     msgbuffer[1] = RENCODER;
 
-                    i2c_master_send(length, msgbuffer);
-                    i2c_master_recv(length+1, RELPICADDR);
+                    i2c_master_send(slength, msgbuffer);
+                    i2c_master_recv(rlength, RELPICADDR);
                     break;
                 }
                 case MSGT_SEND_MTRCMD:
@@ -439,6 +475,16 @@ void main(void) {
                     buf[3] = msgbuffer[1];
                     //i2c_master_send(4, &buf);
                     break;
+                }
+                case MSGT_POLL_FLINE:
+                {
+                    slength = 2;
+                    rlength = 3;
+                    msgbuffer[0] = RELPICADDR;
+                    msgbuffer[1] = POLLFLINE;
+
+                    i2c_master_send(slength, msgbuffer);
+                    i2c_master_recv(rlength, RELPICADDR);
                 }
                 default:
                 {
@@ -529,6 +575,19 @@ void main(void) {
                 {
                     if (!isQEmpty(rfidRXQ))
                         readQueue(rfidRXQ, &RTAG);
+                    break;
+                }
+                case MSGT_POLL_FLINE:
+                {
+                    readADC(&sen0, ADC_CH0);
+                    readADC(&sen1, ADC_CH1);
+                    readADC(&sen2, ADC_CH2);
+                    readADC(&sen3, ADC_CH3);
+                    readADC(&sen4, ADC_CH4);
+                    readADC(&sen5, ADC_CH5);
+                    readADC(&sen6, ADC_CH6);
+                    readADC(&sen7, ADC_CH7);
+                    sencount = sen0 + sen1 + sen2 + sen3 + sen4 + sen5 + sen6 + sen7;
                     break;
                 }
                 default:

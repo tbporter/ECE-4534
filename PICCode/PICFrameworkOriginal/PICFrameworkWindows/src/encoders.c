@@ -63,7 +63,7 @@ int reportLChange(void)
     int prevChange = lchange;
     lchange = 0;
     //return prevChange;
-    return 0xFFF3;
+    return prevChange;
 }
 
 int reportRChange(void)
@@ -71,5 +71,5 @@ int reportRChange(void)
     int prevChange = rchange;
     rchange = 0;
     //return prevChange;
-    return 0xFFF4;
+    return prevChange;
 }
