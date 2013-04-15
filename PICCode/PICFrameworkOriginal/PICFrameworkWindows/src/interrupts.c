@@ -131,5 +131,12 @@ void InterruptHandlerLow() {
         PIR1bits.RCIF = 0; //clear interrupt flag
         uart_recv_int_handler();
     }
+
+    // check to see if we have an interrupt on IOC
+    if (INTCONbits.RBIF)
+    {
+        INTCONbits.RBIF = 0;
+        encoderIntHandler();
+    }
 }
 

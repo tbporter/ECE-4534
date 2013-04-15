@@ -198,6 +198,11 @@ void main(void) {
     // I2C interrupt
     IPR1bits.SSPIP = 1;
 
+#ifdef SLAVEPIC
+    INTCON2bits.RBIP = 0;
+    initEncoders();
+#endif
+
     // configure the hardware i2c device as a slave (0x9E -> 0x4F) or (0x9A -> 0x4D)
 #if 1
     // Note that the temperature sensor Address bits (A0, A1, A2) are also the
@@ -223,6 +228,8 @@ void main(void) {
 
     // must specifically enable the I2C interrupts
     PIE1bits.SSPIE = 1;
+    // must specifically enable IOC interrupts
+    INTCONbits.RBIE = 1;
 
     // configure the hardware USART device
     OpenUSART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
@@ -579,14 +586,14 @@ void main(void) {
                 }
                 case MSGT_POLL_FLINE:
                 {
-                    readADC(&sen0, ADC_CH0);
-                    readADC(&sen1, ADC_CH1);
-                    readADC(&sen2, ADC_CH2);
-                    readADC(&sen3, ADC_CH3);
-                    readADC(&sen4, ADC_CH4);
-                    readADC(&sen5, ADC_CH5);
-                    readADC(&sen6, ADC_CH6);
-                    readADC(&sen7, ADC_CH7);
+                    readIADC(&sen0, ADC_CH0);
+                    readIADC(&sen1, ADC_CH1);
+                    readIADC(&sen2, ADC_CH2);
+                    readIADC(&sen3, ADC_CH3);
+                    readIADC(&sen4, ADC_CH4);
+                    readIADC(&sen5, ADC_CH5);
+                    readIADC(&sen6, ADC_CH6);
+                    readIADC(&sen7, ADC_CH7);
                     sencount = sen0 + sen1 + sen2 + sen3 + sen4 + sen5 + sen6 + sen7;
                     break;
                 }

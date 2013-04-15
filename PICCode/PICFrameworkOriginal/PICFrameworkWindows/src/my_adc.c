@@ -25,6 +25,15 @@ void readADC(unsigned char* value, unsigned char channel) {
     return;
 }
 
+void readIADC(int* value, unsigned char channel)
+{
+    SetChanADC(channel);
+    ConvertADC();
+    while (BusyADC());
+    *value = ReadADC();
+    return;
+}
+
 void stopADC() {
     CloseADC();
     return;
