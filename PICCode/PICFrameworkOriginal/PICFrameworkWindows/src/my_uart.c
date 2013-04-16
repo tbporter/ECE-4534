@@ -14,12 +14,15 @@ void uart_recv_int_handler() {
         uc_ptr->buffer[uc_ptr->buflen] = ReadUSART();
         
         uc_ptr->buflen++;
+        
         // check if a message should be sent
         if (uc_ptr->buflen == MAXUARTBUF) {
 #ifdef MASTERPIC
             ToMainLow_sendmsg(uc_ptr->buflen, MSGT_UART_DATA, (void *) uc_ptr->buffer);
 #else
-            ToMainLow_sendmsg(uc_ptr->buflen, MSGT_UART_RFID, (void *) uc_ptr->buffer);
+            PORTCbits.RC1 = 1;
+            
+            ToMainHigh_sendmsg(uc_ptr->buflen, MSGT_UART_RFID, (void *) uc_ptr->buffer);
 #endif
             uc_ptr->buflen = 0;
         }
