@@ -20,14 +20,20 @@ int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned
         //ToMainLow_sendmsg(0, MSGT_ADC_DATA, (void*) 0);
         ToMainHigh_sendmsg(0, MSGT_POLL_PICS, (void*) 0);
 #endif
-        PORTBbits.RB4 = !PORTBbits.RB4;
-        //tptr->msgcount = 0;
+        tptr->msgcount = 0;
     }
 #ifdef MASTERPIC
-    else if ((tptr->msgcount % 101) == 0)
+    else if ((tptr->msgcount % 50) == 0)
+    {
+        ToMainHigh_sendmsg(0, MSGT_POLL_FLINE, (void*) 0);
+        
+    }
+#endif
+#ifdef MASTERPIC
+    else if ((tptr->msgcount % 20) == 0)
     {
         ToMainHigh_sendmsg(0, MSGT_POLL_ENCDRS, (void*) 0);
-        tptr->msgcount = 0;
+        //tptr->msgcount = 0;
     }
 
 #endif
