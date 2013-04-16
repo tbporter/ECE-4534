@@ -29,6 +29,7 @@ int timer1_lthread(timer1_thread_struct *tptr, int msgtype, int length, unsigned
         ToMainHigh_sendmsg(0, MSGT_POLL_ENCDRS, (void*) 0);
         tptr->msgcount = 0;
     }
+
 #endif
 
 }
