@@ -20,7 +20,6 @@ void initEncoders(void)
 
 void encoderIntHandler(void)
 {
-    PORTCbits.RC0 = 1;
     // figure out which of the 4 bits changed
     if (enL_setA != PORTBbits.KBI0)
     {

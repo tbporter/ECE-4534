@@ -147,7 +147,7 @@ void main(void) {
     //int sen0 = 0, sen1 = 0, sen2 = 0, sen3 = 0, sen4 = 0, sen5 = 0, sen6 = 0, sen7 = 0;
 #endif
 
-    unsigned char RTAG = Error;
+    unsigned char RTAG = None;
     int lencoder = 0;
     int rencoder = 0;
     Queue* uartRXQ;
@@ -189,6 +189,7 @@ void main(void) {
     TRISB = 0x0;
     LATB = 0x0;
     TRISB = 0xF0;
+    TRISCbits.RC6 = 1;
 
     // how to set up PORTA for input (for the V4 board with the PIC2680)
     /*
@@ -499,6 +500,39 @@ void main(void) {
                     i2c_master_send(slength, msgbuffer);
                     i2c_master_recv(rlength, RELPICADDR);
                 }
+                case MSGT_UART_RFID:
+                {
+#ifdef SLAVEPIC
+                    PORTCbits.RC2 = 1;
+                    if (strncmp(msgbuffer, tag_spdupp, 9) == 0)
+                    {
+                       RTAG = SpeedUp;
+                    }
+                    else if (strncmp(msgbuffer, tag_slwdwn, 9) == 0)
+                    {
+                        RTAG = SlowDown;
+                    }
+                    else if (strncmp(msgbuffer, tag_finish, 9) == 0)
+                    {
+                        PORTCbits.RC0 = 1;
+                        RTAG = Finish;
+                    }
+                    else if (strncmp(msgbuffer, tag_dirrgt, 9) == 0)
+                    {
+                        RTAG = GoRight;
+                    }
+                    else if (strncmp(msgbuffer, tag_dirlft, 9) == 0)
+                    {
+                        RTAG = GoLeft;
+                    }
+                    else
+                    {
+                        RTAG = Error;
+                    }
+#endif
+                    //uart_lthread(&uthread_data, msgtype, length, msgbuffer, rfidRXQ);
+                    break;
+                };
                 default:
                 {
                     // Your code should handle this error
@@ -527,40 +561,7 @@ void main(void) {
                     uart_lthread(&uthread_data, msgtype, length, msgbuffer, uartRXQ);
                     break;
                 };
-                case MSGT_UART_RFID:
-                {
-#ifdef SLAVEPIC
-                    PORTCbits.RC0 = 1;
-                    if (strncmp(msgbuffer, tag_spdupp, 9) == 0)
-                    {
-                        PORTCbits.RC1 = 1;
-                        RTAG = SpeedUp;
-                    }
-                    else if (strncmp(msgbuffer, tag_slwdwn, 9) == 0)
-                    {
-                        PORTCbits.RC2 = 1;
-                        RTAG = SlowDown;
-                    }
-                    else if (strncmp(msgbuffer, tag_finish, 9) == 0)
-                    {
-                        RTAG = Finish;
-                    }
-                    else if (strncmp(msgbuffer, tag_dirrgt, 9) == 0)
-                    {
-                        RTAG = GoRight;
-                    }
-                    else if (strncmp(msgbuffer, tag_dirlft, 9) == 0)
-                    {
-                        RTAG = GoLeft;
-                    }
-                    else
-                    {
-                        RTAG = Error;
-                    }
-#endif
-                    //uart_lthread(&uthread_data, msgtype, length, msgbuffer, rfidRXQ);
-                    break;
-                };
+                
                 case MSGT_ADC_DATA:
                 {
 #ifdef MASTERPIC
@@ -588,8 +589,6 @@ void main(void) {
                 }
                 case MSGT_RFID_READ:
                 {
-                    if (!isQEmpty(rfidRXQ))
-                        readQueue(rfidRXQ, &RTAG);
                     break;
                 }
                 case MSGT_POLL_FLINE:
