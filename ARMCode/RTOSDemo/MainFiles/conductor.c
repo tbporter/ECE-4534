@@ -108,6 +108,7 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 		case navLineFoundMsg:
 		case navIRDataMsg:
 		case navRFIDFoundMsg:
+		case navEncoderMsg:
 			if( SendNavigationMsg(navData,&inMsg,portMAX_DELAY) != pdTRUE ){
 				VT_HANDLE_FATAL_ERROR(3);
 			}

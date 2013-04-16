@@ -74,13 +74,13 @@ static portTASK_FUNCTION_PROTO( navigationUpdateTask, pvParameters );
 //Converts an encoder value to a distance (cm) traveled
 inline float enc2Dist(short enc){
 	#define ROLL_OUT 45.01 //cm
-	#define TICKS_PER_REV 12000	// guess
+	#define TICKS_PER_REV 18000	// guess
 	return (ROLL_OUT*enc)/TICKS_PER_REV;
-}
+}											
 
 
 //Converts an encoder value into an angle (degrees)
-//NOTE: 0 if forward, 180 is backwards, + is left, - is right
+//NOTE: 0 if forward/backwards, + is left, - is right
 inline float enc2Ang(short leftEnc, short rightEnc){
 	#define ROVER_WIDTH 34.29 //cm
 	float dS = enc2Dist(rightEnc) - enc2Dist(leftEnc); //differential
@@ -127,18 +127,18 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 				break;
 			
 			case navLineFoundMsg:
-					printw("navLineFoundMsg\n");
+					printw("<b>navLineFoundMsg\n</b>");
 				break;
 			
 			case navIRDataMsg:
-					printw("<b>navIRDataMsg<\b> %d %d\n",msg->buf[0],msg->buf[1]);
+					printw("<b>navIRDataMsg</b> %d %d\n",msg->buf[0],msg->buf[1]);
 				break;
 			
 			case navRFIDFoundMsg:
 					printw("<b>navRFIDFoundMsg</b>\n");
 				break;
 			case navWebStartMsg:
-					printw("navWebStartMsg\n");
+					printw("<b style=color:green>navWebStartMsg\n</b>");
 				break;	
 	
 			default:
@@ -324,7 +324,7 @@ void handleSpecialEvents(short* enc){
 		return;
 	}
 
-	printw("\tHandling RFID Tag: %X\n",tagValue);
+	printw("\tHandling RFID Tag: 0x%X\n",tagValue);
 	//Depending on tag values adjust motor speed
 	if( tagValue != oldTagValue ){
 		//Do first occurence actions

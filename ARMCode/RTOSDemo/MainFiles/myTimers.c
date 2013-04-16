@@ -217,17 +217,41 @@ void startTimerForFakeI2CMsg(vtI2CStruct* i2c){
 
 void ConductorTimerCallback(xTimerHandle pxTimer)
 {
+	static int count = 0;
 	g9Msg fakeMsg;
 	if (pxTimer == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	} else {
 		vtConductorStruct* vtconData = (vtConductorStruct*)pvTimerGetTimerID(pxTimer);
+		fakeMsg.id = 0; //Denotes fake msg
 
-		fakeMsg.msgType = navRFIDFoundMsg;
-		fakeMsg.id = 0;
-		fakeMsg.length = 1;
-		fakeMsg.buf[0] = 0x4;
-		SendNavigationMsg(vtconData->navData,&fakeMsg,500);
+		switch( count ){
+		case 0:
+			fakeMsg.msgType = navRFIDFoundMsg;
+			fakeMsg.length = 1;
+			fakeMsg.buf[0] = SpeedUp;
+			break;
+		case 1:
+		case 2:
+		case 3:
+		case 4:
+			fakeMsg.msgType = navEncoderMsg;
+			fakeMsg.length = 2*sizeof(short);
+			((short*)fakeMsg.buf)[0] = 18000;
+			((short*)fakeMsg.buf)[1] = -18000;
+			break;
+		case 5:
+			fakeMsg.msgType = navRFIDFoundMsg;
+			fakeMsg.length = 1;
+			fakeMsg.buf[0] = EndZone;
+			break;
+		case 10:
+			count = -1; //reset
+			break;
+		}
+
+		xQueueSend(vtconData->zigBeeData->outQ,&fakeMsg, 500); //Send to conductor via zigbee Q
+		count++;
 	}
 }
 #define conductorWRITE_RATE_BASE	( ( portTickType ) 1000 / portTICK_RATE_MS)
