@@ -7,6 +7,7 @@ int lchange, rchange;
 
 void initEncoders(void)
 {
+
     encoderLPos = 0;
     encoderRPos = 0;
     lastReportedLPos = 0;
@@ -19,6 +20,7 @@ void initEncoders(void)
 
 void encoderIntHandler(void)
 {
+    PORTCbits.RC0 = 1;
     // figure out which of the 4 bits changed
     if (enL_setA != PORTBbits.KBI0)
     {
@@ -44,18 +46,22 @@ void encoderIntHandler(void)
     calculateLChange();
     calculateRChange();
 
+    return;
+
 }
 
 void calculateLChange(void)
 {
     lchange += encoderLPos - lastReportedLPos;
     lastReportedLPos = encoderLPos;
+    return;
 }
 
 void calculateRChange(void)
 {
     rchange += encoderRPos - lastReportedRPos;
     lastReportedRPos = encoderRPos;
+    return;
 }
 
 int reportLChange(void)
@@ -63,7 +69,7 @@ int reportLChange(void)
     int prevChange = lchange;
     lchange = 0;
     //return prevChange;
-    return prevChange;
+    return (prevChange * -1);
 }
 
 int reportRChange(void)
@@ -71,5 +77,5 @@ int reportRChange(void)
     int prevChange = rchange;
     rchange = 0;
     //return prevChange;
-    return prevChange;
+    return (prevChange * -1);
 }

@@ -85,6 +85,7 @@
 
 
 /*******************************************************************************/
+#ifdef SLAVEPIC
 // 670071014A5D
 //char tag_finish[] = {'\x02', '6', '7', '0', '0', '7', '1', '0', '1', '4', 'A', '5', 'D', '\xd', '\xa', '\x03', '\0'};
 char tag_finish[] = {'\x02', '6', '7', '0', '0', '7', '1', '0', '1'};
@@ -100,7 +101,24 @@ char tag_dirrgt[] = {'\x02', '6', '7', '0', '0', '7', '2', 'C', '0'};
 // 670072AF48F2
 //char tag_dirlft[] = {'\x02', '6', '7', '0', '0', '7', '2', 'A', 'F', '4', '8', 'F', '2', '\xd', '\xa', '\x03', '\0'};
 char tag_dirlft[] = {'\x02', '6', '7', '0', '0', '7', '2', 'A', 'F'};
+#endif
 /*******************************************************************************/
+
+int readLineSensor(void)
+{
+    int sencount = 0;
+    int sen0 = 0, sen1 = 0, sen2 = 0, sen3 = 0, sen4 = 0, sen5 = 0, sen6 = 0, sen7 = 0;
+    readIADC(&sen0, ADC_CH0);
+    readIADC(&sen1, ADC_CH1);
+    readIADC(&sen2, ADC_CH2);
+    readIADC(&sen3, ADC_CH3);
+    readIADC(&sen4, ADC_CH4);
+    readIADC(&sen5, ADC_CH5);
+    readIADC(&sen6, ADC_CH6);
+    readIADC(&sen7, ADC_CH7);
+    sencount = sen0 + sen1 + sen2 + sen3 + sen4 + sen5 + sen6 + sen7;
+    return sencount;
+}
 
 void main(void) {
     unsigned char i;
@@ -124,10 +142,9 @@ void main(void) {
     unsigned char CURS = 0;
 
 #endif
-
-#ifdef SLAVEPIC
-    int sen0 = 0, sen1 = 0, sen2 = 0, sen3 = 0, sen4 = 0, sen5 = 0, sen6 = 0, sen7 = 0;
     int sencount = 0;
+#ifdef SLAVEPIC
+    //int sen0 = 0, sen1 = 0, sen2 = 0, sen3 = 0, sen4 = 0, sen5 = 0, sen6 = 0, sen7 = 0;
 #endif
 
     unsigned char RTAG = Error;
@@ -171,6 +188,7 @@ void main(void) {
     LATC = 0x0;
     TRISB = 0x0;
     LATB = 0x0;
+    TRISB = 0xF0;
 
     // how to set up PORTA for input (for the V4 board with the PIC2680)
     /*
@@ -201,6 +219,8 @@ void main(void) {
 #ifdef SLAVEPIC
     INTCON2bits.RBIP = 0;
     initEncoders();
+    INTCONbits.RBIE = 1;
+  
 #endif
 
     // configure the hardware i2c device as a slave (0x9E -> 0x4F) or (0x9A -> 0x4D)
@@ -228,8 +248,6 @@ void main(void) {
 
     // must specifically enable the I2C interrupts
     PIE1bits.SSPIE = 1;
-    // must specifically enable IOC interrupts
-    INTCONbits.RBIE = 1;
 
     // configure the hardware USART device
     OpenUSART(USART_TX_INT_OFF & USART_RX_INT_ON & USART_ASYNCH_MODE & USART_EIGHT_BIT &
@@ -331,9 +349,11 @@ void main(void) {
                 {
                     // Here is where you could handle debugging, if you wanted
                     // keep track of the first byte received for later use (if desired)
-                    last_reg_recvd = msgbuffer[0];
+                    
+                    
                     break;
                 };
+                
                 case MSGT_I2C_RQST:
                 {
                     // Generally, this is *NOT* how I recommend you handle an I2C slave request
@@ -343,28 +363,8 @@ void main(void) {
                     //
                     // The last byte received is the "register" that is trying to be read
                     // The response is dependent on the register.
-                    switch (last_reg_recvd) {
-                        //PORTBbits.RB5 = 1;
-                        case 0xaa:
-                        {
-                            length = 2;
-                            msgbuffer[0] = 0x55;
-                            msgbuffer[1] = 0xAA;
-                            break;
-                        }
-                        case 0xa8:
-                        {
-                            length = 2;
-                            msgbuffer[0] = 0x3A;
-                            msgbuffer[1] = 0x3B;
-                            break;
-                        }
-                        case 0xa9:
-                        {
-                            length = 1;
-                            msgbuffer[0] = 0xA3;
-                            break;
-                        }
+                    switch (msgbuffer[0]) {
+                        
                         case POLLRFID:
                         {
                             length = 2;
@@ -413,6 +413,7 @@ void main(void) {
                         }
                         case POLLFLINE:
                         {
+                            sencount = readLineSensor();
                             length = 3;
                             msgbuffer[0] = POLLFLINE;
                             msgbuffer[1] = sencount >> 8;
@@ -421,9 +422,14 @@ void main(void) {
                         }
                         default:
                         {
-                            length = 2;
+                            //WriteUSART(last_reg_recvd);
+                            //PORTBbits.RB5 = 1;
+                            length = 5;
                             msgbuffer[0] = CASEERROR;
                             msgbuffer[1] = CASEERROR;
+                            msgbuffer[2] = CASEERROR;
+                            msgbuffer[3] = CASEERROR;
+                            msgbuffer[4] = CASEERROR;
                             break;
                         }
                     };
@@ -523,6 +529,7 @@ void main(void) {
                 };
                 case MSGT_UART_RFID:
                 {
+#ifdef SLAVEPIC
                     PORTCbits.RC0 = 1;
                     if (strncmp(msgbuffer, tag_spdupp, 9) == 0)
                     {
@@ -550,6 +557,7 @@ void main(void) {
                     {
                         RTAG = Error;
                     }
+#endif
                     //uart_lthread(&uthread_data, msgtype, length, msgbuffer, rfidRXQ);
                     break;
                 };
@@ -572,7 +580,7 @@ void main(void) {
                     txMsg.buf[4] = SONL;
                     txMsg.buf[5] = SONR;
                     txMsg.buf[6] = CURS;
-                    //sendZigBeeMsg(&txMsg);
+                    sendZigBeeMsg(&txMsg);
                     //WriteUSART(FLIR);
                     //WriteUSART(FRIR);
 #endif
@@ -586,15 +594,17 @@ void main(void) {
                 }
                 case MSGT_POLL_FLINE:
                 {
-                    readIADC(&sen0, ADC_CH0);
-                    readIADC(&sen1, ADC_CH1);
-                    readIADC(&sen2, ADC_CH2);
-                    readIADC(&sen3, ADC_CH3);
-                    readIADC(&sen4, ADC_CH4);
-                    readIADC(&sen5, ADC_CH5);
-                    readIADC(&sen6, ADC_CH6);
-                    readIADC(&sen7, ADC_CH7);
-                    sencount = sen0 + sen1 + sen2 + sen3 + sen4 + sen5 + sen6 + sen7;
+#ifdef SLAVEPIC
+//                    readIADC(&sen0, ADC_CH0);
+//                    readIADC(&sen1, ADC_CH1);
+//                    readIADC(&sen2, ADC_CH2);
+//                    readIADC(&sen3, ADC_CH3);
+//                    readIADC(&sen4, ADC_CH4);
+//                    readIADC(&sen5, ADC_CH5);
+//                    readIADC(&sen6, ADC_CH6);
+//                    readIADC(&sen7, ADC_CH7);
+//                    sencount = sen0 + sen1 + sen2 + sen3 + sen4 + sen5 + sen6 + sen7;
+#endif
                     break;
                 }
                 default:
