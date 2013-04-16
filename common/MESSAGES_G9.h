@@ -61,13 +61,14 @@ typedef enum {
 
 
 typedef enum {
-    None	= 0x0,
-    SpeedUp	= 0x1,
-    SlowDown= 0x2,
-    GoLeft	= 0x4,
-    GoRight	= 0x8,
-    Finish	= 0x10,
-	Error	= 0x20
+    None	= 0x00,
+    SpeedUp	= 0x01,
+    SlowDown= 0x02,
+    GoLeft	= 0x04,
+    GoRight	= 0x08,
+	EndZone = 0x10,
+    Finish	= 0x20,
+	Error	= 0x40
 }RFID;
 
 
