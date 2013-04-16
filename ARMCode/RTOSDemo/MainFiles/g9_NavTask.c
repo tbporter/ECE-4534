@@ -17,6 +17,16 @@
 
 #define MAX_TURN_ANGLE	90 //Degrees
 #define MIN_TURN_ANGLE	60 //Degrees
+ 
+int IR[6];
+
+#define LEFT_FRONT_IR	IR[0]
+#define RIGHT_FRONT_IR	IR[1]
+#define LEFT_BACK_IR	IR[2]
+#define RIGHT_BACK_IR	IR[3]
+#define SONAR_LEFT		IR[4]
+#define SONAR_RIGHT		IR[5]
+
 
 //helper functions for setting motor speeds
 typedef union {
@@ -27,12 +37,9 @@ typedef union {
 	};
 } motorData_t;
 
+
 motorData_t motorData;
-
-
 int curState;
-int leftIR;
-int rightIR;
 uint8_t tagValue = None; // Holds any rfid tags that have been found
 Bool lineFound = FALSE;
 
@@ -66,7 +73,7 @@ static portTASK_FUNCTION_PROTO( navigationUpdateTask, pvParameters );
 
 //Converts an encoder value to a distance (cm) traveled
 inline float enc2Dist(short enc){
-	#define ROLL_OUT 38.1 //cm -- guess
+	#define ROLL_OUT 45.01 //cm
 	#define TICKS_PER_REV 12000	// guess
 	return (ROLL_OUT*enc)/TICKS_PER_REV;
 }
@@ -75,7 +82,7 @@ inline float enc2Dist(short enc){
 //Converts an encoder value into an angle (degrees)
 //NOTE: 0 if forward, 180 is backwards, + is left, - is right
 inline float enc2Ang(short leftEnc, short rightEnc){
-	#define ROVER_WIDTH 30.48 //cm -- guess
+	#define ROVER_WIDTH 34.29 //cm
 	float dS = enc2Dist(rightEnc) - enc2Dist(leftEnc); //differential
 	//float R = (enc2Dist(leftEnc)/dS+1)*ROVER_WIDTH;
 	return 	dS/ROVER_WIDTH*(180/3.1415927);
@@ -178,8 +185,8 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		
 		case navIRDataMsg:
 			//Save the data
-			leftIR = msgBuffer.buf[0];
-			rightIR = msgBuffer.buf[1];
+			LEFT_FRONT_IR = msgBuffer.buf[0];
+			RIGHT_FRONT_IR = msgBuffer.buf[1];
 			break;
 
 		case navEncoderMsg:
@@ -217,16 +224,16 @@ void stateMachine(){
 		//Simple state, lets just lean to the left or right based off the IR
 		case 0:
 			if(getWebStart()==1){
-				if(rightIR>120){
+				if(RIGHT_FRONT_IR>120){
 					setMotorData(&motorData,70,90);
 				}
-				else if(leftIR>120){
+				else if(LEFT_FRONT_IR>120){
 					setMotorData(&motorData,90,70);
 				}
-				else if(rightIR>100){
+				else if(RIGHT_FRONT_IR>100){
 					setMotorData(&motorData,95,110);
 				}
-				else if(leftIR>100){
+				else if(LEFT_FRONT_IR>100){
 					setMotorData(&motorData,110,95);
 				}
 				else {
