@@ -10,6 +10,8 @@ void initADC(void);
 
 void readADC(unsigned char* value, unsigned char channel);
 
+void readIADC(int* value, unsigned char channel);
+
 void stopADC(void);
 
 #endif	/* MY_ADC_H */
