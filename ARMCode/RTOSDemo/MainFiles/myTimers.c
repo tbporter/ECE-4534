@@ -219,38 +219,100 @@ void ConductorTimerCallback(xTimerHandle pxTimer)
 {
 	static int count = 0;
 	g9Msg fakeMsg;
+	g9Msg encoderMsg;
 	if (pxTimer == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	} else {
 		vtConductorStruct* vtconData = (vtConductorStruct*)pvTimerGetTimerID(pxTimer);
 		fakeMsg.id = 0; //Denotes fake msg
+		encoderMsg.id = 0; //Denotes fake msg
+
+		//Default encoder values -- forward	@ approx. 1.75 m/s
+		encoderMsg.msgType = navEncoderMsg;
+		encoderMsg.length = 2*sizeof(short);
+		((short*)encoderMsg.buf)[0] = 65535;
+		((short*)encoderMsg.buf)[1] = 65535;
 
 		switch( count ){
-		case 0:
+		case 0:	//Speed Up Start
+			printw("<b style=color:green>Speed Up Test Start</b>\n");
 			fakeMsg.msgType = navRFIDFoundMsg;
 			fakeMsg.length = 1;
 			fakeMsg.buf[0] = SpeedUp;
 			break;
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-			fakeMsg.msgType = navEncoderMsg;
-			fakeMsg.length = 2*sizeof(short);
-			((short*)fakeMsg.buf)[0] = 18000;
-			((short*)fakeMsg.buf)[1] = -18000;
-			break;
-		case 5:
+		case 5:	//Sped Up End
+			printw("<b style=color:green>Speed Up Test End</b>\n");
 			fakeMsg.msgType = navRFIDFoundMsg;
 			fakeMsg.length = 1;
 			fakeMsg.buf[0] = EndZone;
 			break;
-		case 10:
+
+
+		case 10: //Slow Down Start
+			printw("<b style=color:green>Slow Down Test Start</b>\n");
+			fakeMsg.msgType = navRFIDFoundMsg;
+			fakeMsg.length = 1;
+			fakeMsg.buf[0] = SlowDown;
+			break;
+		case 15: //Slow Down End
+			printw("<b style=color:green>Slow Down Test End</b>\n");
+			fakeMsg.msgType = navRFIDFoundMsg;
+			fakeMsg.length = 1;
+			fakeMsg.buf[0] = EndZone;
+			break;
+
+		case 20:  //Right Start
+			printw("<b style=color:green>Go Right Start</b>\n");
+			fakeMsg.msgType = navRFIDFoundMsg;
+			fakeMsg.length = 1;
+			fakeMsg.buf[0] = GoRight;
+			break;
+		case 21:
+		case 22:
+		case 23:
+		case 24:
+		case 25:
+		case 26:
+		case 27:
+		case 28:
+		case 29:
+		case 30:
+			//Simulate Right circle
+			((short*)encoderMsg.buf)[0] = 18000;
+			((short*)encoderMsg.buf)[1] = -18000;
+			break;
+
+
+		case 35:  //Left Start
+			printw("<b style=color:green>Go Left Start</b>\n");
+			fakeMsg.msgType = navRFIDFoundMsg;
+			fakeMsg.length = 1;
+			fakeMsg.buf[0] = GoRight;
+			break;
+		case 36:
+		case 37:
+		case 38:
+		case 39:
+		case 40:
+		case 41:
+		case 42:
+		case 43:
+		case 44:
+		case 45:
+			//Simulate Right circle
+			((short*)encoderMsg.buf)[0] = -18000;
+			((short*)encoderMsg.buf)[1] = 18000;
+			break;
+
+		case 50:
 			count = -1; //reset
 			break;
 		}
 
-		xQueueSend(vtconData->zigBeeData->outQ,&fakeMsg, 500); //Send to conductor via zigbee Q
+		if( fakeMsg.msgType > 0 ){
+			xQueueSend(vtconData->zigBeeData->outQ,&fakeMsg, 500); //Send to conductor via zigbee Q
+		}
+		xQueueSend(vtconData->zigBeeData->outQ,&encoderMsg, 500); //Send to conductor via zigbee Q
 		count++;
 	}
 }

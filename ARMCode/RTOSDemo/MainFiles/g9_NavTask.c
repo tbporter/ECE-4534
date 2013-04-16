@@ -9,10 +9,12 @@
 #define max(a,b) (((a)>(b))?(a):(b))
 
 #define NavQLen 20 //Lots of messages
-#define PRINT_MSG_RCV 1 //Notify of incoming msgs
+#define PRINT_MSG_RCV 0 //Notify of incoming msgs
+
+#define DEMO_M4 1
 
 #define MAX_SPEED	10 // m/s
-#define MIN_SPEED	3  // m/s
+#define MIN_SPEED	1  // m/s
 #define MAX_SPD_DELTA 10
 
 #define MAX_TURN_ANGLE	90 //Degrees
@@ -93,7 +95,7 @@ inline float enc2Speed(short leftEnc, short rightEnc){
 	//Get "middle" encoder value
 	short medEnc = (leftEnc + rightEnc)/2;
 	//Calculate velocity
-	return ( 10.0*enc2Dist(medEnc) )/ENC_POLL_RATE; //  1000/100 ms*m/s*cm * 1 cm/ms = 10 cm/ms = 1 m/s
+	return 1.75;//( 10.0*enc2Dist(medEnc) )/ENC_POLL_RATE; //  1000/100 ms*m/s*cm * 1 cm/ms = 10 cm/ms = 1 m/s
 }
 
 
@@ -127,7 +129,7 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 				break;
 			
 			case navLineFoundMsg:
-					printw("<b>navLineFoundMsg\n</b>");
+					printw("<b>navLineFoundMsg</b> %d %d\n",msg->buf[0],msg->buf[1]);
 				break;
 			
 			case navIRDataMsg:
@@ -180,7 +182,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		switch (msgBuffer.msgType){
 		case navLineFoundMsg:
 			//stop we have found the finish line!!!
-			if( ((int*)msgBuffer.buf)[0] >= LINE_FOUND_THRE) lineFound = TRUE;
+			if( ((int*)msgBuffer.buf)[0] >= LINE_FOUND_THRE && (tagValue & Finish) ) lineFound = TRUE;
 			break;
 		
 		case navIRDataMsg:
@@ -208,6 +210,10 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 		stateMachine();
 		handleSpecialEvents(enc);
+
+		#if DEMO_M4 == 1
+			printw("Motor: %u %u\n",motorData.left & 0x7F, motorData.right & 0x7F);
+		#endif
 
 		msg.buf[0] = motorData.left;
 		msg.buf[1] = motorData.right;		
@@ -248,29 +254,29 @@ void stateMachine(){
 
 }
 
-void adjustSpeed(short leftEnc, short rightEnc, float targetSpeed){
-	#define getSpeed(old,del) (((old)>64)?(old + delta):( ((old)==64)?(64):(old-delta) ))  //Increase magnitude of old if not 64
+void adjustSpeed(short leftEnc, short rightEnc, int targetSpeed){
+	#define getSpeed(old,del) (((old)>64)?((old) + (delta)):( ((old)==64)?(64):((old)-(delta)) ))  //Increase magnitude of old if not 64
 	//Get speed
 	float curSpeed = enc2Speed(leftEnc,rightEnc);
 	float diff = curSpeed - targetSpeed;
-	char delta = 0;
+	int delta = 0;
 	uint8_t left, right;
 	int newLeft, newRight;
 	//Calculate delta
 	if( diff > 0.0 || diff < -0.1 ){ //If outside of tolerance of -0.1 to 0
 		//Speed Up
-		delta = pow( diff/MAX_SPEED , 2) * MAX_SPD_DELTA;
+		delta = pow( diff/targetSpeed , 2) * MAX_SPD_DELTA;
 		//Slow Down
-		if( delta > 0 ) delta = -delta;
-
+		if( targetSpeed < curSpeed ) delta = -delta;
+		//printw("delta = %d\ttarget = %d\t current = %f\n",delta,targetSpeed,curSpeed);
 	}
 	//else do nothing;
 
 	//Get motor values
 	getMotorData(&motorData, &left, &right);
 
-	newLeft  = getSpeed(left,delta);
-	newRight = getSpeed(right,delta);
+	newLeft  = left + delta;//getSpeed(left,delta);
+	newRight = right + delta;//getSpeed(right,delta);
 
 	//Contrain values
 	if( newLeft > 127 || newLeft < 1 || \
@@ -324,31 +330,43 @@ void handleSpecialEvents(short* enc){
 		return;
 	}
 
-	printw("\tHandling RFID Tag: 0x%X\n",tagValue);
+	#if DEMO_M4 == 1
+		printw("\tHandling RFID Tag: 0x%X\n",tagValue);
+	#endif
+
 	//Depending on tag values adjust motor speed
 	if( tagValue != oldTagValue ){
 		//Do first occurence actions
-		switch( ~(tagValue & oldTagValue) ){
-			case SpeedUp:
-				//Disable SPD DOWN
-				disableTag(SlowDown);
-				break;
-			case SlowDown:
-				//Disable SPD UP
-				disableTag(SpeedUp);
-				break;
-			case GoLeft:
-				//Disable RIGHT
-				disableTag(GoRight);
-				elapsedEnc[0] = 0;
-				elapsedEnc[1] = 0;
-				break;
-			case GoRight:
-				//Disable LEFT
-				disableTag(GoLeft);
-				elapsedEnc[0] = 0;
-				elapsedEnc[1] = 0;
-				break;
+		uint8_t diff = tagValue & ~oldTagValue;
+		//printw("diff = %X\n",diff);
+		if( diff & SpeedUp){
+			//Disable SPD DOWN
+			disableTag(SlowDown);
+		}
+
+		if( diff & SlowDown ){
+			//Disable SPD UP
+			disableTag(SpeedUp);
+		}
+
+		if( diff & GoLeft ){
+			//Disable RIGHT
+			disableTag(GoRight);
+			elapsedEnc[0] = 0;
+			elapsedEnc[1] = 0;
+		}
+		
+		if( diff & GoRight ){
+			//Disable LEFT
+			disableTag(GoLeft);
+			elapsedEnc[0] = 0;
+			elapsedEnc[1] = 0;
+		}
+		
+		if( diff & EndZone){
+			disableTag(SpeedUp);
+			disableTag(SlowDown);
+			disableTag(EndZone);
 		}
 	}
 
