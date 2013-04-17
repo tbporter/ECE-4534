@@ -24,6 +24,8 @@
 // Define where or not to use web server
 #define USE_WEB_SERVER 1
 
+#define DEMO_M4 0
+
 
 
 //Set Web Server IP

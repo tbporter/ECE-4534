@@ -132,7 +132,7 @@ void getWebStatusText(char* buffer){
 	strcpy(loop,"");
 	lap = 0;
 	finished=0;
-	sprintf(buffer,"<table border=1><tr><td><table border=0><tr><td>State</td><td>%s</td></tr><tr><td>Cur Speed</td><td>%d</td></tr><tr><td>Avg  peed</td><td>%d</td></tr><tr><td>Amps</td><td>%d</td></tr></table></td><td><table border=0><tr><td>Loop?</td><td><input type=\"checkbox\" name=\"loop\" value=\"1\" %s></td></tr><tr><td>Lap</td><td>%d</td></tr><tr><td>Finished?</td><td>%d</td></tr></table></td></tr></table>"
+	sprintf(buffer,"<table border=1><tr><td><table border=0><tr><td>State</td><td>%s</td></tr><tr><td>Cur Speed</td><td>%d</td></tr><tr><td>Avg  Speed</td><td>%d</td></tr><tr><td>Amps</td><td>%d</td></tr></table></td><td><table border=0><tr><td>Loop?</td><td><input type=\"checkbox\" name=\"loop\" value=\"1\" %s></td></tr><tr><td>Lap</td><td>%d</td></tr><tr><td>Finished?</td><td>%d</td></tr></table></td></tr></table>"
 	,state,curspeed,avgspeed,amps,loop,lap,finished);
 }
 

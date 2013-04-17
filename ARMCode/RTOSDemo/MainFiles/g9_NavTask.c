@@ -9,9 +9,7 @@
 #define max(a,b) (((a)>(b))?(a):(b))
 
 #define NavQLen 20 //Lots of messages
-#define PRINT_MSG_RCV 0 //Notify of incoming msgs
-
-#define DEMO_M4 1
+#define PRINT_MSG_RCV 1 //Notify of incoming msgs
 
 #define MAX_SPEED	10 // m/s
 #define MIN_SPEED	1  // m/s
@@ -133,7 +131,8 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 				break;
 			
 			case navIRDataMsg:
-					printw("<b>navIRDataMsg</b> %d %d\n",msg->buf[0],msg->buf[1]);
+					printw("<b>navIRDataMsg</b> %d %d %d %d %d %d\n",msg->buf[0],msg->buf[1],msg->buf[2],msg->buf[3],msg->buf[4],msg->buf[5]);
+					printw("<b>Current = %d</b>\n",msg->buf[6]);
 				break;
 			
 			case navRFIDFoundMsg:
@@ -189,6 +188,10 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			//Save the data
 			LEFT_FRONT_IR = msgBuffer.buf[0];
 			RIGHT_FRONT_IR = msgBuffer.buf[1];
+			LEFT_BACK_IR = msgBuffer.buf[2];
+			RIGHT_BACK_IR = msgBuffer.buf[3];
+			SONAR_LEFT = msgBuffer.buf[4];
+			SONAR_RIGHT = msgBuffer.buf[5];
 			break;
 
 		case navEncoderMsg:

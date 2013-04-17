@@ -1,0 +1,16 @@
+"<!DOCTYPE html>"
+"<html>"
+"<head>"
+"<title>FreeRTOS.org uIP WEB server demo</title>"
+"</head>"
+"<BODY onLoad=\"window.setTimeout(&quot;location.href='debug.shtml'&quot;,1000)\">"
+"<font face=\"arial\">"
+NAV_BAR
+"<h2>Debug Output</h2>"
+"Page will refresh every 1 second.<p>"
+"<font face=\"courier\"><pre>****************************************<br>"
+"%! debug-out\n" //Insert our data here
+"</pre></font>"
+"</font>"
+"</body>"
+"</html>";
