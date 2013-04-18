@@ -7,7 +7,7 @@
 // Define whether or not to use I2C
 #define USE_I2C 0
 // Define whether or not to use XBEE
-#define USE_XBEE 1
+#define USE_XBEE 1													 
 // Define whether or not to use my LCD task
 #define USE_MTJ_LCD 0
 // Define whether or not to use the OScope task
@@ -24,7 +24,7 @@
 // Define where or not to use web server
 #define USE_WEB_SERVER 1
 
-#define DEMO_M4 0
+#define DEMO_M4 1
 
 
 

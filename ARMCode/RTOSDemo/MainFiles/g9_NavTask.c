@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 #include "g9_webTask.h"
 #include "g9_NavTask.h"
+#include "conductor.h"
 
 #define min(a,b) (((a)<(b))?(a):(b))
 #define max(a,b) (((a)>(b))?(a):(b))
@@ -12,8 +14,8 @@
 #define PRINT_MSG_RCV 1 //Notify of incoming msgs
 
 #define MAX_SPEED	10 // m/s
-#define MIN_SPEED	1  // m/s
-#define MAX_SPD_DELTA 10
+#define MIN_SPEED	0  // m/s
+#define MAX_SPD_DELTA 20
 
 #define MAX_TURN_ANGLE	90 //Degrees
 #define MIN_TURN_ANGLE	60 //Degrees
@@ -42,6 +44,7 @@ motorData_t motorData;
 int curState;
 uint8_t tagValue = None; // Holds any rfid tags that have been found
 Bool lineFound = FALSE;
+char state[MAX_MSG_LEN] = "Stopped";
 
 
 void setMotorData(motorData_t* motorData, uint8_t left, uint8_t right){
@@ -93,7 +96,7 @@ inline float enc2Speed(short leftEnc, short rightEnc){
 	//Get "middle" encoder value
 	short medEnc = (leftEnc + rightEnc)/2;
 	//Calculate velocity
-	return 1.75;//( 10.0*enc2Dist(medEnc) )/ENC_POLL_RATE; //  1000/100 ms*m/s*cm * 1 cm/ms = 10 cm/ms = 1 m/s
+	return ( 10.0*enc2Dist(medEnc) )/ENC_POLL_RATE; //  1000/100 ms*m/s*cm * 1 cm/ms = 10 cm/ms = 1 m/s
 }
 
 
@@ -211,8 +214,16 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			break;
 		}
 
-		stateMachine();
-		handleSpecialEvents(enc);
+
+		if(getWebStart()==1){
+			strcpy(state,"Navigate");
+			stateMachine();
+			handleSpecialEvents(enc);
+		}
+		else{
+			setMotorData(&motorData,64,64);
+			strcpy(state,"Stopped");
+		}
 
 		#if DEMO_M4 == 1
 			printw("Motor: %u %u\n",motorData.left & 0x7F, motorData.right & 0x7F);
@@ -221,6 +232,26 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		msg.buf[0] = motorData.left;
 		msg.buf[1] = motorData.right;		
 		SendZigBeeMsg(navData->zigBeePtr,&msg,portMAX_DELAY);
+
+		//Send off web information
+		msg.msgType = webMotorMsg;
+		msg.id = 0; //internal
+		msg.length = 2;
+		getMotorData(&motorData,&msg.buf[0],&msg.buf[1]);
+		SendConductorMsg(&msg,10);
+
+		msg.msgType = webSpeedMsg;
+		msg.id = 0; //internal
+		msg.length = 2*sizeof(float);
+		((float*)msg.buf)[0] = enc2Speed(enc[0],enc[1]);
+		((float*)msg.buf)[1] = enc2Speed(enc[0],enc[1]); //TODO: calculate Avg
+		SendConductorMsg(&msg,10);
+
+		msg.msgType = webStateMsg;
+		msg.id = 0; //internal
+		msg.length = strlen(state);
+		strcpy((char*)msg.buf,state);
+		SendConductorMsg(&msg,10);
 	}
 }
 
@@ -232,27 +263,22 @@ void stateMachine(){
 		#define min_dist 100
 		//Simple state, lets just lean to the left or right based off the IR
 		case 0:
-			if(getWebStart()==1){
-				if(RIGHT_FRONT_IR>120){
-					setMotorData(&motorData,70,90);
-				}
-				else if(LEFT_FRONT_IR>120){
-					setMotorData(&motorData,90,70);
-				}
-				else if(RIGHT_FRONT_IR>100){
-					setMotorData(&motorData,95,110);
-				}
-				else if(LEFT_FRONT_IR>100){
-					setMotorData(&motorData,110,95);
-				}
-				else {
-					setMotorData(&motorData,110,110);
-				}
+			if(RIGHT_FRONT_IR>120){
+				setMotorData(&motorData,70,90);
 			}
-			else{
-				setMotorData(&motorData,64,64);
-			}	
-
+			else if(LEFT_FRONT_IR>120){
+				setMotorData(&motorData,90,70);
+			}
+			else if(RIGHT_FRONT_IR>100){
+				setMotorData(&motorData,95,110);
+			}
+			else if(LEFT_FRONT_IR>100){
+				setMotorData(&motorData,110,95);
+			}
+			else {
+				setMotorData(&motorData,110,110);
+			}
+			break;
 	}
 
 }
@@ -268,7 +294,9 @@ void adjustSpeed(short leftEnc, short rightEnc, int targetSpeed){
 	//Calculate delta
 	if( diff > 0.0 || diff < -0.1 ){ //If outside of tolerance of -0.1 to 0
 		//Speed Up
-		delta = pow( diff/targetSpeed , 2) * MAX_SPD_DELTA;
+		delta = pow( diff , 2) * MAX_SPD_DELTA;
+
+		if( delta > MAX_SPD_DELTA ) delta = MAX_SPD_DELTA;
 		//Slow Down
 		if( targetSpeed < curSpeed ) delta = -delta;
 		//printw("delta = %d\ttarget = %d\t current = %f\n",delta,targetSpeed,curSpeed);
@@ -374,14 +402,17 @@ void handleSpecialEvents(short* enc){
 	}
 
 	if( tagValue & SpeedUp ){ //SPD UP
+		strcpy(state,"Go Fast");
 		//adjust to target
 		adjustSpeed(enc[0], enc[1], MAX_SPEED);	 
 	}
 	if( tagValue & SlowDown ){ //SPD DOWN
+		strcpy(state,"Go Slow");
 		//adjust to target
 		adjustSpeed(enc[0], enc[1], MIN_SPEED);		
 	}
 	if( tagValue & GoLeft ){ //LEFT
+		strcpy(state,"Go Left");
 		//Update Encoder counts
 		elapsedEnc[0] += enc[0];
 		elapsedEnc[1] += enc[1];
@@ -403,6 +434,7 @@ void handleSpecialEvents(short* enc){
 			
 	}
 	if( tagValue & GoRight ){ //RIGHT
+		strcpy(state,"Go Right");
 		//Update Encoder counts
 		elapsedEnc[0] += enc[0];
 		elapsedEnc[1] += enc[1];

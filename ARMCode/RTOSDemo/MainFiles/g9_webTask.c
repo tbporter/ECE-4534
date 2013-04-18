@@ -5,16 +5,19 @@
 #include "g9_webTask.h"
 
 
+#include "web_input.c"
+
 static char webDebugOut[DEBUG_LINES][DEBUG_LENGTH];
 
-static int curspeed;
-static int avgspeed;
-static char state[10];
-static int amps;
-static char loop[10];
-static char finished;
-static int lap;
+static int curspeed=0;
+static int avgspeed=0;
+static char state[MAX_MSG_LEN]="Stopped";
+static int amps=0;
+static char loop[10]="";
+static char finished=0;
+static int lap=0;
 static int start =0;
+static uint8_t motors[2] = {64,64};
 
 static portTASK_FUNCTION_PROTO( webUpdateTask, pvParameters );
 
@@ -60,7 +63,26 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 				break;
 			//Used to display power related things from the power PIC
 			case webPowerMsg:
-								
+				if(msgBuffer.length == 1){
+					amps = msgBuffer.buf[0];
+				}				
+				break;
+			case webSpeedMsg:
+				if(msgBuffer.length == 2*sizeof(float)){
+					curspeed = ((float*)msgBuffer.buf)[0]*100;
+					avgspeed = ((float*)msgBuffer.buf)[1]*100;
+				}
+				break;
+			case webStateMsg:
+				if(msgBuffer.length > 0){
+					strcpy(state,(char*)msgBuffer.buf);
+				}				
+				break;
+			case webMotorMsg:
+				if(msgBuffer.length == 2){
+					motors[0] = msgBuffer.buf[0];
+					motors[1] = msgBuffer.buf[1];
+				}
 				break;
 			//used to display nav related things from the nav task
 			case webNavMsg:
@@ -68,8 +90,8 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 				break;		
 			default:
 				//Invalid message type
-				VT_HANDLE_FATAL_ERROR(INVALID_G9MSG_TYPE);
-				break;
+				printw_err("Invalid Web Msg! Type: 0x%X\n",msgBuffer.msgType);
+			break;
 		}
 	   
 		/*
@@ -125,15 +147,7 @@ void processWebDebugMsg(char* msg){
 	strcpy(webDebugOut[i],"----------------\n");				 
 }
 void getWebStatusText(char* buffer){
-	strcpy(state,"Stopped");
-	curspeed = 0;
-	avgspeed = 0;
-	amps = 0;
-	strcpy(loop,"");
-	lap = 0;
-	finished=0;
-	sprintf(buffer,"<table border=1><tr><td><table border=0><tr><td>State</td><td>%s</td></tr><tr><td>Cur Speed</td><td>%d</td></tr><tr><td>Avg  Speed</td><td>%d</td></tr><tr><td>Amps</td><td>%d</td></tr></table></td><td><table border=0><tr><td>Loop?</td><td><input type=\"checkbox\" name=\"loop\" value=\"1\" %s></td></tr><tr><td>Lap</td><td>%d</td></tr><tr><td>Finished?</td><td>%d</td></tr></table></td></tr></table>"
-	,state,curspeed,avgspeed,amps,loop,lap,finished);
+	sprintf(buffer,INFO_TABLE,state,loop,curspeed,avgspeed,lap,finished,amps);
 }
 
 
@@ -145,18 +159,21 @@ char (*getWebDebug())[DEBUG_LENGTH]{
 
 void setWebStart(int s){
 	start = s;
-	printw("start = %d",s);
-	/*
-	g9Msg msg;
-	msg.id = 0;
-	msg.length = 0;
-	msg.msgType = navWebStartMsg;
-	printw("sending start=%d",start);
-	if(start == 1){
-		msg.msgType = navWebStartMsg;
-		SendNavigationMsg(GLOBALnavData,&msg,portMAX_DELAY);
-	}*/
+	printw("start = %d\n",s);
 }
 int getWebStart(){
 	return start;
+}
+
+void getWebMotors( uint8_t* left, uint8_t* right){
+	*left = motors[0];
+	*right = motors[1];
+}
+
+portBASE_TYPE SendWebMsg(webStruct* web,g9Msg* msg,portTickType ticksToBlock){
+	if (msg == NULL || web == NULL ) {
+		return pdFALSE;
+	}
+
+	return(xQueueSend(web->inQ,(void*)(msg),ticksToBlock));
 }

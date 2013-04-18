@@ -48,5 +48,6 @@ void getWebStatusText(char* buf);
 
 int getWebStart();
 void setWebStart(int s);
+void getWebMotors( uint8_t* left, uint8_t* right);
 
 #endif

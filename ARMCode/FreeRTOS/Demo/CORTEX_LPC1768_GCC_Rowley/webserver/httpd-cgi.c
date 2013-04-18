@@ -52,9 +52,10 @@
 #include "httpd-fs.h"
 #include "g9_webTask.h"
 
-
 #include <stdio.h>
 #include <string.h>
+
+#include "web_input.c"
 
 HTTPD_CGI_CALL(file, "file-stats", file_stats);
 HTTPD_CGI_CALL(tcp, "tcp-connections", tcp_stats);
@@ -64,7 +65,8 @@ HTTPD_CGI_CALL(run, "run-time", run_time );
 HTTPD_CGI_CALL(io, "led-io", led_io );
 HTTPD_CGI_CALL(debug, "debug-out", debug_out );
 HTTPD_CGI_CALL(info, "info-out", info_out );
-static const struct httpd_cgi_call *calls[] = { &file, &tcp, &net, &rtos, &run, &io, &debug, &info, NULL };
+HTTPD_CGI_CALL(info_motor, "info-motor-out", info_motor_out );
+static const struct httpd_cgi_call *calls[] = { &file, &tcp, &net, &rtos, &run, &io, &debug, &info, &info_motor, NULL };
 /*---------------------------------------------------------------------------*/
 static						  
 PT_THREAD(nullfunction(struct httpd_state *s, char *ptr))
@@ -92,23 +94,19 @@ httpd_cgi(char *name)
 static unsigned short
 generate_info_out(void *arg)
 {
-	char buffer[500];
-	getWebStatusText(buffer);
 	int started = getWebStart();
-	char *check;
+	char check[8];
 	if(started == 0)
 	{
-		check = "";
+		strcpy( check, "" );
 	}
 	else if(started == 1)
 	{
-		check = "checked";
+		strcpy( check, "checked" );
 	}
-	sprintf(uip_appdata,"<input type=\"checkbox\" name=\"start\" value=\"1\"%s>START", check);
-	strcat(uip_appdata,"<input type=\"submit\" value=\"Update IO\">");
-	//strcat(uip_appdata,"<input type=\"submit\" value=\"START\">");
-	//strcat(uip_appdata,"<input type=\"submit\" value=\"STOP\">");
-	strcat(uip_appdata,buffer);
+	sprintf(uip_appdata,"<input type=\"checkbox\" name=\"start\" onClick=submit() %s>START", check);
+
+	getWebStatusText(uip_appdata+strlen(uip_appdata));
 
 	return strlen(uip_appdata);							 
 }
@@ -128,7 +126,36 @@ PT_THREAD(info_out(struct httpd_state *s, char *ptr))
 
 
 /*---------------------------------------------------------------------------*/
+ 
 
+static unsigned short
+generate_info_motor_out(void *arg)
+{
+	uint8_t left = 64;
+	uint8_t right = 64;
+
+	getWebMotors(&left,&right);
+
+	sprintf(uip_appdata, MOTOR_TABLE, left, left, right, right);
+
+	return strlen(uip_appdata);							 
+}
+
+
+static
+PT_THREAD(info_motor_out(struct httpd_state *s, char *ptr))
+{
+	
+  PSOCK_BEGIN(&s->sout);
+  PSOCK_GENERATOR_SEND(&s->sout, generate_info_motor_out, strchr(ptr, ' ') + 1);
+  PSOCK_END(&s->sout);
+}
+
+
+
+
+
+/*---------------------------------------------------------------------------*/
 
 static unsigned short
 generate_debug_out(void *arg)

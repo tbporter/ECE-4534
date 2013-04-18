@@ -319,7 +319,7 @@ int main( void )
 		vStartNavigationTask(navData,mainNAVIGATOR_TASK_PRIORITY,zigBeeData);
 	#endif
 	
-	vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,vtI2C0,tempSensorData,oScopeData,navData,zigBeeData);
+	vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,vtI2C0,tempSensorData,oScopeData,navData,zigBeeData,webData);
 
 	#if DEMO_M4 == 1	
 		startTimerForConductor(&conductorData);

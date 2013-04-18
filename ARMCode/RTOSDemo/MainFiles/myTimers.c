@@ -230,8 +230,8 @@ void ConductorTimerCallback(xTimerHandle pxTimer)
 		//Default encoder values -- forward	@ approx. 1.75 m/s
 		encoderMsg.msgType = navEncoderMsg;
 		encoderMsg.length = 2*sizeof(short);
-		((short*)encoderMsg.buf)[0] = 65535;
-		((short*)encoderMsg.buf)[1] = 65535;
+		((short*)encoderMsg.buf)[0] = 7000;
+		((short*)encoderMsg.buf)[1] = 7000;
 
 		switch( count ){
 		case 0:	//Speed Up Start
@@ -278,8 +278,8 @@ void ConductorTimerCallback(xTimerHandle pxTimer)
 		case 29:
 		case 30:
 			//Simulate Right circle
-			((short*)encoderMsg.buf)[0] = 18000;
-			((short*)encoderMsg.buf)[1] = -18000;
+			((short*)encoderMsg.buf)[0] = 3500;
+			((short*)encoderMsg.buf)[1] = -3500;
 			break;
 
 
@@ -287,7 +287,7 @@ void ConductorTimerCallback(xTimerHandle pxTimer)
 			printw("<b style=color:green>Go Left Start</b>\n");
 			fakeMsg.msgType = navRFIDFoundMsg;
 			fakeMsg.length = 1;
-			fakeMsg.buf[0] = GoRight;
+			fakeMsg.buf[0] = GoLeft;
 			break;
 		case 36:
 		case 37:
@@ -300,8 +300,8 @@ void ConductorTimerCallback(xTimerHandle pxTimer)
 		case 44:
 		case 45:
 			//Simulate Right circle
-			((short*)encoderMsg.buf)[0] = -18000;
-			((short*)encoderMsg.buf)[1] = 18000;
+			((short*)encoderMsg.buf)[0] = -3500;
+			((short*)encoderMsg.buf)[1] = 3500;
 			break;
 
 		case 50:
@@ -310,9 +310,9 @@ void ConductorTimerCallback(xTimerHandle pxTimer)
 		}
 
 		if( fakeMsg.msgType > 0 ){
-			xQueueSend(vtconData->zigBeeData->outQ,&fakeMsg, 500); //Send to conductor via zigbee Q
+			SendConductorMsg(&fakeMsg, 500); //Send to conductor
 		}
-		xQueueSend(vtconData->zigBeeData->outQ,&encoderMsg, 500); //Send to conductor via zigbee Q
+		SendConductorMsg(&encoderMsg, 500); //Send to conductor
 		count++;
 	}
 }

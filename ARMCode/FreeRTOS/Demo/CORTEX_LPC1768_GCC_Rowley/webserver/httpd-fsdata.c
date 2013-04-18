@@ -305,14 +305,68 @@ static const unsigned char data_index_shtml[] =	"/index.shtml\0"
 //	0x3e, 0xd, 0xa, 0xd, 0xa, 0};
 
 static const unsigned char data_info_shtml[] = "/info.shtml\0"
-	"<!DOCTYPE html><html><head><title>FreeRTOS.org uIP WEB server demo</title></head>"
-	"<BODY onLoad=\"window.setTimeout(&quot;location.href='info.shtml'&quot;,2000)\"><font face=\"arial\">"
-	NAV_BAR
-	"<form name=\"aForm\" action=\"/info.shtml\" method=\"get\">"
-	"<h2>INFO</h2>"
-	"Page will refresh every 2 seconds.<p>"
-	"<font face=\"courier\"><pre>****************************************<br>"
+	"<!DOCTYPE html><html>"
+	"<head><title>FreeRTOS.org uIP WEB server demo</title>"
+	"<style>"
+	"table{ empty-cells: hide; }"
+	"#spacer{ width: 20px; }"
+	"#motorControlTop{"
+	"-webkit-transform-origin:0% 50%;"
+	"-webkit-transform: rotate(-90deg);"
+	"outline: solid 2px darkgrey;"
+	"width:100px;"
+	"height:20px;"
+	"position:relative;"
+	"left:50%;"
+	"top:10px;"
+	"}"
+	"#motorControlBottom{"
+	"	-webkit-transform-origin:0% 50%;"
+	"	-webkit-transform: rotate(-90deg);"
+	"	outline: solid 2px darkgrey;"
+	"	width:100px;"
+	"	height:20px;"
+	"	position:relative;"
+	"	left:50%;"
+	"	top:91px;"
+	"}"
+	"#motorControlBottom::-webkit-meter-bar{"
+	"	background: -webkit-gradient(linear, left top, left bottom,"
+	"		color-stop(1.00,rgb(250,0,0)),"
+	"		color-stop(0.60,rgb(255,200,200)),"
+	"		color-stop(0.40,rgb(180,0,0)),"
+	"		color-stop(0.20,rgb(200,0,0)),"
+	"		color-stop(0.00,rgb(240,0,0))"
+	"	);"
+	"}"
+	"#motorControlBottom::-webkit-meter-optimum-value, #motorControlTop::-webkit-meter-bar {"
+	"	background: -webkit-gradient(linear, left top, left bottom,"
+	"		color-stop(1.00,rgb(200,200,200)),"
+	"		color-stop(0.60,rgb(255,255,255)),"
+	"		color-stop(0.40,rgb(180,180,180)),"
+	"		color-stop(0.20,rgb(200,200,200)),"
+	"		color-stop(0.00,rgb(190,190,190))"
+	"	);"
+	"}"
+	"</style></head>"
+	"<BODY onLoad=\"window.setTimeout(&quot;location.href='info.shtml'&quot;,1000)\"><font face=\"arial\">"
+	NAV_BAR
+	"<form name=\"aForm\" action=\"/info.shtml\" method=\"get\">"
+	"<h2>INFO</h2>"
+	"Page will refresh every 1 second.<p>"
+	"</font><font face=\"courier\">****************************************<br>"
 	"%! info-out\n"
+	"<p>"
+	"<table border=1>"
+	"<caption>Motors</caption>"
+	"<tr>"
+	" <td style=text-align:center>Left</td>"
+	" <td style=text-align:center>Right</td>"
+	"</tr>"
+	"<tr>"
+	"%! info-motor-out\n"
+	"</tr>"
+	"</table>"
 	"</font></body></html>";
 
 //static const unsigned char data_info_shtml[] = {
@@ -404,21 +458,36 @@ static const unsigned char data_info_shtml[] = "/info.shtml\0"
 //	0x6c, 0x3e, 0xd, 0xa, 0xd, 0xa, 0};
 
 static const unsigned char data_io_shtml[] = "/io.shtml\0"
-	"<!DOCTYPE html>"
-	"<html>"
-	"<head>"
-	"<title>FreeRTOS.org uIP WEB server demo</title>"
-	"</head>"
-	"<BODY>"
-	"<font face=\"arial\">"
-	NAV_BAR
-	"<b>LED and LCD IO</b><br>"
-	"<p>"
-	"Use the check box to turn on or off the LED, enter text to display on the OLED display, then click \"Update IO\"."
-	"<p>"
-	"<form name=\"aForm\" action=\"/io.shtml\" method=\"get\">"
-	"%! led-io\n<p>"
-	"<input type=\"submit\" value=\"Update IO\">"
+	"<!DOCTYPE html>"
+
+	"<html>"
+
+	"<head>"
+
+	"<title>FreeRTOS.org uIP WEB server demo</title>"
+
+	"</head>"
+
+	"<BODY>"
+
+	"<font face=\"arial\">"
+
+	NAV_BAR
+
+	"<b>LED and LCD IO</b><br>"
+
+	"<p>"
+
+	"Use the check box to turn on or off the LED, enter text to display on the OLED display, then click \"Update IO\"."
+
+	"<p>"
+
+	"<form name=\"aForm\" action=\"/io.shtml\" method=\"get\">"
+
+	"%! led-io\n<p>"
+
+	"<input type=\"submit\" value=\"Update IO\">"
+
 	"</form>"
 	"<img src=\"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAMgAyAAD/2wB"
 	"DAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYG"
@@ -447,9 +516,12 @@ static const unsigned char data_io_shtml[] = "/io.shtml\0"
 	"LceF7afSn1otBHI+ZWjdFlKsys5GBtY4HXIz7ed/wDCxdd/542P/ft//iqpaL401bS"
 	"dMh0+2itGii3bS6MW5Yk9GHc0AVvG+papqPiK5XVr/wC3T2btarN5Sx7lR2xwox1JP"
 	"frWHU19cyXl7PdyhRJPI0jBemWOTj86hoAKKKKACiiigAooooAKKKKACiiigD//2Q==\">"
-	"<br><p>"
-	"</font>"
-	"</body>"
+	"<br><p>"
+
+	"</font>"
+
+	"</body>"
+
 	"</html>";
 
 //static const unsigned char data_io_shtml[] = {
@@ -984,23 +1056,23 @@ static const unsigned char data_tcp_shtml[] = "/tcp.shtml\0"
 //	0x6f, 0x64, 0x79, 0x3e, 0xd, 0xa, 0x3c, 0x2f, 0x68, 0x74, 
 //	0x6d, 0x6c, 0x3e, 0xd, 0xa, 0xd, 0xa, 0};
 
-const struct httpd_fsdata_file file_404_html[] = {{NULL, data_404_html, data_404_html + 10, sizeof(data_404_html) - 10}};
+const struct httpd_fsdata_file file_404_html[] = {{NULL, (const char*)data_404_html, (const char*)data_404_html + 10, sizeof(data_404_html) - 10}};
 
-const struct httpd_fsdata_file file_debug_shtml[] = {{file_404_html, data_debug_shtml, data_debug_shtml + 13, sizeof(data_debug_shtml) - 13}};
+const struct httpd_fsdata_file file_debug_shtml[] = {{file_404_html, (const char*)data_debug_shtml, (const char*)data_debug_shtml + 13, sizeof(data_debug_shtml) - 13}};
 
-const struct httpd_fsdata_file file_index_html[] = {{file_debug_shtml, data_index_html, data_index_html + 12, sizeof(data_index_html) - 12}};
+const struct httpd_fsdata_file file_index_html[] = {{file_debug_shtml, (const char*)data_index_html, (const char*)data_index_html + 12, sizeof(data_index_html) - 12}};
 
-const struct httpd_fsdata_file file_index_shtml[] = {{file_index_html, data_index_shtml, data_index_shtml + 13, sizeof(data_index_shtml) - 13}};
+const struct httpd_fsdata_file file_index_shtml[] = {{file_index_html, (const char*)data_index_shtml, (const char*)data_index_shtml + 13, sizeof(data_index_shtml) - 13}};
 
-const struct httpd_fsdata_file file_info_shtml[] = {{file_index_shtml, data_info_shtml, data_info_shtml + 12, sizeof(data_info_shtml) - 12}};
+const struct httpd_fsdata_file file_info_shtml[] = {{file_index_shtml, (const char*)data_info_shtml, (const char*)data_info_shtml + 12, sizeof(data_info_shtml) - 12}};
 
-const struct httpd_fsdata_file file_io_shtml[] = {{file_info_shtml, data_io_shtml, data_io_shtml + 10, sizeof(data_io_shtml) - 10}};
+const struct httpd_fsdata_file file_io_shtml[] = {{file_info_shtml, (const char*)data_io_shtml, (const char*)data_io_shtml + 10, sizeof(data_io_shtml) - 10}};
 
-const struct httpd_fsdata_file file_runtime_shtml[] = {{file_io_shtml, data_runtime_shtml, data_runtime_shtml + 15, sizeof(data_runtime_shtml) - 15}};
+const struct httpd_fsdata_file file_runtime_shtml[] = {{file_io_shtml, (const char*)data_runtime_shtml, (const char*)data_runtime_shtml + 15, sizeof(data_runtime_shtml) - 15}};
 
-const struct httpd_fsdata_file file_stats_shtml[] = {{file_runtime_shtml, data_stats_shtml, data_stats_shtml + 13, sizeof(data_stats_shtml) - 13}};
+const struct httpd_fsdata_file file_stats_shtml[] = {{file_runtime_shtml, (const char*)data_stats_shtml, (const char*)data_stats_shtml + 13, sizeof(data_stats_shtml) - 13}};
 
-const struct httpd_fsdata_file file_tcp_shtml[] = {{file_stats_shtml, data_tcp_shtml, data_tcp_shtml + 11, sizeof(data_tcp_shtml) - 11}};
+const struct httpd_fsdata_file file_tcp_shtml[] = {{file_stats_shtml, (const char*)data_tcp_shtml, (const char*)data_tcp_shtml + 11, sizeof(data_tcp_shtml) - 11}};
 
 #define HTTPD_FS_ROOT file_tcp_shtml
 

@@ -52,5 +52,4 @@ inline void enableTag(uint8_t tag);
 uint8_t adjuctSpeed(char delta);
 
 
-
 #endif

@@ -258,7 +258,7 @@ extern void vParTestSetLEDState( long lState );
 	c = strstr( pcInputString, "?" );
     if( c )
     {
-		if(strstr(c,"start=1")!=NULL){
+		if(strstr(c,"start=on")!=NULL){
 			setWebStart(1);
 		}
 		else{

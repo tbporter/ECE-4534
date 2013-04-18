@@ -50,8 +50,11 @@ typedef enum {
 	
 	//Webpage
 	webDebugMsg,
+	webMotorMsg, //Sends motor data to webserver. NOTE: values should be from 0-127
 	webPowerMsg,
-	webNavMsg,
+	webSpeedMsg, // Current, Avg
+	webStateMsg, // String
+	webNavMsg,	 //finished,lap
 	
 	//conductor request message
 	conRequestMsg,
