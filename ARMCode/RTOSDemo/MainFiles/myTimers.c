@@ -235,13 +235,13 @@ void ConductorTimerCallback(xTimerHandle pxTimer)
 
 		switch( count ){
 		case 0:	//Speed Up Start
-			printw("<b style=color:green>Speed Up Test Start</b>\n");
+			//printw("<b style=color:green>Speed Up Test Start</b>\n");
 			fakeMsg.msgType = navRFIDFoundMsg;
 			fakeMsg.length = 1;
 			fakeMsg.buf[0] = SpeedUp;
 			break;
 		case 5:	//Sped Up End
-			printw("<b style=color:green>Speed Up Test End</b>\n");
+			//printw("<b style=color:green>Speed Up Test End</b>\n");
 			fakeMsg.msgType = navRFIDFoundMsg;
 			fakeMsg.length = 1;
 			fakeMsg.buf[0] = EndZone;
@@ -249,20 +249,20 @@ void ConductorTimerCallback(xTimerHandle pxTimer)
 
 
 		case 10: //Slow Down Start
-			printw("<b style=color:green>Slow Down Test Start</b>\n");
+			//printw("<b style=color:green>Slow Down Test Start</b>\n");
 			fakeMsg.msgType = navRFIDFoundMsg;
 			fakeMsg.length = 1;
 			fakeMsg.buf[0] = SlowDown;
 			break;
 		case 15: //Slow Down End
-			printw("<b style=color:green>Slow Down Test End</b>\n");
+			//printw("<b style=color:green>Slow Down Test End</b>\n");
 			fakeMsg.msgType = navRFIDFoundMsg;
 			fakeMsg.length = 1;
 			fakeMsg.buf[0] = EndZone;
 			break;
 
 		case 20:  //Right Start
-			printw("<b style=color:green>Go Right Start</b>\n");
+			//printw("<b style=color:green>Go Right Start</b>\n");
 			fakeMsg.msgType = navRFIDFoundMsg;
 			fakeMsg.length = 1;
 			fakeMsg.buf[0] = GoRight;
@@ -284,7 +284,7 @@ void ConductorTimerCallback(xTimerHandle pxTimer)
 
 
 		case 35:  //Left Start
-			printw("<b style=color:green>Go Left Start</b>\n");
+			//printw("<b style=color:green>Go Left Start</b>\n");
 			fakeMsg.msgType = navRFIDFoundMsg;
 			fakeMsg.length = 1;
 			fakeMsg.buf[0] = GoLeft;

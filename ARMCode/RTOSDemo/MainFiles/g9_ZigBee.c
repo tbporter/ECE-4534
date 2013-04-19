@@ -240,6 +240,7 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 								printw_err("ZigBee Error: TX Failed\n");
 								txState = CONTINUE; //Give up;
 								retries = 0;
+								free(txBuf); //Free previous message
 							}
 						}
 						else{
@@ -297,7 +298,7 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 		#endif
 	
 				//Get Len
-				uint16_t len = 5 /*API Format*/ + 3 /*g9Msg*/ + inMsg.length;
+				uint16_t len = 5 /*API Format*/ + G9_LEN_NO_BUFF + inMsg.length;
 				setLen(&msg,len);
 		
 				msg.data = (uint8_t*)malloc(sizeof(uint8_t)*len);
@@ -334,7 +335,7 @@ static portTASK_FUNCTION( vZigBeeTask, pvParameters ){	 //Red is due to #defines
 				if( SendUartMsg(zigBeePtr->uartDev,len+4, txBuf) != pdTRUE ){
 					VT_HANDLE_FATAL_ERROR(0xD34D7);
 				}
-				//txState = RETRY; //Stops from sending new data before TX_SUCCESS status rcv
+				txState = RETRY; //Stops from sending new data before TX_SUCCESS status rcv
 				free(msg.data); //Free allocated array
 			}// Rcvd Msg
 		}//TX - Continue

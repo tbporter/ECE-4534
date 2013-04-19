@@ -86,7 +86,10 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 				break;
 			//used to display nav related things from the nav task
 			case webNavMsg:
-				
+				if(msgBuffer.length == 2){
+					finished = msgBuffer.buf[0];
+					lap = msgBuffer.buf[1];
+				}
 				break;		
 			default:
 				//Invalid message type

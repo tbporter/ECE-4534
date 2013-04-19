@@ -130,7 +130,7 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 				break;
 			
 			case navLineFoundMsg:
-					printw("<b>navLineFoundMsg</b> %d %d\n",msg->buf[0],msg->buf[1]);
+					printw("<b>navLineFoundMsg</b> %d\n",msg->buf[0]<<8 | msg->buf[1]);
 				break;
 			
 			case navIRDataMsg:
@@ -176,15 +176,12 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		}
 
 		g9Msg msg;
-		msg.id = msgBuffer.id + 1;
-		msg.length = 2;
-		msg.msgType = navMotorCmdMsg;
 
 		// Now, based on the type of the message, we decide on the action to take
 		switch (msgBuffer.msgType){
 		case navLineFoundMsg:
 			//stop we have found the finish line!!!
-			if( ((int*)msgBuffer.buf)[0] >= LINE_FOUND_THRE && (tagValue & Finish) ) lineFound = TRUE;
+			if( (((int*)msgBuffer.buf)[0] >= LINE_FOUND_THRE) && (tagValue & Finish) ) lineFound = TRUE;
 			break;
 		
 		case navIRDataMsg:
@@ -195,6 +192,12 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			RIGHT_BACK_IR = msgBuffer.buf[3];
 			SONAR_LEFT = msgBuffer.buf[4];
 			SONAR_RIGHT = msgBuffer.buf[5];
+
+			msg.msgType = webPowerMsg;
+			msg.id = 0; //internal
+			msg.length = 1;
+			msg.buf[0] = msgBuffer.buf[6];
+			SendConductorMsg(&msg,10);
 			break;
 
 		case navEncoderMsg:
@@ -226,9 +229,12 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		}
 
 		#if DEMO_M4 == 1
-			printw("Motor: %u %u\n",motorData.left & 0x7F, motorData.right & 0x7F);
+			//printw("Motor: %u %u\n",motorData.left & 0x7F, motorData.right & 0x7F);
 		#endif
 
+		msg.msgType = navMotorCmdMsg;
+		msg.id = msgBuffer.id + 1;
+		msg.length = 2;
 		msg.buf[0] = motorData.left;
 		msg.buf[1] = motorData.right;		
 		SendZigBeeMsg(navData->zigBeePtr,&msg,portMAX_DELAY);
@@ -251,6 +257,13 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		msg.id = 0; //internal
 		msg.length = strlen(state);
 		strcpy((char*)msg.buf,state);
+		SendConductorMsg(&msg,10);
+
+		msg.msgType = webNavMsg;
+		msg.id = 0; //internal
+		msg.length = 2;
+		msg.buf[0] = lineFound;
+		msg.buf[1] = 0;
 		SendConductorMsg(&msg,10);
 	}
 }
