@@ -1,9 +1,0 @@
-"<!DOCTYPE html><html><head><title>FreeRTOS.org uIP WEB server demo</title></head>"
-"<BODY onLoad=\"window.setTimeout(&quot;location.href='info.shtml'&quot;,2000)\"><font face=\"arial\">"
-NAV_BAR
-"<form name=\"aForm\" action=\"/info.shtml\" method=\"get\">"
-"<h2>INFO</h2>"
-"Page will refresh every 2 seconds.<p>"
-"<font face=\"courier\"><pre>****************************************<br>"
-"%! info-out\n"
-"</font></body></html>";

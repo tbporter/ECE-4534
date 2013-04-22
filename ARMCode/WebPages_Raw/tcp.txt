@@ -1,9 +1,0 @@
-"<!DOCTYPE html><html><head>"
-"<title>FreeRTOS.org uIP WEB server demo</title>"
-"</head><BODY><font face=\"arial\">"
-NAV_BAR
-"<h2>Network connections</h2>"
-"<p><table><tr><th>Local</th><th>Remote</th><th>State</th><th>Retransmissions</th><th>Timer</th><th>Flags</th></tr>"
-"%! tcp-connections\n"
-"</table></font></body></html>";
-
