@@ -1,21 +1,94 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-  <head>
-    <title>FreeRTOS.org uIP WEB server demo</title>
-  </head>
-  <BODY onLoad="window.setTimeout(&quot;location.href='info.shtml'&quot;,2000)">
-<font face="arial">
-<a href="index.shtml">Task Stats</a> <b>|</b> <a href="runtime.shtml">Run Time Stats</a> <b>|</b> <a href="stats.shtml">TCP Stats</a> <b>|</b> <a href="tcp.shtml">Connections</a> <b>|</b> <a href="http://www.freertos.org/">FreeRTOS.org Homepage</a> <b>|</b> <a href="io.shtml">IO</a>
-<br><p>
-<hr>
-<br><p>
-<form name="aForm" action="/info.shtml" method="get">
-<h2>INFO</h2>
-Page will refresh every 2 seconds.<p>
-<font face="courier"><pre>****************************************<br>
-%! info-out
-</pre></font>
-</font>
-</body>
-</html>
+<!DOCTYPE html><html><head>
+<script src=http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js></script>
+<script src=http://layout.jquery-dev.net/lib/js/jquery-ui-latest.js></script>
+<script src=http://layout.jquery-dev.net/lib/js/jquery.layout-latest.js></script>
+<script>
+    var myLayout;$(document).ready(function () {
+      myLayout = $('body').layout({
+        applyDefaultStyles:true
+        ,south:{
+            size:           'auto'
+            ,resizable:     true
+            ,spacing_open:  5
+         }
+      });
+    });
+    window.setInterval(function(){$("#debug").load("info.shtml #debug")},100);
+    window.setInterval(function(){$("#info").load("info.shtml #info")},300);
+    window.setInterval(function(){$("#motor").load("info.shtml #motor")},300);
+</script>
+<style>
+#debug{
+ padding-top: 0px !important;
+ padding-bottom: 0px !important;
+}
+table{ empty-cells: hide; margin: 0.2em;}
+meter.motorControl{
+width:6.25em;
+height:1.25em;
+-webkit-transform-origin:0% 50%;
+-webkit-transform: rotate(-90deg);
+outline: solid 2px darkgrey;
+position:relative;
+}
+meter.motorControlTop{left:50%;top:5%;}
+meter.motorControlBottom{left:49%;top:44%;}
+.motorControlBottom::-webkit-meter-bar{
+    background: -webkit-gradient(linear, left top, left bottom,
+       color-stop(1.00,rgb(250,0,0)),
+       color-stop(0.60,rgb(255,200,200)),
+       color-stop(0.40,rgb(180,0,0)),
+       color-stop(0.20,rgb(200,0,0)),
+       color-stop(0.00,rgb(240,0,0))
+    );
+}
+.motorControlBottom::-webkit-meter-optimum-value, #motorControlTop::-webkit-meter-bar {
+    background: -webkit-gradient(linear, left top, left bottom,
+       color-stop(1.00,rgb(200,200,200)),
+       color-stop(0.60,rgb(255,255,255)),
+       color-stop(0.40,rgb(180,180,180)),
+       color-stop(0.20,rgb(200,200,200)),
+       color-stop(0.00,rgb(190,190,190))
+    );    
+}
+table.motorControl td{height:13em;width:1.25em;}
+.motorControl{margin:auto;}
+.container{
+ width: 80%;
+ display: table;
+ margin-left:auto;
+ margin-right:auto;
+}
+.left{float:left;}
+.right{float:right;}
+</style>
+</head>
+<BODY>
+<div class='container ui-layout-center'>
+   %! info-out
+ <form id=input>
+  <table class=right border=1>
+  <caption>User Input</caption>
+   <pre>%! user-input-out
+   </pre>
+  </table>
+ </form>
+ <table id=motor class='motorControl' border=1>
+    <caption>Motors</caption>
+    <tr>
+     <th>Left</th>
+     <th>Right</th>
+    </tr>
+    <tr>
+     %! info-motor-out
+    </tr>
+ </table> 
+</div>
+<pre id=debug class=ui-layout-south>%! debug-out
+</pre>
 
+<script>
+$(':input').click(function(){$('#input').submit();});
+$(':input').addClass('right');
+</script>
+</body></html>

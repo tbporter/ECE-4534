@@ -127,7 +127,7 @@ to exclude the API function. */
 /* Netmask configuration. */
 #define configNET_MASK0		255
 #define configNET_MASK1		255
-#define configNET_MASK2		255
+#define configNET_MASK2		128
 #define configNET_MASK3		0
 
 /* Use the system definition, if there is one */

@@ -43,8 +43,9 @@ void printw(const char* fmt, ...);
 void printw_err(char* fmt, ...);
 void processWebDebugMsg(char* msg);
 
-char (*getWebDebug())[DEBUG_LENGTH];
-void getWebStatusText(char* buf);
+char (*getWebDebug(int* index))[DEBUG_LENGTH];
+void getWebStatusText(char* out, const char* in);
+void getWebInputText(char* out, const char* in);
 
 int getWebStart();
 void setWebStart(int s);

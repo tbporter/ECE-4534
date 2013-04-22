@@ -5,10 +5,6 @@
   </head>
   <BODY onLoad="window.setTimeout(&quot;location.href='runtime.shtml'&quot;,2000)">
 <font face="arial">
-<a href="index.shtml">Task Stats</a> <b>|</b> <a href="runtime.shtml">Run Time Stats</a> <b>|</b> <a href="stats.shtml">TCP Stats</a> <b>|</b> <a href="tcp.shtml">Connections</a> <b>|</b> <a href="http://www.freertos.org/">FreeRTOS.org Homepage</a> <b>|</b> <a href="io.shtml">IO</a>
-<br><p>
-<hr>
-<br><p>
 <h2>Run-time statistics</h2>
 Page will herp every 2 seconds.<p>
 <font face="courier"><pre>Task            Abs Time      % Time<br>****************************************<br>

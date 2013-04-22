@@ -31,7 +31,7 @@
 //Set Web Server IP
 #define g9IP_ADDR0		192
 #define g9IP_ADDR1		168
-#define g9IP_ADDR2		87
+#define g9IP_ADDR2		1
 #define g9IP_ADDR3		4
 
 #define MALLOC_ERROR 0x245

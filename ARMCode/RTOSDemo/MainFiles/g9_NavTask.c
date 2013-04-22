@@ -74,6 +74,11 @@ void getMotorData(motorData_t* motorData, uint8_t* left, uint8_t* right){
 /* The navigation task. */
 static portTASK_FUNCTION_PROTO( navigationUpdateTask, pvParameters );
 
+//Set state Text
+inline void setState(const char* msg){
+	strcpy(state,msg);
+}
+
 //Converts an encoder value to a distance (cm) traveled
 inline float enc2Dist(short enc){
 	#define ROLL_OUT 45.01 //cm
@@ -146,7 +151,7 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 				break;	
 	
 			default:
-				printw("Incorrect Navigation Msg\n");
+				printw_err("Incorrect Navigation Msg\n");
 		}
 	#endif
 
@@ -219,18 +224,14 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 
 		if(getWebStart()==1){
-			strcpy(state,"Navigate");
+			setState("Navigate");
 			stateMachine();
 			handleSpecialEvents(enc);
 		}
 		else{
 			setMotorData(&motorData,64,64);
-			strcpy(state,"Stopped");
+			setState("Stopped");
 		}
-
-		#if DEMO_M4 == 1
-			//printw("Motor: %u %u\n",motorData.left & 0x7F, motorData.right & 0x7F);
-		#endif
 
 		msg.msgType = navMotorCmdMsg;
 		msg.id = msgBuffer.id + 1;
@@ -374,10 +375,6 @@ void handleSpecialEvents(short* enc){
 		return;
 	}
 
-	#if DEMO_M4 == 1
-		printw("\tHandling RFID Tag: 0x%X\n",tagValue);
-	#endif
-
 	//Depending on tag values adjust motor speed
 	if( tagValue != oldTagValue ){
 		//Do first occurence actions
@@ -415,17 +412,17 @@ void handleSpecialEvents(short* enc){
 	}
 
 	if( tagValue & SpeedUp ){ //SPD UP
-		strcpy(state,"Go Fast");
+		setState("Go Fast");
 		//adjust to target
 		adjustSpeed(enc[0], enc[1], MAX_SPEED);	 
 	}
 	if( tagValue & SlowDown ){ //SPD DOWN
-		strcpy(state,"Go Slow");
+		setState("Go Slow");
 		//adjust to target
 		adjustSpeed(enc[0], enc[1], MIN_SPEED);		
 	}
 	if( tagValue & GoLeft ){ //LEFT
-		strcpy(state,"Go Left");
+		setState("Go Left");
 		//Update Encoder counts
 		elapsedEnc[0] += enc[0];
 		elapsedEnc[1] += enc[1];
@@ -447,7 +444,7 @@ void handleSpecialEvents(short* enc){
 			
 	}
 	if( tagValue & GoRight ){ //RIGHT
-		strcpy(state,"Go Right");
+		setState("Go Right");
 		//Update Encoder counts
 		elapsedEnc[0] += enc[0];
 		elapsedEnc[1] += enc[1];

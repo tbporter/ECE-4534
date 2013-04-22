@@ -4,9 +4,7 @@
 
 #include "g9_webTask.h"
 
-
-#include "web_input.c"
-
+static int debugIndex=0;
 static char webDebugOut[DEBUG_LINES][DEBUG_LENGTH];
 
 static int curspeed=0;
@@ -143,20 +141,21 @@ void printw_err(char* fmt, ...){
 void processWebDebugMsg(char* msg){
 	static int i = 0;
 	strncpy(webDebugOut[i],msg,DEBUG_LENGTH);
-	i++;
-	if(i>=DEBUG_LINES){
-		i = 0;
-	}
-	strcpy(webDebugOut[i],"----------------\n");				 
+	if(++i>=DEBUG_LINES) i = 0;
+	if(++debugIndex >= DEBUG_LINES) debugIndex = 0;				 
 }
-void getWebStatusText(char* buffer){
-	sprintf(buffer,INFO_TABLE,state,loop,curspeed,avgspeed,lap,finished,amps);
+void getWebStatusText(char* out, const char* in){
+	sprintf(out,in,state,curspeed,avgspeed,lap,amps,loop,finished);
 }
 
+void getWebInputText(char* out, const char* in){
+	#define checked(val) (((val)==1)?("checked"):(""))
+	sprintf(out,in,checked(start),"","","");
+}
 
 
-
-char (*getWebDebug())[DEBUG_LENGTH]{
+char (*getWebDebug(int* index))[DEBUG_LENGTH]{
+	*index=debugIndex;
 	return webDebugOut;
 }
 

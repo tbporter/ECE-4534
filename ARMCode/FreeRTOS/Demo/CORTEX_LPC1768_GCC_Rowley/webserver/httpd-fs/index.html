@@ -1,13 +1,47 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>FreeRTOS.org uIP WEB server demo</title>
-  </head>
-  <BODY onLoad="window.setTimeout(&quot;location.href='index.shtml'&quot;,100)">
-<font face="arial">
-Loading index.shtml.  Click <a href="index.shtml">here</a> if not automatically redirected.
-</font>
-</font>
+<head>
+<style>
+
+.ui-layout-pane{
+ padding: 10px !important;
+}
+
+#navBar{
+ text-align:center;
+ position:fixed;
+ top:0;
+ width:100%;
+}
+
+#frame {
+ margin-top:2em;
+ padding: 0 !important;
+ overflow: auto !important;
+ width:100%;
+ height:94%;
+}
+
+</style>
+<script src=http://layout.jquery-dev.net/lib/js/jquery-latest.js></script>
+<script src=http://layout.jquery-dev.net/lib/js/jquery-ui-latest.js></script>
+<script src=http://layout.jquery-dev.net/lib/js/jquery.layout-latest.js></script>
+<script>
+    var myLayout;$(document).ready(function () {
+       myLayout = $('body').layout({
+        applyDefaultStyles:true
+       });
+    });
+</script>
+
+</head>
+<BODY style='background: black;font-color: white'>
+ <div id=container class='ui-layout-center'>
+  <div id=navBar>
+   <a href=index.shtml target=content>Task Stats</a> <b>|</b> <a href=runtime.shtml target=content>Run Time Stats</a> <b>|</b> <a href=stats.shtml target=content>TCP Stats</a> <b>|</b> <a href=tcp.shtml target=content>Connections</a> <b>|</b> <a href=http://www.freertos.org/ target=content>FreeRTOS.org Homepage</a> <b>|</b> <a href=io.shtml target=content>IO</a> <b>|</b> <a href=debug.shtml target=content>Debug</a> <b>|</b> <a href=info.shtml target=content>Info</a>		
+   <br><hr>
+  </div>
+  <iframe id=frame name=content src=index.shtml frameborder=0 scroling=auto></iframe>
+ </div>
 </body>
 </html>
-

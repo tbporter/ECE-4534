@@ -66,7 +66,8 @@ HTTPD_CGI_CALL(io, "led-io", led_io );
 HTTPD_CGI_CALL(debug, "debug-out", debug_out );
 HTTPD_CGI_CALL(info, "info-out", info_out );
 HTTPD_CGI_CALL(info_motor, "info-motor-out", info_motor_out );
-static const struct httpd_cgi_call *calls[] = { &file, &tcp, &net, &rtos, &run, &io, &debug, &info, &info_motor, NULL };
+HTTPD_CGI_CALL(info_user, "user-input-out", user_input_out );
+static const struct httpd_cgi_call *calls[] = { &file, &tcp, &net, &rtos, &run, &io, &debug, &info, &info_motor, &info_user, NULL };
 /*---------------------------------------------------------------------------*/
 static						  
 PT_THREAD(nullfunction(struct httpd_state *s, char *ptr))
@@ -94,19 +95,8 @@ httpd_cgi(char *name)
 static unsigned short
 generate_info_out(void *arg)
 {
-	int started = getWebStart();
-	char check[8];
-	if(started == 0)
-	{
-		strcpy( check, "" );
-	}
-	else if(started == 1)
-	{
-		strcpy( check, "checked" );
-	}
-	sprintf(uip_appdata,"<input type=\"checkbox\" name=\"start\" onClick=submit() %s>START", check);
 
-	getWebStatusText(uip_appdata+strlen(uip_appdata));
+	getWebStatusText(uip_appdata,INFO_TABLE);
 
 	return strlen(uip_appdata);							 
 }
@@ -156,17 +146,42 @@ PT_THREAD(info_motor_out(struct httpd_state *s, char *ptr))
 
 
 /*---------------------------------------------------------------------------*/
+ 
 
+static unsigned short
+generate_user_input_out(void *arg)
+{
+	getWebInputText(uip_appdata, INPUT_FORM);
+
+	return strlen(uip_appdata);							 
+}
+
+
+static
+PT_THREAD(user_input_out(struct httpd_state *s, char *ptr))
+{
+	
+  PSOCK_BEGIN(&s->sout);
+  PSOCK_GENERATOR_SEND(&s->sout, generate_user_input_out, strchr(ptr, ' ') + 1);
+  PSOCK_END(&s->sout);
+}
+
+
+
+
+
+/*---------------------------------------------------------------------------*/
 static unsigned short
 generate_debug_out(void *arg)
 {
 
  	char (*debug)[DEBUG_LENGTH];
-	debug = getWebDebug();
-	int i;
-	for(i=0;i<DEBUG_LINES;i++){
+	int i,k,x;
+	debug = getWebDebug(&x);
+	for(i=0,k=x;i<DEBUG_LINES;i++,k--){
 //		printf(debug[i]);
-		strcat( uip_appdata,debug[i]);
+		if(k < 0 ) k+=DEBUG_LINES;
+		strcat( uip_appdata,debug[k]);
 //		strcat( uip_appdata,"\n");				
 	}
 	return strlen(uip_appdata);							 

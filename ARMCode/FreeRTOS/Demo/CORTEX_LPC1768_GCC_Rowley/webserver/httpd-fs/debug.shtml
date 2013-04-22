@@ -4,17 +4,9 @@
     <title>FreeRTOS.org uIP WEB server demo</title>
   </head>
   <BODY onLoad="window.setTimeout(&quot;location.href='debug.shtml'&quot;,2000)">
-<font face="arial">
-<a href="index.shtml">Task Stats</a> <b>|</b> <a href="runtime.shtml">Run Time Stats</a> <b>|</b> <a href="stats.shtml">TCP Stats</a> <b>|</b> <a href="tcp.shtml">Connections</a> <b>|</b> <a href="http://www.freertos.org/">FreeRTOS.org Homepage</a> <b>|</b> <a href="io.shtml">IO</a>
-<br><p>
-<hr>
-<br><p>
 <h2>Debug Output</h2>
 Page will refresh every 2 seconds.<p>
 <font face="courier"><pre>****************************************<br>
 %! debug-out
-</pre></font>
-</font>
-</body>
-</html>
+</pre></font></font></body></html>
 
