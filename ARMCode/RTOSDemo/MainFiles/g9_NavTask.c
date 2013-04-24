@@ -201,7 +201,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			msg.msgType = webPowerMsg;
 			msg.id = 0; //internal
 			msg.length = 1;
-			msg.buf[0] = msgBuffer.buf[6];
+			msg.buf[0] = msgBuffer.buf[6]*4;
 			SendConductorMsg(&msg,10);
 			break;
 
