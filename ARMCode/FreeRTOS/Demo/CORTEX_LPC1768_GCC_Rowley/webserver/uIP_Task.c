@@ -258,12 +258,13 @@ extern void vParTestSetLEDState( long lState );
 	c = strstr( pcInputString, "?" );
     if( c )
     {
-		if(strstr(c,"start=on")!=NULL){
-			setWebStart(1);
-		}
-		else{
-			setWebStart(0);
-		}
+		webInput_t inputs={0};
+		if(strstr(c,"start=on")!=NULL){ inputs.start=1; }
+		if(strstr(c,"loop=on")!=NULL){ inputs.loop=1; }
+		if(strstr(c,"M4Demo=on")!=NULL){ inputs.m4Demo=1; }
+		if(strstr(c,"printNav=on")!=NULL){ inputs.printNav=1; }
+		if(strstr(c,"printZigBee=on")!=NULL){ inputs.printZigBee=1; }
+		
 		/* Turn the FIO1 LED's on or off in accordance with the check box status. */
 		if( strstr( c, "LED0=1" ) != NULL )
 		{
@@ -273,6 +274,8 @@ extern void vParTestSetLEDState( long lState );
 		{
 			vParTestSetLEDState( pdFALSE );
 		}
+
+		setWebInputs(&inputs);
     }
 }
 
