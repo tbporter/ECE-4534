@@ -37,6 +37,8 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 //Decides on commands to send the motor based off of IR
 
 void stateMachine();
+Bool chkDist(float left, float right, float front_left, float front_right, float side_left, float side_right);
+
 
 //Adjust motor speed to account for RFID tag events
 void handleSpecialEvents(short* enc);
