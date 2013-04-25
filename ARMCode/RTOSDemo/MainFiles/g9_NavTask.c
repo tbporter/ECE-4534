@@ -20,7 +20,7 @@
 #define MAX_TURN_ANGLE	90 //Degrees
 #define MIN_TURN_ANGLE	60 //Degrees
  
-int IR[6];
+float IR[6];
 
 #define LEFT_FRONT_IR	IR[0]
 #define RIGHT_FRONT_IR	IR[1]
@@ -105,6 +105,12 @@ inline float enc2Ang(short leftEnc, short rightEnc){
 	float dS = enc2Dist(rightEnc) - enc2Dist(leftEnc); //differential
 	//float R = (enc2Dist(leftEnc)/dS+1)*ROVER_WIDTH;
 	return 	dS/ROVER_WIDTH*(180/3.1415927);
+}
+
+inline float ir2Dist(uint8_t raw){
+	float retVal = raw * 3.3/255;
+	retVal = pow(41.543 * ( retVal + 0.30221), -1.5281);
+	return retVal; 
 }
 
 //Get speed (m/s) from enc value
@@ -202,10 +208,10 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		
 		case navIRDataMsg:
 			//Save the data
-			LEFT_FRONT_IR = msgBuffer.buf[0];
-			RIGHT_FRONT_IR = msgBuffer.buf[1];
-			LEFT_BACK_IR = msgBuffer.buf[2];
-			RIGHT_BACK_IR = msgBuffer.buf[3];
+			LEFT_FRONT_IR = ir2Dist(msgBuffer.buf[0]);
+			RIGHT_FRONT_IR = ir2Dist(msgBuffer.buf[1]);
+			LEFT_BACK_IR = ir2Dist(msgBuffer.buf[2]);
+			RIGHT_BACK_IR = ir2Dist(msgBuffer.buf[3]);
 			SONAR_LEFT = msgBuffer.buf[4];
 			SONAR_RIGHT = msgBuffer.buf[5];
 
@@ -232,7 +238,6 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			VT_HANDLE_FATAL_ERROR(INVALID_G9MSG_TYPE);
 			break;
 		}
-
 
 		if(getWebStart()==1){
 			setState("Navigate");
