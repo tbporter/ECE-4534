@@ -258,7 +258,7 @@ extern void vParTestSetLEDState( long lState );
 	c = strstr( pcInputString, "?" );
     if( c )
     {
-		webInput_t inputs={0};
+		webInput_t inputs={{0}};
 		if(strstr(c,"start=on")!=NULL){ inputs.start=1; }
 		if(strstr(c,"loop=on")!=NULL){ inputs.loop=1; }
 		if(strstr(c,"M4Demo=on")!=NULL){ inputs.m4Demo=1; }

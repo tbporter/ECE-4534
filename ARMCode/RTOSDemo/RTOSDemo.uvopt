@@ -474,10 +474,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>36</ColumnNumber>
+      <ColumnNumber>3</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>373</TopLine>
-      <CurrentLine>377</CurrentLine>
+      <TopLine>244</TopLine>
+      <CurrentLine>257</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_NavTask.c</PathWithFileName>
       <FilenameWithoutPath>g9_NavTask.c</FilenameWithoutPath>
@@ -896,7 +896,7 @@
       <Focus>0</Focus>
       <ColumnNumber>59</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>170</TopLine>
+      <TopLine>176</TopLine>
       <CurrentLine>180</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_webTask.c</PathWithFileName>
@@ -1099,8 +1099,8 @@
       <Focus>0</Focus>
       <ColumnNumber>22</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>304</TopLine>
-      <CurrentLine>315</CurrentLine>
+      <TopLine>221</TopLine>
+      <CurrentLine>221</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\MainFiles/g9_ZigBee.c</PathWithFileName>
       <FilenameWithoutPath>g9_ZigBee.c</FilenameWithoutPath>
@@ -1142,80 +1142,24 @@
     </File>
   </Group>
 
-  <AlienFiles>
-    <PathWithFilename>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_WEBTASK.H</PathWithFilename>
-    <TopLine>32</TopLine>
-    <CurrentLine>36</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
   <MDIGroups>
     <Orientation>1</Orientation>
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>6</ActiveTab>
+      <ActiveTab>1</ActiveTab>
       <Documents>
         <Doc>
-          <Name>.\MainFiles/g9_webTask.c</Name>
-          <ColumnNumber>59</ColumnNumber>
-          <TopLine>170</TopLine>
-          <CurrentLine>180</CurrentLine>
-        </Doc>
-        <Doc>
           <Name>.\MainFiles/g9_NavTask.c</Name>
-          <ColumnNumber>36</ColumnNumber>
-          <TopLine>373</TopLine>
-          <CurrentLine>377</CurrentLine>
+          <ColumnNumber>3</ColumnNumber>
+          <TopLine>244</TopLine>
+          <CurrentLine>257</CurrentLine>
         </Doc>
         <Doc>
-          <Name>\\vmware-host\Shared Folders\ECE-4534\COMMON\MESSAGES_G9.H</Name>
-          <ColumnNumber>22</ColumnNumber>
-          <TopLine>47</TopLine>
-          <CurrentLine>51</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>\\vmware-host\Shared Folders\ECE-4534\ARMCode\RTOSDemo\MAINFILES\G9_WEBTASK.H</Name>
-          <ColumnNumber>2</ColumnNumber>
-          <TopLine>32</TopLine>
-          <CurrentLine>36</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\MainFiles/conductor.c</Name>
-          <ColumnNumber>22</ColumnNumber>
-          <TopLine>129</TopLine>
-          <CurrentLine>133</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>../FreeRTOS/Demo/CORTEX_LPC1768_GCC_Rowley/webserver/uIP_Task.c</Name>
-          <ColumnNumber>33</ColumnNumber>
-          <TopLine>263</TopLine>
-          <CurrentLine>267</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\MainFiles/g9_ZigBee.c</Name>
-          <ColumnNumber>22</ColumnNumber>
-          <TopLine>304</TopLine>
-          <CurrentLine>315</CurrentLine>
+          <Name>.\MainFiles/myTimers.c</Name>
+          <ColumnNumber>68</ColumnNumber>
+          <TopLine>19</TopLine>
+          <CurrentLine>29</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>
