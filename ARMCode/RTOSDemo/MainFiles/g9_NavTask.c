@@ -212,12 +212,12 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		
 		case navIRDataMsg:
 			//Save the data
-			LEFT_FRONT_IR = ir2Dist(msgBuffer.buf[0]);
-			RIGHT_FRONT_IR = ir2Dist(msgBuffer.buf[1]);
-			LEFT_BACK_IR = ir2Dist(msgBuffer.buf[2]);
-			RIGHT_BACK_IR = ir2Dist(msgBuffer.buf[3]);
-			SONAR_LEFT = msgBuffer.buf[4];
-			SONAR_RIGHT = msgBuffer.buf[5];
+			LEFT_FRONT_IR = ir2Dist(msgBuffer.buf[0]*4);
+			RIGHT_FRONT_IR = ir2Dist(msgBuffer.buf[1]*4);
+			LEFT_BACK_IR = ir2Dist(msgBuffer.buf[2]*4);
+			RIGHT_BACK_IR = ir2Dist(msgBuffer.buf[3]*4);
+			SONAR_LEFT = ir2Dist(msgBuffer.buf[4]*4);
+			SONAR_RIGHT = ir2Dist(msgBuffer.buf[5]*4);
 
 			msg.msgType = webPowerMsg;
 			msg.id = 0; //internal
