@@ -115,6 +115,7 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 			//Do nothing with this message type
 			break;
 
+		case navWebInputMsg:
 		case navLineFoundMsg:
 		case navIRDataMsg:
 		case navRFIDFoundMsg:

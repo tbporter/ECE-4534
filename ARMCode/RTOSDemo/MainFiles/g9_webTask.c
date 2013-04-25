@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "g9_webTask.h"
+#include "conductor.h"
 
 static int debugIndex=DEBUG_LINES-1;
 static char webDebugOut[DEBUG_LINES][DEBUG_LENGTH];
@@ -95,18 +96,6 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 				printw_err("Invalid Web Msg! Type: 0x%X\n",msgBuffer.msgType);
 			break;
 		}
-	   
-		/*
-		if(start == 1){
-		   g9Msg msg;
-			msg.id = 0;
-			msg.length = 0;
-			msg.msgType = navWebStartMsg;
-			printw("sending start=%d",start);
-			msg.msgType = navWebStartMsg;
-			SendNavigationMsg(param->navData,&msg,portMAX_DELAY);
-			start = 0;
-		}*/
 	}
 }
 void printw(const char* fmt, ...){
@@ -166,8 +155,18 @@ char (*getWebDebug(int* index))[DEBUG_LENGTH]{
 }
 
 void setWebInputs(webInput_t* in){
-	webInput = *in;
-	printw("Web Inputs = %d%d%d%d%d\n",webInput.start,webInput.loop,webInput.m4Demo,webInput.printNav,webInput.printZigBee);
+	if( in->data != webInput.data){ //Only updata if differet - resolves derpy webpages
+		//update Values
+		webInput = *in;
+		//Send to Navigation
+		g9Msg msg;
+		msg.id = 0; //Internal
+		msg.msgType = navWebInputMsg;
+		msg.length = sizeof(webInput);
+		((webInput_t*)msg.buf)[0] = webInput;
+	
+		SendConductorMsg(&msg,portMAX_DELAY);
+	}
 }
 inline char getWebStart(){
 	return webInput.start;

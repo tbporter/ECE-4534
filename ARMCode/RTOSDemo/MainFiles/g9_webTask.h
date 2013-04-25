@@ -24,12 +24,15 @@ typedef struct __webStruct {
 	navStruct* navData;
 } webStruct;
 
-typedef struct __attribute__((__packed__)) __webInput_t{ //Used for data compression
-	unsigned start 		: 1;
-	unsigned loop 		: 1;
-	unsigned m4Demo		: 1;
-	unsigned printNav 	: 1;
-	unsigned printZigBee: 1;
+typedef union{
+	struct __attribute__((__packed__)){ //Used for data compression
+		unsigned start 		: 1;
+		unsigned loop 		: 1;
+		unsigned m4Demo		: 1;
+		unsigned printNav 	: 1;
+		unsigned printZigBee: 1;
+	};
+	uint8_t data;
 } webInput_t;
 
 // Public API

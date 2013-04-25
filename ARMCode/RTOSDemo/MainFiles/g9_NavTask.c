@@ -45,6 +45,7 @@ int curState;
 uint8_t tagValue = None; // Holds any rfid tags that have been found
 Bool lineFound = FALSE;
 char state[MAX_MSG_LEN] = "Stopped";
+webInput_t inputs = {0};
 
 
 void setMotorData(motorData_t* motorData, uint8_t left, uint8_t right){
@@ -144,12 +145,15 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 				break;
 			
 			case navRFIDFoundMsg:
-					printw("<b>navRFIDFoundMsg</b>\n");
+					printw("<b>navRFIDFoundMsg</b> %#X\n",msg->buf[0]);
 				break;
-			case navWebStartMsg:
-					printw("<b style=color:green>navWebStartMsg\n</b>");
+			case navWebInputMsg:
+				{
+					webInput_t* webInput = (webInput_t*)msg->buf;
+					printw("<b style=color:green>navWebInputMsg</b> %d%d%d%d%d\n",webInput->start,webInput->loop,webInput->m4Demo,webInput->printNav,webInput->printZigBee);
 				break;	
-	
+				}
+
 			default:
 				printw_err("Incorrect Navigation Msg\n");
 		}
@@ -215,15 +219,19 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			//Save the data and make a decision
 			tagValue |= msgBuffer.buf[0];
 			break;
+
+		case navWebInputMsg:
+			inputs = ((webInput_t*)msgBuffer.buf)[0];
+			break;
 		
 		default:
-			//Invalid message type
+			//Invalid message type - Should have been handled in conductor
 			VT_HANDLE_FATAL_ERROR(INVALID_G9MSG_TYPE);
 			break;
 		}
 
 
-		if(getWebStart()==1){
+		if(inputs.start==1){
 			setState("Navigate");
 			stateMachine();
 			handleSpecialEvents(enc);
