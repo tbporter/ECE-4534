@@ -3,18 +3,20 @@
 #include <string.h>
 
 #include "g9_webTask.h"
+#include "conductor.h"
 
-static int debugIndex=0;
+static int debugIndex=DEBUG_LINES-1;
 static char webDebugOut[DEBUG_LINES][DEBUG_LENGTH];
 
 static int curspeed=0;
 static int avgspeed=0;
 static char state[MAX_MSG_LEN]="Stopped";
+
+static webInput_t webInput;
+
 static int amps=0;
-static char loop[10]="";
+static char lap=0;
 static char finished=0;
-static int lap=0;
-static int start =0;
 static uint8_t motors[2] = {64,64};
 
 static portTASK_FUNCTION_PROTO( webUpdateTask, pvParameters );
@@ -94,18 +96,6 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 				printw_err("Invalid Web Msg! Type: 0x%X\n",msgBuffer.msgType);
 			break;
 		}
-	   
-		/*
-		if(start == 1){
-		   g9Msg msg;
-			msg.id = 0;
-			msg.length = 0;
-			msg.msgType = navWebStartMsg;
-			printw("sending start=%d",start);
-			msg.msgType = navWebStartMsg;
-			SendNavigationMsg(param->navData,&msg,portMAX_DELAY);
-			start = 0;
-		}*/
 	}
 }
 void printw(const char* fmt, ...){
@@ -145,12 +135,17 @@ void processWebDebugMsg(char* msg){
 	if(++debugIndex >= DEBUG_LINES) debugIndex = 0;				 
 }
 void getWebStatusText(char* out, const char* in){
-	sprintf(out,in,state,curspeed,avgspeed,lap,amps,loop,finished);
+	sprintf(out,in,state,curspeed,avgspeed,lap,amps,finished);
 }
 
 void getWebInputText(char* out, const char* in){
 	#define checked(val) (((val)==1)?("checked"):(""))
-	sprintf(out,in,checked(start),"","","");
+	sprintf(out,in,checked(webInput.start)
+				  ,checked(webInput.loop)
+				  ,checked(webInput.m4Demo)
+				  ,checked(webInput.printNav)
+				  ,checked(webInput.printZigBee)
+	);
 }
 
 
@@ -159,12 +154,22 @@ char (*getWebDebug(int* index))[DEBUG_LENGTH]{
 	return webDebugOut;
 }
 
-void setWebStart(int s){
-	start = s;
-	printw("start = %d\n",s);
+void setWebInputs(webInput_t* in){
+	if( in->data != webInput.data){ //Only updata if differet - resolves derpy webpages
+		//update Values
+		webInput = *in;
+		//Send to Navigation
+		g9Msg msg;
+		msg.id = 0; //Internal
+		msg.msgType = navWebInputMsg;
+		msg.length = sizeof(webInput);
+		((webInput_t*)msg.buf)[0] = webInput;
+	
+		SendConductorMsg(&msg,portMAX_DELAY);
+	}
 }
-int getWebStart(){
-	return start;
+inline char getWebStart(){
+	return webInput.start;
 }
 
 void getWebMotors( uint8_t* left, uint8_t* right){

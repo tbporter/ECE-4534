@@ -235,8 +235,8 @@ void sendZigBeeMsg(g9Msg* inMsg){
     //Fill in API Message Info
     msg.data[0] = 0x01; //TX 16bit
     msg.data[1] = 0x01;	//Response Frame
-    msg.data[2] = 0x00;	//Dest. Addr.
-    msg.data[3] = 0x01;
+    msg.data[2] = 0x09;	//Dest. Addr.
+    msg.data[3] = 0x06;
     msg.data[4] = 0x00; //Options
 
     msg.data[5] = inMsg->msgType;

@@ -24,6 +24,17 @@ typedef struct __webStruct {
 	navStruct* navData;
 } webStruct;
 
+typedef union{
+	struct __attribute__((__packed__)){ //Used for data compression
+		unsigned start 		: 1;
+		unsigned loop 		: 1;
+		unsigned m4Demo		: 1;
+		unsigned printNav 	: 1;
+		unsigned printZigBee: 1;
+	};
+	uint8_t data;
+} webInput_t;
+
 // Public API
 //
 // Start the task
@@ -47,8 +58,8 @@ char (*getWebDebug(int* index))[DEBUG_LENGTH];
 void getWebStatusText(char* out, const char* in);
 void getWebInputText(char* out, const char* in);
 
-int getWebStart();
-void setWebStart(int s);
+inline char getWebStart();
+void setWebInputs(webInput_t* in);
 void getWebMotors( uint8_t* left, uint8_t* right);
 
 #endif

@@ -41,14 +41,14 @@ typedef enum {
 	navLineFoundMsg,
 	navIRDataMsg,
 
-	//lap message from web
+	//Messages from web
 	navWebLapMsg,
-	navWebStartMsg,
+	navWebInputMsg,	//data: webInput_t
 		
 	//RFID
 	navRFIDFoundMsg,
 	
-	//Webpage
+	//Messages To Webpage
 	webDebugMsg,
 	webMotorMsg, //Sends motor data to webserver. NOTE: values should be from 0-127
 	webPowerMsg,

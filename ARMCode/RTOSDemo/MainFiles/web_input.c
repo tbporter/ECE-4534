@@ -9,15 +9,15 @@ const char INFO_TABLE[] = \
    " <tr><td>Avg  Speed</td><td> %d cm/s </td></tr>"
    " <tr><td>Lap</td><td> %d </td></tr>"
    " <tr><td>Amps</td><td> %d mA </td></tr>"
-   " <tr><td>Loop?</td><td><input type=checkbox name=loop value=1 %s></td></tr>"
    " <tr><td>Finished?</td><td> %d </td></tr>"
    "</table>";
 
 const char INPUT_FORM[] = \
-   "<tr><td>START \t<input type=checkbox name=start %s></td></tr>"
-   "<tr><td>M4_Demo \t<input type=checkbox name=M4Demo %s></td></tr>"
-   "<tr><td>Show Nav Msgs \t<input type=checkbox name=printNav %s></td></tr>"
-   "<tr><td>Show ZigBee Msgs \t<input type=checkbox name=printZigBee %s></td></tr>";
+   "<tr><td>START	<input type=checkbox name=start %s></td></tr>"
+   "<tr><td>Loop?	<input type=checkbox name=loop %s></td></tr>"
+   "<tr><td>M4_Demo	<input type=checkbox name=M4Demo %s></td></tr>"
+   "<tr><td>Show Nav Msgs	<input type=checkbox name=printNav %s></td></tr>"
+   "<tr><td>Show ZigBee Msgs	<input type=checkbox name=printZigBee %s></td></tr>";
 
 const char MOTOR_TABLE[] = \
 	"<td>"
