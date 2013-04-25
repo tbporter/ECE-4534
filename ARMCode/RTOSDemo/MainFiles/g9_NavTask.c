@@ -28,7 +28,7 @@ int IR[6];
 #define RIGHT_BACK_IR	IR[3]
 #define SONAR_LEFT		IR[4]
 #define SONAR_RIGHT		IR[5]
-
+#define dc 99999
 
 //helper functions for setting motor speeds
 typedef union {
@@ -39,9 +39,20 @@ typedef union {
 	};
 } motorData_t;
 
+typedef enum {
+	straight=0,
+	ninety
+} navState;
+
+typedef enum {
+	none=0,
+	left,
+	right
+} dir;
 
 motorData_t motorData;
-int curState;
+navState curState;
+dir curDir;
 uint8_t tagValue = None; // Holds any rfid tags that have been found
 Bool lineFound = FALSE;
 char state[MAX_MSG_LEN] = "Stopped";
@@ -171,7 +182,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	// Buffer for receiving messages
 	g9Msg msgBuffer;
 
-	curState = 0;
+	curState = straight;
 
 	// Like all good tasks, this should never exit
 	for(;;)
@@ -277,10 +288,69 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	}
 }
 
+#define distShort 3
+#define distMed	6 
+#define distLong 9
 
-
+#define speedSlow 70
+#define speedMed 95
+#define speedFast 110
+#define speedStop 64
+#define speedBack 30
 void stateMachine(){
 	setMotorData(&motorData,64,64);
+
+	switch(curState){
+		case straight:
+			//First lets see if we need to make a turn
+			if(chkDist (dc,dc,distMed,distMed,dc,dc)){
+				if(RIGHT_FRONT_IR > LEFT_FRONT_IR)
+					curDir = right;
+				else
+					curDir = left;
+				curState = ninety;
+				break;
+			}
+			if(LEFT_FRONT_IR<distShort){
+				setMotorData(&motorData,speedStop,speedBack);	
+			}
+			else if(RIGHT_FRONT_IR<distShort){
+				setMotorData(&motorData,speedBack,speedStop);
+			}
+			else if(LEFT_FRONT_IR<distMed){
+				setMotorData(&motorData,speedFast,speedMed);
+			}
+			else if(RIGHT_FRONT_IR<distMed){
+				setMotorData(&motorData,speedMed,speedFast);
+			}
+			else if(LEFT_FRONT_IR<RIGHT_FRONT_IR){
+				 setMotorData(&motorData,speedFast,speedFast-5);
+			}
+			else if(RIGHT_FRONT_IR<LEFT_FRONT_IR){
+				 setMotorData(&motorData,speedFast-5,speedFast);
+			}
+			else{
+				 setMotorData(&motorData,speedFast,speedFast);
+			}	
+
+		break;
+		case ninety:
+			//keep turning until the front sensors read a larg val
+			if (!chkDist(dc,dc,distMed+2,distMed+2,dc,dc)){
+				curState = straight;
+				curDir = none;
+				break;
+			}
+			if(curDir==left){
+				setMotorData(&motorData,speedBack,speedSlow);
+			}
+			else if(curDir==right){
+				setMotorData(&motorData,speedSlow,speedBack);
+			}
+			
+		break;
+	}
+	/*
 	switch(curState){
 		#define min_dist 100
 		//Simple state, lets just lean to the left or right based off the IR
@@ -301,9 +371,15 @@ void stateMachine(){
 				setMotorData(&motorData,110,110);
 			}
 			break;
-	}
+	}*/
 
 }
+
+
+Bool chkDist(float left, float right, float front_left, float front_right, float side_left, float side_right){
+	return (LEFT_FRONT_IR<left && RIGHT_FRONT_IR<right && SONAR_LEFT <front_left && SONAR_RIGHT<front_right && LEFT_BACK_IR < side_left && RIGHT_BACK_IR < side_right);
+}
+
 
 void adjustSpeed(short leftEnc, short rightEnc, int targetSpeed){
 	#define getSpeed(old,del) (((old)>64)?((old) + (delta)):( ((old)==64)?(64):((old)-(delta)) ))  //Increase magnitude of old if not 64
