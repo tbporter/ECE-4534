@@ -56,7 +56,9 @@ dir curDir;
 uint8_t tagValue = None; // Holds any rfid tags that have been found
 Bool lineFound = FALSE;
 char state[MAX_MSG_LEN] = "Stopped";
-webInput_t inputs = {0};
+webInput_t inputs = {{0}};
+
+unsigned int totDist = 0; //cm
 
 
 void setMotorData(motorData_t* motorData, uint8_t left, uint8_t right){
@@ -141,7 +143,7 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 		return pdFALSE;
 	}
 
-	#if PRINT_MSG_RCV == 1
+	if( inputs.printNav == 1){
 		switch (msg->msgType){
 		
 			case navMotorCmdMsg:
@@ -174,7 +176,7 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 			default:
 				printw_err("Incorrect Navigation Msg\n");
 		}
-	#endif
+	}
 
 	return(xQueueSend(nav->inQ,(void*)(msg),ticksToBlock));
 }
@@ -189,6 +191,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	g9Msg msgBuffer;
 
 	curState = straight;
+	portTickType ticksAtStart=0; //in ticks
 
 	// Like all good tasks, this should never exit
 	for(;;)
@@ -197,8 +200,12 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 		// Wait for a message from the "otherside"
 		portBASE_TYPE ret;
-		if ((ret = xQueueReceive(navData->inQ,(void *) &msgBuffer,portMAX_DELAY) ) != pdTRUE) {
-			VT_HANDLE_FATAL_ERROR(ret);
+		if ((ret = xQueueReceive(navData->inQ,(void *) &msgBuffer,500) ) != pdTRUE) {
+			//VT_HANDLE_FATAL_ERROR(ret);
+			printw_err("NavTask Didn't RCV From PIC!\n");
+			setMotorData(&motorData,64,64);
+			setState("Stopped");
+			goto end; //Skip everything send stop
 		}
 
 		g9Msg msg;
@@ -227,10 +234,14 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			break;
 
 		case navEncoderMsg:
+		{
 				//Get encoder values
 				enc[0] = ((short*)msgBuffer.buf)[0];
 				enc[1] = ((short*)msgBuffer.buf)[1];
+				totDist += enc2Dist((enc[0]+enc[1])/2);
+
 			break;
+		}
 
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
@@ -238,8 +249,17 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			break;
 
 		case navWebInputMsg:
+		{
+			uint8_t oldStart = inputs.start;
 			inputs = ((webInput_t*)msgBuffer.buf)[0];
+			if( oldStart == 0 && inputs.start == 1 ){
+				//Get start time (in ticks)
+				ticksAtStart = xTaskGetTickCount();
+				//Reset Distance
+				totDist = 0;
+			}
 			break;
+		}
 		
 		default:
 			//Invalid message type - Should have been handled in conductor
@@ -257,7 +277,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			setState("Stopped");
 		}
 
-		msg.msgType = navMotorCmdMsg;
+end:	msg.msgType = navMotorCmdMsg;
 		msg.id = msgBuffer.id + 1;
 		msg.length = 2;
 		msg.buf[0] = motorData.left;
