@@ -19,5 +19,5 @@ void startTimerForLCD(vtLCDStruct *vtLCDdata);
 void startTimerForTemperature(vtTempStruct *vtTempdata);
 void startTimerForLCDOScope(lcdOScopeStruct *lcdOScopeData);
 void startTimerForFakeI2CMsg(vtI2CStruct* i2c);
-void startTimerForConductor(vtConductorStruct* con);
+void startTimerForConductor();
 #endif

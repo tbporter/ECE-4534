@@ -71,9 +71,9 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 				}				
 				break;
 			case webSpeedMsg:
-				if(msgBuffer.length == 2*sizeof(float)){
-					curspeed = ((float*)msgBuffer.buf)[0]*100;
-					avgspeed = ((float*)msgBuffer.buf)[1]*100;
+				if(msgBuffer.length == 2*sizeof(int)){
+					curspeed = ((int*)msgBuffer.buf)[0];
+					avgspeed = ((int*)msgBuffer.buf)[1];
 				}
 				break;
 			case webStateMsg:

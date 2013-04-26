@@ -13,8 +13,8 @@
 #define NavQLen 20 //Lots of messages
 #define PRINT_MSG_RCV 1 //Notify of incoming msgs
 
-#define MAX_SPEED	10 // m/s
-#define MIN_SPEED	0  // m/s
+#define MAX_SPEED	1000 // cm/s
+#define MIN_SPEED	0  // cm/s
 #define MAX_SPD_DELTA 20
 
 #define MAX_TURN_ANGLE	90 //Degrees
@@ -122,12 +122,12 @@ inline int ir2Dist(uint8_t raw, int old){
 	return retVal; 
 }
 
-//Get speed (m/s) from enc value
+//Get speed (cm/s) from enc value
 inline float enc2Speed(short leftEnc, short rightEnc){
 	//Get "middle" encoder value
 	short medEnc = (leftEnc + rightEnc)/2;
 	//Calculate velocity
-	return ( 10.0*enc2Dist(medEnc) )/ENC_POLL_RATE; //  1000/100 ms*m/s*cm * 1 cm/ms = 10 cm/ms = 1 m/s
+	return ( 1000.0*enc2Dist(medEnc) )/ENC_POLL_RATE; //  1000 ms/s * 1 cm/ms = 1000 cm/s
 }
 
 
@@ -328,9 +328,9 @@ end:	msg.msgType = navMotorCmdMsg;
 
 		msg.msgType = webSpeedMsg;
 		msg.id = 0; //internal
-		msg.length = 2*sizeof(float);
-		((float*)msg.buf)[0] = enc2Speed(enc[0],enc[1]);
-		((float*)msg.buf)[1] = enc2Speed(enc[0],enc[1]); //TODO: calculate Avg
+		msg.length = 2*sizeof(int);
+		((int*)msg.buf)[0] = (int)enc2Speed(enc[0],enc[1]);
+		((int*)msg.buf)[1] = (1000*totDist*portTICK_RATE_MS)/ticksAtStart; // cm/(ticks/(ticks/ms)) = cm/ms * 1000 ms/s = cm/s
 		SendConductorMsg(&msg,10);
 
 		msg.msgType = webStateMsg;
@@ -437,22 +437,28 @@ void stateMachine(){
 
 
 Bool chkDist(float left, float right, float front_left, float front_right, float side_left, float side_right){
-	return (LEFT_FRONT_IR<left && RIGHT_FRONT_IR<right && SONAR_LEFT <front_left && SONAR_RIGHT<front_right && LEFT_BACK_IR < side_left && RIGHT_BACK_IR < side_right);
+	return (LEFT_FRONT_IR<left 			&&
+			RIGHT_FRONT_IR<right 		&&
+			SONAR_LEFT <front_left 		&&
+			SONAR_RIGHT<front_right 	&&
+			LEFT_BACK_IR < side_left	&&
+			RIGHT_BACK_IR < side_right
+		   );
 }
 
 
 void adjustSpeed(short leftEnc, short rightEnc, int targetSpeed){
 	#define getSpeed(old,del) (((old)>64)?((old) + (delta)):( ((old)==64)?(64):((old)-(delta)) ))  //Increase magnitude of old if not 64
 	//Get speed
-	float curSpeed = enc2Speed(leftEnc,rightEnc);
-	float diff = curSpeed - targetSpeed;
+	int curSpeed = enc2Speed(leftEnc,rightEnc);
+	int diff = curSpeed - targetSpeed;
 	int delta = 0;
 	uint8_t left, right;
 	int newLeft, newRight;
 	//Calculate delta
-	if( diff > 0.0 || diff < -0.1 ){ //If outside of tolerance of -0.1 to 0
+	if( diff > 0 || diff < -10 ){ //If outside of tolerance of -10 to 0
 		//Speed Up
-		delta = pow( diff , 2) * MAX_SPD_DELTA;
+		delta = diff*diff * MAX_SPD_DELTA;
 
 		if( delta > MAX_SPD_DELTA ) delta = MAX_SPD_DELTA;
 		//Slow Down

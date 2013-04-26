@@ -322,7 +322,7 @@ int main( void )
 	vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,vtI2C0,tempSensorData,oScopeData,navData,zigBeeData,webData);
 
 	#if DEMO_M4 == 1	
-		startTimerForConductor(&conductorData);
+		startTimerForConductor();
 	#endif
 
 	printw("%s %d 0x%Xh\n", "ARM Started. Testing:", 123, 123);

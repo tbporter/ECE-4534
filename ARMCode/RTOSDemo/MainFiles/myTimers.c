@@ -223,7 +223,6 @@ void ConductorTimerCallback(xTimerHandle pxTimer)
 	if (pxTimer == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	} else {
-		vtConductorStruct* vtconData = (vtConductorStruct*)pvTimerGetTimerID(pxTimer);
 		fakeMsg.id = 0; //Denotes fake msg
 		encoderMsg.id = 0; //Denotes fake msg
 
@@ -318,11 +317,11 @@ void ConductorTimerCallback(xTimerHandle pxTimer)
 }
 #define conductorWRITE_RATE_BASE	( ( portTickType ) 1000 / portTICK_RATE_MS)
 
-void startTimerForConductor(vtConductorStruct *vtConData) {
+void startTimerForConductor() {
 	if (sizeof(long) != sizeof(vtConductorStruct *)) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
-	xTimerHandle ConductorTimerHandle = xTimerCreate((const signed char *)"Conductor Timer",conductorWRITE_RATE_BASE,pdTRUE,(void *) vtConData,ConductorTimerCallback);
+	xTimerHandle ConductorTimerHandle = xTimerCreate((const signed char *)"Conductor Timer",conductorWRITE_RATE_BASE,pdTRUE,(void *) NULL,ConductorTimerCallback);
 	if (ConductorTimerHandle == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	} else {
