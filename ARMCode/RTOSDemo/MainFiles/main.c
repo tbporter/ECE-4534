@@ -266,9 +266,9 @@ int main( void )
 	#if USE_WEB_SERVER == 1
 	// Not a standard demo -- but also not one of mine (MTJ)
 	/* Create the uIP task.  The WEB server runs in this task. */
-		xTaskCreate( vuIP_Task, ( signed char * ) "uIP", mainBASIC_WEB_STACK_SIZE, ( void * ) NULL, mainUIP_TASK_PRIORITY, NULL );
 		webData = (webStruct*)malloc(sizeof(webStruct));
-		startWebTask(webData,mainLCD_TASK_PRIORITY,navData);
+		startWebTask(webData,mainLCD_TASK_PRIORITY);
+		xTaskCreate( vuIP_Task, ( signed char * ) "uIP", mainBASIC_WEB_STACK_SIZE, ( void * ) NULL, mainUIP_TASK_PRIORITY, NULL );
 	#endif
 
 	#if USE_XBEE == 1

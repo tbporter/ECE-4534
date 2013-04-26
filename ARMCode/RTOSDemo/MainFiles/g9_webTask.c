@@ -21,12 +21,11 @@ static uint8_t motors[2] = {64,64};
 
 static portTASK_FUNCTION_PROTO( webUpdateTask, pvParameters );
 
-void startWebTask(webStruct *ptr, unsigned portBASE_TYPE uxPriority, navStruct *navData)
+void startWebTask(webStruct *ptr, unsigned portBASE_TYPE uxPriority)
 {
 	if (ptr == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
-	ptr->navData = navData;
 	// Create the queue that will be used to talk to this task
 	if ((ptr->inQ = xQueueCreate(10,sizeof(g9Msg))) == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
@@ -45,6 +44,10 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 	webStruct *param = (webStruct *) pvParameters;
 	// Buffer for receiving messages
 	g9Msg msgBuffer;
+
+	//Set Defaults for webPage
+	webInput.printNav=1;
+	setWebInputs(&webInput);
 
 	// Like all grrood tasks, this should never exit
 	for(;;)
@@ -157,7 +160,7 @@ char (*getWebDebug(int* index))[DEBUG_LENGTH]{
 void setWebInputs(webInput_t* in){
 	if( in->data != webInput.data){ //Only updata if differet - resolves derpy webpages
 		//update Values
-		webInput = *in;
+		if( (in != &webInput) && (in != 0) ) webInput = *in;
 		//Send to Navigation
 		g9Msg msg;
 		msg.id = 0; //Internal
