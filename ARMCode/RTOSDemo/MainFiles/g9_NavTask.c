@@ -20,7 +20,9 @@
 #define MAX_TURN_ANGLE	90 //Degrees
 #define MIN_TURN_ANGLE	60 //Degrees
  
-float IR[6];
+int IR[6];
+int oldIR[6][5];
+int irIndex=0;
 
 #define LEFT_FRONT_IR	IR[0]
 #define RIGHT_FRONT_IR	IR[1]
@@ -110,9 +112,13 @@ inline float enc2Ang(short leftEnc, short rightEnc){
 	return 	dS/ROVER_WIDTH*(180/3.1415927);
 }
 
-inline float ir2Dist(uint8_t raw){
-	float retVal = raw * 3.3/255;
-	retVal = pow(41.543 * ( retVal + 0.30221), -1.5281);
+inline int ir2Dist(uint8_t raw, int old){
+	//float retVal = (raw * 3.3)/255.0;
+	//printw("retVal = %f \t", retVal);
+	//retVal = pow(41.543 * ( retVal + 0.30221), -1.5281);
+	int retVal = (6762/(4*raw-9))-4;
+	if(retVal<0)
+		retVal = old;
 	return retVal; 
 }
 
@@ -181,6 +187,15 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 	return(xQueueSend(nav->inQ,(void*)(msg),ticksToBlock));
 }
 
+int avgIr(int ir[5]){
+	int i=0;
+	int ret=0;
+	for(i=0; i<5; i++){
+		ret += ir[i];	
+	}
+	return ret/5;
+}
+
 // This is the actual task that is run
 static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 {
@@ -200,7 +215,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 		// Wait for a message from the "otherside"
 		portBASE_TYPE ret;
-		if ((ret = xQueueReceive(navData->inQ,(void *) &msgBuffer,500) ) != pdTRUE) {
+		if ((ret = xQueueReceive(navData->inQ,(void *) &msgBuffer,portMAX_DELAY) ) != pdTRUE) {
 			//VT_HANDLE_FATAL_ERROR(ret);
 			printw_err("NavTask Didn't RCV From PIC!\n");
 			setMotorData(&motorData,64,64);
@@ -219,13 +234,33 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		
 		case navIRDataMsg:
 			//Save the data
-			LEFT_FRONT_IR = ir2Dist(msgBuffer.buf[0]*4);
-			RIGHT_FRONT_IR = ir2Dist(msgBuffer.buf[1]*4);
-			LEFT_BACK_IR = ir2Dist(msgBuffer.buf[2]*4);
-			RIGHT_BACK_IR = ir2Dist(msgBuffer.buf[3]*4);
-			SONAR_LEFT = ir2Dist(msgBuffer.buf[4]*4);
-			SONAR_RIGHT = ir2Dist(msgBuffer.buf[5]*4);
+			LEFT_FRONT_IR = ir2Dist(msgBuffer.buf[0],LEFT_FRONT_IR);
+			RIGHT_FRONT_IR = ir2Dist(msgBuffer.buf[1],RIGHT_FRONT_IR);
+			LEFT_BACK_IR = ir2Dist(msgBuffer.buf[2],LEFT_BACK_IR);
+			RIGHT_BACK_IR = ir2Dist(msgBuffer.buf[3],RIGHT_BACK_IR);
+			SONAR_LEFT = ir2Dist(msgBuffer.buf[4],SONAR_LEFT);
+			SONAR_RIGHT = ir2Dist(msgBuffer.buf[5],SONAR_RIGHT);
 
+			oldIR[0][irIndex] = LEFT_FRONT_IR;
+			oldIR[1][irIndex] = RIGHT_FRONT_IR;
+			oldIR[2][irIndex] = LEFT_BACK_IR;
+			oldIR[3][irIndex] = RIGHT_BACK_IR;
+			oldIR[4][irIndex] = SONAR_LEFT;
+			oldIR[5][irIndex] = SONAR_RIGHT;
+
+			irIndex = (irIndex+1)%5;
+
+			LEFT_FRONT_IR = avgIr(oldIR[0]);
+			RIGHT_FRONT_IR = avgIr(oldIR[1]);
+			LEFT_BACK_IR = avgIr(oldIR[2]);
+			RIGHT_BACK_IR = avgIr(oldIR[3]);
+			SONAR_LEFT = avgIr(oldIR[4]);
+			SONAR_RIGHT = avgIr(oldIR[5]);
+
+			printw("front sides : %d %d\n",LEFT_FRONT_IR,RIGHT_FRONT_IR);
+			printw("front : %d %d\n",SONAR_LEFT,SONAR_RIGHT);
+			printw("sides : %d %d\n",LEFT_BACK_IR,RIGHT_BACK_IR);
+			
 			msg.msgType = webPowerMsg;
 			msg.id = 0; //internal
 			msg.length = 1;
@@ -317,18 +352,18 @@ end:	msg.msgType = navMotorCmdMsg;
 #define distMed	6 
 #define distLong 9
 
-#define speedSlow 70
-#define speedMed 95
-#define speedFast 110
+#define speedSlow 79
+#define speedMed 85
+#define speedFast 89
 #define speedStop 64
-#define speedBack 30
+#define speedBack 45
 void stateMachine(){
 	setMotorData(&motorData,64,64);
 
 	switch(curState){
 		case straight:
 			//First lets see if we need to make a turn
-			if(chkDist (dc,dc,distMed,distMed,dc,dc)){
+			if(chkDist (dc,dc,40,40,dc,dc)){
 				if(RIGHT_FRONT_IR > LEFT_FRONT_IR)
 					curDir = right;
 				else
@@ -336,16 +371,16 @@ void stateMachine(){
 				curState = ninety;
 				break;
 			}
-			if(LEFT_FRONT_IR<distShort){
+			if(LEFT_FRONT_IR<10){
 				setMotorData(&motorData,speedStop,speedBack);	
 			}
-			else if(RIGHT_FRONT_IR<distShort){
+			else if(RIGHT_FRONT_IR<10){
 				setMotorData(&motorData,speedBack,speedStop);
 			}
-			else if(LEFT_FRONT_IR<distMed){
+			else if(LEFT_FRONT_IR<16){
 				setMotorData(&motorData,speedFast,speedMed);
 			}
-			else if(RIGHT_FRONT_IR<distMed){
+			else if(RIGHT_FRONT_IR<16){
 				setMotorData(&motorData,speedMed,speedFast);
 			}
 			else if(LEFT_FRONT_IR<RIGHT_FRONT_IR){
@@ -361,16 +396,16 @@ void stateMachine(){
 		break;
 		case ninety:
 			//keep turning until the front sensors read a larg val
-			if (!chkDist(dc,dc,distMed+2,distMed+2,dc,dc)){
+			if (!chkDist(dc,dc,65,65,dc,dc)){
 				curState = straight;
 				curDir = none;
 				break;
 			}
 			if(curDir==left){
-				setMotorData(&motorData,speedBack,speedSlow);
+				setMotorData(&motorData,64-(speedSlow-64),speedSlow);
 			}
 			else if(curDir==right){
-				setMotorData(&motorData,speedSlow,speedBack);
+				setMotorData(&motorData,speedSlow,64-(speedSlow-64));
 			}
 			
 		break;
