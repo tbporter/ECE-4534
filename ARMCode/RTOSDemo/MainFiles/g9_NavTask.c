@@ -20,9 +20,9 @@
 #define MAX_TURN_ANGLE	90 //Degrees
 #define MIN_TURN_ANGLE	60 //Degrees
  
-int IR[6];
-int oldIR[6][5];
-int irIndex=0;
+uint8_t IR[6];
+uint8_t oldIR[6][5];
+uint8_t irIndex=0;
 
 #define LEFT_FRONT_IR	IR[0]
 #define RIGHT_FRONT_IR	IR[1]
@@ -58,7 +58,7 @@ dir curDir;
 uint8_t tagValue = None; // Holds any rfid tags that have been found
 Bool lineFound = FALSE;
 char state[MAX_MSG_LEN] = "Stopped";
-webInput_t inputs = {{0}};
+webInput_t inputs = {{0,0,0,1,0}}; //NOTE: Refer to Struct Definition
 
 unsigned int totDist = 0; //cm
 
@@ -112,13 +112,21 @@ inline float enc2Ang(short leftEnc, short rightEnc){
 	return 	dS/ROVER_WIDTH*(180/3.1415927);
 }
 
-inline int ir2Dist(uint8_t raw, int old){
+inline int ir2Dist(uint8_t raw1, int old){
+	//float raw = ((int)raw1<<2);
 	//float retVal = (raw * 3.3)/255.0;
 	//printw("retVal = %f \t", retVal);
-	//retVal = pow(41.543 * ( retVal + 0.30221), -1.5281);
-	int retVal = (6762/(4*raw-9))-4;
+	if(raw1<2){
+		return old;
+	}
+	//retVal = 41.543 * pow(retVal + 0.30221, -1.5281);
+	int retVal = ((6762/(4*raw1-9))-4)/2;
+	//float herp = 12343.85*pow(raw,-1.15);
+	//int retVal = herp;
 	if(retVal<0)
 		retVal = old;
+	else if(retVal>70)
+		retVal = 70;
 	return retVal; 
 }
 
@@ -187,8 +195,8 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 	return(xQueueSend(nav->inQ,(void*)(msg),ticksToBlock));
 }
 
-int avgIr(int ir[5]){
-	int i=0;
+uint8_t avgIr(uint8_t ir[5]){
+	uint8_t i=0;
 	int ret=0;
 	for(i=0; i<5; i++){
 		ret += ir[i];	
@@ -238,8 +246,8 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			RIGHT_FRONT_IR = ir2Dist(msgBuffer.buf[1],RIGHT_FRONT_IR);
 			LEFT_BACK_IR = ir2Dist(msgBuffer.buf[2],LEFT_BACK_IR);
 			RIGHT_BACK_IR = ir2Dist(msgBuffer.buf[3],RIGHT_BACK_IR);
-			SONAR_LEFT = ir2Dist(msgBuffer.buf[4],SONAR_LEFT);
-			SONAR_RIGHT = ir2Dist(msgBuffer.buf[5],SONAR_RIGHT);
+			SONAR_LEFT = ir2Dist(msgBuffer.buf[5],SONAR_LEFT);
+			SONAR_RIGHT = ir2Dist(msgBuffer.buf[4],SONAR_RIGHT);
 
 			oldIR[0][irIndex] = LEFT_FRONT_IR;
 			oldIR[1][irIndex] = RIGHT_FRONT_IR;
@@ -249,22 +257,24 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			oldIR[5][irIndex] = SONAR_RIGHT;
 
 			irIndex = (irIndex+1)%5;
-
+			/*
 			LEFT_FRONT_IR = avgIr(oldIR[0]);
 			RIGHT_FRONT_IR = avgIr(oldIR[1]);
 			LEFT_BACK_IR = avgIr(oldIR[2]);
 			RIGHT_BACK_IR = avgIr(oldIR[3]);
 			SONAR_LEFT = avgIr(oldIR[4]);
-			SONAR_RIGHT = avgIr(oldIR[5]);
+			SONAR_RIGHT = avgIr(oldIR[5]);*/
 
-			printw("front sides : %d %d\n",LEFT_FRONT_IR,RIGHT_FRONT_IR);
-			printw("front : %d %d\n",SONAR_LEFT,SONAR_RIGHT);
-			printw("sides : %d %d\n",LEFT_BACK_IR,RIGHT_BACK_IR);
+			msg.msgType = webIRMsg;
+			msg.id = 0; //internal
+			msg.length = 6*sizeof(uint8_t);
+			memcpy(msg.buf,IR,msg.length);
+			SendConductorMsg(&msg,10);
 			
 			msg.msgType = webPowerMsg;
 			msg.id = 0; //internal
-			msg.length = 1;
-			msg.buf[0] = msgBuffer.buf[6]*4;
+			msg.length = sizeof(uint16_t);
+			((uint16_t*)msg.buf)[0] = (uint16_t)(msgBuffer.buf[6])*2;
 			SendConductorMsg(&msg,10);
 			break;
 
@@ -285,6 +295,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 		case navWebInputMsg:
 		{
+			//printw("Inputs are HERE!\n");
 			uint8_t oldStart = inputs.start;
 			inputs = ((webInput_t*)msgBuffer.buf)[0];
 			if( oldStart == 0 && inputs.start == 1 ){
@@ -330,7 +341,7 @@ end:	msg.msgType = navMotorCmdMsg;
 		msg.id = 0; //internal
 		msg.length = 2*sizeof(int);
 		((int*)msg.buf)[0] = (int)enc2Speed(enc[0],enc[1]);
-		((int*)msg.buf)[1] = (1000*totDist*portTICK_RATE_MS)/ticksAtStart; // cm/(ticks/(ticks/ms)) = cm/ms * 1000 ms/s = cm/s
+		((int*)msg.buf)[1] = (1000*totDist*portTICK_RATE_MS)/(xTaskGetTickCount()-ticksAtStart); // cm/(ticks/(ticks/ms)) = cm/ms * 1000 ms/s = cm/s
 		SendConductorMsg(&msg,10);
 
 		msg.msgType = webStateMsg;
@@ -352,9 +363,9 @@ end:	msg.msgType = navMotorCmdMsg;
 #define distMed	6 
 #define distLong 9
 
-#define speedSlow 79
+#define speedSlow 82
 #define speedMed 85
-#define speedFast 89
+#define speedFast 90
 #define speedStop 64
 #define speedBack 45
 void stateMachine(){
@@ -363,24 +374,24 @@ void stateMachine(){
 	switch(curState){
 		case straight:
 			//First lets see if we need to make a turn
-			if(chkDist (dc,dc,40,40,dc,dc)){
+			/*if(chkDist (dc,dc,40,40,dc,dc)){
 				if(RIGHT_FRONT_IR > LEFT_FRONT_IR)
 					curDir = right;
 				else
 					curDir = left;
 				curState = ninety;
 				break;
-			}
+			}*/
 			if(LEFT_FRONT_IR<10){
 				setMotorData(&motorData,speedStop,speedBack);	
 			}
 			else if(RIGHT_FRONT_IR<10){
 				setMotorData(&motorData,speedBack,speedStop);
 			}
-			else if(LEFT_FRONT_IR<16){
+			else if(LEFT_FRONT_IR<15){
 				setMotorData(&motorData,speedFast,speedMed);
 			}
-			else if(RIGHT_FRONT_IR<16){
+			else if(RIGHT_FRONT_IR<15){
 				setMotorData(&motorData,speedMed,speedFast);
 			}
 			else if(LEFT_FRONT_IR<RIGHT_FRONT_IR){

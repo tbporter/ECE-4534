@@ -14,7 +14,8 @@ static char state[MAX_MSG_LEN]="Stopped";
 
 static webInput_t webInput;
 
-static int amps=0;
+static uint16_t amps=0;
+static uint8_t IR[6];
 static char lap=0;
 static char finished=0;
 static uint8_t motors[2] = {64,64};
@@ -66,8 +67,8 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 				break;
 			//Used to display power related things from the power PIC
 			case webPowerMsg:
-				if(msgBuffer.length == 1){
-					amps = msgBuffer.buf[0];
+				if(msgBuffer.length == sizeof(uint16_t)){
+					amps = ((uint16_t*)msgBuffer.buf)[0];
 				}				
 				break;
 			case webSpeedMsg:
@@ -92,6 +93,11 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 				if(msgBuffer.length == 2){
 					finished = msgBuffer.buf[0];
 					lap = msgBuffer.buf[1];
+				}
+				break;
+			case webIRMsg:
+				if(msgBuffer.length == 6*sizeof(uint8_t)){
+					memcpy(IR,msgBuffer.buf,msgBuffer.length);
 				}
 				break;		
 			default:
@@ -151,6 +157,10 @@ void getWebInputText(char* out, const char* in){
 	);
 }
 
+void getWebIRText(char* out, const char* in){
+	sprintf(out,in,IR[4],IR[0],IR[1],IR[5],IR[2],IR[3]);
+}
+
 
 char (*getWebDebug(int* index))[DEBUG_LENGTH]{
 	*index=debugIndex;
@@ -168,7 +178,10 @@ void setWebInputs(webInput_t* in){
 		msg.length = sizeof(webInput);
 		((webInput_t*)msg.buf)[0] = webInput;
 	
-		SendConductorMsg(&msg,portMAX_DELAY);
+		//printw("Sending Inputs\n");
+		if( SendConductorMsg(&msg,portMAX_DELAY) != pdTRUE){
+			printw_err("Failed to send Web Inputs to Conductor!\n");
+		}
 	}
 }
 inline char getWebStart(){

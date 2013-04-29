@@ -257,18 +257,13 @@ int main( void )
 		navData = (navStruct*)malloc(sizeof(navStruct));	
 	#endif
 
+	#if USE_WEB_SERVER == 1
+		webData = (webStruct*)malloc(sizeof(webStruct));
+	#endif
+
 	#if USE_XBEE == 1
 		g9UART1 = (g9UARTStruct*)malloc(sizeof(g9UARTStruct));
 		zigBeeData = (g9ZigBeeStruct*)malloc(sizeof(g9ZigBeeStruct));
-	#endif
-
-	
-	#if USE_WEB_SERVER == 1
-	// Not a standard demo -- but also not one of mine (MTJ)
-	/* Create the uIP task.  The WEB server runs in this task. */
-		webData = (webStruct*)malloc(sizeof(webStruct));
-		startWebTask(webData,mainLCD_TASK_PRIORITY);
-		xTaskCreate( vuIP_Task, ( signed char * ) "uIP", mainBASIC_WEB_STACK_SIZE, ( void * ) NULL, mainUIP_TASK_PRIORITY, NULL );
 	#endif
 
 	#if USE_XBEE == 1
@@ -320,6 +315,13 @@ int main( void )
 	#endif
 	
 	vStartConductorTask(&conductorData,mainCONDUCTOR_TASK_PRIORITY,vtI2C0,tempSensorData,oScopeData,navData,zigBeeData,webData);
+
+	#if USE_WEB_SERVER == 1
+	// Not a standard demo -- but also not one of mine (MTJ)
+	/* Create the uIP task.  The WEB server runs in this task. */
+		xTaskCreate( vuIP_Task, ( signed char * ) "uIP", mainBASIC_WEB_STACK_SIZE, ( void * ) NULL, mainUIP_TASK_PRIORITY, NULL );
+		startWebTask(webData,mainLCD_TASK_PRIORITY);
+	#endif
 
 	#if DEMO_M4 == 1	
 		startTimerForConductor();

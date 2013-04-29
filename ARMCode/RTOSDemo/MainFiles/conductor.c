@@ -126,6 +126,7 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 			break;
 
 		//Webpage
+		case webIRMsg:
 		case webDebugMsg:
 		case webMotorMsg:
 		case webPowerMsg:

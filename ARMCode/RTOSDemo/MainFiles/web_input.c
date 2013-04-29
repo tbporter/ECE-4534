@@ -29,4 +29,12 @@ const char MOTOR_TABLE[] = \
 	" <meter class='motorControl motorControlBottom' min=1 max=65 value=%u></meter>"
 	"</td>";
 
+const char IR_DIST_TABLE[] = \
+	"<tr>"
+	"<td>%d</td><td>%d</td><td>%d</td><td>%d</td>"
+	"</tr>"
+	"<tr>"
+	"<td>%d</td><td></td><td></td><td>%d</td>"
+	"</tr>";
+
 #endif

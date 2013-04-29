@@ -55,6 +55,7 @@ typedef enum {
 	webSpeedMsg, // Current, Avg
 	webStateMsg, // String
 	webNavMsg,	 //finished,lap
+	webIRMsg, //IR Dist Data
 	
 	//conductor request message
 	conRequestMsg,

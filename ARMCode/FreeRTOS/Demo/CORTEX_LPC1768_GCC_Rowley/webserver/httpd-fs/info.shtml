@@ -16,6 +16,7 @@
     window.setInterval(function(){$("#debug").load("info.shtml #debug")},100);
     window.setInterval(function(){$("#info").load("info.shtml #info")},300);
     window.setInterval(function(){$("#motor").load("info.shtml #motor")},300);
+    window.setInterval(function(){$("#IR").load("info.shtml #IR")},300);
 </script>
 <style>
 #debug{
@@ -59,6 +60,9 @@ table.motorControl td{height:13em;width:1.25em;}
  margin-left:auto;
  margin-right:auto;
 }
+#IR td{
+ width:4em;
+}
 .left{float:left;}
 .right{float:right;}
 </style>
@@ -73,6 +77,10 @@ table.motorControl td{height:13em;width:1.25em;}
    </pre>
   </table>
  </form>
+ <table id=IR class='left' border=1>
+    <caption>IR Dist (cm)</caption>
+    %! ir-dist-out
+ </table>
  <table id=motor class='motorControl' border=1>
     <caption>Motors</caption>
     <tr>
@@ -82,7 +90,7 @@ table.motorControl td{height:13em;width:1.25em;}
     <tr>
      %! info-motor-out
     </tr>
- </table> 
+ </table>
 </div>
 <pre id=debug class=ui-layout-south>%! debug-out
 </pre>
