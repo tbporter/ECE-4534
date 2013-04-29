@@ -43,7 +43,8 @@ typedef union {
 
 typedef enum {
 	straight=0,
-	ninety
+	ninety,
+	turn
 } navState;
 
 typedef enum {
@@ -120,7 +121,7 @@ inline int ir2Dist(uint8_t raw1, int old){
 		return old;
 	}
 	//retVal = 41.543 * pow(retVal + 0.30221, -1.5281);
-	int retVal = ((6762/(4*raw1-9))-4)/2;
+	int retVal = ((6762/(4*raw1-9))-4);
 	//float herp = 12343.85*pow(raw,-1.15);
 	//int retVal = herp;
 	if(retVal<0)
@@ -246,8 +247,8 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			RIGHT_FRONT_IR = ir2Dist(msgBuffer.buf[1],RIGHT_FRONT_IR);
 			LEFT_BACK_IR = ir2Dist(msgBuffer.buf[2],LEFT_BACK_IR);
 			RIGHT_BACK_IR = ir2Dist(msgBuffer.buf[3],RIGHT_BACK_IR);
-			SONAR_LEFT = ir2Dist(msgBuffer.buf[5],SONAR_LEFT);
-			SONAR_RIGHT = ir2Dist(msgBuffer.buf[4],SONAR_RIGHT);
+			SONAR_LEFT = ir2Dist(msgBuffer.buf[4],SONAR_LEFT);
+			SONAR_RIGHT = ir2Dist(msgBuffer.buf[5],SONAR_RIGHT);
 
 			oldIR[0][irIndex] = LEFT_FRONT_IR;
 			oldIR[1][irIndex] = RIGHT_FRONT_IR;
@@ -363,42 +364,44 @@ end:	msg.msgType = navMotorCmdMsg;
 #define distMed	6 
 #define distLong 9
 
-#define speedSlow 82
-#define speedMed 85
-#define speedFast 90
+#define speedSlow 77
+#define speedMed 79
+#define speedFast 88
 #define speedStop 64
-#define speedBack 45
+#define speedBack 40
 void stateMachine(){
 	setMotorData(&motorData,64,64);
 
 	switch(curState){
 		case straight:
 			//First lets see if we need to make a turn
-			/*if(chkDist (dc,dc,40,40,dc,dc)){
+			if(chkDist (dc,dc,50,50,dc,dc)){
 				if(RIGHT_FRONT_IR > LEFT_FRONT_IR)
 					curDir = right;
 				else
 					curDir = left;
 				curState = ninety;
 				break;
-			}*/
-			if(LEFT_FRONT_IR<10){
-				setMotorData(&motorData,speedStop,speedBack);	
 			}
-			else if(RIGHT_FRONT_IR<10){
-				setMotorData(&motorData,speedBack,speedStop);
-			}
-			else if(LEFT_FRONT_IR<15){
-				setMotorData(&motorData,speedFast,speedMed);
+			if(LEFT_FRONT_IR<15){	
+				curDir = right;
+				curState = turn;
 			}
 			else if(RIGHT_FRONT_IR<15){
-				setMotorData(&motorData,speedMed,speedFast);
+				curDir = left;
+				curState = turn;
+			}
+			else if(LEFT_FRONT_IR<21){
+				setMotorData(&motorData,speedFast+3,speedSlow-3);
+			}
+			else if(RIGHT_FRONT_IR<21){
+				setMotorData(&motorData,speedSlow-3,speedFast+3);
 			}
 			else if(LEFT_FRONT_IR<RIGHT_FRONT_IR){
-				 setMotorData(&motorData,speedFast,speedFast-5);
+				 setMotorData(&motorData,speedFast,speedFast-2);
 			}
 			else if(RIGHT_FRONT_IR<LEFT_FRONT_IR){
-				 setMotorData(&motorData,speedFast-5,speedFast);
+				 setMotorData(&motorData,speedFast-2,speedFast);
 			}
 			else{
 				 setMotorData(&motorData,speedFast,speedFast);
@@ -413,12 +416,24 @@ void stateMachine(){
 				break;
 			}
 			if(curDir==left){
-				setMotorData(&motorData,64-(speedSlow-64),speedSlow);
+				setMotorData(&motorData,speedStop-(speedMed-speedStop)-5,speedMed);
 			}
 			else if(curDir==right){
-				setMotorData(&motorData,speedSlow,64-(speedSlow-64));
+				setMotorData(&motorData,speedMed,speedStop-(speedMed-speedStop)-5);
 			}
 			
+		break;
+		case turn:
+			if(curDir==right){
+				setMotorData(&motorData,speedMed,speedStop-(speedMed-speedStop)-5);
+				if(LEFT_FRONT_IR>12)
+					curState = straight;
+			}
+			else if(curDir==left){				
+				setMotorData(&motorData,speedStop-(speedMed-speedStop)-5,speedMed);
+				if(RIGHT_FRONT_IR>12)
+					curState = straight;
+			}
 		break;
 	}
 	/*
