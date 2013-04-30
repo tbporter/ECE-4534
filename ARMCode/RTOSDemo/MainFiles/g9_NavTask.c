@@ -204,7 +204,7 @@ uint8_t avgIr(uint8_t ir[5]){
 	}
 	return ret/5;
 }
-
+int zigbeetimer = 0;
 // This is the actual task that is run
 static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 {
@@ -329,7 +329,10 @@ end:	msg.msgType = navMotorCmdMsg;
 		msg.length = 2;
 		msg.buf[0] = motorData.left;
 		msg.buf[1] = motorData.right;		
+		
+		vtLEDOn(0x01);
 		SendZigBeeMsg(navData->zigBeePtr,&msg,portMAX_DELAY);
+		vtLEDOff(0x01);
 
 		//Send off web information
 		msg.msgType = webMotorMsg;
@@ -383,11 +386,11 @@ void stateMachine(){
 				curState = ninety;
 				break;
 			}
-			if(LEFT_FRONT_IR<15){	
+			if(LEFT_FRONT_IR<13){	
 				curDir = right;
 				curState = turn;
 			}
-			else if(RIGHT_FRONT_IR<15){
+			else if(RIGHT_FRONT_IR<13){
 				curDir = left;
 				curState = turn;
 			}
@@ -395,6 +398,12 @@ void stateMachine(){
 				setMotorData(&motorData,speedFast+3,speedSlow-3);
 			}
 			else if(RIGHT_FRONT_IR<21){
+				setMotorData(&motorData,speedSlow-3,speedFast+3);
+			}
+			else if(SONAR_LEFT<25){
+				setMotorData(&motorData,speedFast+3,speedSlow-3);				
+			}
+			else if(SONAR_RIGHT<25){
 				setMotorData(&motorData,speedSlow-3,speedFast+3);
 			}
 			else if(LEFT_FRONT_IR<RIGHT_FRONT_IR){
