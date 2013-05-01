@@ -126,8 +126,8 @@ inline int ir2Dist(uint8_t raw1, int old){
 	//int retVal = herp;
 	if(retVal<0)
 		retVal = old;
-	else if(retVal>70)
-		retVal = 70;
+	else if(retVal>100)
+		retVal = 100;
 	return retVal; 
 }
 
@@ -375,6 +375,7 @@ end:	msg.msgType = navMotorCmdMsg;
 void stateMachine(){
 	setMotorData(&motorData,64,64);
 
+transition_state:
 	switch(curState){
 		case straight:
 			//First lets see if we need to make a turn
@@ -384,15 +385,17 @@ void stateMachine(){
 				else
 					curDir = left;
 				curState = ninety;
-				break;
+				goto transition_state;
 			}
 			if(LEFT_FRONT_IR<13){	
 				curDir = right;
 				curState = turn;
+				goto transition_state;
 			}
 			else if(RIGHT_FRONT_IR<13){
 				curDir = left;
 				curState = turn;
+				goto transition_state;
 			}
 			else if(LEFT_FRONT_IR<21){
 				setMotorData(&motorData,speedFast+3,speedSlow-3);
@@ -400,10 +403,10 @@ void stateMachine(){
 			else if(RIGHT_FRONT_IR<21){
 				setMotorData(&motorData,speedSlow-3,speedFast+3);
 			}
-			else if(SONAR_LEFT<25){
+			else if(SONAR_LEFT<27){
 				setMotorData(&motorData,speedFast+3,speedSlow-3);				
 			}
-			else if(SONAR_RIGHT<25){
+			else if(SONAR_RIGHT<27){
 				setMotorData(&motorData,speedSlow-3,speedFast+3);
 			}
 			else if(LEFT_FRONT_IR<RIGHT_FRONT_IR){
@@ -445,28 +448,6 @@ void stateMachine(){
 			}
 		break;
 	}
-	/*
-	switch(curState){
-		#define min_dist 100
-		//Simple state, lets just lean to the left or right based off the IR
-		case 0:
-			if(RIGHT_FRONT_IR>120){
-				setMotorData(&motorData,70,90);
-			}
-			else if(LEFT_FRONT_IR>120){
-				setMotorData(&motorData,90,70);
-			}
-			else if(RIGHT_FRONT_IR>100){
-				setMotorData(&motorData,95,110);
-			}
-			else if(LEFT_FRONT_IR>100){
-				setMotorData(&motorData,110,95);
-			}
-			else {
-				setMotorData(&motorData,110,110);
-			}
-			break;
-	}*/
 
 }
 
