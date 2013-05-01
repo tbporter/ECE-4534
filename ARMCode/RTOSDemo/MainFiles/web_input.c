@@ -37,4 +37,12 @@ const char IR_DIST_TABLE[] = \
 	"<td>%d</td><td></td><td></td><td>%d</td>"
 	"</tr>";
 
+const char SENSOR_TABLE[] = \
+	"<tr>"
+	"<td>Encoders</td><td>%d</td><td>%d</td>"
+	"</tr>"
+	"<tr>"
+	"<td>RFID</td><td>0x%X</td>"
+	"</tr>";
+
 #endif

@@ -9,7 +9,6 @@
 #include <stdint.h>
 #endif
 
-#define ENC_POLL_RATE	100 //ms
 #define LINE_FOUND_THRE 3500
 
 typedef enum {
@@ -54,7 +53,7 @@ typedef enum {
 	webPowerMsg,
 	webSpeedMsg, // Current, Avg
 	webStateMsg, // String
-	webNavMsg,	 //finished,lap
+	webNavMsg,	 //finished,lap,rfid,encs
 	webIRMsg, //IR Dist Data
 	
 	//conductor request message

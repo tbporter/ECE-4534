@@ -56,6 +56,7 @@ char (*getWebDebug(int* index))[DEBUG_LENGTH];
 void getWebStatusText(char* out, const char* in);
 void getWebInputText(char* out, const char* in);
 void getWebIRText(char* out, const char* in);
+void getWebSensorText(char* out, const char* in);
 
 inline char getWebStart();
 void setWebInputs(webInput_t* in);

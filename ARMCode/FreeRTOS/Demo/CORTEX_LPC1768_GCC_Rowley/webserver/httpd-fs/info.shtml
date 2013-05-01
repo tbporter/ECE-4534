@@ -12,11 +12,14 @@
             ,spacing_open:  5
          }
       });
+      $(".slide_panel_handle").click(function(){
+        $(".slide_panel").slideToggle("fast");
+      });
     });
     window.setInterval(function(){$("#debug").load("info.shtml #debug")},100);
     window.setInterval(function(){$("#info").load("info.shtml #info")},300);
     window.setInterval(function(){$("#motor").load("info.shtml #motor")},300);
-    window.setInterval(function(){$("#IR").load("info.shtml #IR")},300);
+    window.setInterval(function(){$("#sensor_data").load("info.shtml #sensor_data")},300);
 </script>
 <style>
 #debug{
@@ -60,8 +63,11 @@ table.motorControl td{height:13em;width:1.25em;}
  margin-left:auto;
  margin-right:auto;
 }
-#IR td{
+#IR td, #Sensors td{
  width:4em;
+}
+.slide_panel,.slide_panel_handle {
+ border: 1px solid black;
 }
 .left{float:left;}
 .right{float:right;}
@@ -69,7 +75,21 @@ table.motorControl td{height:13em;width:1.25em;}
 </head>
 <BODY>
 <div class='container ui-layout-center'>
-   %! info-out
+ <div>
+  %! info-out
+  <div class='left slide_panel_handle' style='clear:both'>
+   Sensor Data
+   <div id=sensor_data class='slide_panel'>
+    <table id=IR border=1>
+     <caption>IR Dist (cm)</caption>
+      %! ir-dist-out
+    </table>
+    <table id=Sensors border=1>
+      %! sensor-out
+    </table>
+   </div>
+  </div>
+ </div>
  <form id=input>
   <table class=right border=1>
   <caption>User Input</caption>
@@ -77,10 +97,6 @@ table.motorControl td{height:13em;width:1.25em;}
    </pre>
   </table>
  </form>
- <table id=IR class='left' border=1>
-    <caption>IR Dist (cm)</caption>
-    %! ir-dist-out
- </table>
  <table id=motor class='motorControl' border=1>
     <caption>Motors</caption>
     <tr>

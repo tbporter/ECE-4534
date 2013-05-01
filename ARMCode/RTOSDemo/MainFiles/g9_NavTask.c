@@ -63,6 +63,8 @@ webInput_t inputs = {{0,0,0,1,0}}; //NOTE: Refer to Struct Definition
 
 unsigned int totDist = 0; //cm
 
+portTickType enc_poll_rate = 100; //Average rate of enc messages. NOTE: This value is just a starting point.
+
 
 void setMotorData(motorData_t* motorData, uint8_t left, uint8_t right){
 	left &= 0x7F;
@@ -136,7 +138,7 @@ inline float enc2Speed(short leftEnc, short rightEnc){
 	//Get "middle" encoder value
 	short medEnc = (leftEnc + rightEnc)/2;
 	//Calculate velocity
-	return ( 1000.0*enc2Dist(medEnc) )/ENC_POLL_RATE; //  1000 ms/s * 1 cm/ms = 1000 cm/s
+	return ( 1000.0*enc2Dist(medEnc) )/enc_poll_rate; //  1000 ms/s * 1 cm/ms = 1000 cm/s
 }
 
 
@@ -217,6 +219,8 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	curState = straight;
 	portTickType ticksAtStart=0; //in ticks
 
+	int16_t oldEnc[2] = {0,0}; //Old Encoder values -- use for webserver only
+
 	// Like all good tasks, this should never exit
 	for(;;)
 	{
@@ -281,10 +285,19 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 		case navEncoderMsg:
 		{
+				static portTickType oldTick=0;
+				portTickType newTick = xTaskGetTickCount();
 				//Get encoder values
 				enc[0] = ((short*)msgBuffer.buf)[0];
 				enc[1] = ((short*)msgBuffer.buf)[1];
 				totDist += enc2Dist((enc[0]+enc[1])/2);
+				//calculate poll rate
+				enc_poll_rate = (enc_poll_rate+((newTick-oldTick)/portTICK_RATE_MS))/2;
+
+				oldEnc[0] = enc[0];
+				oldEnc[1] = enc[1];
+
+				oldTick=newTick;
 
 			break;
 		}
@@ -356,9 +369,12 @@ end:	msg.msgType = navMotorCmdMsg;
 
 		msg.msgType = webNavMsg;
 		msg.id = 0; //internal
-		msg.length = 2;
+		msg.length = 3*sizeof(uint8_t) + 2*sizeof(int16_t);
 		msg.buf[0] = lineFound;
 		msg.buf[1] = 0;
+		msg.buf[2] = tagValue;
+		memcpy(&(msg.buf[3]),oldEnc,2*sizeof(int16_t));
+
 		SendConductorMsg(&msg,10);
 	}
 }
@@ -634,7 +650,8 @@ void handleSpecialEvents(short* enc){
 
 	if( tagValue & Finish ){ //FIN -- AT END TO ENSURE STOPPING IN EVENT OF OTHER TAGS
 		//Stop if found line
-		if(lineFound == TRUE) setMotorData(&motorData,64,64);
+		//if(lineFound == TRUE) setMotorData(&motorData,64,64);
+		setMotorData(&motorData,64,64);
 		//else slow down?
 	}
 

@@ -18,6 +18,8 @@ static uint16_t amps=0;
 static uint8_t IR[6];
 static char lap=0;
 static char finished=0;
+static int16_t enc[2] = {0};
+static uint8_t rfid_tags = 0;
 static uint8_t motors[2] = {64,64};
 
 static portTASK_FUNCTION_PROTO( webUpdateTask, pvParameters );
@@ -90,9 +92,11 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 				break;
 			//used to display nav related things from the nav task
 			case webNavMsg:
-				if(msgBuffer.length == 2){
+				if(msgBuffer.length == 3*sizeof(uint8_t) + 2*sizeof(short)){
 					finished = msgBuffer.buf[0];
 					lap = msgBuffer.buf[1];
+					rfid_tags = msgBuffer.buf[2];
+					memcpy(enc,&(msgBuffer.buf[3]),2*sizeof(int16_t));
 				}
 				break;
 			case webIRMsg:
@@ -161,6 +165,9 @@ void getWebIRText(char* out, const char* in){
 	sprintf(out,in,IR[4],IR[0],IR[1],IR[5],IR[2],IR[3]);
 }
 
+void getWebSensorText(char* out, const char* in){
+	sprintf(out,in,enc[0],enc[1],rfid_tags);
+}
 
 char (*getWebDebug(int* index))[DEBUG_LENGTH]{
 	*index=debugIndex;
