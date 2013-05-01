@@ -60,6 +60,7 @@ uint8_t tagValue = None; // Holds any rfid tags that have been found
 Bool lineFound = FALSE;
 char state[MAX_MSG_LEN] = "Stopped";
 webInput_t inputs = {{0,0,0,1,0}}; //NOTE: Refer to Struct Definition
+int16_t oldEnc[2] = {0,0}; //Old Encoder values -- use for webserver only
 
 unsigned int totDist = 0; //cm
 
@@ -101,7 +102,7 @@ inline void setState(const char* msg){
 //Converts an encoder value to a distance (cm) traveled
 inline float enc2Dist(short enc){
 	#define ROLL_OUT 45.01 //cm
-	#define TICKS_PER_REV 18000	// guess
+	#define TICKS_PER_REV 14400
 	return (ROLL_OUT*enc)/TICKS_PER_REV;
 }											
 
@@ -218,8 +219,6 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 	curState = straight;
 	portTickType ticksAtStart=0; //in ticks
-
-	int16_t oldEnc[2] = {0,0}; //Old Encoder values -- use for webserver only
 
 	// Like all good tasks, this should never exit
 	for(;;)
@@ -357,7 +356,7 @@ end:	msg.msgType = navMotorCmdMsg;
 		msg.msgType = webSpeedMsg;
 		msg.id = 0; //internal
 		msg.length = 2*sizeof(int);
-		((int*)msg.buf)[0] = (int)enc2Speed(enc[0],enc[1]);
+		((int*)msg.buf)[0] = (int)enc2Speed(oldEnc[0],oldEnc[1]);
 		((int*)msg.buf)[1] = (1000*totDist*portTICK_RATE_MS)/(xTaskGetTickCount()-ticksAtStart); // cm/(ticks/(ticks/ms)) = cm/ms * 1000 ms/s = cm/s
 		SendConductorMsg(&msg,10);
 
@@ -615,12 +614,12 @@ void handleSpecialEvents(short* enc){
 	if( tagValue & SpeedUp ){ //SPD UP
 		setState("Go Fast");
 		//adjust to target
-		adjustSpeed(enc[0], enc[1], MAX_SPEED);	 
+		adjustSpeed(oldEnc[0], oldEnc[1], MAX_SPEED);	 
 	}
 	if( tagValue & SlowDown ){ //SPD DOWN
 		setState("Go Slow");
 		//adjust to target
-		adjustSpeed(enc[0], enc[1], MIN_SPEED);		
+		adjustSpeed(oldEnc[0], oldEnc[1], MIN_SPEED);		
 	}
 	if( tagValue & GoLeft ){ //LEFT
 		setState("Go Left");
