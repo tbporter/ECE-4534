@@ -13,8 +13,8 @@
 #define NavQLen 20 //Lots of messages
 #define PRINT_MSG_RCV 1 //Notify of incoming msgs
 
-#define MAX_SPEED	1000 // cm/s
-#define MIN_SPEED	0  // cm/s
+#define MAX_SPEED	30 // cm/s
+#define MIN_SPEED	5  // cm/s
 #define MAX_SPD_DELTA 20
 
 #define MAX_TURN_ANGLE	90 //Degrees
@@ -216,6 +216,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	navStruct *navData = (navStruct *) pvParameters;
 	// Buffer for receiving messages
 	g9Msg msgBuffer;
+	uint8_t numLap=0;
 
 	curState = straight;
 	portTickType ticksAtStart=0; //in ticks
@@ -241,7 +242,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		switch (msgBuffer.msgType){
 		case navLineFoundMsg:
 			//stop we have found the finish line!!!
-			if( (((int*)msgBuffer.buf)[0] >= LINE_FOUND_THRE) && (tagValue & Finish) ) lineFound = TRUE;
+			//if( (((int*)msgBuffer.buf)[0] >= LINE_FOUND_THRE) && (tagValue & Finish) ) lineFound = TRUE;
 			break;
 		
 		case navIRDataMsg:
@@ -304,6 +305,10 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
 			tagValue |= msgBuffer.buf[0];
+			if( (tagValue & Finish) && (numLap++==0) ){
+				disableTag(Finish);
+			}
+
 			break;
 
 		case navWebInputMsg:
@@ -366,14 +371,20 @@ end:	msg.msgType = navMotorCmdMsg;
 		strcpy((char*)msg.buf,state);
 		SendConductorMsg(&msg,10);
 
+		msg.msgType = webTimeMsg;
+		msg.id = 0; //internal
+		msg.length = 2*sizeof(unsigned int);
+		((unsigned int*)msg.buf)[0] = (xTaskGetTickCount()-ticksAtStart)/portTICK_RATE_MS; //nominal
+		((unsigned int*)msg.buf)[0] = (xTaskGetTickCount()-ticksAtStart)/portTICK_RATE_MS; //actual
+		SendConductorMsg(&msg,10);	    
+
 		msg.msgType = webNavMsg;
 		msg.id = 0; //internal
 		msg.length = 3*sizeof(uint8_t) + 2*sizeof(int16_t);
-		msg.buf[0] = lineFound;
-		msg.buf[1] = 0;
+		msg.buf[0] = (tagValue & Finish) > 0;
+		msg.buf[1] = numLap;
 		msg.buf[2] = tagValue;
 		memcpy(&(msg.buf[3]),oldEnc,2*sizeof(int16_t));
-
 		SendConductorMsg(&msg,10);
 	}
 }
@@ -649,7 +660,6 @@ void handleSpecialEvents(short* enc){
 
 	if( tagValue & Finish ){ //FIN -- AT END TO ENSURE STOPPING IN EVENT OF OTHER TAGS
 		//Stop if found line
-		//if(lineFound == TRUE) setMotorData(&motorData,64,64);
 		setMotorData(&motorData,64,64);
 		//else slow down?
 	}

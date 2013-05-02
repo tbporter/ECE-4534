@@ -14,6 +14,8 @@ static char state[MAX_MSG_LEN]="Stopped";
 
 static webInput_t webInput;
 
+static unsigned int time[2]={0}; //nominal, actual in ms
+
 static uint16_t amps=0;
 static uint8_t IR[6];
 static char lap=0;
@@ -103,6 +105,11 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 				if(msgBuffer.length == 6*sizeof(uint8_t)){
 					memcpy(IR,msgBuffer.buf,msgBuffer.length);
 				}
+				break;
+			case webTimeMsg:
+				if(msgBuffer.length == 2*sizeof(unsigned int)){
+					memcpy(time,msgBuffer.buf,msgBuffer.length);
+				}
 				break;		
 			default:
 				//Invalid message type
@@ -166,7 +173,25 @@ void getWebIRText(char* out, const char* in){
 }
 
 void getWebSensorText(char* out, const char* in){
-	sprintf(out,in,enc[0],enc[1],rfid_tags);
+	sprintf(out,in,enc[0],enc[1],
+						(rfid_tags&GoLeft)>0,
+						(rfid_tags&GoRight)>0,
+						(rfid_tags&SpeedUp)>0,
+						(rfid_tags&SlowDown)>0,
+						(rfid_tags&Finish)>0,
+						(rfid_tags&Error)>0);
+}
+
+void getWebTimesText(char* out, const char* in){
+	uint8_t minutes[2],seconds[2], millis[2];
+	minutes[0] = time[0]/(1000*60);
+	seconds[0] = (time[0]/1000)-minutes[0]*60;
+	millis[0] = time[0]-1000*seconds[0]-60*minutes[0];
+
+	minutes[1] = time[1]/(1000*60);
+	seconds[1] = (time[1]/1000)-minutes[1]*60;
+	millis[1] = time[1]-1000*seconds[1]-60*minutes[1];
+	sprintf(out,in,minutes[0],seconds[0],millis[0],minutes[1],seconds[1],millis[1]);
 }
 
 char (*getWebDebug(int* index))[DEBUG_LENGTH]{

@@ -69,7 +69,8 @@ HTTPD_CGI_CALL(info_motor, "info-motor-out", info_motor_out );
 HTTPD_CGI_CALL(info_user, "user-input-out", user_input_out );
 HTTPD_CGI_CALL(info_ir, "ir-dist-out", ir_dist_out );
 HTTPD_CGI_CALL(info_sensor, "sensor-out", sensor_out );
-static const struct httpd_cgi_call *calls[] = { &file, &tcp, &net, &rtos, &run, &io, &debug, &info, &info_motor, &info_user, &info_ir, &info_sensor, NULL };
+HTTPD_CGI_CALL(info_times, "times-out", times_out);
+static const struct httpd_cgi_call *calls[] = { &file, &tcp, &net, &rtos, &run, &io, &debug, &info, &info_motor, &info_user, &info_ir, &info_sensor, &info_times, NULL };
 /*---------------------------------------------------------------------------*/
 static						  
 PT_THREAD(nullfunction(struct httpd_state *s, char *ptr))
@@ -113,7 +114,27 @@ PT_THREAD(info_out(struct httpd_state *s, char *ptr))
   PSOCK_END(&s->sout);
 }
 
+/*---------------------------------------------------------------------------*/
 
+
+static unsigned short
+generate_times_out(void *arg)
+{
+
+	getWebTimesText(uip_appdata,TIMES_TABLE);
+
+	return strlen(uip_appdata);							 
+}
+
+
+static
+PT_THREAD(times_out(struct httpd_state *s, char *ptr))
+{
+	
+  PSOCK_BEGIN(&s->sout);
+  PSOCK_GENERATOR_SEND(&s->sout, generate_times_out, strchr(ptr, ' ') + 1);
+  PSOCK_END(&s->sout);
+}
 
 
 

@@ -3,7 +3,8 @@
 <script src=http://layout.jquery-dev.net/lib/js/jquery-ui-latest.js></script>
 <script src=http://layout.jquery-dev.net/lib/js/jquery.layout-latest.js></script>
 <script>
-    var myLayout;$(document).ready(function () {
+    var myLayout;
+    $(document).ready(function () {
       myLayout = $('body').layout({
         applyDefaultStyles:true
         ,south:{
@@ -12,14 +13,16 @@
             ,spacing_open:  5
          }
       });
-      $(".slide_panel_handle").click(function(){
-        $(".slide_panel").slideToggle("fast");
+      $('.slide_panel_handle').click(function(){
+        $(this).children('.slide_panel').first().slideToggle("fast");
       });
+      $('.slide_panel').slideUp(0);
     });
     window.setInterval(function(){$("#debug").load("info.shtml #debug")},100);
     window.setInterval(function(){$("#info").load("info.shtml #info")},300);
     window.setInterval(function(){$("#motor").load("info.shtml #motor")},300);
     window.setInterval(function(){$("#sensor_data").load("info.shtml #sensor_data")},300);
+    window.setInterval(function(){$("#time").load("info.shtml #time")},300);
 </script>
 <style>
 #debug{
@@ -68,6 +71,7 @@ table.motorControl td{height:13em;width:1.25em;}
 }
 .slide_panel,.slide_panel_handle {
  border: 1px solid black;
+ width: 100%;
 }
 .left{float:left;}
 .right{float:right;}
@@ -75,28 +79,40 @@ table.motorControl td{height:13em;width:1.25em;}
 </head>
 <BODY>
 <div class='container ui-layout-center'>
- <div>
-  %! info-out
-  <div class='left slide_panel_handle' style='clear:both'>
-   Sensor Data
-   <div id=sensor_data class='slide_panel'>
-    <table id=IR border=1>
-     <caption>IR Dist (cm)</caption>
-      %! ir-dist-out
-    </table>
-    <table id=Sensors border=1>
-      %! sensor-out
-    </table>
-   </div>
-  </div>
- </div>
  <form id=input>
-  <table class=right border=1>
+  <table class='right' border=1>
   <caption>User Input</caption>
    <pre>%! user-input-out
    </pre>
   </table>
  </form>
+ <div class='left'>
+  %! info-out
+  <div class='left'>
+   <div class='left slide_panel_handle'>
+    Sensor Data
+    <div id=sensor_data class='slide_panel'>
+     <table id=IR border=1>
+      <caption>IR Dist (cm)</caption>
+       %! ir-dist-out
+     </table>
+     <br>
+     <table id=Sensors border=1>
+       %! sensor-out
+     </table>
+    </div>
+   </div>
+   <br>
+   <div class='left slide_panel_handle'>
+    Course Times
+    <div class='slide_panel'>
+     <table id=time class='right' border=1>
+      %! times-out  
+     </table>
+    </div>
+   </div>
+  </div>
+ </div>
  <table id=motor class='motorControl' border=1>
     <caption>Motors</caption>
     <tr>
