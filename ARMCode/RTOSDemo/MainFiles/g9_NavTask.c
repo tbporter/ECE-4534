@@ -418,10 +418,10 @@ transition_state:
 			else if(RIGHT_FRONT_IR<21){
 				setMotorData(&motorData,speedSlow-3,speedFast+3);
 			}
-			else if(SONAR_LEFT<27){
+			else if(SONAR_LEFT<45){
 				setMotorData(&motorData,speedFast+3,speedSlow-3);				
 			}
-			else if(SONAR_RIGHT<27){
+			else if(SONAR_RIGHT<45){
 				setMotorData(&motorData,speedSlow-3,speedFast+3);
 			}
 			else if(LEFT_FRONT_IR<RIGHT_FRONT_IR){
