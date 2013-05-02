@@ -423,17 +423,21 @@ transition_state:
 				curState = turn;
 				goto transition_state;
 			}
-			else if(LEFT_FRONT_IR<21){
+			else if(LEFT_FRONT_IR<18){
+				printw("left wall\n");
 				setMotorData(&motorData,speedFast+3,speedSlow-3);
 			}
-			else if(RIGHT_FRONT_IR<21){
+			else if(RIGHT_FRONT_IR<18){
+				printw("right wall\n");
 				setMotorData(&motorData,speedSlow-3,speedFast+3);
 			}
-			else if(SONAR_LEFT<45){
-				setMotorData(&motorData,speedFast+3,speedSlow-3);				
+			else if(SONAR_LEFT<50){
+				printw("sonar left\n");
+				setMotorData(&motorData,speedFast+4,speedSlow-4);				
 			}
-			else if(SONAR_RIGHT<45){
-				setMotorData(&motorData,speedSlow-3,speedFast+3);
+			else if(SONAR_RIGHT<50){
+				printw("sonar right\n");
+				setMotorData(&motorData,speedSlow-4,speedFast+4);
 			}
 			else if(LEFT_FRONT_IR<RIGHT_FRONT_IR){
 				 setMotorData(&motorData,speedFast,speedFast-2);
@@ -447,6 +451,7 @@ transition_state:
 
 		break;
 		case ninety:
+			printw("doing a ninety\n");
 			//keep turning until the front sensors read a larg val
 			if (!chkDist(dc,dc,65,65,dc,dc)){
 				curState = straight;
@@ -462,14 +467,15 @@ transition_state:
 			
 		break;
 		case turn:
+			printw("doing a turn\n");
 			if(curDir==right){
 				setMotorData(&motorData,speedMed,speedStop-(speedMed-speedStop)-5);
-				if(LEFT_FRONT_IR>12)
+				if(LEFT_FRONT_IR>11)
 					curState = straight;
 			}
 			else if(curDir==left){				
 				setMotorData(&motorData,speedStop-(speedMed-speedStop)-5,speedMed);
-				if(RIGHT_FRONT_IR>12)
+				if(RIGHT_FRONT_IR>11)
 					curState = straight;
 			}
 		break;
