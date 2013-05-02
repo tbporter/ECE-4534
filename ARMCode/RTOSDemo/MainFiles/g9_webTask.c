@@ -191,6 +191,7 @@ void getWebTimesText(char* out, const char* in){
 	minutes[1] = time[1]/(1000*60);
 	seconds[1] = (time[1]/1000)-minutes[1]*60;
 	millis[1] = time[1]-1000*seconds[1]-60*minutes[1];
+
 	sprintf(out,in,minutes[0],seconds[0],millis[0],minutes[1],seconds[1],millis[1]);
 }
 
