@@ -13,7 +13,7 @@
 #define NavQLen 20 //Lots of messages
 #define PRINT_MSG_RCV 1 //Notify of incoming msgs
 
-#define MAX_SPEED	20 // cm/s
+#define MAX_SPEED	30 // cm/s
 #define MIN_SPEED	5  // cm/s
 #define MAX_SPD_DELTA 20
 
@@ -228,7 +228,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 		// Wait for a message from the "otherside"
 		portBASE_TYPE ret;
-		if ((ret = xQueueReceive(navData->inQ,(void *) &msgBuffer,1500) ) != pdTRUE) {
+		if ((ret = xQueueReceive(navData->inQ,(void *) &msgBuffer,portMAX_DELAY) ) != pdTRUE) {
 			//VT_HANDLE_FATAL_ERROR(ret);
 			printw_err("NavTask Didn't RCV From PIC!\n");
 			setMotorData(&motorData,64,64);
@@ -292,7 +292,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 				enc[1] = ((short*)msgBuffer.buf)[1];
 				totDist += enc2Dist((enc[0]+enc[1])/2);
 				//calculate poll rate
-				enc_poll_rate = (enc_poll_rate+((newTick-oldTick)*portTICK_RATE_MS))/2;
+				enc_poll_rate = (enc_poll_rate+((newTick-oldTick)/portTICK_RATE_MS))/2;
 
 				oldEnc[0] = enc[0];
 				oldEnc[1] = enc[1];
@@ -317,13 +317,10 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			uint8_t oldStart = inputs.start;
 			inputs = ((webInput_t*)msgBuffer.buf)[0];
 			if( oldStart == 0 && inputs.start == 1 ){
-				printw("<b style=color:green>Starting Navigation</b>\n");
 				//Get start time (in ticks)
 				ticksAtStart = xTaskGetTickCount();
 				//Reset Distance
 				totDist = 0;
-				//Reset RFID tags
-				tagValue = 0;
 			}
 			break;
 		}
@@ -365,7 +362,7 @@ end:	msg.msgType = navMotorCmdMsg;
 		msg.id = 0; //internal
 		msg.length = 2*sizeof(int);
 		((int*)msg.buf)[0] = (int)enc2Speed(oldEnc[0],oldEnc[1]);
-		((int*)msg.buf)[1] = (1000*totDist)/((xTaskGetTickCount()-ticksAtStart)*portTICK_RATE_MS); // cm/(ticks*(ms/ticks)) = cm/ms * 1000 ms/s = cm/s
+		((int*)msg.buf)[1] = (1000*totDist*portTICK_RATE_MS)/(xTaskGetTickCount()-ticksAtStart); // cm/(ticks/(ticks/ms)) = cm/ms * 1000 ms/s = cm/s
 		SendConductorMsg(&msg,10);
 
 		msg.msgType = webStateMsg;
@@ -374,14 +371,12 @@ end:	msg.msgType = navMotorCmdMsg;
 		strcpy((char*)msg.buf,state);
 		SendConductorMsg(&msg,10);
 
-		if( ~(tagValue & Finish) && (inputs.start == 1)){
-			msg.msgType = webTimeMsg;
-			msg.id = 0; //internal
-			msg.length = 2*sizeof(unsigned int);
-			((unsigned int*)msg.buf)[1] = (xTaskGetTickCount()-ticksAtStart)*portTICK_RATE_MS; //actual
-			((unsigned int*)msg.buf)[0] = (((unsigned int*)msg.buf)[1] * 2 * 30) / (1000*totDist);//nominal= (actual time ms)* 30 cm/s/(avgSpeed cm/s), avgSpeed = (totDist cm)/(actual time ms) * 1000 ms/s
-			SendConductorMsg(&msg,10);
-		}	    
+		msg.msgType = webTimeMsg;
+		msg.id = 0; //internal
+		msg.length = 2*sizeof(unsigned int);
+		((unsigned int*)msg.buf)[0] = (xTaskGetTickCount()-ticksAtStart)/portTICK_RATE_MS; //nominal
+		((unsigned int*)msg.buf)[0] = (xTaskGetTickCount()-ticksAtStart)/portTICK_RATE_MS; //actual
+		SendConductorMsg(&msg,10);	    
 
 		msg.msgType = webNavMsg;
 		msg.id = 0; //internal
@@ -429,20 +424,16 @@ transition_state:
 				goto transition_state;
 			}
 			else if(LEFT_FRONT_IR<18){
-				printw("left wall\n");
-				setMotorData(&motorData,speedFast+3,speedSlow-3);
+				setMotorData(&motorData,speedFast+3,speedStop);
 			}
 			else if(RIGHT_FRONT_IR<18){
-				printw("right wall\n");
-				setMotorData(&motorData,speedSlow-3,speedFast+3);
+				setMotorData(&motorData,speedStop,speedFast+3);
 			}
 			else if(SONAR_LEFT<50){
-				printw("sonar left\n");
-				setMotorData(&motorData,speedFast+4,speedSlow-4);				
+				setMotorData(&motorData,speedFast,speedStop);				
 			}
 			else if(SONAR_RIGHT<50){
-				printw("sonar right\n");
-				setMotorData(&motorData,speedSlow-4,speedFast+4);
+				setMotorData(&motorData,speedStop,speedFast);
 			}
 			else if(LEFT_FRONT_IR<RIGHT_FRONT_IR){
 				 setMotorData(&motorData,speedFast,speedFast-2);
@@ -474,12 +465,12 @@ transition_state:
 		case turn:
 			printw("doing a turn\n");
 			if(curDir==right){
-				setMotorData(&motorData,speedMed,speedStop-(speedMed-speedStop)-5);
+				setMotorData(&motorData,speedMed+2,speedStop-(speedMed-speedStop)-5);
 				if(LEFT_FRONT_IR>11)
 					curState = straight;
 			}
 			else if(curDir==left){				
-				setMotorData(&motorData,speedStop-(speedMed-speedStop)-5,speedMed);
+				setMotorData(&motorData,speedStop-(speedMed-speedStop)-5,speedMed+2);
 				if(RIGHT_FRONT_IR>11)
 					curState = straight;
 			}
