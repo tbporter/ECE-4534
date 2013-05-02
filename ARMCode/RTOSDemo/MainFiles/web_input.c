@@ -40,9 +40,12 @@ const char IR_DIST_TABLE[] = \
 const char SENSOR_TABLE[] = \
 	"<tr>"
 	"<td>Encoders</td><td>%d</td><td>%d</td>"
-	"</tr>"
-	"<tr>"
-	"<td>RFID</td><td>0x%X</td>"
-	"</tr>";
+	"</tr></table><br><table border=1>"
+	"<tr><td></td><th>Go Left</th><th>Go Right</th><th>Go Fast</th><th>Go Slow</th><th>Finish</th><th>Error</th></tr>"
+	"<tr><td>RFID</td><td>%d</td><td>%d</td><td>%d</td><td>%d</td><td>%d</td><td>%d</td></tr>";
+
+const char TIMES_TABLE[] = \
+  "<tr><td>Nominal Time</td><td>%02.2u:%02.2u.%02.2u</td></tr>"
+  "<tr><td>Actual Time</td><td>%02.2u:%02.2u.%02.2u</td></tr>";
 
 #endif

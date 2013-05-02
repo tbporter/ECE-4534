@@ -132,6 +132,7 @@ static portTASK_FUNCTION( vConductorUpdateTask, pvParameters )
 		case webPowerMsg:
 		case webSpeedMsg:
 		case webStateMsg:
+		case webTimeMsg:
 		case webNavMsg:
 			if( SendWebMsg(webData,&inMsg,portMAX_DELAY) != pdTRUE ){
 				printw_err("Unable To Send WebMsg: 0x%X\n",inMsg.msgType);

@@ -55,6 +55,7 @@ typedef enum {
 	webStateMsg, // String
 	webNavMsg,	 //finished,lap,rfid,encs
 	webIRMsg, //IR Dist Data
+	webTimeMsg, // Nominal, actual in ms
 	
 	//conductor request message
 	conRequestMsg,
