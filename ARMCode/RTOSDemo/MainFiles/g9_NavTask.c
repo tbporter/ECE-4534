@@ -346,6 +346,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 				tagTime = xTaskGetTickCount(); //Found tag record where
 				tagValue |= msgBuffer.buf[0]; //Store tag info
 			}
+
 			break;
 
 		case navWebInputMsg:
@@ -483,6 +484,12 @@ transition_state:
 				curDir = left;
 				curState = turn;
 				goto transition_state;
+			}
+			else if(SONAR_LEFT<10){
+				setMotorData(&motorData,speedStop-15,speedStop-25);
+			}
+			else if(SONAR_RIGHT<10){
+				setMotorData(&motorData,speedStop-25,speedStop-10);
 			}
 			else if(LEFT_FRONT_IR<18){
 				setMotorData(&motorData,speedFast+3,speedStop);
