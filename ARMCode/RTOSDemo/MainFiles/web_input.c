@@ -45,7 +45,7 @@ const char SENSOR_TABLE[] = \
 	"<tr><td>RFID</td><td>%d</td><td>%d</td><td>%d</td><td>%d</td><td>%d</td><td>%d</td></tr>";
 
 const char TIMES_TABLE[] = \
-  "<tr><td>Nominal Time</td><td>%02u:%03u.%03u</td></tr>"
-  "<tr><td>Actual Time</td><td>%02u:%03u.%03u</td></tr>";
+  "<tr><td>Nominal Time</td><td>%02u:%02u.%03u</td></tr>"
+  "<tr><td>Actual Time</td><td>%02u:%02u.%03u</td></tr>";
 
 #endif

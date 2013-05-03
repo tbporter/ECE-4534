@@ -435,7 +435,7 @@ end:	msg.msgType = navMotorCmdMsg;
 			msg.id = 0; //internal
 			msg.length = 2*sizeof(unsigned int);
 			((unsigned int*)msg.buf)[1] = (xTaskGetTickCount()-ticksAtStart)*portTICK_RATE_MS; //actual
-			((unsigned int*)msg.buf)[0] = (((unsigned int*)msg.buf)[1] * 2 * 30) / (1000*totDist);//nominal= (actual time ms)* 30 cm/s/(avgSpeed cm/s), avgSpeed = (totDist cm)/(actual time ms) * 1000 ms/s
+			((unsigned int*)msg.buf)[0] = (((unsigned int*)msg.buf)[1]*33)/((1000*totDist)/((unsigned int*)msg.buf)[1]); // nominal = (actual)* 33/(avg Speed) 
 			SendConductorMsg(&msg,10);
 		}	    
 
@@ -618,6 +618,18 @@ void adjustSpeed(short leftEnc, short rightEnc, int targetSpeed, uint8_t firstCa
 }
 
 char doTurn(int curAngle, int minAngle, int maxAngle){
+	
+	static portTickType startTime = 0;
+	if( startTime == 0 ) startTime = xTaskGetTickCount();
+
+	if( xTaskGetTickCount() - startTime > 3000 ){
+		startTime = 0;
+		return 1;
+	}
+	return 0;
+
+	
+/*	//Commmented out due to problems with RFID and encoders simultaneously
 	if( curAngle < MAX_TURN_ANGLE ){
 		if( curAngle >= MIN_TURN_ANGLE ){
 			//TODO: Check IR to see if can proceed yet, if not, continue turning
@@ -634,6 +646,8 @@ char doTurn(int curAngle, int minAngle, int maxAngle){
 		return 1; //Done, Clear To Proceed
 	}
 	return 0; //Continue turning
+*/
+
 }
 									  
 void handleSpecialEvents(short* enc){
