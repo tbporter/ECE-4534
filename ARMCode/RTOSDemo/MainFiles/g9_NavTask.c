@@ -18,8 +18,8 @@
 #define MAX_SPD_DELTA 5
 #define SPD_DELTA 2
 
-#define MAX_TURN_ANGLE	90/2 //Degrees
-#define MIN_TURN_ANGLE	60/2 //Degrees
+#define MAX_TURN_ANGLE	60 //Degrees
+#define MIN_TURN_ANGLE	60 //Degrees
  
 uint8_t IR[6];
 uint8_t oldIR[6][5];
@@ -223,7 +223,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	curState = straight;
 	portTickType ticksAtStart=0; //in ticks
 
-	int tagDist=0; //Distance where tag was found
+	portTickType tagTime=0; //Distance where tag was found
 
 	// Like all good tasks, this should never exit
 	for(;;)
@@ -308,14 +308,14 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
-			if( (totDist - tagDist) > 15 ){
-				tagValue |= msgBuffer.buf[0];
-				if( tagValue & Finish ){
+			if( (xTaskGetTickCount() - tagTime)*portTICK_RATE_MS > 3000 ){
+				if( ~(tagValue & Finish) && (msgBuffer.buf[0] == Finish) ){
 					if( (numLap++ == 0) && inputs.loop==1 ){
 						disableTag(Finish);
 					}
 				}
-				tagDist = totDist; //Found tag record where
+				tagTime = xTaskGetTickCount(); //Found tag record where
+				tagValue |= msgBuffer.buf[0]; //Store tag info
 			}
 			break;
 
