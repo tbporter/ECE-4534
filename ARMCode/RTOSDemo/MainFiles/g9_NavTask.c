@@ -401,12 +401,13 @@ end:	msg.msgType = navMotorCmdMsg;
 void stateMachine(){
 	setMotorData(&motorData,64,64);
 
+	int back_diff = LEFT_BACK_IR-RIGHT_BACK_IR;
 transition_state:
 	switch(curState){
 		case straight:
 			//First lets see if we need to make a turn
 			if(chkDist (dc,dc,50,50,dc,dc)){
-				if(RIGHT_FRONT_IR > LEFT_FRONT_IR)
+				if(RIGHT_BACK_IR > LEFT_BACK_IR)
 					curDir = right;
 				else
 					curDir = left;
@@ -429,11 +430,17 @@ transition_state:
 			else if(RIGHT_FRONT_IR<18){
 				setMotorData(&motorData,speedStop,speedFast+3);
 			}
-			else if(SONAR_LEFT<50){
+			else if(SONAR_LEFT<65){
 				setMotorData(&motorData,speedFast,speedStop);				
 			}
-			else if(SONAR_RIGHT<50){
+			else if(SONAR_RIGHT<65){
 				setMotorData(&motorData,speedStop,speedFast);
+			}
+			else if(back_diff<-8 && chkDist (dc,dc,dc,dc,40,40) ){
+				setMotorData(&motorData,speedFast+3,speedStop);
+			}
+			else if(back_diff>8 && chkDist (dc,dc,dc,dc,40,40) ){
+				setMotorData(&motorData,speedStop,speedFast+3);
 			}
 			else if(LEFT_FRONT_IR<RIGHT_FRONT_IR){
 				 setMotorData(&motorData,speedFast,speedFast-2);
