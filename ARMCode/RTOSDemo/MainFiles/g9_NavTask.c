@@ -14,9 +14,9 @@
 #define PRINT_MSG_RCV 1 //Notify of incoming msgs
 
 #define MAX_SPEED	50 // cm/s
-#define MIN_SPEED	5  // cm/s
+#define MIN_SPEED	15  // cm/s
 #define MAX_SPD_DELTA 5
-#define SPD_DELTA 2
+#define SPD_DELTA 8
 
 #define MAX_TURN_ANGLE	60 //Degrees
 #define MIN_TURN_ANGLE	60 //Degrees
