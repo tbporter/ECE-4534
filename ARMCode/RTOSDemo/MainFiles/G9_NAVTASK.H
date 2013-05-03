@@ -12,8 +12,8 @@
 #include "messages_g9.h"
 #include "g9_zigbee.h"
 
-#define TRACK_MEM_SIZE 100
-#define TRACK_MEM_DIST 20 //how often we take readings in cm
+#define TRACK_MEM_SIZE 300
+#define TRACK_MEM_DIST 5 //how often we take readings in cm
 
 typedef struct __navStruct {
 	g9ZigBeeStruct* zigBeePtr; //Needed for sending messages out
@@ -21,7 +21,7 @@ typedef struct __navStruct {
 } navStruct;
 
 typedef struct {
-	uint8_t heading;
+	uint16_t heading;
 	uint8_t left;
 	uint8_t right;
 

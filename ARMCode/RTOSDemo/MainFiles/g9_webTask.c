@@ -51,7 +51,8 @@ static portTASK_FUNCTION( webUpdateTask, pvParameters )
 	g9Msg msgBuffer;
 
 	//Set Defaults for webPage
-	webInput.printNav=1;
+	webInput.printNav=0;
+	webInput.start=0;
 	setWebInputs(&webInput);
 
 	// Like all grrood tasks, this should never exit
