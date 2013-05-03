@@ -25,6 +25,7 @@ uint8_t IR[6];
 uint8_t oldIR[6][5];
 uint8_t irIndex=0;
 
+
 #define LEFT_FRONT_IR	IR[0]
 #define RIGHT_FRONT_IR	IR[1]
 #define LEFT_BACK_IR	IR[2]
@@ -42,6 +43,8 @@ typedef union {
 	};
 } motorData_t;
 
+
+
 typedef enum {
 	straight=0,
 	ninety,
@@ -54,11 +57,13 @@ typedef enum {
 	right
 } dir;
 
+
 motorData_t motorData;
 navState curState;
 dir curDir;
 uint8_t tagValue = None; // Holds any rfid tags that have been found
 Bool lineFound = FALSE;
+
 char state[MAX_MSG_LEN] = "Stopped";
 webInput_t inputs = {{0,0,0,1,0}}; //NOTE: Refer to Struct Definition
 int16_t oldEnc[2] = {0,0}; //Old Encoder values -- use for webserver only
@@ -150,6 +155,15 @@ void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, 
 	if ((navData->inQ = xQueueCreate(NavQLen,sizeof(g9Msg))) == NULL) {
 		VT_HANDLE_FATAL_ERROR(0);
 	}
+	// malloc the mems
+	int i;
+	for(i = 0;i<TRACK_MEM_SIZE;i++){
+		trackMem[i] = malloc(sizeof(trackMem_t));
+		if(trackMem[i]==0)
+			VT_HANDLE_FATAL_ERROR(0);
+	}
+
+
 	/* Start the task */
 	portBASE_TYPE retval;
 	navData->zigBeePtr = zigBeePtr;
@@ -219,7 +233,8 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	// Buffer for receiving messages
 	g9Msg msgBuffer;
 	uint8_t numLap=0;
-
+	uint8_t lineDist=0;
+	uint8_t curHeading=0;
 	curState = straight;
 	portTickType ticksAtStart=0; //in ticks
 
@@ -247,6 +262,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		case navLineFoundMsg:
 			//stop we have found the finish line!!!
 			lineFound = TRUE;
+			lineDist = totDist;
 			break;
 		
 		case navIRDataMsg:
@@ -294,12 +310,23 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 				//Get encoder values
 				enc[0] = ((short*)msgBuffer.buf)[0];
 				enc[1] = ((short*)msgBuffer.buf)[1];
+
 				totDist += enc2Dist((enc[0]+enc[1])/2);
+
+				//get current heading
+				uint8_t tAngle = enc2Ang(oldEnc[0], oldEnc[1]);
+				if(tAngle<0)
+					tAngle = 360 - tAngle;
+				curHeading += tAngle;
+				if(curHeading>359)
+					curHeading -= 360;
+				
 				//calculate poll rate
 				enc_poll_rate = ((newTick-oldTick)*portTICK_RATE_MS);
-
+				
 				oldEnc[0] = enc[0];
 				oldEnc[1] = enc[1];
+
 
 				oldTick=newTick;
 
@@ -341,7 +368,11 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			VT_HANDLE_FATAL_ERROR(INVALID_G9MSG_TYPE);
 			break;
 		}
-
+		curMemLoc = (totDist/TRACK_MEM_DIST) % TRACK_MEM_SIZE;
+		trackMem[curMemLoc]->left = LEFT_FRONT_IR;
+		trackMem[curMemLoc]->right = RIGHT_FRONT_IR;
+		trackMem[curMemLoc]->heading = curHeading;
+		
 		if(inputs.start==1){
 			setState("Navigate");
 			stateMachine();
@@ -356,6 +387,10 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 				
 				adjustSpeed(oldEnc[0],oldEnc[1],speed,0);
 			}
+			//if we can't find the line in 20 cm, lets stop looking
+			if(lineDist <totDist +20)
+				lineFound = FALSE;
+			
 		}
 		else{
 			setMotorData(&motorData,64,64);
