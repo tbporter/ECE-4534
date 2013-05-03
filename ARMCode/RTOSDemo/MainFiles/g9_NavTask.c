@@ -14,14 +14,12 @@
 #define PRINT_MSG_RCV 1 //Notify of incoming msgs
 
 #define MAX_SPEED	50 // cm/s
-#define MIN_SPEED	5  // cm/s
+#define MIN_SPEED	15  // cm/s
 #define MAX_SPD_DELTA 5
 #define SPD_DELTA 2
 
-#define MAX_TURN_ANGLE	90/2 //Degrees
-#define MIN_TURN_ANGLE	60/2 //Degrees
-
-
+#define MAX_TURN_ANGLE	60 //Degrees
+#define MIN_TURN_ANGLE	60 //Degrees
  
 uint8_t IR[6];
 uint8_t oldIR[6][5];
@@ -240,6 +238,8 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	curState = straight;
 	portTickType ticksAtStart=0; //in ticks
 
+	portTickType tagTime=0; //Distance where tag was found
+
 	// Like all good tasks, this should never exit
 	for(;;)
 	{
@@ -335,11 +335,14 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
-			tagValue |= msgBuffer.buf[0];
-			if( tagValue & Finish ){
-				if( (numLap++ == 0) && inputs.loop==1 ){
-					disableTag(Finish);
+			if( (xTaskGetTickCount() - tagTime)*portTICK_RATE_MS > 3000 ){
+				if( ~(tagValue & Finish) && (msgBuffer.buf[0] == Finish) ){
+					if( (numLap++ == 0) && inputs.loop==1 ){
+						disableTag(Finish);
+					}
 				}
+				tagTime = xTaskGetTickCount(); //Found tag record where
+				tagValue |= msgBuffer.buf[0]; //Store tag info
 			}
 
 			break;
@@ -378,10 +381,10 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			//Do additional slow down if line was found
 			if( lineFound ){
 				int speed = enc2Speed(oldEnc[0],oldEnc[1]);
-				if( speed > 8 )
-					speed -= 5;
-				if( speed < -8 )
-					speed += 5;
+				if( speed > 10 )
+					speed -= 8;
+				if( speed < -10 )
+					speed += 8;
 				
 				adjustSpeed(oldEnc[0],oldEnc[1],speed,0);
 			}
