@@ -336,7 +336,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
 			if( (xTaskGetTickCount() - tagTime)*portTICK_RATE_MS > 3000 ){
-				if( ~(tagValue & Finish) && (msgBuffer.buf[0] == Finish) ){
+				if( !(tagValue & Finish) && (msgBuffer.buf[0] == Finish) ){
 					if( (numLap++ == 0) && inputs.loop==1 ){
 						disableTag(Finish);
 					}
@@ -483,10 +483,10 @@ transition_state:
 				curState = turn;
 				goto transition_state;
 			}
-			else if(SONAR_LEFT<10){
+			else if(SONAR_LEFT<11){
 				setMotorData(&motorData,speedStop-15,speedStop-25);
 			}
-			else if(SONAR_RIGHT<10){
+			else if(SONAR_RIGHT<11){
 				setMotorData(&motorData,speedStop-25,speedStop-10);
 			}
 			else if(LEFT_FRONT_IR<18){
@@ -501,11 +501,11 @@ transition_state:
 			else if(SONAR_RIGHT<65){
 				setMotorData(&motorData,speedStop,speedFast);
 			}
-			else if(back_diff<-8 && chkDist (dc,dc,dc,dc,40,40) ){
-				setMotorData(&motorData,speedFast+3,speedStop);
+			else if(back_diff<-8 && chkDist (dc,dc,dc,dc,35,35) ){
+				setMotorData(&motorData,speedFast,speedStop);
 			}
-			else if(back_diff>8 && chkDist (dc,dc,dc,dc,40,40) ){
-				setMotorData(&motorData,speedStop,speedFast+3);
+			else if(back_diff>8 && chkDist (dc,dc,dc,dc,35,35) ){
+				setMotorData(&motorData,speedStop,speedFast);
 			}
 			else if(LEFT_FRONT_IR<RIGHT_FRONT_IR){
 				 setMotorData(&motorData,speedFast,speedFast-2);
@@ -537,12 +537,12 @@ transition_state:
 		case turn:
 			printw("doing a turn\n");
 			if(curDir==right){
-				setMotorData(&motorData,speedMed+2,speedStop-(speedMed-speedStop)-5);
+				setMotorData(&motorData,speedMed+2,speedStop-(speedMed-speedStop)-8);
 				if(LEFT_FRONT_IR>11)
 					curState = straight;
 			}
 			else if(curDir==left){				
-				setMotorData(&motorData,speedStop-(speedMed-speedStop)-5,speedMed+2);
+				setMotorData(&motorData,speedStop-(speedMed-speedStop)-8,speedMed+2);
 				if(RIGHT_FRONT_IR>11)
 					curState = straight;
 			}
