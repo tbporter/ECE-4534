@@ -16,7 +16,7 @@
 #define MAX_SPEED	50 // cm/s
 #define MIN_SPEED	15  // cm/s
 #define MAX_SPD_DELTA 5
-#define SPD_DELTA 8
+#define SPD_DELTA 2
 
 #define MAX_TURN_ANGLE	60 //Degrees
 #define MIN_TURN_ANGLE	60 //Degrees
@@ -380,10 +380,10 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			//Do additional slow down if line was found
 			if( lineFound ){
 				int speed = enc2Speed(oldEnc[0],oldEnc[1]);
-				if( speed > 8 )
-					speed -= 5;
-				if( speed < -8 )
-					speed += 5;
+				if( speed > 10 )
+					speed -= 8;
+				if( speed < -10 )
+					speed += 8;
 				
 				adjustSpeed(oldEnc[0],oldEnc[1],speed,0);
 			}
