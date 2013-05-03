@@ -12,10 +12,20 @@
 #include "messages_g9.h"
 #include "g9_zigbee.h"
 
+#define TRACK_MEM_SIZE 100
+#define TRACK_MEM_DIST 20 //how often we take readings in cm
+
 typedef struct __navStruct {
 	g9ZigBeeStruct* zigBeePtr; //Needed for sending messages out
 	xQueueHandle inQ; //Queue for incoming messages
 } navStruct;
+
+typedef struct {
+	uint8_t heading;
+	uint8_t left;
+	uint8_t right;
+
+}trackMem_t;
 
 // Public API
 //
@@ -53,5 +63,6 @@ inline void enableTag(uint8_t tag);
 //returns delta of adjustment
 uint8_t adjuctSpeed(char delta);
 
-
+trackMem_t *trackMem[TRACK_MEM_SIZE];
+uint8_t curMemLoc;
 #endif
