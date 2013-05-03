@@ -51,6 +51,7 @@
 #include "httpd-cgi.h"
 #include "httpd-fs.h"
 #include "g9_webTask.h"
+#include "g9_NavTask.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -70,7 +71,8 @@ HTTPD_CGI_CALL(info_user, "user-input-out", user_input_out );
 HTTPD_CGI_CALL(info_ir, "ir-dist-out", ir_dist_out );
 HTTPD_CGI_CALL(info_sensor, "sensor-out", sensor_out );
 HTTPD_CGI_CALL(info_times, "times-out", times_out);
-static const struct httpd_cgi_call *calls[] = { &file, &tcp, &net, &rtos, &run, &io, &debug, &info, &info_motor, &info_user, &info_ir, &info_sensor, &info_times, NULL };
+HTTPD_CGI_CALL(mem, "mem-out", mem_out);
+static const struct httpd_cgi_call *calls[] = { &file, &tcp, &net, &rtos, &run, &io, &debug, &info, &info_motor, &info_user, &info_ir, &info_sensor, &info_times, &mem, NULL };
 /*---------------------------------------------------------------------------*/
 static						  
 PT_THREAD(nullfunction(struct httpd_state *s, char *ptr))
@@ -114,7 +116,36 @@ PT_THREAD(info_out(struct httpd_state *s, char *ptr))
   PSOCK_END(&s->sout);
 }
 
+
 /*---------------------------------------------------------------------------*/
+
+static unsigned short
+generate_mem_out(void *arg)
+{
+	int i = 0;
+	char temp[20];
+		snprintf(temp,20,"%u\n",TRACK_MEM_DIST);
+		strcat(uip_appdata,temp);
+	for( i=0; i<curMemLoc; i++){
+		snprintf(temp,20,"%u,%u,%u\n",trackMem[i]->heading,trackMem[i]->left,trackMem[i]->right);
+		strcat(uip_appdata,temp);
+	}
+
+	return strlen(uip_appdata);							 
+}
+
+
+static
+PT_THREAD(mem_out(struct httpd_state *s, char *ptr))
+{
+	
+  PSOCK_BEGIN(&s->sout);
+  PSOCK_GENERATOR_SEND(&s->sout, generate_mem_out, strchr(ptr, ' ') + 1);
+  PSOCK_END(&s->sout);
+}
+
+/*---------------------------------------------------------------------------*/
+
 
 
 static unsigned short

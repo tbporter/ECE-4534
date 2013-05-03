@@ -3,10 +3,13 @@
   <head>
     <title>FreeRTOS.org uIP WEB server demo</title>
   </head>
-  <BODY onLoad="window.setTimeout(&quot;location.href='debug.shtml'&quot;,2000)">
-<h2>Debug Output</h2>
-Page will refresh every 2 seconds.<p>
-<font face="courier"><pre>****************************************<br>
-%! debug-out
-</pre></font></font></body></html>
+<BODY>
+<h2>Memory Output</h2>
+<font face="courier">
+<form>
+    <textarea>%! mem-out
+    </textarea>
+    <button type='submit'>Memory Get</button>
+</form>
+</font></body></html>
 

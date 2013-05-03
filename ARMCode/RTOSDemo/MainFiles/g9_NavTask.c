@@ -18,8 +18,8 @@
 #define MAX_SPD_DELTA 5
 #define SPD_DELTA 2
 
-#define MAX_TURN_ANGLE	60 //Degrees
-#define MIN_TURN_ANGLE	60 //Degrees
+#define MAX_TURN_ANGLE	90 //Degrees
+#define MIN_TURN_ANGLE	90 //Degrees
  
 uint8_t IR[6];
 uint8_t oldIR[6][5];
@@ -65,7 +65,7 @@ uint8_t tagValue = None; // Holds any rfid tags that have been found
 Bool lineFound = FALSE;
 
 char state[MAX_MSG_LEN] = "Stopped";
-webInput_t inputs = {{0,0,0,1,0}}; //NOTE: Refer to Struct Definition
+webInput_t inputs = {{0,0,0,0,0}}; //NOTE: Refer to Struct Definition
 int16_t oldEnc[2] = {0,0}; //Old Encoder values -- use for webserver only
 
 unsigned int totDist = 0; //cm
@@ -117,7 +117,7 @@ inline float enc2Dist(short enc){
 //Converts an encoder value into an angle (degrees)
 //NOTE: 0 if forward/backwards, + is left, - is right
 inline float enc2Ang(short leftEnc, short rightEnc){
-	#define ROVER_WIDTH 34.29 //cm
+	#define ROVER_WIDTH 28.0 //cm
 	float dS = enc2Dist(rightEnc) - enc2Dist(leftEnc); //differential
 	//float R = (enc2Dist(leftEnc)/dS+1)*ROVER_WIDTH;
 	return 	dS/ROVER_WIDTH*(180/3.1415927);
@@ -159,6 +159,7 @@ void vStartNavigationTask(navStruct* navData,unsigned portBASE_TYPE uxPriority, 
 	int i;
 	for(i = 0;i<TRACK_MEM_SIZE;i++){
 		trackMem[i] = malloc(sizeof(trackMem_t));
+		curMemLoc = 0;
 		if(trackMem[i]==0)
 			VT_HANDLE_FATAL_ERROR(0);
 	}
@@ -234,7 +235,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	g9Msg msgBuffer;
 	uint8_t numLap=0;
 	uint8_t lineDist=0;
-	uint8_t curHeading=0;
+	uint16_t curHeading=0;
 	curState = straight;
 	portTickType ticksAtStart=0; //in ticks
 
@@ -314,7 +315,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 				totDist += enc2Dist((enc[0]+enc[1])/2);
 
 				//get current heading
-				uint8_t tAngle = enc2Ang(oldEnc[0], oldEnc[1]);
+				uint16_t tAngle = enc2Ang(enc[0], enc[1]);
 				if(tAngle<0)
 					tAngle = 360 - tAngle;
 				curHeading += tAngle;
@@ -336,11 +337,12 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
 			if( (xTaskGetTickCount() - tagTime)*portTICK_RATE_MS > 3000 ){
-				if( ~(tagValue & Finish) && (msgBuffer.buf[0] == Finish) ){
+				if( !(tagValue & Finish) && (msgBuffer.buf[0] == Finish) ){
 					if( (numLap++ == 0) && inputs.loop==1 ){
 						disableTag(Finish);
 					}
 				}
+				printw_err("Handle tag: 0x%X\n",msgBuffer.buf[0]);
 				tagTime = xTaskGetTickCount(); //Found tag record where
 				tagValue |= msgBuffer.buf[0]; //Store tag info
 			}
@@ -512,7 +514,7 @@ transition_state:
 
 		break;
 		case ninety:
-			printw("doing a ninety\n");
+			//printw("doing a ninety\n");
 			//keep turning until the front sensors read a larg val
 			if (!chkDist(dc,dc,65,65,dc,dc)){
 				curState = straight;
@@ -528,7 +530,7 @@ transition_state:
 			
 		break;
 		case turn:
-			printw("doing a turn\n");
+			//printw("doing a turn\n");
 			if(curDir==right){
 				setMotorData(&motorData,speedMed+2,speedStop-(speedMed-speedStop)-5);
 				if(LEFT_FRONT_IR>11)

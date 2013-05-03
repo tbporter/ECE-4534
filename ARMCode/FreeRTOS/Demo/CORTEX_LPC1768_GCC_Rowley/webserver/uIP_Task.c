@@ -253,9 +253,8 @@ void vApplicationProcessFormInput( char *pcInputString )
 char *c;
 extern void vParTestSetLEDState( long lState );
 
-	/* Process the form input sent by the IO page of the served HTML. */
-
-	c = strstr( pcInputString, "?" );
+	/* Process the form input sent by the Info page of the served HTML. */
+	c = strstr( pcInputString, "info.shtml?" );
     if( c )
     {
 		webInput_t inputs={{0}};
@@ -264,7 +263,14 @@ extern void vParTestSetLEDState( long lState );
 		if(strstr(c,"M4Demo=on")!=NULL){ inputs.m4Demo=1; }
 		if(strstr(c,"printNav=on")!=NULL){ inputs.printNav=1; }
 		if(strstr(c,"printZigBee=on")!=NULL){ inputs.printZigBee=1; }
-		
+
+		setWebInputs(&inputs);
+    }
+
+	/* Process the form input sent by the IO page of the served HTML. */
+	c = strstr( pcInputString, "io.shtml?" );
+    if( c )
+    {
 		/* Turn the FIO1 LED's on or off in accordance with the check box status. */
 		if( strstr( c, "LED0=1" ) != NULL )
 		{
@@ -274,8 +280,6 @@ extern void vParTestSetLEDState( long lState );
 		{
 			vParTestSetLEDState( pdFALSE );
 		}
-
-		setWebInputs(&inputs);
-    }
+	}
 }
 
