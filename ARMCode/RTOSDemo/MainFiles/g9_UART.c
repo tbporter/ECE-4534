@@ -18,7 +18,7 @@
 #define g9UARTIntPriority 7
 
 // Here is where we define an array of pointers that lets communication occur between the interrupt handler and the rest of the code in this file
-static 	g9UARTStruct *devStaticPtr[3];
+static 	g9UARTStruct *devStaticPtr[4];
 
 // Variables to control read and write or UART
 //static Bool bReadReady[3] = {0,0,0};
