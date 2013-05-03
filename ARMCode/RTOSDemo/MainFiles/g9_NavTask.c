@@ -240,8 +240,6 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 	curState = straight;
 	portTickType ticksAtStart=0; //in ticks
 
-	int tagDist=0; //Distance where tag was found
-
 	// Like all good tasks, this should never exit
 	for(;;)
 	{
@@ -337,15 +335,13 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
-			if( (totDist - tagDist) > 15 ){
-				tagValue |= msgBuffer.buf[0];
-				if( tagValue & Finish ){
-					if( (numLap++ == 0) && inputs.loop==1 ){
-						disableTag(Finish);
-					}
+			tagValue |= msgBuffer.buf[0];
+			if( tagValue & Finish ){
+				if( (numLap++ == 0) && inputs.loop==1 ){
+					disableTag(Finish);
 				}
-				tagDist = totDist; //Found tag record where
 			}
+
 			break;
 
 		case navWebInputMsg:
@@ -483,6 +479,12 @@ transition_state:
 				curDir = left;
 				curState = turn;
 				goto transition_state;
+			}
+			else if(SONAR_LEFT<10){
+				setMotorData(&motorData,speedStop-15,speedStop-25);
+			}
+			else if(SONAR_RIGHT<10){
+				setMotorData(&motorData,speedStop-25,speedStop-10);
 			}
 			else if(LEFT_FRONT_IR<18){
 				setMotorData(&motorData,speedFast+3,speedStop);
