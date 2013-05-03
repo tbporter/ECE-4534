@@ -13,12 +13,13 @@
 #define NavQLen 20 //Lots of messages
 #define PRINT_MSG_RCV 1 //Notify of incoming msgs
 
-#define MAX_SPEED	30 // cm/s
+#define MAX_SPEED	50 // cm/s
 #define MIN_SPEED	5  // cm/s
-#define MAX_SPD_DELTA 20
+#define MAX_SPD_DELTA 5
+#define SPD_DELTA 2
 
-#define MAX_TURN_ANGLE	90 //Degrees
-#define MIN_TURN_ANGLE	60 //Degrees
+#define MAX_TURN_ANGLE	90/2 //Degrees
+#define MIN_TURN_ANGLE	60/2 //Degrees
  
 uint8_t IR[6];
 uint8_t oldIR[6][5];
@@ -93,6 +94,7 @@ void getMotorData(motorData_t* motorData, uint8_t* left, uint8_t* right){
 
 /* The navigation task. */
 static portTASK_FUNCTION_PROTO( navigationUpdateTask, pvParameters );
+void adjustSpeed(short leftEnc, short rightEnc, int targetSpeed, uint8_t firstCall);
 
 //Set state Text
 inline void setState(const char* msg){
@@ -101,8 +103,8 @@ inline void setState(const char* msg){
 
 //Converts an encoder value to a distance (cm) traveled
 inline float enc2Dist(short enc){
-	#define ROLL_OUT 45.01 //cm
-	#define TICKS_PER_REV 14400
+	#define ROLL_OUT  36.128 //cm
+	#define TICKS_PER_REV 7200
 	return (ROLL_OUT*enc)/TICKS_PER_REV;
 }											
 
@@ -137,7 +139,7 @@ inline int ir2Dist(uint8_t raw1, int old){
 //Get speed (cm/s) from enc value
 inline float enc2Speed(short leftEnc, short rightEnc){
 	//Get "middle" encoder value
-	short medEnc = (leftEnc + rightEnc)/2;
+	short medEnc = ((int)leftEnc + (int)rightEnc)/2;
 	//Calculate velocity
 	return ( 1000.0*enc2Dist(medEnc) )/enc_poll_rate; //  1000 ms/s * 1 cm/ms = 1000 cm/s
 }
@@ -173,7 +175,7 @@ portBASE_TYPE SendNavigationMsg(navStruct* nav,g9Msg* msg,portTickType ticksToBl
 				break;
 			
 			case navLineFoundMsg:
-					printw("<b>navLineFoundMsg</b> %d\n",msg->buf[0]<<8 | msg->buf[1]);
+					printw("<b>navLineFoundMsg</b>\n");
 				break;
 			
 			case navIRDataMsg:
@@ -228,7 +230,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 
 		// Wait for a message from the "otherside"
 		portBASE_TYPE ret;
-		if ((ret = xQueueReceive(navData->inQ,(void *) &msgBuffer,portMAX_DELAY) ) != pdTRUE) {
+		if ((ret = xQueueReceive(navData->inQ,(void *) &msgBuffer,1500) ) != pdTRUE) {
 			//VT_HANDLE_FATAL_ERROR(ret);
 			printw_err("NavTask Didn't RCV From PIC!\n");
 			setMotorData(&motorData,64,64);
@@ -242,7 +244,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		switch (msgBuffer.msgType){
 		case navLineFoundMsg:
 			//stop we have found the finish line!!!
-			//if( (((int*)msgBuffer.buf)[0] >= LINE_FOUND_THRE) && (tagValue & Finish) ) lineFound = TRUE;
+			lineFound = TRUE;
 			break;
 		
 		case navIRDataMsg:
@@ -292,7 +294,7 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 				enc[1] = ((short*)msgBuffer.buf)[1];
 				totDist += enc2Dist((enc[0]+enc[1])/2);
 				//calculate poll rate
-				enc_poll_rate = (enc_poll_rate+((newTick-oldTick)/portTICK_RATE_MS))/2;
+				enc_poll_rate = ((newTick-oldTick)*portTICK_RATE_MS);
 
 				oldEnc[0] = enc[0];
 				oldEnc[1] = enc[1];
@@ -305,8 +307,10 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 		case navRFIDFoundMsg:
 			//Save the data and make a decision
 			tagValue |= msgBuffer.buf[0];
-			if( (tagValue & Finish) && (numLap++==0) ){
-				disableTag(Finish);
+			if( tagValue & Finish ){
+				if( (numLap++ == 0) && inputs.loop==1 ){
+					disableTag(Finish);
+				}
 			}
 
 			break;
@@ -317,10 +321,13 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			uint8_t oldStart = inputs.start;
 			inputs = ((webInput_t*)msgBuffer.buf)[0];
 			if( oldStart == 0 && inputs.start == 1 ){
+				printw("<b style=color:green>Starting Navigation</b>\n");
 				//Get start time (in ticks)
 				ticksAtStart = xTaskGetTickCount();
 				//Reset Distance
 				totDist = 0;
+				//Reset RFID tags
+				tagValue = 0;
 			}
 			break;
 		}
@@ -335,6 +342,16 @@ static portTASK_FUNCTION( navigationUpdateTask, pvParameters )
 			setState("Navigate");
 			stateMachine();
 			handleSpecialEvents(enc);
+			//Do additional slow down if line was found
+			if( lineFound ){
+				int speed = enc2Speed(oldEnc[0],oldEnc[1]);
+				if( speed > 8 )
+					speed -= 5;
+				if( speed < -8 )
+					speed += 5;
+				
+				adjustSpeed(oldEnc[0],oldEnc[1],speed,0);
+			}
 		}
 		else{
 			setMotorData(&motorData,64,64);
@@ -362,7 +379,7 @@ end:	msg.msgType = navMotorCmdMsg;
 		msg.id = 0; //internal
 		msg.length = 2*sizeof(int);
 		((int*)msg.buf)[0] = (int)enc2Speed(oldEnc[0],oldEnc[1]);
-		((int*)msg.buf)[1] = (1000*totDist*portTICK_RATE_MS)/(xTaskGetTickCount()-ticksAtStart); // cm/(ticks/(ticks/ms)) = cm/ms * 1000 ms/s = cm/s
+		((int*)msg.buf)[1] = (1000*totDist)/((xTaskGetTickCount()-ticksAtStart)*portTICK_RATE_MS); // cm/(ticks*(ms/ticks)) = cm/ms * 1000 ms/s = cm/s
 		SendConductorMsg(&msg,10);
 
 		msg.msgType = webStateMsg;
@@ -371,12 +388,14 @@ end:	msg.msgType = navMotorCmdMsg;
 		strcpy((char*)msg.buf,state);
 		SendConductorMsg(&msg,10);
 
-		msg.msgType = webTimeMsg;
-		msg.id = 0; //internal
-		msg.length = 2*sizeof(unsigned int);
-		((unsigned int*)msg.buf)[0] = (xTaskGetTickCount()-ticksAtStart)/portTICK_RATE_MS; //nominal
-		((unsigned int*)msg.buf)[0] = (xTaskGetTickCount()-ticksAtStart)/portTICK_RATE_MS; //actual
-		SendConductorMsg(&msg,10);	    
+		if( ~(tagValue & Finish) && (inputs.start == 1)){
+			msg.msgType = webTimeMsg;
+			msg.id = 0; //internal
+			msg.length = 2*sizeof(unsigned int);
+			((unsigned int*)msg.buf)[1] = (xTaskGetTickCount()-ticksAtStart)*portTICK_RATE_MS; //actual
+			((unsigned int*)msg.buf)[0] = (((unsigned int*)msg.buf)[1] * 2 * 30) / (1000*totDist);//nominal= (actual time ms)* 30 cm/s/(avgSpeed cm/s), avgSpeed = (totDist cm)/(actual time ms) * 1000 ms/s
+			SendConductorMsg(&msg,10);
+		}	    
 
 		msg.msgType = webNavMsg;
 		msg.id = 0; //internal
@@ -498,8 +517,10 @@ Bool chkDist(float left, float right, float front_left, float front_right, float
 }
 
 
-void adjustSpeed(short leftEnc, short rightEnc, int targetSpeed){
+void adjustSpeed(short leftEnc, short rightEnc, int targetSpeed, uint8_t firstCall){
 	#define getSpeed(old,del) (((old)>64)?((old) + (delta)):( ((old)==64)?(64):((old)-(delta)) ))  //Increase magnitude of old if not 64
+	static int oldDelta = 0;
+	if( firstCall ) oldDelta = 0; //Reset Delta
 	//Get speed
 	int curSpeed = enc2Speed(leftEnc,rightEnc);
 	int diff = curSpeed - targetSpeed;
@@ -507,9 +528,9 @@ void adjustSpeed(short leftEnc, short rightEnc, int targetSpeed){
 	uint8_t left, right;
 	int newLeft, newRight;
 	//Calculate delta
-	if( diff > 0 || diff < -10 ){ //If outside of tolerance of -10 to 0
+	if( diff > 0 || diff < -1 ){ //If outside of tolerance of -1 to 0
 		//Speed Up
-		delta = diff*diff * MAX_SPD_DELTA;
+		delta = diff*diff * SPD_DELTA;
 
 		if( delta > MAX_SPD_DELTA ) delta = MAX_SPD_DELTA;
 		//Slow Down
@@ -521,8 +542,8 @@ void adjustSpeed(short leftEnc, short rightEnc, int targetSpeed){
 	//Get motor values
 	getMotorData(&motorData, &left, &right);
 
-	newLeft  = left + delta;//getSpeed(left,delta);
-	newRight = right + delta;//getSpeed(right,delta);
+	newLeft  = getSpeed(left,oldDelat+delta);
+	newRight = getSpeed(right,oldDelta+delta);
 
 	//Contrain values
 	if( newLeft > 127 || newLeft < 1 || \
@@ -537,9 +558,11 @@ void adjustSpeed(short leftEnc, short rightEnc, int targetSpeed){
 			delta += 1-minMotor;
 		}
 		//Set new motor values
-		newLeft  = getSpeed(left,delta);
-		newRight = getSpeed(right,delta);
+		newLeft  = getSpeed(left,oldDelta+delta);
+		newRight = getSpeed(right,oldDelta+delta);
 	}
+
+	oldDelta += delta;
 
 	//apply motor values
 	setMotorData(&motorData, newLeft, newRight);
@@ -568,27 +591,32 @@ char doTurn(int curAngle, int minAngle, int maxAngle){
 void handleSpecialEvents(short* enc){
 	static uint8_t oldTagValue = None;
 	static short elapsedEnc[2] = {0,0};
+	uint8_t resetAdjustSpeed = 0;
 	//Check for Error
 	if( tagValue & Error ){
 		//Report Error, Clear Flag, and Do Nothing
 		printw_err("Invalid RFID Tag!\n");
 		disableTag(Error);
+		lineFound = FALSE;
 		return;
 	}
 
 	//Depending on tag values adjust motor speed
 	if( tagValue != oldTagValue ){
+		lineFound = FALSE;
 		//Do first occurence actions
 		uint8_t diff = tagValue & ~oldTagValue;
 		//printw("diff = %X\n",diff);
 		if( diff & SpeedUp){
 			//Disable SPD DOWN
 			disableTag(SlowDown);
+			resetAdjustSpeed = 1;
 		}
 
 		if( diff & SlowDown ){
 			//Disable SPD UP
 			disableTag(SpeedUp);
+			resetAdjustSpeed = 1;
 		}
 
 		if( diff & GoLeft ){
@@ -615,12 +643,12 @@ void handleSpecialEvents(short* enc){
 	if( tagValue & SpeedUp ){ //SPD UP
 		setState("Go Fast");
 		//adjust to target
-		adjustSpeed(oldEnc[0], oldEnc[1], MAX_SPEED);	 
+		adjustSpeed(oldEnc[0], oldEnc[1], MAX_SPEED, resetAdjustSpeed);	 
 	}
 	if( tagValue & SlowDown ){ //SPD DOWN
 		setState("Go Slow");
 		//adjust to target
-		adjustSpeed(oldEnc[0], oldEnc[1], MIN_SPEED);		
+		adjustSpeed(oldEnc[0], oldEnc[1], MIN_SPEED, resetAdjustSpeed);		
 	}
 	if( tagValue & GoLeft ){ //LEFT
 		setState("Go Left");

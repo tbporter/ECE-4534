@@ -16,7 +16,6 @@
       $('.slide_panel_handle').click(function(){
         $(this).children('.slide_panel').first().slideToggle("fast");
       });
-      $('.slide_panel').slideUp(0);
     });
     window.setInterval(function(){$("#debug").load("info.shtml #debug")},100);
     window.setInterval(function(){$("#info").load("info.shtml #info")},300);
